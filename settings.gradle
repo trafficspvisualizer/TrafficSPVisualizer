@@ -1,0 +1,9 @@
+rootProject.name = 'trafficspvisualizer'
+include 'view'
+include 'controller'
+include 'model'
+include 'util.export'
+include 'util.project'
+include 'util.parse'
+include 'util.image'
+
