@@ -40,10 +40,15 @@ public class ViewFacade {
 
 
     public ViewFacade(Stage primaryStage, Project project) {
-
+        mainApplicationWindow = new MainApplicationWindow(this, primaryStage);
     }
 
     // getter-Methods
+
+
+    public Project getProject() {
+        return project;
+    }
 
     public MainApplicationWindow getMainApplicationWindow() {
         return mainApplicationWindow;
