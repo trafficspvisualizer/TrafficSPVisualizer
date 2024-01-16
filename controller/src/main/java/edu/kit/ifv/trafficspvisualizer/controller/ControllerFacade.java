@@ -1,5 +1,7 @@
 package edu.kit.ifv.trafficspvisualizer.controller;
 
+import edu.kit.ifv.trafficspvisualizer.view.ViewFacade;
+
 import java.util.Optional;
 
 public class ControllerFacade {
