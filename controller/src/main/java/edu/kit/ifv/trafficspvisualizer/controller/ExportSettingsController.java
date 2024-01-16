@@ -1,5 +1,7 @@
 package edu.kit.ifv.trafficspvisualizer.controller;
 
+import java.io.File;
+
 public class ExportSettingsController {
     private ControllerFacade controllerFacade;
 
