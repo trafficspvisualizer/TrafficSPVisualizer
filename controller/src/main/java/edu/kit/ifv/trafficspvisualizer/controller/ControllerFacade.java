@@ -1,5 +1,6 @@
 package edu.kit.ifv.trafficspvisualizer.controller;
 
+import edu.kit.ifv.trafficspvisualizer.model.Project;
 import edu.kit.ifv.trafficspvisualizer.view.ViewFacade;
 
 import java.util.Optional;
@@ -7,7 +8,7 @@ import java.util.Optional;
 public class ControllerFacade {
 
     private ViewFacade viewFacade;
-    private Optional<Project> project;
+    private Project project;
 
     private MainApplicationController mainApplicationController;
     private ProjectCreationController projectCreationController;
@@ -17,7 +18,7 @@ public class ControllerFacade {
     private IconSelectionController iconSelectionController;
     private ExportSettingsController exportSettingsController;
 
-    public void initialize(ViewFacade viewFacade, Optional<Project> project){
+    public ControllerFacade(ViewFacade viewFacade, Project project){
 
     }
 
@@ -49,11 +50,11 @@ public class ControllerFacade {
         return projectCreationController;
     }
 
-    public Optional<Project> getProject() {
+    public Project getProject() {
         return project;
     }
 
-    public void setProject(Optional<Project> project) {
+    public void setProject(Project project) {
         this.project = project;
     }
 
