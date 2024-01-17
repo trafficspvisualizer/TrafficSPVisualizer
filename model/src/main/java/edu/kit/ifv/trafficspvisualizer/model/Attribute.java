@@ -1,4 +1,73 @@
 package edu.kit.ifv.trafficspvisualizer.model;
 
-public class Attribute {
+import java.io.File;
+import java.util.List;
+import java.util.Map;
+
+public class Attribute extends AbstractAttribute {
+    private String name;
+    private File icon;
+    private String prefix;
+    private String suffix;
+    private boolean permanentlyVisible;
+    private int decimalPlaces;
+    private Map<ChoiceOption, List<String>> choiceOptionMappings;
+
+    public boolean mapToChoiceOption(String choiceName, String dataName) {
+        //TODO
+        return false;
+    }
+
+    public boolean removeMapping(String choiceName, String dataName) {
+        //TODO
+        return false;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public File getIcon() {
+        return icon;
+    }
+
+    public void setIcon(File icon) {
+        this.icon = icon;
+    }
+
+    public String getPrefix() {
+        return prefix;
+    }
+
+    public void setPrefix(String prefix) {
+        this.prefix = prefix;
+    }
+
+    public String getSuffix() {
+        return suffix;
+    }
+
+    public void setSuffix(String suffix) {
+        this.suffix = suffix;
+    }
+
+    public boolean isPermanentlyVisible() {
+        return permanentlyVisible;
+    }
+
+    public void setPermanentlyVisible(boolean permanentlyVisible) {
+        this.permanentlyVisible = permanentlyVisible;
+    }
+
+    public int getDecimalPlaces() {
+        return decimalPlaces;
+    }
+
+    public void setDecimalPlaces(int decimalPlaces) {
+        this.decimalPlaces = decimalPlaces;
+    }
 }

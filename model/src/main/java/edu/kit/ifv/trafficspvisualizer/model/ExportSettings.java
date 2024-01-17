@@ -1,4 +1,4 @@
 package edu.kit.ifv.trafficspvisualizer.model;
 
-public class ChoiceOptionSettings {
+public class ExportSettings {
 }
