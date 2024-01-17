@@ -3,8 +3,6 @@ package edu.kit.ifv.trafficspvisualizer.controller;
 import edu.kit.ifv.trafficspvisualizer.model.Project;
 import edu.kit.ifv.trafficspvisualizer.view.ViewFacade;
 
-import java.util.Optional;
-
 public class ControllerFacade {
 
     private ViewFacade viewFacade;
@@ -19,7 +17,8 @@ public class ControllerFacade {
     private ExportSettingsController exportSettingsController;
 
     public ControllerFacade(ViewFacade viewFacade, Project project){
-
+        this.viewFacade = viewFacade;
+        this.project = project;
     }
 
     public AttributeController getAttributeController() {
@@ -65,4 +64,63 @@ public class ControllerFacade {
     public void setViewFacade(ViewFacade viewFacade) {
         this.viewFacade = viewFacade;
     }
+
+
+    public void createAttributeController() {
+        this.attributeController = new AttributeController();
+    }
+
+    public void createAttributeSettingsController() {
+        this.attributeSettingsController = new AttributeSettingsController();
+    }
+
+    public void createChoiceOptionSettingsController() {
+        this.choiceOptionSettingsController = new ChoiceOptionSettingsController();
+    }
+
+    public void createExportSettingsController() {
+        this.exportSettingsController = new ExportSettingsController();
+    }
+
+    public void createIconSelectionController() {
+        this.iconSelectionController = new IconSelectionController();
+    }
+
+    public void createMainApplicationController() {
+        this.mainApplicationController = new MainApplicationController();
+    }
+
+    public void createProjectCreationController() {
+        this.projectCreationController = new ProjectCreationController();
+    }
+
+    public void deleteAttributeController() {
+        this.attributeController = null;
+    }
+
+    public void deleteAttributeSettingsController() {
+        this.attributeSettingsController = null;
+    }
+
+    public void deleteChoiceOptionSettingsController() {
+        this.choiceOptionSettingsController = null;
+    }
+
+    public void deleteExportSettingsController() {
+        this.exportSettingsController = null;
+    }
+
+    public void deleteIconSelectionController() {
+        this.iconSelectionController = null;
+    }
+
+    public void deleteMainApplicationController() {
+        this.mainApplicationController = null;
+    }
+
+    public void deleteProjectCreationController() {
+        this.projectCreationController = null;
+    }
+
+
 }
