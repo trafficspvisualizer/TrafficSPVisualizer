@@ -5,6 +5,10 @@ import java.io.File;
 public class ExportSettingsController {
     private ControllerFacade controllerFacade;
 
+    public ExportSettingsController(ControllerFacade controllerFacade) {
+        this.controllerFacade = controllerFacade;
+    }
+
     public void actionOnExportFolderButton(File exportFolder){
 
     }

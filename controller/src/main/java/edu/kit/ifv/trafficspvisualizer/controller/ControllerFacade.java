@@ -67,31 +67,31 @@ public class ControllerFacade {
 
 
     public void createAttributeController() {
-        this.attributeController = new AttributeController();
+        this.attributeController = new AttributeController(this);
     }
 
-    public void createAttributeSettingsController() {
-        this.attributeSettingsController = new AttributeSettingsController();
+    public void createAttributeSettingsController(int attributeIndex) {
+        this.attributeSettingsController = new AttributeSettingsController(this, attributeIndex);
     }
 
-    public void createChoiceOptionSettingsController() {
-        this.choiceOptionSettingsController = new ChoiceOptionSettingsController();
+    public void createChoiceOptionSettingsController(int choiceOptionNumber) {
+        this.choiceOptionSettingsController = new ChoiceOptionSettingsController(choiceOptionNumber, this);
     }
 
     public void createExportSettingsController() {
-        this.exportSettingsController = new ExportSettingsController();
+        this.exportSettingsController = new ExportSettingsController(this);
     }
 
-    public void createIconSelectionController() {
-        this.iconSelectionController = new IconSelectionController();
+    public void createIconSelectionController(IconDisplayingController parentController, int index) {
+        this.iconSelectionController = new IconSelectionController(this, parentController, index);
     }
 
     public void createMainApplicationController() {
-        this.mainApplicationController = new MainApplicationController();
+        this.mainApplicationController = new MainApplicationController(this);
     }
 
     public void createProjectCreationController() {
-        this.projectCreationController = new ProjectCreationController();
+        this.projectCreationController = new ProjectCreationController(this);
     }
 
     public void deleteAttributeController() {

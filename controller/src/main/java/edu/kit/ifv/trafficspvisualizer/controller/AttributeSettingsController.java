@@ -1,8 +1,15 @@
 package edu.kit.ifv.trafficspvisualizer.controller;
 
+import javafx.scene.image.Image;
+
 public class AttributeSettingsController implements IconDisplayingController {
     private ControllerFacade controllerFacade;
     private int attributeIndex;
+
+    public AttributeSettingsController(ControllerFacade controllerFacade, int attributeIndex) {
+        this.controllerFacade = controllerFacade;
+        this.attributeIndex = attributeIndex;
+    }
 
     public void actionOnIconButton(){
 
@@ -16,6 +23,7 @@ public class AttributeSettingsController implements IconDisplayingController {
 
     }
 
+    @Override
     public void updateIcon(Image icon){
 
     }
