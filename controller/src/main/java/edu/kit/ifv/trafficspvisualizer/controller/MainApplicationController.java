@@ -1,8 +1,13 @@
 package edu.kit.ifv.trafficspvisualizer.controller;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 
 import edu.kit.ifv.trafficspvisualizer.model.Project;
+import edu.kit.ifv.trafficspvisualizer.util.export.Exporter;
+import edu.kit.ifv.trafficspvisualizer.util.image.ChoiceOptionGenerator;
+import edu.kit.ifv.trafficspvisualizer.util.image.ImageCollectionGenerator;
+import edu.kit.ifv.trafficspvisualizer.util.image.SituationGenerator;
 import edu.kit.ifv.trafficspvisualizer.util.project.ProjectLoader;
 import edu.kit.ifv.trafficspvisualizer.util.project.ProjectSaver;
 import javafx.stage.FileChooser;
@@ -52,30 +57,45 @@ public class MainApplicationController {
     }
 
     public void actionOnMoveChoiceOptionUpButton(int choiceOptionNumber){
-
+        controllerFacade.getProject().swapChoiceOptionUp(choiceOptionNumber);
+        controllerFacade.getViewFacade().getMainApplicationWindow().updateChoiceOptions();
     }
 
     public void actionOnMoveChoiceOptionDownButton(int choiceOptionNumber){
-
+        controllerFacade.getProject().swapChoiceOptionDown(choiceOptionNumber);
+        controllerFacade.getViewFacade().getMainApplicationWindow().updateChoiceOptions();
     }
 
     public void actionOnExportButton(){
+        ExportType exportType = controllerFacade.getProject().getExportSettings().getExportType();
+        ImageCollectionGenerator imageCollectionGenerator = null;
 
+        if(exportType == ExportType.SITUATION) {
+            imageCollectionGenerator = new SituationGenerator();
+        } else (exportType == ExportType.CHOICE_OPTION || exportType == ExportType.HTML){
+            imageCollectionGenerator = new ChoiceOptionGenerator();
+        }
+
+        BufferedImage[] images = imageCollectionGenerator.createImage(controllerFacade.getProject());
+        Exporter exporter = Exporter.getExporter(controllerFacade.getProject().getExportSettings().getExportType());
+        exporter.export(images, controllerFacade.getProject().getExportSettings().getExportPath());
     }
 
     public void actionOnExportSettingsButton(){
-
+        controllerFacade.createExportSettingsController();
     }
 
     public void actionOnAttributeButton(){
-
+        controllerFacade.createAttributeController();
     }
 
     public void actionOnNextPreviewButton(){
-
+        controllerFacade.getProject().incrementPreview();
+        controllerFacade.getViewFacade().getMainApplicationWindow().updateCurrentPreviewSituation();
     }
 
     public void actionOnPreviousPreviewButton(){
-
+        controllerFacade.getProject().decrementPreview();
+        controllerFacade.getViewFacade().getMainApplicationWindow().updateCurrentPreviewSituation();
     }
 }
