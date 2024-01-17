@@ -6,4 +6,6 @@ module edu.kit.ifv.trafficspvisualizer.controller {
     requires javafx.controls;
     requires javafx.swing;
     requires edu.kit.ifv.trafficspvisualizer.util.project;
+    requires edu.kit.ifv.trafficspvisualizer.util.image;
+    requires edu.kit.ifv.trafficspvisualizer.util.export;
 }
