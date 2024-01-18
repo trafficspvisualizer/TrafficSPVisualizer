@@ -38,9 +38,16 @@ public class ProjectCreationController {
     public void actionOnSaveButton(String projectName, File projectFolder, File inputFile){
         DataObject dataObject = null;
 
+        //try to parse inputFile
         try {
             dataObject = new NGDParser().parse(inputFile);
         } catch (Exception e) {
+            controllerFacade.getViewFacade().getProjectCreationStage().showNewProjectErrorAlert();
+            return;
+        }
+
+        // check if projectFolder is directory
+        if (!inputFile.isDirectory()) {
             controllerFacade.getViewFacade().getProjectCreationStage().showNewProjectErrorAlert();
             return;
         }
