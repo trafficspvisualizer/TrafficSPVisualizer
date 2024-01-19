@@ -14,6 +14,11 @@ repositories {
 dependencies {
     implementation project(path: ':model')
     implementation project(path: ':view')
+    implementation project(path: ':util.project')
+    implementation project(path: ':util.parse')
+    implementation project(path: ':util.export')
+    implementation project(path: ':util.image')
+
     testImplementation platform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
 }
