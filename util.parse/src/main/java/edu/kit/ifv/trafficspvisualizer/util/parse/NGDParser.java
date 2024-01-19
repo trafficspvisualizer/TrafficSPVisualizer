@@ -8,15 +8,24 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashMap;
+
 
 public class NGDParser extends Parser{
     @Override
     public DataObject parse(File file) {
         DataObject dataObject = new DataObject();
         SituationData[] situations = new SituationData[1];
-        String[][] data = new String[0][];
+        String[][] data = extractData(file);
+
+        dataObject = createDataObject(data);
+
+        return null;
+    }
+
+    private String[][] extractData(File file) {
         //The reader is inspired by ChatGPT
+        String[][] data = new String[0][];
+
         try {
             BufferedReader br = new BufferedReader(new FileReader(file));
             long lineCount = br.lines().count();
@@ -42,9 +51,19 @@ public class NGDParser extends Parser{
         } catch (IOException e) {
             System.out.println("Exception caught");
         }
+        return data;
+    }
 
-        HashMap hashMap = new HashMap<>();
-        return null;
+    private DataObject createDataObject(String[][] data) {
+        DataObject dataObject = new DataObject();
+        for (int i = 0; i < data.length; i++) { //erste beiden Spalten sind Design und EM, letzte Spalte ist Blocknr.
+            SituationData situationData = new SituationData();
+            //situationData.setBlockNumber(data[i][data.length - 1]);
+            for (int j = 2; j < data[0].length - 1; j++) {
+
+            }
+        }
+        return dataObject;
     }
 }
 
