@@ -12,15 +12,17 @@ public class AttributeSettingsController implements IconDisplayingController {
     }
 
     public void actionOnIconButton(){
-
+        controllerFacade.createIconSelectionController(this, attributeIndex);
     }
 
     public void actionOnSaveButton(String name, Image icon, String prefix, String suffix, boolean isAlwaysVisible){
-
+        //TODO: keep attributeIndex in mind, check if existing
+        //TODO: Attribute constructor missing
     }
 
     public void actionOnCancelButton(){
-
+        controllerFacade.getViewFacade().getAttributeSettingsStage().close();
+        controllerFacade.deleteAttributeSettingsController();
     }
 
     @Override
