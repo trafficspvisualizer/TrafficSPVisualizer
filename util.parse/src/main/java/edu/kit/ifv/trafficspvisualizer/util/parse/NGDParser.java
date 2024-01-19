@@ -15,6 +15,8 @@ public class NGDParser extends Parser{
     public DataObject parse(File file) {
         DataObject dataObject = new DataObject();
         SituationData[] situations = new SituationData[1];
+        String[][] data = new String[0][];
+        //The reader is inspired by ChatGPT
         try {
             BufferedReader br = new BufferedReader(new FileReader(file));
             long lineCount = br.lines().count();
@@ -31,7 +33,7 @@ public class NGDParser extends Parser{
                 initialData[row] = values;
                 row++;
             }
-            String[][] data = new String[row][];
+            data = new String[row][];
             System.arraycopy(initialData, 0, data, 0, row);
 
         } catch (FileNotFoundException e) {
