@@ -2,14 +2,16 @@ package edu.kit.ifv.trafficspvisualizer.view.data.language;
 
 public abstract class LanguageStrategy {
 
+    // MainApplicationWindow
+    public abstract String getMainApplicationNewProjectMenuItemText();
 
-    public abstract String getNewProjectMenuItemText();
+    public abstract String getMainApplicationLoadProjectMenuItemText();
 
-    public abstract String getLoadProjectMenuItemText();
+    public abstract String getMainApplicationSaveProjectMenuItemText();
 
-    public abstract String getSaveProjectMenuItemText();
+    public abstract String getMainApplicationFileMenuText();
 
-    public abstract String getFileMenuText();
+    public abstract String getMainApplicationHelpMenuText();
 
-    public abstract String getHelpMenuText();
+    public abstract String getMainApplicationPreviewText();
 }

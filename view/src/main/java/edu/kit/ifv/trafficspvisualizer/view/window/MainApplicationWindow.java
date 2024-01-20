@@ -1,13 +1,21 @@
 package edu.kit.ifv.trafficspvisualizer.view.window;
 
 import edu.kit.ifv.trafficspvisualizer.view.ViewFacade;
+import edu.kit.ifv.trafficspvisualizer.view.data.image.ImageLibrary;
+import edu.kit.ifv.trafficspvisualizer.view.data.language.LanguageStrategy;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -15,12 +23,11 @@ import java.util.Optional;
 
 public class MainApplicationWindow {
 
-    private ViewFacade viewFacade;
+    private final ViewFacade viewFacade;
 
     private Stage stage;
 
-    // head - elements
-
+    // menu-bar
     private MenuItem newProjectMenuItem;
     private MenuItem loadProjectMenuItem;
     private MenuItem saveProjectMenuItem;
@@ -30,6 +37,20 @@ public class MainApplicationWindow {
     private Menu helpMenu;
 
     private MenuBar menuBar;
+
+    // preview-grid-pane
+    private Text previewText;
+
+    private ImageView previewImageView;
+
+    private Text currentPreviewText;
+
+    private Button leftSwitchPreviewButton;
+
+    private Button rightSwitchPreviewButton;
+
+    private GridPane previewGridPane;
+
 
 
 
@@ -50,24 +71,48 @@ public class MainApplicationWindow {
 
     // build-methods
     private void buildStage() {
-        // head
-        newProjectMenuItem = new MenuItem(viewFacade.getLanguageStrategy().getNewProjectMenuItemText());
-        loadProjectMenuItem = new MenuItem(viewFacade.getLanguageStrategy().getLoadProjectMenuItemText());
-        saveProjectMenuItem = new MenuItem(viewFacade.getLanguageStrategy().getSaveProjectMenuItemText());
+        buildMenuBar();
+        buildPreviewGridPane();
 
-        fileMenu = new Menu(viewFacade.getLanguageStrategy().getFileMenuText());
+    }
+
+    private void buildMenuBar() {
+        LanguageStrategy languageStrategy = viewFacade.getLanguageStrategy();
+
+        newProjectMenuItem = new MenuItem(languageStrategy.getMainApplicationNewProjectMenuItemText());
+        loadProjectMenuItem = new MenuItem(languageStrategy.getMainApplicationLoadProjectMenuItemText());
+        saveProjectMenuItem = new MenuItem(languageStrategy.getMainApplicationSaveProjectMenuItemText());
+
+        fileMenu = new Menu(languageStrategy.getMainApplicationFileMenuText());
         fileMenu.getItems().addAll(newProjectMenuItem, loadProjectMenuItem, saveProjectMenuItem);
 
-        helpMenu = new Menu(viewFacade.getLanguageStrategy().getHelpMenuText());
+        helpMenu = new Menu(languageStrategy.getMainApplicationHelpMenuText());
 
         menuBar = new MenuBar();
         menuBar.getMenus().addAll(fileMenu, helpMenu);
+    }
 
-        // body
+    private void buildPreviewGridPane() {
+        previewText = new Text(viewFacade.getLanguageStrategy().getMainApplicationPreviewText());
 
+        previewImageView = new ImageView();
 
+        currentPreviewText = new Text();
 
+        leftSwitchPreviewButton = new Button();
+        leftSwitchPreviewButton.setGraphic(
+                new ImageView(ImageLibrary.getMainApplicationLeftSwitchPreviewButtonImage()));
 
+        rightSwitchPreviewButton = new Button();
+        rightSwitchPreviewButton.setGraphic(
+                new ImageView(ImageLibrary.getMainApplicationRightSwitchPreviewButtonImage()));
+
+        previewGridPane = new GridPane();
+        previewGridPane.add(previewText,0, 0, 1, 1);
+        previewGridPane.add(previewImageView,1, 2, 1, 1);
+        previewGridPane.add(currentPreviewText,2, 0, 2, 1);
+        previewGridPane.add(leftSwitchPreviewButton,2, 2, 1, 1);
+        previewGridPane.add(rightSwitchPreviewButton,3, 2, 1, 1);
     }
 
 
