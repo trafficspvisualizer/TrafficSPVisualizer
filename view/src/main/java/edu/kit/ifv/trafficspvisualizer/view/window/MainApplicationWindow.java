@@ -12,6 +12,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -45,13 +46,25 @@ public class MainApplicationWindow {
 
     private Text currentPreviewText;
 
+    private ImageView leftSwitchPreviewButtonImageView;
+
     private Button leftSwitchPreviewButton;
+
+    private ImageView rightSwitchPreviewButtonImageView;
 
     private Button rightSwitchPreviewButton;
 
     private GridPane previewGridPane;
 
+    // settings-vbox
 
+
+
+    // body
+
+    private BorderPane bodyBorderPane;
+
+    private Scene scene;
 
 
     public MainApplicationWindow(ViewFacade viewFacade, Stage stage) {
@@ -73,6 +86,14 @@ public class MainApplicationWindow {
     private void buildStage() {
         buildMenuBar();
         buildPreviewGridPane();
+        buildConfigVBox();
+
+        bodyBorderPane = new BorderPane(previewGridPane);
+        bodyBorderPane.setTop(menuBar);
+
+        scene = new Scene(bodyBorderPane);
+
+        stage.setScene(scene);
 
     }
 
@@ -99,13 +120,15 @@ public class MainApplicationWindow {
 
         currentPreviewText = new Text();
 
+        leftSwitchPreviewButtonImageView
+                = new ImageView(ImageLibrary.getMainApplicationLeftSwitchPreviewButtonImage());
         leftSwitchPreviewButton = new Button();
-        leftSwitchPreviewButton.setGraphic(
-                new ImageView(ImageLibrary.getMainApplicationLeftSwitchPreviewButtonImage()));
+        leftSwitchPreviewButton.setGraphic(leftSwitchPreviewButtonImageView);
 
+        rightSwitchPreviewButtonImageView
+                = new ImageView(ImageLibrary.getMainApplicationRightSwitchPreviewButtonImage());
         rightSwitchPreviewButton = new Button();
-        rightSwitchPreviewButton.setGraphic(
-                new ImageView(ImageLibrary.getMainApplicationRightSwitchPreviewButtonImage()));
+        rightSwitchPreviewButton.setGraphic(rightSwitchPreviewButtonImageView);
 
         previewGridPane = new GridPane();
         previewGridPane.add(previewText,0, 0, 1, 1);
@@ -113,6 +136,10 @@ public class MainApplicationWindow {
         previewGridPane.add(currentPreviewText,2, 0, 2, 1);
         previewGridPane.add(leftSwitchPreviewButton,2, 2, 1, 1);
         previewGridPane.add(rightSwitchPreviewButton,3, 2, 1, 1);
+    }
+
+    private void buildConfigVBox(){
+        
     }
 
 
