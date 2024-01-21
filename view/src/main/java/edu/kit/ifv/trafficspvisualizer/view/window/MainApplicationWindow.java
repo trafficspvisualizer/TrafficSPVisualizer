@@ -116,6 +116,7 @@ public class MainApplicationWindow {
 
         scene = new Scene(bodyBorderPane);
 
+
         stage.setScene(scene);
         stage.setTitle(viewFacade.getLanguageStrategy().getApplicationName());
         stage.getIcons().add(ImageLibrary.getApplicationIcon());
@@ -205,9 +206,34 @@ public class MainApplicationWindow {
 
     // style-methods
     private void styleStage() {
+        styleMenuBar();
+        stylePreviewGridPane();
+        styleConfigVBox();
+    }
+
+
+    private void styleMenuBar() {
 
     }
 
+    private void stylePreviewGridPane() {
+        leftSwitchPreviewButtonImageView.setFitWidth(50);
+        leftSwitchPreviewButtonImageView.setFitHeight(50);
+
+        rightSwitchPreviewButtonImageView.setFitHeight(50);
+        rightSwitchPreviewButtonImageView.setFitWidth(50);
+    }
+
+    private void styleConfigVBox() {
+        exportButtonImageView.setFitWidth(50);
+        exportButtonImageView.setFitHeight(50);
+
+        exportSettingsButtonImageView.setFitHeight(50);
+        exportSettingsButtonImageView.setFitWidth(50);
+
+        attributesButtonImageView.setFitWidth(50);
+        attributesButtonImageView.setFitHeight(50);
+    }
 
 
     // setter-methods
