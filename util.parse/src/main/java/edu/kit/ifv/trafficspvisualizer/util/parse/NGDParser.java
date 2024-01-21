@@ -1,5 +1,6 @@
 package edu.kit.ifv.trafficspvisualizer.util.parse;
 
+import edu.kit.ifv.trafficspvisualizer.model.ChoiceData;
 import edu.kit.ifv.trafficspvisualizer.model.DataObject;
 import edu.kit.ifv.trafficspvisualizer.model.SituationData;
 
@@ -8,18 +9,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashMap;
 
 
 public class NGDParser extends Parser{
     @Override
     public DataObject parse(File file) {
-        DataObject dataObject = new DataObject();
-        SituationData[] situations = new SituationData[1];
         String[][] data = extractData(file);
-
-        dataObject = createDataObject(data);
-
-        return null;
+        return createDataObject(data);
     }
 
     private String[][] extractData(File file) {
@@ -56,14 +53,59 @@ public class NGDParser extends Parser{
 
     private DataObject createDataObject(String[][] data) {
         DataObject dataObject = new DataObject();
-        for (int i = 0; i < data.length; i++) { //erste beiden Spalten sind Design und EM, letzte Spalte ist Blocknr.
+        SituationData[] situations = new SituationData[data.length - 1];
+        String[] nameOfColumns = getNameOfColumns(data);
+        String[] nameOfChoiceOptions = getNameOfChoiceOptions(nameOfColumns);
+
+        for (int i = 1; i < data.length; i++) { //erste Zeile ist Spaltenbeschriftung
+
             SituationData situationData = new SituationData();
+            HashMap<String, ChoiceData> choices = new HashMap<String, ChoiceData>();
+            ChoiceData choiceData = new ChoiceData();
+            choices.put(nameOfChoiceOptions[2], choiceData);
+            HashMap<String, Double> values = new HashMap<String, Double>();
+            //choiceData.setValues(values);
+            String nameOfPreviousChoiceOption = "";
             //situationData.setBlockNumber(data[i][data.length - 1]);
-            for (int j = 2; j < data[0].length - 1; j++) {
+
+            for (int j = 2; j < data[0].length - 1; j++) { //erste beiden Spalten sind Design und EM, letzte Spalte ist Blocknr.
+
+                if (!nameOfPreviousChoiceOption.equals(nameOfChoiceOptions[j]) && !nameOfPreviousChoiceOption.isEmpty()) { //neue CO
+                    choiceData = new ChoiceData();
+                    choices.put(nameOfChoiceOptions[j], choiceData);
+                    values = new HashMap<String, Double>();
+                    //choiceData.setValues(values);
+                }
+
+                values.put(nameOfColumns[j], Double.parseDouble(data[i][j]));
+                nameOfPreviousChoiceOption = nameOfChoiceOptions[j];
 
             }
+
+            //situationData.setSituations(choices);
+            situations[i - 1] = situationData; //Erste Zeile ist Benennung
         }
         return dataObject;
+    }
+
+    private String[] getNameOfColumns(String[][] data) {
+        String[] nameOfColumns = new String[data[0].length];
+        System.arraycopy(data[0], 0, nameOfColumns, 0, data[0].length);
+        return nameOfColumns;
+    }
+
+    private String[] getNameOfChoiceOptions (String[] nameOfColumns) {
+        String[] nameOfChoiceOptions = new String[nameOfColumns.length];
+        for (int i = 0; i < nameOfColumns.length; i++) {
+            int dotIndex = nameOfColumns[i].indexOf('.');
+            if (dotIndex != -1) {
+                nameOfChoiceOptions[i] = nameOfColumns[i].substring(0, dotIndex);
+            } else {
+                // No dot found, keep the original string
+                nameOfChoiceOptions[i] = nameOfColumns[i];
+            }
+        }
+        return nameOfChoiceOptions;
     }
 }
 
