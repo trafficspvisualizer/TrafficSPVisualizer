@@ -16,7 +16,7 @@ public class ChoiceOptionSettingsController implements IconDisplayingController{
 
     }
 
-    public void actionOnIconButton(int routeSectionIndex, Image icon){
+    public void actionOnIconButton(int routeSectionIndex){
 
     }
 
@@ -32,7 +32,7 @@ public class ChoiceOptionSettingsController implements IconDisplayingController{
 
     }
 
-    public void updateIcon(Image icon){
+    public void updateIcon(int icon){
 
     }
 

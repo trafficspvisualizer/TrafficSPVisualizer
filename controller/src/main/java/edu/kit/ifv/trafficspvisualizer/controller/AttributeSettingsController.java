@@ -8,7 +8,7 @@ public class AttributeSettingsController implements IconDisplayingController {
 
     }
 
-    public void actionOnSaveButton(String name, Image icon, String prefix, String suffix, boolean isAlwaysVisible){
+    public void actionOnSaveButton(String name, int icon, String prefix, String suffix, boolean isAlwaysVisible){
 
     }
 
@@ -16,7 +16,7 @@ public class AttributeSettingsController implements IconDisplayingController {
 
     }
 
-    public void updateIcon(Image icon){
+    public void updateIcon(int icon){
 
     }
 

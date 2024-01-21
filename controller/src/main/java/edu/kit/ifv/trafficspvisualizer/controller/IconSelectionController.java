@@ -8,7 +8,7 @@ public class IconSelectionController {
     public void actionOnNewIconButton(){
 
     }
-    public void actionOnChooseButton(Image icon){
+    public void actionOnChooseButton(int icon){
 
     }
     public void actionOnCancelButton(){

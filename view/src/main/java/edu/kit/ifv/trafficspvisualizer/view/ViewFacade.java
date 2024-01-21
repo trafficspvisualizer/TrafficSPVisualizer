@@ -41,8 +41,9 @@ public class ViewFacade {
 
 
     public ViewFacade(Stage primaryStage, Project project) {
-        mainApplicationWindow = new MainApplicationWindow(this, primaryStage);
+        this.project = project;
         languageStrategy = new EnglishLanguageStrategy();
+        mainApplicationWindow = new MainApplicationWindow(this, primaryStage);
     }
 
     // getter-Methods
