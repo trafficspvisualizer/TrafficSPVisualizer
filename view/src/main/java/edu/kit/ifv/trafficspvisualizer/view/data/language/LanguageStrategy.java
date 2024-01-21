@@ -2,10 +2,10 @@ package edu.kit.ifv.trafficspvisualizer.view.data.language;
 
 public abstract class LanguageStrategy {
     // Application
-    private static final String applicationName = "TrafficSPVisualizer";
+    private static final String APPLICATION_NAME = "TrafficSPVisualizer";
 
     public String getApplicationName() {
-        return applicationName;
+        return APPLICATION_NAME;
     }
 
     // MainApplicationWindow
