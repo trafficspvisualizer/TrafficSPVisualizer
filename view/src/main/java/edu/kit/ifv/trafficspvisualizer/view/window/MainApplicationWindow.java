@@ -100,6 +100,8 @@ public class MainApplicationWindow {
         this.stage = stage;
         buildStage();
         styleStage();
+
+        stage.show();
     }
 
     // build-methods
