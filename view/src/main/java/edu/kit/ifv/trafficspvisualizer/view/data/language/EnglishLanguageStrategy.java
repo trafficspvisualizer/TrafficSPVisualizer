@@ -1,6 +1,8 @@
 package edu.kit.ifv.trafficspvisualizer.view.data.language;
 
 public class EnglishLanguageStrategy extends LanguageStrategy {
+
+
     // MainApplicationWindow
     private final static String MAIN_APPLICATION_NEW_PROJECT_MENU_ITEM_TEXT = "New project";
 
@@ -13,6 +15,12 @@ public class EnglishLanguageStrategy extends LanguageStrategy {
     private final static String MAIN_APPLICATION_HELP_MENU_TEXT = "Help";
 
     private final static String MAIN_APPLICATION_PREVIEW_TEXT = "Preview:";
+
+    private final static String MAIN_APPLICATION_EXPORT_TEXT = "Export";
+
+    private final static String MAIN_APPLICATION_ATTRIBUTES_TEXT = "Attributes";
+
+    private final static String MAIN_APPLICATION_CHOICE_OPTION_TEXT = "Choice options";
 
 
     // MainApplicationWindow
@@ -39,5 +47,17 @@ public class EnglishLanguageStrategy extends LanguageStrategy {
 
     public String getMainApplicationPreviewText() {
         return MAIN_APPLICATION_PREVIEW_TEXT;
+    }
+
+    public String getMainApplicationExportText() {
+        return MAIN_APPLICATION_EXPORT_TEXT;
+    }
+
+    public String getMainApplicationAttributesText() {
+        return MAIN_APPLICATION_ATTRIBUTES_TEXT;
+    }
+
+    public String getMainApplicationChoiceOptionText() {
+        return MAIN_APPLICATION_CHOICE_OPTION_TEXT;
     }
 }

@@ -9,6 +9,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Border;
@@ -56,7 +57,34 @@ public class MainApplicationWindow {
 
     private GridPane previewGridPane;
 
-    // settings-vbox
+    // config-vbox
+
+    private ImageView exportButtonImageView;
+
+    private Button exportButton;
+
+    private ImageView exportSettingsButtonImageView;
+
+    private Button exportSettingsButton;
+
+    private Text exportText;
+
+    private ImageView attributesButtonImageView;
+
+    private Button attributesButton;
+
+    private Text attributesText;
+
+    private GridPane exportAndAttributesGridPane;
+
+    private Text choiceOptionText;
+
+    private VBox choiceOptionVBox;
+
+    private ScrollPane choiceOptionScrollPane;
+
+    private VBox configVbox;
+
 
 
 
@@ -74,14 +102,6 @@ public class MainApplicationWindow {
         styleStage();
     }
 
-
-    // setter-methods
-    public void setPreviewImage(Image previewImage) {
-
-    }
-
-
-
     // build-methods
     private void buildStage() {
         buildMenuBar();
@@ -90,10 +110,13 @@ public class MainApplicationWindow {
 
         bodyBorderPane = new BorderPane(previewGridPane);
         bodyBorderPane.setTop(menuBar);
+        bodyBorderPane.setLeft(configVbox);
 
         scene = new Scene(bodyBorderPane);
 
         stage.setScene(scene);
+        stage.setTitle(viewFacade.getLanguageStrategy().getApplicationName());
+        stage.getIcons().add(ImageLibrary.getApplicationIcon());
 
     }
 
@@ -139,7 +162,42 @@ public class MainApplicationWindow {
     }
 
     private void buildConfigVBox(){
-        
+        LanguageStrategy languageStrategy = viewFacade.getLanguageStrategy();
+
+        exportButtonImageView
+                = new ImageView(ImageLibrary.getMainApplicationExportButtonImage());
+        exportButton = new Button();
+        exportButton.setGraphic(exportButtonImageView);
+
+        exportSettingsButtonImageView
+                = new ImageView(ImageLibrary.getMainApplicationExportSettingsButtonImage());
+        exportSettingsButton = new Button();
+        exportSettingsButton.setGraphic(exportButtonImageView);
+
+        exportText = new Text(languageStrategy.getMainApplicationExportText());
+
+        attributesButtonImageView
+                = new ImageView(ImageLibrary.getMainApplicationAttributesButtonImage());
+        attributesButton = new Button();
+        attributesButton.setGraphic(attributesButtonImageView);
+
+        attributesText = new Text(languageStrategy.getMainApplicationAttributesText());
+
+        exportAndAttributesGridPane = new GridPane();
+        exportAndAttributesGridPane.add(exportButton, 0, 0, 1, 1);
+        exportAndAttributesGridPane.add(exportSettingsButton, 1, 0, 1, 1);
+        exportAndAttributesGridPane.add(exportText, 0, 1, 2, 1);
+        exportAndAttributesGridPane.add(attributesButton, 2,0,1,1);
+        exportAndAttributesGridPane.add(attributesText, 2,1,1,1);
+
+        choiceOptionText = new Text(languageStrategy.getMainApplicationChoiceOptionText());
+
+        choiceOptionVBox = new VBox();
+
+        choiceOptionScrollPane = new ScrollPane(choiceOptionVBox);
+
+        configVbox = new VBox();
+        configVbox.getChildren().addAll(exportAndAttributesGridPane, choiceOptionText, choiceOptionScrollPane);
     }
 
 
@@ -147,6 +205,15 @@ public class MainApplicationWindow {
     private void styleStage() {
 
     }
+
+
+
+    // setter-methods
+    public void setPreviewImage(Image previewImage) {
+
+    }
+
+
 
     // update-methods
     public void updateCurrentPreviewSituation() {
