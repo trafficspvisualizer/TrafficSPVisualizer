@@ -1,42 +1,30 @@
 package edu.kit.ifv.trafficspvisualizer.util.image;
 
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ChoiceOptionImage {
     private BufferedImage image;
-    private String blockNumber;
-    private String decisionNumber;
-    private String scenarioNumber;
-
-    public BufferedImage getImage() {
-        return image;
-    }
-
-    public String getBlockNumber() {
-        return blockNumber;
-    }
-
-    public String getDecisionNumber() {
-        return decisionNumber;
-    }
-
-    public String getScenarioNumber() {
-        return scenarioNumber;
-    }
-
-    public void setBlockNumber(String blockNumber) {
-        this.blockNumber = blockNumber;
-    }
+    private final List<String> infos = new ArrayList<>();
 
     public void setImage(BufferedImage image) {
         this.image = image;
     }
 
-    public void setDecisionNumber(String decisionNumber) {
-        this.decisionNumber = decisionNumber;
+    public void add(String info) {
+        infos.add(info);
     }
 
-    public void setScenarioNumber(String scenarioNumber) {
-        this.scenarioNumber = scenarioNumber;
+    public void remove(String info){
+        infos.remove(info);
+    }
+
+    public List<String> getInfos() {
+        return infos;
+    }
+
+    public BufferedImage getImage() {
+        return image;
     }
 }
