@@ -61,7 +61,7 @@ public class NGDParser extends Parser{
         for (int i = 1; i < data.length; i++) { //erste Zeile ist Spaltenbeschriftung
 
             HashMap<String, ChoiceData> choices = new HashMap<String, ChoiceData>();
-            int blockNumber = Integer.parseInt(data[i][data.length - 1]);
+            int blockNumber = Integer.parseInt(data[i][data[0].length - 1]);
             SituationData situationData = new SituationData(blockNumber, choices);
 
             HashMap<String, Double> values = new HashMap<String, Double>();
