@@ -24,4 +24,8 @@ public class DataObject {
     public Set<String> getAttributeNames(int situationIndex, String choiceName) {
         return this.situationData[situationIndex].getChoiceData(choiceName).getNames();
     }
+
+    public int getSituationCount() {
+        return this.situationData.length;
+    }
 }
