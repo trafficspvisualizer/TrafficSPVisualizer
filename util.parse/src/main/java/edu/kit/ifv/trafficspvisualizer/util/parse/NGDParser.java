@@ -52,29 +52,30 @@ public class NGDParser extends Parser{
     }
 
     private DataObject createDataObject(String[][] data) {
-        DataObject dataObject = new DataObject();
         SituationData[] situations = new SituationData[data.length - 1];
+        DataObject dataObject = new DataObject(situations);
+
         String[] nameOfColumns = getNameOfColumns(data);
         String[] nameOfChoiceOptions = getNameOfChoiceOptions(nameOfColumns);
 
         for (int i = 1; i < data.length; i++) { //erste Zeile ist Spaltenbeschriftung
 
-            SituationData situationData = new SituationData();
             HashMap<String, ChoiceData> choices = new HashMap<String, ChoiceData>();
-            ChoiceData choiceData = new ChoiceData();
-            choices.put(nameOfChoiceOptions[2], choiceData);
+            int blockNumber = Integer.parseInt(data[i][data.length - 1]);
+            SituationData situationData = new SituationData(blockNumber, choices);
+
             HashMap<String, Double> values = new HashMap<String, Double>();
-            //choiceData.setValues(values);
+            ChoiceData choiceData = new ChoiceData(values);
+            choices.put(nameOfChoiceOptions[2], choiceData);
+
             String nameOfPreviousChoiceOption = "";
-            //situationData.setBlockNumber(data[i][data.length - 1]);
 
             for (int j = 2; j < data[0].length - 1; j++) { //erste beiden Spalten sind Design und EM, letzte Spalte ist Blocknr.
 
                 if (!nameOfPreviousChoiceOption.equals(nameOfChoiceOptions[j]) && !nameOfPreviousChoiceOption.isEmpty()) { //neue CO
-                    choiceData = new ChoiceData();
-                    choices.put(nameOfChoiceOptions[j], choiceData);
                     values = new HashMap<String, Double>();
-                    //choiceData.setValues(values);
+                    choiceData = new ChoiceData(values);
+                    choices.put(nameOfChoiceOptions[j], choiceData);
                 }
 
                 values.put(nameOfColumns[j], Double.parseDouble(data[i][j]));
