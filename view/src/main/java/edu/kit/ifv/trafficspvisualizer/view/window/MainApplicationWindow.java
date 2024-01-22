@@ -1,5 +1,6 @@
 package edu.kit.ifv.trafficspvisualizer.view.window;
 
+import edu.kit.ifv.trafficspvisualizer.model.Project;
 import edu.kit.ifv.trafficspvisualizer.view.ViewFacade;
 import edu.kit.ifv.trafficspvisualizer.view.data.image.ImageLibrary;
 import edu.kit.ifv.trafficspvisualizer.view.data.language.LanguageStrategy;
@@ -116,6 +117,7 @@ public class MainApplicationWindow {
         styleStage();
 
         stage.show();
+
     }
 
     // build-methods
@@ -364,14 +366,13 @@ public class MainApplicationWindow {
 
     // setter-methods
     public void setPreviewImage(Image previewImage) {
-
+        previewImageView.setImage(previewImage);
     }
 
 
 
     // update-methods
     public void updateCurrentPreviewSituation() {
-
     }
 
     public void updateChoiceOptions() {
