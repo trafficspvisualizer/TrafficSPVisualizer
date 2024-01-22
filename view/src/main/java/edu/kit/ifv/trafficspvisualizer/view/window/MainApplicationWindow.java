@@ -8,6 +8,7 @@ import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Menu;
@@ -21,6 +22,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -232,8 +234,11 @@ public class MainApplicationWindow {
         styleConfigVBox();
 
 
-        stage.setMinWidth(1920);
-        stage.setMinHeight(1080);
+
+        stage.setMinWidth(960);
+        stage.setMinHeight(540);
+        stage.setWidth(960);
+        stage.setHeight(540);
     }
 
 
@@ -250,9 +255,19 @@ public class MainApplicationWindow {
 
 
         // previewImageView
+        GridPane.setHalignment(previewImageView, HPos.CENTER);
+        GridPane.setValignment(previewImageView, VPos.CENTER);
         GridPane.setVgrow(previewImageView, Priority.ALWAYS);
         GridPane.setHgrow(previewImageView, Priority.ALWAYS);
-        previewImageView.setSmooth(true);
+
+        ColumnConstraints cc = new ColumnConstraints();
+        GridPane.setMargin(previewImageView, new Insets(0));
+        previewImageView.fitWidthProperty().bind(previewGridPane.widthProperty().subtract(leftSwitchPreviewButton.widthProperty().multiply(5)).subtract(previewGridPane.hgapProperty().multiply(3)));
+        previewImageView.fitHeightProperty().bind(previewGridPane.heightProperty().subtract(leftSwitchPreviewButton.heightProperty().multiply(3)).subtract(previewGridPane.vgapProperty().multiply(3)));
+        previewImageView.setPreserveRatio(true);
+        previewImageView.setSmooth(false);
+        previewImageView.setImage(ImageLibrary.getApplicationIcon());
+
 
 
         // currentPreviewText
@@ -263,7 +278,6 @@ public class MainApplicationWindow {
         // leftSwitchPreviewButtonImageView
         leftSwitchPreviewButtonImageView.setFitWidth(20);
         leftSwitchPreviewButtonImageView.setFitHeight(20);
-        leftSwitchPreviewButtonImageView.setSmooth(true);
 
         // leftSwitchPreviewButton
         GridPane.setHalignment(leftSwitchPreviewButton, HPos.CENTER);
@@ -273,7 +287,6 @@ public class MainApplicationWindow {
         // rightSwitchPreviewButtonImageView
         rightSwitchPreviewButtonImageView.setFitWidth(20);
         rightSwitchPreviewButtonImageView.setFitHeight(20);
-        rightSwitchPreviewButtonImageView.setSmooth(true);
 
         // rightSwitchPreviewButton
         GridPane.setHalignment(rightSwitchPreviewButton, HPos.CENTER);
@@ -394,7 +407,9 @@ public class MainApplicationWindow {
     }
 
     public void showExportErrorAlert() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
 
+        alert.showAndWait();
     }
 
     public void showNoProjectErrorAlert() {
