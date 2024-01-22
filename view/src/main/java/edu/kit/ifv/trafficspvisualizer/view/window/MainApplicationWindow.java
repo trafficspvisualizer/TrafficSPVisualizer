@@ -27,7 +27,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -117,6 +117,7 @@ public class MainApplicationWindow {
         styleStage();
 
         stage.show();
+
 
     }
 
@@ -384,8 +385,8 @@ public class MainApplicationWindow {
 
     // show-methods
     public File showFileChooserDialog() {
-
-        return null;
+        FileChooser fileChooser = new FileChooser();
+        return fileChooser.showOpenDialog(stage);
     }
 
     public Optional<ButtonType> showCloseProjectConformationAlert() {
