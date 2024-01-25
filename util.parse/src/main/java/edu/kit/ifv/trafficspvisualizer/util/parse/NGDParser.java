@@ -6,74 +6,77 @@ import edu.kit.ifv.trafficspvisualizer.model.SituationData;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 
+/**
+ * a
+ */
 
 public class NGDParser extends Parser{
+    /**
+     * a
+     * @param file
+     * @return
+     * @throws IOException
+     */
     @Override
-    public DataObject parse(File file) {
+    public DataObject parse(File file) throws IOException {
         String[][] data = extractData(file);
         return createDataObject(data);
     }
 
-    private String[][] extractData(File file) {
+    private String[][] extractData(File file) throws IOException {
         //The reader is inspired by ChatGPT
-        String[][] data = new String[0][];
 
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            long lineCount = br.lines().count();
-            String[][] initialData = new String[(int) lineCount][];
-            br = new BufferedReader(new FileReader(file));
+        BufferedReader br = new BufferedReader(new FileReader(file));
+        long lineCount = br.lines().count();
+        String[][] initialData = new String[(int) lineCount][];
+        br = new BufferedReader(new FileReader(file));
 
-            int row = 0;
-            String line;
-            while ((line = br.readLine()) != null) {
-                if (line.contains("|")) {
-                    break;
-                }
-                String[] values = line.split("\t");
-                initialData[row] = values;
-                row++;
+        int row = 0;
+        String line;
+        while ((line = br.readLine()) != null) {
+            if (line.contains("|")) {
+                break;
             }
-            data = new String[row][];
-            System.arraycopy(initialData, 0, data, 0, row);
-
-        } catch (FileNotFoundException e) {
-            System.out.println("No file found");
-
-        } catch (IOException e) {
-            System.out.println("Exception caught");
+            String[] values = line.split("\t");
+            initialData[row] = values;
+            row++;
         }
-        return data;
+
+        String[][] requiredData = new String[row][];
+        System.arraycopy(initialData, 0, requiredData, 0, row);
+
+        return requiredData;
     }
 
     private DataObject createDataObject(String[][] data) {
-        SituationData[] situations = new SituationData[data.length - 1];
+        SituationData[] situations = new SituationData[data.length - 1]; //First row is not filled with data
         DataObject dataObject = new DataObject(situations);
 
         String[] nameOfColumns = getNameOfColumns(data);
         String[] nameOfChoiceOptions = getNameOfChoiceOptions(nameOfColumns);
+        String nameOfPreviousChoiceOption = "";
 
-        for (int i = 1; i < data.length; i++) { //erste Zeile ist Spaltenbeschriftung
+        for (int i = 1; i < data.length; i++) {
 
-            HashMap<String, ChoiceData> choices = new HashMap<String, ChoiceData>();
+            HashMap<String, ChoiceData> choices = new HashMap<>();
             int blockNumber = Integer.parseInt(data[i][data[0].length - 1]);
             SituationData situationData = new SituationData(blockNumber, choices);
 
-            HashMap<String, Double> values = new HashMap<String, Double>();
+            HashMap<String, Double> values = new HashMap<>();
             ChoiceData choiceData = new ChoiceData(values);
             choices.put(nameOfChoiceOptions[2], choiceData);
+            //First 2 columns are filled with design and situation number
 
-            String nameOfPreviousChoiceOption = "";
+            for (int j = 2; j < data[0].length - 1; j++) {
+                //Last Column is filled with the block number
 
-            for (int j = 2; j < data[0].length - 1; j++) { //erste beiden Spalten sind Design und EM, letzte Spalte ist Blocknr.
+                if (!nameOfPreviousChoiceOption.equals(nameOfChoiceOptions[j])) { //New choice option is found
 
-                if (!nameOfPreviousChoiceOption.equals(nameOfChoiceOptions[j]) && !nameOfPreviousChoiceOption.isEmpty()) { //neue CO
-                    values = new HashMap<String, Double>();
+                    values = new HashMap<>();
                     choiceData = new ChoiceData(values);
                     choices.put(nameOfChoiceOptions[j], choiceData);
                 }
@@ -82,9 +85,7 @@ public class NGDParser extends Parser{
                 nameOfPreviousChoiceOption = nameOfChoiceOptions[j];
 
             }
-
-            //situationData.setSituations(choices);
-            situations[i - 1] = situationData; //Erste Zeile ist Benennung
+            situations[i - 1] = situationData; //First row is not filled with data
         }
         return dataObject;
     }
@@ -102,7 +103,6 @@ public class NGDParser extends Parser{
             if (dotIndex != -1) {
                 nameOfChoiceOptions[i] = nameOfColumns[i].substring(0, dotIndex);
             } else {
-                // No dot found, keep the original string
                 nameOfChoiceOptions[i] = nameOfColumns[i];
             }
         }
