@@ -8,6 +8,42 @@ public abstract class LanguageStrategy {
         return APPLICATION_NAME;
     }
 
+    // Application Alerts
+
+    public abstract String getCloseProjectConfirmationAlertTitle();
+
+    public abstract String getCloseProjectConfirmationAlertHeaderText();
+
+    public abstract String getCloseProjectConformationAlertContentText();
+
+    public abstract String getExportErrorAlertTitle();
+
+    public abstract String getExportErrorAlertHeaderText();
+
+    public abstract String getExportErrorAlertContentText();
+
+    public abstract String getNoProjectErrorAlertTitle();
+
+    public abstract String getNoProjectErrorAlertHeaderText();
+
+    public abstract String getNoProjectErrorAlertContentText();
+
+    public abstract String getLoadProjectErrorAlertTitle();
+
+    public abstract String getLoadProjectErrorAlertHeaderText();
+
+    public abstract String getLoadProjectErrorAlertContentText();
+
+    public abstract String getSaveProjectErrorAlertTitle();
+
+    public abstract String getSaveProjectErrorAlertHeaderText();
+
+    public abstract String getSaveProjectErrorAlertContentText();
+
+
+
+
+
     // MainApplicationWindow
     public abstract String getMainApplicationNewProjectMenuItemText();
 
@@ -16,6 +52,8 @@ public abstract class LanguageStrategy {
     public abstract String getMainApplicationSaveProjectMenuItemText();
 
     public abstract String getMainApplicationFileMenuText();
+
+    public abstract String getMainApplicationInstructionMenuItemText();
 
     public abstract String getMainApplicationHelpMenuText();
 
@@ -26,4 +64,5 @@ public abstract class LanguageStrategy {
     public abstract String getMainApplicationAttributesText();
 
     public abstract String getMainApplicationChoiceOptionText();
+
 }

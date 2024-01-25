@@ -2,6 +2,7 @@ package edu.kit.ifv.trafficspvisualizer.view.window;
 
 import edu.kit.ifv.trafficspvisualizer.model.Project;
 import edu.kit.ifv.trafficspvisualizer.view.ViewFacade;
+import edu.kit.ifv.trafficspvisualizer.view.data.font.FontLibrary;
 import edu.kit.ifv.trafficspvisualizer.view.data.image.ImageLibrary;
 import edu.kit.ifv.trafficspvisualizer.view.data.language.LanguageStrategy;
 import javafx.geometry.HPos;
@@ -29,6 +30,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -47,6 +49,8 @@ public class MainApplicationWindow {
     private MenuItem saveProjectMenuItem;
 
     private Menu fileMenu;
+
+    private MenuItem instructionMenuItem;
 
     private Menu helpMenu;
 
@@ -108,8 +112,6 @@ public class MainApplicationWindow {
 
     private Scene scene;
 
-    private final static String FONT_NAME = "Calibrie";
-
 
 
     public MainApplicationWindow(ViewFacade viewFacade, Stage stage) {
@@ -119,8 +121,6 @@ public class MainApplicationWindow {
         styleStage();
 
         stage.show();
-
-
     }
 
     // build-methods
@@ -153,7 +153,10 @@ public class MainApplicationWindow {
         fileMenu = new Menu(languageStrategy.getMainApplicationFileMenuText());
         fileMenu.getItems().addAll(newProjectMenuItem, loadProjectMenuItem, saveProjectMenuItem);
 
+        instructionMenuItem = new MenuItem(languageStrategy.getMainApplicationInstructionMenuItemText());
+
         helpMenu = new Menu(languageStrategy.getMainApplicationHelpMenuText());
+        helpMenu.getItems().add(instructionMenuItem);
 
         menuBar = new MenuBar();
         menuBar.getMenus().addAll(fileMenu, helpMenu);
@@ -251,7 +254,7 @@ public class MainApplicationWindow {
         // previewText
         GridPane.setHalignment(previewText, HPos.CENTER);
         GridPane.setValignment(previewText, VPos.CENTER);
-        previewText.setFont(new Font(FONT_NAME, 18));
+        previewText.setFont(FontLibrary.getMidFont());
 
 
         // previewImageView
@@ -273,7 +276,7 @@ public class MainApplicationWindow {
         // currentPreviewText
         GridPane.setHalignment(currentPreviewText, HPos.CENTER);
         GridPane.setValignment(currentPreviewText, VPos.CENTER);
-        currentPreviewText.setFont(new Font(FONT_NAME, 18));
+        currentPreviewText.setFont(FontLibrary.getMidFont());
 
         // leftSwitchPreviewButtonImageView
         leftSwitchPreviewButtonImageView.setFitWidth(20);
@@ -327,7 +330,7 @@ public class MainApplicationWindow {
         // exportText
         GridPane.setHalignment(exportText, HPos.CENTER);
         GridPane.setValignment(exportText, VPos.CENTER);
-        exportText.setFont(new Font(FONT_NAME, 13));
+        exportText.setFont(FontLibrary.getSmallFont());
 
         // attributesButtonImageView
         attributesButtonImageView.setFitWidth(50);
@@ -342,7 +345,7 @@ public class MainApplicationWindow {
         // attributesText
         GridPane.setHalignment(attributesText, HPos.CENTER);
         GridPane.setValignment(attributesText, VPos.CENTER);
-        attributesText.setFont(new Font(FONT_NAME, 13));
+        attributesText.setFont(FontLibrary.getSmallFont());
 
         // exportAndAttributesGridPane
         VBox.setMargin(exportAndAttributesGridPane, new Insets(15));
@@ -355,7 +358,7 @@ public class MainApplicationWindow {
         GridPane.setValignment(choiceOptionText, VPos.CENTER);
         GridPane.setHgrow(choiceOptionText,Priority.ALWAYS);
         GridPane.setMargin(choiceOptionText, new Insets(15));
-        choiceOptionText.setFont(new Font(FONT_NAME, 18));
+        choiceOptionText.setFont(FontLibrary.getMidFont());
 
 
         // choiceOptionTextGridPane
@@ -397,31 +400,64 @@ public class MainApplicationWindow {
 
 
     // show-methods
-    public File showFileChooserDialog() {
-        FileChooser fileChooser = new FileChooser();
-        return fileChooser.showOpenDialog(stage);
+    public File showDirectoryChooserDialog() {
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        return directoryChooser.showDialog(stage);
     }
 
-    public Optional<ButtonType> showCloseProjectConformationAlert() {
-        return Optional.empty();
+    public Optional<ButtonType> showCloseProjectConfirmationAlert() {
+        LanguageStrategy languageStrategy = viewFacade.getLanguageStrategy();
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle(languageStrategy.getCloseProjectConfirmationAlertTitle());
+        alert.setHeaderText(languageStrategy.getCloseProjectConfirmationAlertHeaderText());
+        alert.setContentText(languageStrategy.getCloseProjectConformationAlertContentText());
+
+        return alert.showAndWait();
     }
 
     public void showExportErrorAlert() {
+        LanguageStrategy languageStrategy = viewFacade.getLanguageStrategy();
+
         Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(languageStrategy.getExportErrorAlertTitle());
+        alert.setHeaderText(languageStrategy.getExportErrorAlertHeaderText());
+        alert.setContentText(languageStrategy.getExportErrorAlertContentText());
 
         alert.showAndWait();
     }
 
     public void showNoProjectErrorAlert() {
+        LanguageStrategy languageStrategy = viewFacade.getLanguageStrategy();
 
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(languageStrategy.getNoProjectErrorAlertTitle());
+        alert.setHeaderText(languageStrategy.getNoProjectErrorAlertHeaderText());
+        alert.setContentText(languageStrategy.getNoProjectErrorAlertContentText());
+
+        alert.showAndWait();
     }
 
     public void showLoadProjectErrorAlert() {
+        LanguageStrategy languageStrategy = viewFacade.getLanguageStrategy();
 
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(languageStrategy.getLoadProjectErrorAlertTitle());
+        alert.setHeaderText(languageStrategy.getLoadProjectErrorAlertHeaderText());
+        alert.setContentText(languageStrategy.getLoadProjectErrorAlertContentText());
+
+        alert.showAndWait();
     }
 
-    public void saveLoadProjectErrorAlert() {
+    public void showSaveProjectErrorAlert() {
+        LanguageStrategy languageStrategy = viewFacade.getLanguageStrategy();
 
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(languageStrategy.getSaveProjectErrorAlertTitle());
+        alert.setHeaderText(languageStrategy.getSaveProjectErrorAlertHeaderText());
+        alert.setContentText(languageStrategy.getSaveProjectErrorAlertContentText());
+
+        alert.showAndWait();
     }
 
 
