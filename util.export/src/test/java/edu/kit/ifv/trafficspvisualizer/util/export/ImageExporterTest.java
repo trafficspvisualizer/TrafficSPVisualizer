@@ -7,20 +7,29 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 
 class ImageExporterTest {
 
     @Test
     void export() {
-        File input = new File(String.valueOf(getClass().getResource("/Download.jpeg")));
+        URL url = this.getClass().getClassLoader().getResource("Bike.png");
+        File file = null;
         try {
-            BufferedImage image = ImageIO.read(input);
+            file = new File(url.toURI());
+        } catch (URISyntaxException e) {
+            file = new File(url.getPath());
+        }
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(file);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         ChoiceOptionImage choiceOptionImage = new ChoiceOptionImage();
-        choiceOptionImage.setImage(null);
+        choiceOptionImage.setImage(image);
         choiceOptionImage.add("00");
         choiceOptionImage.add("321");
         ImageExporter imageExporter = new ImageExporter();
@@ -28,7 +37,7 @@ class ImageExporterTest {
         ChoiceOptionImage[] choiceOptionImages = new ChoiceOptionImage[1];
         choiceOptionImages[0] = choiceOptionImage;
         try {
-            imageExporter.export(choiceOptionImages,new File(""));
+            imageExporter.export(choiceOptionImages,new File(String.valueOf(getClass().getResource(""))));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

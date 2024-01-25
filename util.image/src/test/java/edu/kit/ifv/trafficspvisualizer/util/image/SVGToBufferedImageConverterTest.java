@@ -8,6 +8,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,9 +18,15 @@ class SVGToBufferedImageConverterTest {
     @Test
     void convert() {
         SVGToBufferedImageConverter con = new SVGToBufferedImageConverter();
-
+        URL url = this.getClass().getClassLoader().getResource("Icon_Bike.svg");
+        File file = null;
         try {
-            BufferedImage image = con.convert("C:\\Users\\jsuli\\Downloads\\Icon_Bike.svg", 50, 50);
+            file = new File(url.toURI());
+        } catch (URISyntaxException e) {
+            file = new File(url.getPath());
+        }
+        try {
+            BufferedImage image = con.convert(file.getPath(), 50, 50);
             int i = image.getHeight();
             Graphics g = image.getGraphics();
             g.setColor(Color.RED);
