@@ -1,8 +1,15 @@
 package edu.kit.ifv.trafficspvisualizer.controller;
 
+import javafx.scene.image.Image;
+
 public class ChoiceOptionSettingsController implements IconDisplayingController{
     private ControllerFacade controllerFacade;
     private int choiceOptionId;
+
+    public ChoiceOptionSettingsController(int choiceOptionId, ControllerFacade controllerFacade) {
+        this.choiceOptionId = choiceOptionId;
+        this.controllerFacade = controllerFacade;
+    }
 
     public void actionOnCompleteButton(){
 
@@ -16,7 +23,7 @@ public class ChoiceOptionSettingsController implements IconDisplayingController{
 
     }
 
-    public void actionOnIconButton(int routeSectionIndex){
+    public void actionOnIconButton(int routeSectionIndex, Image icon){
 
     }
 
@@ -32,7 +39,8 @@ public class ChoiceOptionSettingsController implements IconDisplayingController{
 
     }
 
-    public void updateIcon(int icon){
+    @Override
+    public void updateIcon(Image icon){
 
     }
 

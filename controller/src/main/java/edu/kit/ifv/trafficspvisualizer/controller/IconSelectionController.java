@@ -1,9 +1,17 @@
 package edu.kit.ifv.trafficspvisualizer.controller;
 
+import javafx.scene.image.Image;
+
 public class IconSelectionController {
     private ControllerFacade controllerFacade;
     private IconDisplayingController parentController;
     private int index;
+
+    public IconSelectionController(ControllerFacade controllerFacade, IconDisplayingController parentController, int index) {
+        this.controllerFacade = controllerFacade;
+        this.parentController = parentController;
+        this.index = index;
+    }
 
     public void actionOnNewIconButton(){
 

@@ -5,6 +5,14 @@ import java.io.File;
 public class ProjectCreationController {
     private ControllerFacade controllerFacade;
 
+    public ProjectCreationController(ControllerFacade controllerFacade) {
+        this.controllerFacade = controllerFacade;
+    }
+
+    public ProjectCreationController() {
+        controllerFacade.getViewFacade().getProjectCreationStage();
+        //TODO: Set all action handlers for buttons
+    }
     public void actionOnProjectFolderButton(){
 
     }

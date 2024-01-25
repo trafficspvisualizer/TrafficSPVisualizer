@@ -3,6 +3,10 @@ package edu.kit.ifv.trafficspvisualizer.controller;
 public class AttributeController {
     private ControllerFacade controllerFacade;
 
+    public AttributeController(ControllerFacade controllerFacade) {
+        this.controllerFacade = controllerFacade;
+    }
+
     public void actionOnNewAttributeButton(){
 
     }
