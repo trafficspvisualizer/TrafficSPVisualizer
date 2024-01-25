@@ -31,12 +31,11 @@ class SVGToBufferedImageConverterTest {
             Graphics g = image.getGraphics();
             g.setColor(Color.RED);
 
-            // Zeichnen Sie ein Dreieck
+
             int[] xPoints = {10, 20, 0};
             int[] yPoints = {0, 20, 20};
             g.fillPolygon(xPoints, yPoints, 3);
 
-            // Ressourcen freigeben
             g.dispose();
             File outputfile = new File("image.png");
             ImageIO.write(image, "png", outputfile);

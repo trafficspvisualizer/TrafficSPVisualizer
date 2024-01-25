@@ -12,6 +12,8 @@ public class HTMLExporter extends Exporter{
 
     @Override
     public void export(ChoiceOptionImage[] images, File file) throws IOException{
+        ImageExporter imageExporter = new ImageExporter();
+        imageExporter.export(images,file);
 
         if (!file.exists()) {
             file.createNewFile();
@@ -29,12 +31,21 @@ public class HTMLExporter extends Exporter{
                 "        }\n" +
                 "    </style>\n" +
                 "</head>\n" +
-                "\n" +
-                "        <!-- Icon explanation -->\n" +
-                "\n" +
+                "\n");
+        for (ChoiceOptionImage image: images) {
+            StringBuilder path = new StringBuilder(file.getPath() + "\\");
+            for (String info: image.getInfos()) {
+                path.append("#c_").append(info).append("#");
+            }
+            bufferedWriter.write("<img src=\""+ path +"\">\n");
+        }
+        bufferedWriter.write("\n");
+
+        bufferedWriter.write(
                 "        <!-- Here list of radio buttons with generated images: located in \"images/..\" -->\n" +
-                "\n" +
-                "<form>\n" +
+                "\n");
+
+        bufferedWriter.write( "<form>\n" +
                 "<div>\n" +
                 "    <input type=\"hidden\" id=\"v_10\" name=\"v_10\" value=\"#v_10#\" readonly />\n" +
                 "</div>\n" +

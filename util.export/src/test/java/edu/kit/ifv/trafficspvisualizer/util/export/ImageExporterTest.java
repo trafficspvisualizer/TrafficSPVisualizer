@@ -36,8 +36,9 @@ class ImageExporterTest {
 
         ChoiceOptionImage[] choiceOptionImages = new ChoiceOptionImage[1];
         choiceOptionImages[0] = choiceOptionImage;
+
         try {
-            imageExporter.export(choiceOptionImages,new File(String.valueOf(getClass().getResource(""))));
+            imageExporter.export(choiceOptionImages,new File(file.getParent()));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
