@@ -13,6 +13,11 @@ public class Attribute extends AbstractAttribute {
     private int decimalPlaces;
     private Map<ChoiceOption, List<String>> choiceOptionMappings;
 
+    public List<String> getMapping(ChoiceOption choiceOption) {
+        //TODO
+        return null;
+    }
+
     public boolean mapToChoiceOption(String choiceName, String dataName) {
         //TODO
         return false;
