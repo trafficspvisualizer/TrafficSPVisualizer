@@ -11,7 +11,7 @@ class NGDParserBlockNumberTest {
     @Test
     public  void testBlockNumber() {
         //ClassLoader classLoader = getClass().getClassLoader();
-        File file = new File(getClass().getResource("/BeispielTest.ngd").getFile());
+        File file = new File(String.valueOf(getClass().getResource("/BeispielTest.ngd")));
         NGDParser ngdParser = new NGDParser();
         DataObject dataObject = ngdParser.parse(file);
         assertEquals(16, dataObject.getSituationCount());
