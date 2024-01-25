@@ -70,16 +70,16 @@ public class MainApplicationController {
     public void actionOnExportButton(){
         ExportType exportType = controllerFacade.getProject().getExportSettings().getExportType();
         ImageCollectionGenerator imageCollectionGenerator = null;
-
+        /**
         if(exportType == ExportType.SITUATION) {
             imageCollectionGenerator = new SituationGenerator();
         } else (exportType == ExportType.CHOICE_OPTION || exportType == ExportType.HTML){
             imageCollectionGenerator = new ChoiceOptionGenerator();
         }
-
+        **/
         BufferedImage[] images = imageCollectionGenerator.createImage(controllerFacade.getProject());
-        Exporter exporter = Exporter.getExporter(controllerFacade.getProject().getExportSettings().getExportType());
-        exporter.export(images, controllerFacade.getProject().getExportSettings().getExportPath());
+        //Exporter exporter = Exporter.getExporter(controllerFacade.getProject().getExportSettings().getExportType());
+        //exporter.export(images, controllerFacade.getProject().getExportSettings().getExportPath());
     }
 
     public void actionOnExportSettingsButton(){
