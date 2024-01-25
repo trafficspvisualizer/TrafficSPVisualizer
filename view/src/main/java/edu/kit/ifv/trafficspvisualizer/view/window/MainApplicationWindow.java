@@ -1,6 +1,8 @@
 package edu.kit.ifv.trafficspvisualizer.view.window;
 
+import edu.kit.ifv.trafficspvisualizer.model.ChoiceOption;
 import edu.kit.ifv.trafficspvisualizer.model.Project;
+import edu.kit.ifv.trafficspvisualizer.model.RouteSection;
 import edu.kit.ifv.trafficspvisualizer.view.ViewFacade;
 import edu.kit.ifv.trafficspvisualizer.view.data.font.FontLibrary;
 import edu.kit.ifv.trafficspvisualizer.view.data.image.ImageLibrary;
@@ -35,6 +37,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class MainApplicationWindow {
@@ -97,6 +101,14 @@ public class MainApplicationWindow {
 
     private GridPane choiceOptionTextGridPane;
 
+
+    private final List<Button> choiceOptionSettingsButtonList;
+
+    private final List<Button> upSwitchChoiceOptionButtonList;
+
+    private final List<Button> downSwitchChoiceOptionButtonList;
+
+
     private VBox choiceOptionVBox;
 
     private ScrollPane choiceOptionScrollPane;
@@ -115,6 +127,9 @@ public class MainApplicationWindow {
 
 
     public MainApplicationWindow(ViewFacade viewFacade, Stage stage) {
+        choiceOptionSettingsButtonList = new ArrayList<>();
+        upSwitchChoiceOptionButtonList = new ArrayList<>();
+        downSwitchChoiceOptionButtonList = new ArrayList<>();
         this.viewFacade = viewFacade;
         this.stage = stage;
         buildStage();
@@ -390,10 +405,62 @@ public class MainApplicationWindow {
 
     // update-methods
     public void updateCurrentPreviewSituation() {
+        Project project = viewFacade.getProject();
+        if (project == null) {
+            currentPreviewText.setText("");
+        } else {
+            int displayedCurrentPreviewSituationNumber = project.getCurrentPreviewSituation() + 1;
+            int situationCounter = project.getDataObject().getSituationCount();
+            String formattedText = viewFacade.getLanguageStrategy().getMainApplicationCurrentPreviewTextFormat()
+                    .formatted(displayedCurrentPreviewSituationNumber, situationCounter);
+            currentPreviewText.setText(formattedText);
+        }
+
     }
 
     public void updateChoiceOptions() {
+        choiceOptionVBox.getChildren().clear();
+        choiceOptionSettingsButtonList.clear();
+        upSwitchChoiceOptionButtonList.clear();
+        downSwitchChoiceOptionButtonList.clear();
 
+        Project project = viewFacade.getProject();
+
+        if (project == null) return;
+
+
+
+        for (ChoiceOption co : project.getChoiceOptions()) {
+            // build
+
+            Text choiceOptionTitleText = new Text(co.getTitle());
+            choiceOptionTitleText.setFill(co.getColor());
+
+            //TODO Adding choiceOptionSettingsButton, upSwitchChoiceOptionButton, downSwitchChoiceOptionButton
+
+
+
+            GridPane routeSectionGridPane = new GridPane();
+            List<RouteSection> routeSectionList = co.getRouteSections();
+            for (int i = 0; i < routeSectionList.size(); i++) {
+                //TODO getting (image path)/(image) and converting svg image to javafx image
+                ImageView routeSelectionImageView = new ImageView();
+                routeSectionGridPane.add(routeSelectionImageView, i,0);
+            }
+
+
+
+
+            BorderPane choiceOptionBorderPane = new BorderPane();
+            choiceOptionBorderPane.setLeft(choiceOptionTitleText);
+            choiceOptionBorderPane.setBottom(routeSectionGridPane);
+
+
+            choiceOptionVBox.getChildren().add(choiceOptionBorderPane);
+
+            // style
+
+        }
     }
 
 

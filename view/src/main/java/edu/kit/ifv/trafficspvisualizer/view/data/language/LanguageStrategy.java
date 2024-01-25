@@ -4,6 +4,14 @@ public abstract class LanguageStrategy {
     // Application
     private static final String APPLICATION_NAME = "TrafficSPVisualizer";
 
+    // MainApplicationWindow
+
+    private static final String MAIN_APPLICATION_CURRENT_PREVIEW_TEXT_FORMAT = "%d / %d";
+
+
+
+    // Application
+
     public String getApplicationName() {
         return APPLICATION_NAME;
     }
@@ -56,6 +64,10 @@ public abstract class LanguageStrategy {
     public abstract String getMainApplicationInstructionMenuItemText();
 
     public abstract String getMainApplicationHelpMenuText();
+
+    public String getMainApplicationCurrentPreviewTextFormat() {
+        return MAIN_APPLICATION_CURRENT_PREVIEW_TEXT_FORMAT;
+    }
 
     public abstract String getMainApplicationPreviewText();
 
