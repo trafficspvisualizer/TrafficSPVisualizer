@@ -18,7 +18,7 @@ public class HTMLExporter extends Exporter{
         if (!file.exists()) {
             file.createNewFile();
         }
-        FileWriter fileWriter = new FileWriter(file);
+        FileWriter fileWriter = new FileWriter("datei.html");
         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
         bufferedWriter.write("<head>\n" +
                 "    <link rel=\"stylesheet\" href=\"https://something.online.com/example.css\" />\n" +
@@ -32,18 +32,24 @@ public class HTMLExporter extends Exporter{
                 "    </style>\n" +
                 "</head>\n" +
                 "\n");
-        for (ChoiceOptionImage image: images) {
+
+        bufferedWriter.write("\n" +
+                "<form>\n"
+        );
+
+        for (int i = 0; i < images.length; i++) {
             StringBuilder path = new StringBuilder(file.getPath() + "\\");
-            for (String info: image.getInfos()) {
+            for (String info: images[i].getInfos()) {
                 path.append("#c_").append(info).append("#");
             }
-            bufferedWriter.write("<img src=\""+ path +"\">\n");
+            bufferedWriter.write("<label>" +
+                    "<input type=\"radio\" name=\"option\" value=\""+ (i + 1) +"\">" +
+                    "<img src=\""+ path +"\" alt=\"Bild " + (i + 1)  + "\">\n" +
+                    "</label>");
         }
-        bufferedWriter.write("\n");
 
-        bufferedWriter.write(
-                "        <!-- Here list of radio buttons with generated images: located in \"images/..\" -->\n" +
-                "\n");
+        bufferedWriter.write("\n" +
+                "</form>\n");
 
         bufferedWriter.write( "<form>\n" +
                 "<div>\n" +

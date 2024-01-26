@@ -6,6 +6,8 @@ import java.util.List;
 
 public class ChoiceOptionImage {
     private BufferedImage image;
+    private String title = "";
+
     private final List<String> infos = new ArrayList<>();
 
     public void setImage(BufferedImage image) {
@@ -26,5 +28,13 @@ public class ChoiceOptionImage {
 
     public BufferedImage getImage() {
         return image;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getTitle() {
+        return title;
     }
 }
