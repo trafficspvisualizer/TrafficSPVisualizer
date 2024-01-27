@@ -519,8 +519,8 @@ public class MainApplicationWindow {
         }
 
         if (!project.getChoiceOptions().isEmpty()) {
-            upSwitchChoiceOptionButtonList.getFirst().disarm();
-            downSwitchChoiceOptionButtonList.getLast().disarm();
+            upSwitchChoiceOptionButtonList.getFirst().setDisable(true);
+            downSwitchChoiceOptionButtonList.getLast().setDisable(true);
         }
     }
 
