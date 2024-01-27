@@ -32,6 +32,20 @@ public final class ImageLibrary {
             = new Image(String.valueOf(ImageLibrary.class.getResource(
             "/data/image/mainApplicationAttributesButtonImage.png")));
 
+    private static final Image MAIN_APPLICATION_CHOICE_OPTION_SETTINGS_BUTTON_IMAGE
+            = new Image(String.valueOf(ImageLibrary.class.getResource(
+            "/data/image/mainApplicationChoiceOptionSettingsButtonImage.png")));
+
+    private static final Image MAIN_APPLICATION_UP_SWITCH_CHOICE_OPTION_BUTTON_IMAGE
+            = new Image(String.valueOf(ImageLibrary.class.getResource(
+            "/data/image/mainApplicationUpSwitchChoiceOptionButtonImage.png")));
+
+    private static final Image MAIN_APPLICATION_DOWN_SWITCH_CHOICE_OPTION_BUTTON_IMAGE
+            = new Image(String.valueOf(ImageLibrary.class.getResource(
+            "/data/image/mainApplicationDownSwitchChoiceOptionButtonImage.png")));
+
+
+
     // Application
     public static Image getApplicationIcon() {
         return APPLICATION_ICON;
@@ -57,5 +71,17 @@ public final class ImageLibrary {
 
     public static Image getMainApplicationAttributesButtonImage() {
         return MAIN_APPLICATION_ATTRIBUTES_BUTTON_IMAGE;
+    }
+
+    public static Image getMainApplicationChoiceOptionSettingsButtonImage() {
+        return MAIN_APPLICATION_CHOICE_OPTION_SETTINGS_BUTTON_IMAGE;
+    }
+
+    public static Image getMainApplicationUpSwitchChoiceOptionButtonImage() {
+        return MAIN_APPLICATION_UP_SWITCH_CHOICE_OPTION_BUTTON_IMAGE;
+    }
+
+    public static Image getMainApplicationDownSwitchChoiceOptionButtonImage() {
+        return MAIN_APPLICATION_DOWN_SWITCH_CHOICE_OPTION_BUTTON_IMAGE;
     }
 }
