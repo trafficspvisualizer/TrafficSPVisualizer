@@ -2,6 +2,8 @@ package edu.kit.ifv.trafficspvisualizer.controller;
 
 import javafx.scene.image.Image;
 
+import java.io.File;
+
 public abstract class IconSelectionController {
     private ControllerFacade controllerFacade;
     private IconDisplayingController parentController;
@@ -17,7 +19,10 @@ public abstract class IconSelectionController {
 
 
     public void actionOnNewIconButton(){
-
+        File selectedFile = controllerFacade.getViewFacade().getIconSelectionStage().showFileChooserDialog();
+        //TODO: placeholder methods
+        controllerFacade.getProject().addIcon(selectedFile);
+        controllerFacade.getViewFacade().getIconSelectionStage().update();
     }
 
     public void actionOnCancelButton(){

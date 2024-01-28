@@ -12,7 +12,7 @@ public class AttributeSettingsController implements IconDisplayingController {
     }
 
     public void actionOnIconButton(){
-        controllerFacade.createIconSelectionController(this, attributeIndex);
+        controllerFacade.createAttributeIconSelectionController(this, attributeIndex);
     }
 
     public void actionOnSaveButton(String name, Image icon, String prefix, String suffix, boolean isAlwaysVisible){
