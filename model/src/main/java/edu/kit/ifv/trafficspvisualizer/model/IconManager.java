@@ -2,7 +2,6 @@ package edu.kit.ifv.trafficspvisualizer.model;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.channels.Pipe;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
