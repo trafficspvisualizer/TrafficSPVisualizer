@@ -78,6 +78,7 @@ public class MainApplicationController {
         }
 
         BufferedImage[] images = imageCollectionGenerator.createImage(controllerFacade.getProject());
+        //TODO: missing method in Exporter class
         Exporter exporter = Exporter.getExporter(controllerFacade.getProject().getExportSettings().getExportType());
         exporter.export(images, controllerFacade.getProject().getExportSettings().getExportPath());
     }

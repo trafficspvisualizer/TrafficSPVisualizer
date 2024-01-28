@@ -1,5 +1,6 @@
 package edu.kit.ifv.trafficspvisualizer.controller;
 
+import edu.kit.ifv.trafficspvisualizer.model.Icon;
 import javafx.scene.image.Image;
 
 public class AttributeSettingsController implements IconDisplayingController {
@@ -12,7 +13,7 @@ public class AttributeSettingsController implements IconDisplayingController {
     }
 
     public void actionOnIconButton(){
-        controllerFacade.createAttributeIconSelectionController(this, attributeIndex);
+        controllerFacade.createIconSelectionController(this, attributeIndex);
     }
 
     public void actionOnSaveButton(String name, Image icon, String prefix, String suffix, boolean isAlwaysVisible){
@@ -27,7 +28,7 @@ public class AttributeSettingsController implements IconDisplayingController {
     }
 
     @Override
-    public void updateIcon(Image icon){
+    public void updateIcon(Icon icon, int index){
 
     }
 

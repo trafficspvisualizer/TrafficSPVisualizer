@@ -1,5 +1,6 @@
 package edu.kit.ifv.trafficspvisualizer.controller;
 
+import edu.kit.ifv.trafficspvisualizer.model.Icon;
 import javafx.scene.image.Image;
 
 public class ChoiceOptionSettingsController implements IconDisplayingController{
@@ -40,7 +41,7 @@ public class ChoiceOptionSettingsController implements IconDisplayingController{
     }
 
     @Override
-    public void updateIcon(Image icon){
+    public void updateIcon(Icon icon, int index){
 
     }
 
