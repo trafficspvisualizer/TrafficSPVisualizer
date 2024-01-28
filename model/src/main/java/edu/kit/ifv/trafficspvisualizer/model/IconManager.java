@@ -2,6 +2,7 @@ package edu.kit.ifv.trafficspvisualizer.model;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.channels.Pipe;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -9,14 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class IconManager {
-    private final static String DIR_NAME = "icons";
+    private final static String DIR_NAME = "icon-cache";
     private final Path iconDir;
     private final List<Icon> icons;
     private int nextIdentifier;
 
-    public IconManager(Path projectDir) throws IOException {
-        this.iconDir = projectDir.resolve(DIR_NAME);
-        Files.createDirectories(projectDir.resolve(DIR_NAME));
+    public IconManager() throws IOException {
+        this.iconDir = Files.createTempDirectory(DIR_NAME);
         this.nextIdentifier = 0;
         this.icons = initIcons();
     }
