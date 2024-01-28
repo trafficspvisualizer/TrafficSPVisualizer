@@ -45,12 +45,12 @@ public class MainApplicationController {
 
     public void actionOnSaveButton(){
         new ProjectSaver().saveProject(controllerFacade.getProject(), controllerFacade.getProject().getExportSettings().getExportPath());
-        //TODO: missing methods in model
     }
 
     public void actionOnHelpButton(){
-        Stage helpStage = new Stage();
-        //TODO: should probably be dealt with in view
+        //TODO: missing help dialog
+        controllerFacade.getViewFacade().getMainApplicationWindow().showHelpDialog();
+
     }
 
     public void actionOnChoiceOptionSettingsButton(int choiceOptionNumber){
