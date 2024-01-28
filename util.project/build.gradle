@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'org.javamodularity.moduleplugin' version '1.8.12'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
 }
 
 group = 'edu.kit.ifv'
@@ -9,9 +10,15 @@ repositories {
     mavenCentral()
 }
 
+javafx {
+    version = '21'
+    modules = ['javafx.controls']
+}
+
 dependencies {
     implementation project(path: ':model')
-    implementation 'javax.json:javax.json-api:1.0'
+    implementation 'org.json:json:20210307'
+    implementation project(path: ':model')
     testImplementation platform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
 }
