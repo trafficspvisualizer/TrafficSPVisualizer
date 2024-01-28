@@ -1,26 +1,38 @@
 package edu.kit.ifv.trafficspvisualizer.model;
 
 import java.io.File;
+import java.nio.file.Path;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class Project {
     private final String name;
-    private final File filePath;
+    private final File projectPath;
     private final DataObject dataObject;
     private final List<AbstractAttribute> attributes;
     private final List<ChoiceOption> choiceOptions;
     private ExportSettings exportSettings;
     private int currentPreviewSituation;
 
-    public Project(String name, File filePath, DataObject dataObject) {
+    public Project(String name, File projectPath, DataObject dataObject) {
         this.name = name;
-        this.filePath = filePath;
+        this.projectPath = projectPath;
         this.dataObject = dataObject;
         this.attributes = new ArrayList<>();
         this.choiceOptions = initializeChoiceOptions();
-        this.exportSettings = new ExportSettings();
+        this.exportSettings = new ExportSettings(this.projectPath);
         this.currentPreviewSituation = 1;
+    }
+
+    public Project(String name, File projectPath, DataObject dataObject, List<AbstractAttribute> attributes,
+                   List<ChoiceOption> choiceOptions, ExportSettings exportSettings, int currentPreviewSituation) {
+        this.name = name;
+        this.projectPath = projectPath;
+        this.dataObject = dataObject;
+        this.attributes = new ArrayList<>(attributes);
+        this.choiceOptions = new ArrayList<>(choiceOptions);
+        this.exportSettings = exportSettings;
+        this.currentPreviewSituation = currentPreviewSituation;
     }
 
     private List<ChoiceOption> initializeChoiceOptions() {
@@ -85,8 +97,8 @@ public class Project {
         return exportSettings;
     }
 
-    public File getFilePath() {
-        return filePath;
+    public File getProjectPath() {
+        return projectPath;
     }
 
     public String getName() {

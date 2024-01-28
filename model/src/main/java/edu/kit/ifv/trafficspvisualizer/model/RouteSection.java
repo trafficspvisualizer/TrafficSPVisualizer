@@ -8,6 +8,7 @@ public class RouteSection {
     public RouteSection(Icon icon, String choiceDataKey, LineType lineType) {
         this.icon = icon;
         this.choiceDataKey = choiceDataKey;
+        this.lineType = lineType;
     }
 
     public Icon getIcon() {
