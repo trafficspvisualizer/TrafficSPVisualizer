@@ -4,7 +4,7 @@ import edu.kit.ifv.trafficspvisualizer.model.AbstractAttribute;
 import edu.kit.ifv.trafficspvisualizer.model.SeparatorLine;
 
 public class AttributeController {
-    private ControllerFacade controllerFacade;
+    private final ControllerFacade controllerFacade;
 
     public AttributeController(ControllerFacade controllerFacade) {
         this.controllerFacade = controllerFacade;

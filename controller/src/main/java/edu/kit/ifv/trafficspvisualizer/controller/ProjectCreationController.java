@@ -9,16 +9,14 @@ import javafx.stage.Stage;
 import java.io.File;
 
 public class ProjectCreationController {
-    private ControllerFacade controllerFacade;
+    private final ControllerFacade controllerFacade;
 
     public ProjectCreationController(ControllerFacade controllerFacade) {
         this.controllerFacade = controllerFacade;
-    }
-
-    public ProjectCreationController() {
         controllerFacade.getViewFacade().getProjectCreationStage();
         //TODO: Set all action handlers for buttons
     }
+
     public void actionOnProjectFolderButton(){
         Stage fileChooserStage = new Stage();
         FileChooser fileChooser = new FileChooser();

@@ -5,8 +5,8 @@ import edu.kit.ifv.trafficspvisualizer.model.Icon;
 import javafx.scene.image.Image;
 
 public class AttributeSettingsController implements IconDisplayingController {
-    private ControllerFacade controllerFacade;
-    private int attributeIndex;
+    private final ControllerFacade controllerFacade;
+    private final int attributeIndex;
 
     public AttributeSettingsController(ControllerFacade controllerFacade, int attributeIndex) {
         this.controllerFacade = controllerFacade;

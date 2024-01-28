@@ -4,8 +4,8 @@ import edu.kit.ifv.trafficspvisualizer.model.Icon;
 import javafx.scene.image.Image;
 
 public class ChoiceOptionSettingsController implements IconDisplayingController{
-    private ControllerFacade controllerFacade;
-    private int choiceOptionId;
+    private final ControllerFacade controllerFacade;
+    private final int choiceOptionId;
 
     public ChoiceOptionSettingsController(int choiceOptionId, ControllerFacade controllerFacade) {
         this.choiceOptionId = choiceOptionId;

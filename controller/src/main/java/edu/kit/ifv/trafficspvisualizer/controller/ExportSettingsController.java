@@ -7,7 +7,7 @@ import edu.kit.ifv.trafficspvisualizer.model.FileFormat;
 import java.io.File;
 
 public class ExportSettingsController {
-    private ControllerFacade controllerFacade;
+    private final ControllerFacade controllerFacade;
 
     public ExportSettingsController(ControllerFacade controllerFacade) {
         this.controllerFacade = controllerFacade;

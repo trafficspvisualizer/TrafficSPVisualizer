@@ -15,7 +15,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class MainApplicationController {
-    private ControllerFacade controllerFacade;
+    private final ControllerFacade controllerFacade;
 
     public MainApplicationController(ControllerFacade controllerFacade) {
         this.controllerFacade = controllerFacade;

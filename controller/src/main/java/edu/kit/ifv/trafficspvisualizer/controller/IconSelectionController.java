@@ -6,9 +6,9 @@ import javafx.scene.image.Image;
 import java.io.File;
 
 public class IconSelectionController {
-    private ControllerFacade controllerFacade;
-    private IconDisplayingController parentController;
-    private int index;
+    private final ControllerFacade controllerFacade;
+    private final IconDisplayingController parentController;
+    private final int index;
 
     public IconSelectionController(ControllerFacade controllerFacade, IconDisplayingController parentController, int index) {
         this.controllerFacade = controllerFacade;
@@ -43,10 +43,6 @@ public class IconSelectionController {
 
     public int getIndex() {
         return index;
-    }
-
-    public void setParentController(IconDisplayingController parentController) {
-        this.parentController = parentController;
     }
 
     public void setIndex(int index) {
