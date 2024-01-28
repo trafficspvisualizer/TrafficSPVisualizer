@@ -45,7 +45,4 @@ public class IconSelectionController {
         return index;
     }
 
-    public void setIndex(int index) {
-        this.index = index;
-    }
 }
