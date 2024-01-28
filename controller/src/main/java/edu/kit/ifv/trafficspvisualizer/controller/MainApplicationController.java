@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 
 import edu.kit.ifv.trafficspvisualizer.model.Project;
+import edu.kit.ifv.trafficspvisualizer.model.ExportType;
 import edu.kit.ifv.trafficspvisualizer.util.export.Exporter;
 import edu.kit.ifv.trafficspvisualizer.util.image.ChoiceOptionGenerator;
 import edu.kit.ifv.trafficspvisualizer.util.image.ImageCollectionGenerator;
@@ -14,7 +15,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class MainApplicationController {
-    private ControllerFacade controllerFacade;
+    private final ControllerFacade controllerFacade;
 
     public MainApplicationController(ControllerFacade controllerFacade) {
         this.controllerFacade = controllerFacade;
@@ -44,12 +45,12 @@ public class MainApplicationController {
 
     public void actionOnSaveButton(){
         new ProjectSaver().saveProject(controllerFacade.getProject(), controllerFacade.getProject().getExportSettings().getExportPath());
-        //TODO: missing methods in model
     }
 
     public void actionOnHelpButton(){
-        Stage helpStage = new Stage();
-        //TODO: should probably be dealt with in view
+        //TODO: missing help dialog
+        controllerFacade.getViewFacade().getMainApplicationWindow().showHelpDialog();
+
     }
 
     public void actionOnChoiceOptionSettingsButton(int choiceOptionNumber){
@@ -72,11 +73,12 @@ public class MainApplicationController {
 
         if(exportType == ExportType.SITUATION) {
             imageCollectionGenerator = new SituationGenerator();
-        } else (exportType == ExportType.CHOICE_OPTION || exportType == ExportType.HTML){
+        } else if (exportType == ExportType.CHOICE_OPTION || exportType == ExportType.HTML){
             imageCollectionGenerator = new ChoiceOptionGenerator();
         }
 
         BufferedImage[] images = imageCollectionGenerator.createImage(controllerFacade.getProject());
+        //TODO: missing method in Exporter class
         Exporter exporter = Exporter.getExporter(controllerFacade.getProject().getExportSettings().getExportType());
         exporter.export(images, controllerFacade.getProject().getExportSettings().getExportPath());
     }
