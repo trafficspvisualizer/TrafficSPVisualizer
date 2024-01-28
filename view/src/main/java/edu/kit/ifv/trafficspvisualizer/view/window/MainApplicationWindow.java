@@ -46,8 +46,6 @@ public class MainApplicationWindow {
 
     private final ViewFacade viewFacade;
 
-    private Stage stage;
-
     // menu-bar
     private MenuItem newProjectMenuItem;
     private MenuItem loadProjectMenuItem;
@@ -125,7 +123,7 @@ public class MainApplicationWindow {
 
     private Scene scene;
 
-
+    private Stage stage;
 
     public MainApplicationWindow(ViewFacade viewFacade, Stage stage) {
         choiceOptionSettingsButtonList = new ArrayList<>();
@@ -279,7 +277,7 @@ public class MainApplicationWindow {
         GridPane.setVgrow(previewImageView, Priority.ALWAYS);
         GridPane.setHgrow(previewImageView, Priority.ALWAYS);
 
-        ColumnConstraints cc = new ColumnConstraints();
+
         GridPane.setMargin(previewImageView, new Insets(0));
         previewImageView.fitWidthProperty().bind(previewGridPane.widthProperty().subtract(leftSwitchPreviewButton.widthProperty().multiply(5)).subtract(previewGridPane.hgapProperty().multiply(3)));
         previewImageView.fitHeightProperty().bind(previewGridPane.heightProperty().subtract(leftSwitchPreviewButton.heightProperty().multiply(3)).subtract(previewGridPane.vgapProperty().multiply(3)));

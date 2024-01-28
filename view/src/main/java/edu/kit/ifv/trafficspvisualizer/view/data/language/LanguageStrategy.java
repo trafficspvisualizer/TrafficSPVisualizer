@@ -77,4 +77,18 @@ public abstract class LanguageStrategy {
 
     public abstract String getMainApplicationChoiceOptionText();
 
+
+    // ProjectCreationStage
+
+    public abstract String getProjectCreationTitle();
+
+    public abstract String getProjectCreationProjectNameText();
+
+    public abstract String getProjectCreationSaveProjectDirectoryText();
+
+    public abstract String getProjectCreationInputDataFileText();
+
+    public abstract String getProjectCreationCreateNewProjectButtonText();
+
+    public abstract String getProjectCreationCancelButtonText();
 }

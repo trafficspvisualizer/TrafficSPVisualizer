@@ -54,6 +54,21 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
     private final static String MAIN_APPLICATION_CHOICE_OPTION_TEXT = "Choice options";
 
 
+    // ProjectCreationStage
+
+    private final static String PROJECT_CREATION_TITLE = "New project";
+
+    private final static String PROJECT_CREATION_PROJECT_NAME_TEXT = "Project name:";
+
+    private final static String PROJECT_CREATION_SAVE_PROJECT_DIRECTORY_TEXT = "Save path:";
+
+    private final static String PROJECT_CREATION_INPUT_DATA_FILE_TEXT = "Input data file:";
+
+    private final static String PROJECT_CREATION_CREATE_NEW_PROJECT_BUTTON_TEXT = "Create new project";
+
+    private final static String PROJECT_CREATION_CANCEL_BUTTON_TEXT = "Cancel";
+
+
     // Application Alerts
 
 
@@ -117,6 +132,8 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
         return SAVE_PROJECT_ERROR_ALERT_CONTENT_TEXT;
     }
 
+
+
     // MainApplicationWindow
     public String getMainApplicationNewProjectMenuItemText() {
         return MAIN_APPLICATION_NEW_PROJECT_MENU_ITEM_TEXT;
@@ -156,5 +173,32 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
 
     public String getMainApplicationChoiceOptionText() {
         return MAIN_APPLICATION_CHOICE_OPTION_TEXT;
+    }
+
+
+    // ProjectCreationStage
+
+    public String getProjectCreationTitle() {
+        return PROJECT_CREATION_TITLE;
+    }
+
+    public String getProjectCreationProjectNameText() {
+        return PROJECT_CREATION_PROJECT_NAME_TEXT;
+    }
+
+    public String getProjectCreationSaveProjectDirectoryText() {
+        return PROJECT_CREATION_SAVE_PROJECT_DIRECTORY_TEXT;
+    }
+
+    public String getProjectCreationInputDataFileText() {
+        return PROJECT_CREATION_INPUT_DATA_FILE_TEXT;
+    }
+
+    public String getProjectCreationCreateNewProjectButtonText() {
+        return PROJECT_CREATION_CREATE_NEW_PROJECT_BUTTON_TEXT;
+    }
+
+    public String getProjectCreationCancelButtonText() {
+        return PROJECT_CREATION_CANCEL_BUTTON_TEXT;
     }
 }

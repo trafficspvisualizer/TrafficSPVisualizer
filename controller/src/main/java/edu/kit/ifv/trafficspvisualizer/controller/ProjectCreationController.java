@@ -24,7 +24,7 @@ public class ProjectCreationController {
         FileChooser fileChooser = new FileChooser();
         File selectedFile = fileChooser.showOpenDialog(fileChooserStage);
         fileChooserStage.close();
-        controllerFacade.getViewFacade().getProjectCreationStage().setProjectFolderPath(selectedFile);
+        controllerFacade.getViewFacade().getProjectCreationStage().setSaveProjectDirectory(selectedFile);
     }
 
     public void actionOnInputFileButton(){
@@ -32,7 +32,7 @@ public class ProjectCreationController {
         FileChooser fileChooser = new FileChooser();
         File selectedFile = fileChooser.showOpenDialog(fileChooserStage);
         fileChooserStage.close();
-        controllerFacade.getViewFacade().getProjectCreationStage().setInputDataPath(selectedFile);
+        controllerFacade.getViewFacade().getProjectCreationStage().setInputDataFile(selectedFile);
     }
 
     public void actionOnSaveButton(String projectName, File projectFolder, File inputFile){
