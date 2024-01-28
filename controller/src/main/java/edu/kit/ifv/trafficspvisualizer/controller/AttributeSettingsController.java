@@ -50,6 +50,8 @@ public class AttributeSettingsController implements IconDisplayingController {
             //create new attribute
             //TODO: Attribute constructor missing
             Attribute newAttribute = new Attribute(name, icon, prefix, suffix, isPermanentlyVisible, decimalPlaces);
+            //TODO: maybe add "addAttribute()" method, no need to give list
+            controllerFacade.getProject().getAttributes().add(newAttribute);
         }
 
         //close stage
