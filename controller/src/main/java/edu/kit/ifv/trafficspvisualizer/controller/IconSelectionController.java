@@ -20,6 +20,7 @@ public class IconSelectionController {
         //TODO: placeholder methods
         Icon selectedIcon = controllerFacade.getViewFacade().getIconSelectionStage().getSelectedIcon();
         parentController.updateIcon(selectedIcon, index);
+        actionOnCancelButton();
     }
 
 
