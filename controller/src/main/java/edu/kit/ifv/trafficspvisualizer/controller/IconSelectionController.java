@@ -17,8 +17,9 @@ public class IconSelectionController {
     }
 
     public void actionOnChooseButton() {
+        //TODO: placeholder methods
         Icon selectedIcon = controllerFacade.getViewFacade().getIconSelectionStage().getSelectedIcon();
-        parentController.updateIcon(selectedIcon);
+        parentController.updateIcon(selectedIcon, index);
     }
 
 

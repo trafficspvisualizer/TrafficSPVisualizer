@@ -82,7 +82,7 @@ public class ControllerFacade {
         this.exportSettingsController = new ExportSettingsController(this);
     }
 
-    public void createAttributeIconSelectionController(IconDisplayingController parentController, int index) {
+    public void createIconSelectionController(IconDisplayingController parentController, int index) {
         this.iconSelectionController = new IconSelectionController(this, parentController, index);
     }
 
