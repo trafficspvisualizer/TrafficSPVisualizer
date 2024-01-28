@@ -73,7 +73,7 @@ public class MainApplicationController {
 
         if(exportType == ExportType.SITUATION) {
             imageCollectionGenerator = new SituationGenerator();
-        } else (exportType == ExportType.CHOICE_OPTION || exportType == ExportType.HTML){
+        } else if (exportType == ExportType.CHOICE_OPTION || exportType == ExportType.HTML){
             imageCollectionGenerator = new ChoiceOptionGenerator();
         }
 
