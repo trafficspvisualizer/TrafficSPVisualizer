@@ -18,18 +18,13 @@ public class ProjectCreationController {
     }
 
     public void actionOnProjectFolderButton(){
-        Stage fileChooserStage = new Stage();
-        FileChooser fileChooser = new FileChooser();
-        File selectedFile = fileChooser.showOpenDialog(fileChooserStage);
-        fileChooserStage.close();
+        File selectedFile = controllerFacade.getViewFacade().getProjectCreationStage().showFileChooserDialog();
         controllerFacade.getViewFacade().getProjectCreationStage().setProjectFolderPath(selectedFile);
     }
 
     public void actionOnInputFileButton(){
-        Stage fileChooserStage = new Stage();
-        FileChooser fileChooser = new FileChooser();
-        File selectedFile = fileChooser.showOpenDialog(fileChooserStage);
-        fileChooserStage.close();
+
+        File selectedFile = controllerFacade.getViewFacade().getProjectCreationStage().showFileChooserDialog();
         controllerFacade.getViewFacade().getProjectCreationStage().setInputDataPath(selectedFile);
     }
 
