@@ -49,8 +49,11 @@ public class AttributeSettingsController implements IconDisplayingController {
         } else {
             //create new attribute
             //TODO: Attribute constructor missing
-            Attribute newAttribute = new Attribute(name, icon, prefix, suffix, isAlwaysVisible, decimalPlaces);
+            Attribute newAttribute = new Attribute(name, icon, prefix, suffix, isPermanentlyVisible, decimalPlaces);
         }
+
+        //close stage
+        actionOnCancelButton();
 
     }
 
