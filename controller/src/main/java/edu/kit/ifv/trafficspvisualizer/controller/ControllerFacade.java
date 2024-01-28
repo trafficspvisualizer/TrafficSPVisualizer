@@ -83,10 +83,7 @@ public class ControllerFacade {
     }
 
     public void createAttributeIconSelectionController(IconDisplayingController parentController, int index) {
-        this.iconSelectionController = new AttributeIconSelectionController(this, parentController, index);
-    }
-    public void createChoiceOptionIconSelectionController(IconDisplayingController parentController, int index) {
-        this.iconSelectionController = new ChoiceOptionIconSelectionController(this, parentController, index);
+        this.iconSelectionController = new IconSelectionController(this, parentController, index);
     }
 
     public void createMainApplicationController() {

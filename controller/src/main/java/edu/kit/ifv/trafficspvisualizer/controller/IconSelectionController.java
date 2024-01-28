@@ -1,10 +1,11 @@
 package edu.kit.ifv.trafficspvisualizer.controller;
 
+import edu.kit.ifv.trafficspvisualizer.model.Icon;
 import javafx.scene.image.Image;
 
 import java.io.File;
 
-public abstract class IconSelectionController {
+public class IconSelectionController {
     private ControllerFacade controllerFacade;
     private IconDisplayingController parentController;
     private int index;
@@ -15,7 +16,10 @@ public abstract class IconSelectionController {
         this.index = index;
     }
 
-    public abstract void actionOnChooseButton(Image icon);
+    public void actionOnChooseButton() {
+        Icon selectedIcon = controllerFacade.getViewFacade().getIconSelectionStage().getSelectedIcon();
+        parentController.updateIcon(selectedIcon);
+    }
 
 
     public void actionOnNewIconButton(){
