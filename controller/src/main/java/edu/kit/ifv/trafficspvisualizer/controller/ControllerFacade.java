@@ -5,7 +5,7 @@ import edu.kit.ifv.trafficspvisualizer.view.ViewFacade;
 
 public class ControllerFacade {
 
-    private ViewFacade viewFacade;
+    private final ViewFacade viewFacade;
     private Project project;
 
     private MainApplicationController mainApplicationController;
