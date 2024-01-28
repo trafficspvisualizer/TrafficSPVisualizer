@@ -2,7 +2,7 @@ package edu.kit.ifv.trafficspvisualizer.controller;
 
 import javafx.scene.image.Image;
 
-public class IconSelectionController {
+public abstract class IconSelectionController {
     private ControllerFacade controllerFacade;
     private IconDisplayingController parentController;
     private int index;
