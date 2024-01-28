@@ -22,6 +22,7 @@ public class AttributeSettingsController implements IconDisplayingController {
 
     public void actionOnCancelButton(){
         controllerFacade.getViewFacade().getAttributeSettingsStage().close();
+        controllerFacade.getViewFacade().setAttributeSettingsStage(null);
         controllerFacade.deleteAttributeSettingsController();
     }
 

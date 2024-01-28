@@ -52,7 +52,6 @@ public class ProjectCreationController {
             return;
         }
 
-        //TODO: missing constructor
         Project newProject = new Project(projectName, projectFolder, dataObject);
         controllerFacade.getViewFacade().setProject(newProject);
         controllerFacade.setProject(newProject);
@@ -61,6 +60,7 @@ public class ProjectCreationController {
 
     public void actionOnCancelButton(){
         controllerFacade.getViewFacade().getProjectCreationStage().close();
+        controllerFacade.getViewFacade().setProjectCreationStage(null);
         controllerFacade.deleteProjectCreationController();
     }
 }

@@ -13,14 +13,17 @@ public abstract class IconSelectionController {
         this.index = index;
     }
 
+    public abstract void actionOnChooseButton(Image icon);
+
+
     public void actionOnNewIconButton(){
 
     }
-    public void actionOnChooseButton(Image icon){
 
-    }
     public void actionOnCancelButton(){
-
+        controllerFacade.getViewFacade().getIconSelectionStage().close();
+        controllerFacade.getViewFacade().setIconSelectionStage(null);
+        controllerFacade.deleteIconSelectionController();
     }
 
     public IconDisplayingController getParentController() {
