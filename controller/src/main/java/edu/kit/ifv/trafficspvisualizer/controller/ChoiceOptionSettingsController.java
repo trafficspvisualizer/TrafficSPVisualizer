@@ -25,15 +25,15 @@ public class ChoiceOptionSettingsController implements IconDisplayingController{
 
     public void actionOnColorButton(){
         //TODO: Missing ColorPicker
-        Color newColor = controllerFacade.getViewFacade().getChoiceOptionSettingsStage().showColorPickerDialog();
-        controllerFacade.getProject().getChoiceOptions().get(choiceOptionId).setColor(newColor);
+        //Color newColor = controllerFacade.getViewFacade().getChoiceOptionSettingsStage().showColorPickerDialog();
+        //controllerFacade.getProject().getChoiceOptions().get(choiceOptionId).setColor(newColor);
         //TODO: update?
     }
 
     public void actionOnTitleTextField(){
         //TODO: Missing method to get title
-        String newTitle = controllerFacade.getViewFacade().getChoiceOptionSettingsStage().getTitleTEST();
-        controllerFacade.getProject().getChoiceOptions().get(choiceOptionId).setTitle(newTitle);
+        //String newTitle = controllerFacade.getViewFacade().getChoiceOptionSettingsStage().getTitleTEST();
+        //controllerFacade.getProject().getChoiceOptions().get(choiceOptionId).setTitle(newTitle);
     }
 
     public void actionOnIconButton(int routeSectionIndex){
@@ -43,33 +43,33 @@ public class ChoiceOptionSettingsController implements IconDisplayingController{
     public void actionOnLineTypeMenu(int routeSectionIndex){
         //should  be called when option is selected
         //TODO: Missing method to get LineTypeMenu value
-        LineType newLineType = controllerFacade.getViewFacade().getChoiceOptionSettingsStage()
-                                                                            .getLineTypeMenuValue(routeSectionIndex);
-        controllerFacade.getProject().getChoiceOptions().get(choiceOptionId).getRouteSections()
-                                                            .get(routeSectionIndex).setLineType(newLineType);
+        //LineType newLineType = controllerFacade.getViewFacade().getChoiceOptionSettingsStage()
+        //                                                                    .getLineTypeMenuValue(routeSectionIndex);
+        //controllerFacade.getProject().getChoiceOptions().get(choiceOptionId).getRouteSections()
+       //                                                     .get(routeSectionIndex).setLineType(newLineType);
         controllerFacade.getViewFacade().getChoiceOptionSettingsStage().updateRouteSections();
     }
 
     public void actionOnAttributeColumnMenu(int attributeIndex){
         //should  be called when option is selected
         //TODO: Missing method to get AttributeColumn value
-        List<String> columns = controllerFacade.getViewFacade().getChoiceOptionSettingsStage()
-                .getAttributeColumnValues(attributeIndex);
+        //List<String> columns = controllerFacade.getViewFacade().getChoiceOptionSettingsStage()
+        //        .getAttributeColumnValues(attributeIndex);
         Attribute attribute = (Attribute)controllerFacade.getProject().getAttributes().get(attributeIndex);
 
         //map columns to attribute
         //TODO: change to accept list so no need to remove mappings, makes it easier
-        for (String column : columns) {
-            attribute.mapToChoiceOption(controllerFacade.getProject().getChoiceOptions()
-                                        .get(choiceOptionId).getName(), column);
-        }
+        //for (String column : columns) {
+        //    attribute.mapToChoiceOption(controllerFacade.getProject().getChoiceOptions()
+        //                                .get(choiceOptionId).getName(), column);
+        //}
 
         controllerFacade.getViewFacade().getChoiceOptionSettingsStage().updateAttributes();
     }
 
     public void actionOnNewRouteSectionButton(){
         // TODO: needs a standard constructor with default values
-        controllerFacade.getProject().getChoiceOptions().get(choiceOptionId).addRouteSection(new RouteSection());
+        //controllerFacade.getProject().getChoiceOptions().get(choiceOptionId).addRouteSection(new RouteSection());
         controllerFacade.getViewFacade().getChoiceOptionSettingsStage().updateRouteSections();
     }
 

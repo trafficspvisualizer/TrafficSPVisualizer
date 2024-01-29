@@ -18,8 +18,8 @@ public class IconSelectionController {
 
     public void actionOnChooseButton() {
         //TODO: placeholder methods
-        Icon selectedIcon = controllerFacade.getViewFacade().getIconSelectionStage().getSelectedIcon();
-        parentController.updateIcon(selectedIcon, index);
+        //Icon selectedIcon = controllerFacade.getViewFacade().getIconSelectionStage().getSelectedIcon();
+        //parentController.updateIcon(selectedIcon, index);
         actionOnCancelButton();
     }
 
@@ -27,8 +27,8 @@ public class IconSelectionController {
     public void actionOnNewIconButton(){
         File selectedFile = controllerFacade.getViewFacade().getIconSelectionStage().showFileChooserDialog();
         //TODO: placeholder methods
-        controllerFacade.getProject().addIcon(selectedFile);
-        controllerFacade.getViewFacade().getIconSelectionStage().update();
+        //controllerFacade.getProject().addIcon(selectedFile);
+        //controllerFacade.getViewFacade().getIconSelectionStage().update();
     }
 
     public void actionOnCancelButton(){

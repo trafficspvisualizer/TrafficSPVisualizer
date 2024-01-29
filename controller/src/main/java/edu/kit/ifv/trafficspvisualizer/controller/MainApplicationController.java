@@ -49,7 +49,7 @@ public class MainApplicationController {
 
     public void actionOnHelpButton(){
         //TODO: missing help dialog
-        controllerFacade.getViewFacade().getMainApplicationWindow().showHelpDialog();
+        //controllerFacade.getViewFacade().getMainApplicationWindow().showHelpDialog();
 
     }
 
@@ -79,8 +79,8 @@ public class MainApplicationController {
 
         BufferedImage[] images = imageCollectionGenerator.createImage(controllerFacade.getProject());
         //TODO: missing method in Exporter class
-        Exporter exporter = Exporter.getExporter(controllerFacade.getProject().getExportSettings().getExportType());
-        exporter.export(images, controllerFacade.getProject().getExportSettings().getExportPath());
+        //Exporter exporter = Exporter.getExporter(controllerFacade.getProject().getExportSettings().getExportType());
+        //exporter.export(images, controllerFacade.getProject().getExportSettings().getExportPath());
     }
 
     public void actionOnExportSettingsButton(){
