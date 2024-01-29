@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -39,7 +40,16 @@ public class ProjectSaver {
     public void saveProject(Project project, File file) throws IOException {
         File dir = makeDir(project.getName(), file.getPath());
         File cacheDir = new File("");
-        JSONObject jsonObject = createJsonProject(project.getName(), project.getAttributes(),
+        List<Attribute> listAttribute = new ArrayList<>();
+        List<SeparatorLine> listSeparatorLine = new ArrayList<>(); //todo
+        for (AbstractAttribute attribute: project.getAttributes()) {
+            if (attribute instanceof Attribute) {
+                listAttribute.add((Attribute) attribute);
+            } else if (attribute instanceof SeparatorLine){
+                listSeparatorLine.add((SeparatorLine) attribute);
+            }
+        }
+        JSONObject jsonObject = createJsonProject(project.getName(), listAttribute,
                 project.getExportSettings());
 
         try (FileWriter jsonFile = new FileWriter(new File(dir, "project.json"))) {
@@ -48,19 +58,21 @@ public class ProjectSaver {
         }
     }
 
-    private JSONObject createJsonProject(String name, List<AbstractAttribute> attributes,
+    private JSONObject createJsonProject(String name, List<Attribute> attributes,
                                          ExportSettings exportSettings) {
         if (name == null  || attributes == null || exportSettings == null) {
             throw new IllegalArgumentException("Invalid parameters");
         }
 
         JSONArray attributesJsonArray = new JSONArray();
+
         for (Attribute attribute : attributes) {
             JSONObject attributeJson = createJsonAttributes(attribute.getName(), attribute.getIcon(), attribute.getPrefix(),
-                    attribute.getSuffix(), attribute.isPermanentlyVisible(), attribute.getDecimalPlaces(),
-                    attribute.getChoiceOptionMappings());
+                attribute.getSuffix(), attribute.isPermanentlyVisible(), attribute.getDecimalPlaces(),
+                  attribute.getChoiceOptionMappings());
             attributesJsonArray.put(attributeJson);
         }
+
 
         JSONObject exportSettingsJson = createJsonExportSettings(exportSettings.getImageHeight(), exportSettings.getImageWidth(),
                 exportSettings.getExportPath(), exportSettings.getFileFormat(),
