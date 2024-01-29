@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'org.javamodularity.moduleplugin' version '1.8.12'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
 }
 
 group = 'edu.kit.ifv'
@@ -17,6 +18,11 @@ dependencies {
         exclude group: 'xml-apis', module: 'xml-apis'
     }
     implementation group: 'commons-io', name: 'commons-io', version: '2.15.1'
+}
+
+javafx {
+    version = '21'
+    modules = ['javafx.controls']
 }
 
 test {
