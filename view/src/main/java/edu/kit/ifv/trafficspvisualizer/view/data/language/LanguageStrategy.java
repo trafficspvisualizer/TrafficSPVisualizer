@@ -93,4 +93,24 @@ public abstract class LanguageStrategy {
     public abstract String getProjectCreationCreateNewProjectButtonText();
 
     public abstract String getProjectCreationCancelButtonText();
+
+    // AttributeSettingsStage
+
+    public abstract String getAttributeSettingsTitle();
+
+    public abstract String getAttributeSettingsActiveText();
+
+    public abstract String getAttributeSettingsNameText();
+    public abstract String getAttributeSettingsIconText();
+
+    public abstract String getAttributeSettingsPrefixText();
+
+    public abstract String getAttributeSettingsSuffixText();
+    public abstract String getAttributeSettingsNumberOfDecimalPlacesText();
+
+    public abstract String getAttributeSettingsAlwaysVisibleText();
+
+    public abstract String getAttributeSettingsSaveText();
+
+    public abstract String getAttributeSettingsCancelText();
 }

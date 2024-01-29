@@ -72,6 +72,29 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
 
     private final static String PROJECT_CREATION_CANCEL_BUTTON_TEXT = "Cancel";
 
+    // AttributeSettingsStage
+
+    private final static String ATTRIBUTE_SETTINGS_TITLE = "Edit Attribute";
+
+    private final static String ATTRIBUTE_SETTINGS_ACTIVE_TEXT = "Active:";
+
+    private final static String ATTRIBUTE_SETTINGS_NAME_TEXT = "Name:";
+
+    private final static String ATTRIBUTE_SETTINGS_ICON_TEXT = "Icon:";
+
+    private final static String ATTRIBUTE_SETTINGS_PREFIX_TEXT = "Prefix:";
+
+    private final static String ATTRIBUTE_SETTINGS_SUFFIX_TEXT = "Suffix:";
+    private final static String ATTRIBUTE_SETTINGS_NUMBER_OF_DECIMAL_PLACES_TEXT = "Number of decimal places:";
+
+    private final static String ATTRIBUTE_SETTINGS_ALWAYS_VISIBLE_TEXT = "Always visible:";
+
+    private final static String ATTRIBUTE_SETTINGS_SAVE_TEXT = "Save";
+
+    private final static String ATTRIBUTE_SETTINGS_CANCEL_TEXT = "Cancel";
+
+
+
 
     // Application Alerts
 
@@ -210,5 +233,49 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
 
     public String getProjectCreationCancelButtonText() {
         return PROJECT_CREATION_CANCEL_BUTTON_TEXT;
+    }
+
+
+    // AttributeSettingsStage
+
+
+    public String getAttributeSettingsTitle() {
+        return ATTRIBUTE_SETTINGS_TITLE;
+    }
+
+    public  String getAttributeSettingsActiveText() {
+        return ATTRIBUTE_SETTINGS_ACTIVE_TEXT;
+    }
+
+    public String getAttributeSettingsNameText() {
+        return ATTRIBUTE_SETTINGS_NAME_TEXT;
+    }
+
+    public String getAttributeSettingsIconText() {
+        return ATTRIBUTE_SETTINGS_ICON_TEXT;
+    }
+
+    public String getAttributeSettingsPrefixText() {
+        return ATTRIBUTE_SETTINGS_PREFIX_TEXT;
+    }
+
+    public String getAttributeSettingsSuffixText() {
+        return ATTRIBUTE_SETTINGS_SUFFIX_TEXT;
+    }
+
+    public String getAttributeSettingsNumberOfDecimalPlacesText() {
+        return ATTRIBUTE_SETTINGS_NUMBER_OF_DECIMAL_PLACES_TEXT;
+    }
+
+    public String getAttributeSettingsAlwaysVisibleText() {
+        return ATTRIBUTE_SETTINGS_ALWAYS_VISIBLE_TEXT;
+    }
+
+    public String getAttributeSettingsSaveText() {
+        return ATTRIBUTE_SETTINGS_SAVE_TEXT;
+    }
+
+    public String getAttributeSettingsCancelText() {
+        return ATTRIBUTE_SETTINGS_CANCEL_TEXT;
     }
 }
