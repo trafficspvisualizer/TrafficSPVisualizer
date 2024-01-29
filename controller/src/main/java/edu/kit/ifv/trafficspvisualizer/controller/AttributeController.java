@@ -49,7 +49,7 @@ public class AttributeController {
 
         controllerFacade.getProject().getAttributes().set(attributeIndex - 1, chosenAttribute);
         controllerFacade.getProject().getAttributes().set(attributeIndex, swappedAttribute);
-
+        //Test
         controllerFacade.getViewFacade().getAttributeStage().updateStage();
     }
 
