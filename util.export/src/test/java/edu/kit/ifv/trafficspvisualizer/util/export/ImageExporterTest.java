@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 
+import static org.junit.jupiter.api.Assertions.*;
 
 class ImageExporterTest {
 

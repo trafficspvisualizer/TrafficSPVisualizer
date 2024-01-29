@@ -1,5 +1,4 @@
-package edu.kit.ifv.trafficspvisualizer.util.image;
-
+import edu.kit.ifv.trafficspvisualizer.util.image.SVGToBufferedImageConverter;
 import org.apache.batik.transcoder.TranscoderException;
 import org.junit.jupiter.api.Test;
 
