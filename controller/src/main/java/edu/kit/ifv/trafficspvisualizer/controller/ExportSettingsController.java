@@ -22,23 +22,27 @@ public class ExportSettingsController {
 
         // scraping data from view
         //TODO: Placeholder methods
-        FileFormat fileFormat = controllerFacade.getViewFacade().getExportSettingsStage().getFileFormat();
-        int height = controllerFacade.getViewFacade().getExportSettingsStage().getHeightTEST();
-        int width = controllerFacade.getViewFacade().getExportSettingsStage().getWidthTEST();
-        File exportFolder exportFolder = controllerFacade.getViewFacade().getExportSettingsStage().getExportFolder();
-        ExportType exportType = controllerFacade.getViewFacade().getExportSettingsStage().getExportType();
+        //FileFormat fileFormat = controllerFacade.getViewFacade().getExportSettingsStage().getFileFormat();
+        //int height = controllerFacade.getViewFacade().getExportSettingsStage().getHeightTEST();
+        //int width = controllerFacade.getViewFacade().getExportSettingsStage().getWidthTEST();
+        //File exportFolder exportFolder = controllerFacade.getViewFacade().getExportSettingsStage().getExportFolder();
+        //ExportType exportType = controllerFacade.getViewFacade().getExportSettingsStage().getExportType();
 
         // checking validity of scrape data
         //TODO: checking validity of scrape data
 
         // setting new export settings in model
-        ExportSettings exportSettings = new ExportSettings(height, width, exportFolder, fileFormat, exportType);
-        controllerFacade.getProject().setExportSettings(exportSettings);
+        //ExportSettings exportSettings = new ExportSettings(height, width, exportFolder, fileFormat, exportType);
+        //controllerFacade.getProject().setExportSettings(exportSettings);
     }
 
     public void actionOnCancelButton(){
         controllerFacade.getViewFacade().getExportSettingsStage().close();
         controllerFacade.getViewFacade().setExportSettingsStage(null);
         controllerFacade.deleteExportSettingsController();
+    }
+
+    private void setActionListeners(){
+
     }
 }
