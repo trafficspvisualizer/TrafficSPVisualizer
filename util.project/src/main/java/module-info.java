@@ -6,4 +6,5 @@ module edu.kit.ifv.trafficspvisualizer.util.project {
     requires org.json;
     requires java.desktop;
     requires javafx.graphics;
+    requires org.apache.commons.io;
 }

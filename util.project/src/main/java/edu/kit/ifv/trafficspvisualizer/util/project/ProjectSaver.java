@@ -3,7 +3,7 @@ package edu.kit.ifv.trafficspvisualizer.util.project;
 import edu.kit.ifv.trafficspvisualizer.model.*;
 import edu.kit.ifv.trafficspvisualizer.model.Project;
 import javafx.scene.paint.Color;
-
+import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.File;
@@ -38,13 +38,14 @@ public class ProjectSaver {
 
     public void saveProject(Project project, File file) throws IOException {
         File dir = makeDir(project.getName(), file.getPath());
+        File cacheDir = new File("");
         JSONObject jsonObject = createJsonProject(project.getName(), project.getAttributes(),
                 project.getExportSettings());
 
         try (FileWriter jsonFile = new FileWriter(new File(dir, "project.json"))) {
             jsonFile.write(jsonObject.toString());
+            FileUtils.copyDirectory(cacheDir, dir);
         }
-         //Todo bilder und ngd datei
     }
 
     private JSONObject createJsonProject(String name, List<AbstractAttribute> attributes,
