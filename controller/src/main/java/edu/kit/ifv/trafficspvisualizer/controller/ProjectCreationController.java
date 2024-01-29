@@ -56,4 +56,8 @@ public class ProjectCreationController {
         controllerFacade.getViewFacade().setProjectCreationStage(null);
         controllerFacade.deleteProjectCreationController();
     }
+
+    private void setActionListeners(){
+
+    }
 }

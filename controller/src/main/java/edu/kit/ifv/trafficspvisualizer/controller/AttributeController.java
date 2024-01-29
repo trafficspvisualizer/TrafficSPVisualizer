@@ -74,4 +74,7 @@ public class AttributeController {
         controllerFacade.getViewFacade().setAttributeStage(null);
         controllerFacade.deleteAttributeController();
     }
+    private void setActionListeners(){
+
+    }
 }

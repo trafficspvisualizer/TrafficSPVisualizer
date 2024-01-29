@@ -100,4 +100,8 @@ public class MainApplicationController {
         controllerFacade.getProject().decrementPreview();
         controllerFacade.getViewFacade().getMainApplicationWindow().updateCurrentPreviewSituation();
     }
+
+    private void setActionListeners(){
+
+    }
 }

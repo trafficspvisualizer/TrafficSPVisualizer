@@ -89,4 +89,8 @@ public class ChoiceOptionSettingsController implements IconDisplayingController{
         return choiceOptionId;
     }
 
+    private void setActionListeners(){
+
+    }
+
 }

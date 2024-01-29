@@ -74,4 +74,8 @@ public class AttributeSettingsController implements IconDisplayingController {
     public int getAttributeIndex() {
         return attributeIndex;
     }
+
+    private void setActionListeners(){
+
+    }
 }
