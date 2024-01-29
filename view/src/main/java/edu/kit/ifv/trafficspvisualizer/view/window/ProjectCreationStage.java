@@ -9,6 +9,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -232,11 +233,13 @@ public class ProjectCreationStage extends Stage {
 
     // setter-methods
     public void setSaveProjectDirectory(File file) {
-
+        saveProjectDirectoryTextField.setText(file.getAbsolutePath());
+        saveProjectDirectoryTextField.setUserData(file);
     }
 
     public void setInputDataFile(File file) {
-
+        inputDataFileTextField.setText(file.getAbsolutePath());
+        inputDataFileTextField.setUserData(file);
     }
 
     // show-methods
@@ -251,6 +254,13 @@ public class ProjectCreationStage extends Stage {
     }
 
     public void showNewProjectErrorAlert() {
+        LanguageStrategy languageStrategy = viewFacade.getLanguageStrategy();
 
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(languageStrategy.getSaveProjectErrorAlertTitle());
+        alert.setHeaderText(languageStrategy.getNewProjectErrorAlertHeaderText());
+        alert.setContentText(languageStrategy.getNewProjectErrorAlertContentText());
+
+        alert.showAndWait();
     }
 }

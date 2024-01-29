@@ -48,7 +48,9 @@ public abstract class LanguageStrategy {
 
     public abstract String getSaveProjectErrorAlertContentText();
 
+    public abstract String getNewProjectErrorAlertHeaderText();
 
+    public abstract String getNewProjectErrorAlertContentText();
 
 
 

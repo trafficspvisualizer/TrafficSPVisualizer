@@ -28,6 +28,10 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
 
     private final static String SAVE_PROJECT_ERROR_ALERT_CONTENT_TEXT = "Please check if you selected a valid save directory.";
 
+    private final static String NEW_PROJECT_ERROR_ALERT_HEADER_TEXT = "Something went wrong! Could not create new project.";
+
+    private final static String NEW_PROJECT_ERROR_ALERT_CONTENT_TEXT = "Please check your project name, input data file and save path.";
+
 
 
 
@@ -132,7 +136,13 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
         return SAVE_PROJECT_ERROR_ALERT_CONTENT_TEXT;
     }
 
+    public String getNewProjectErrorAlertHeaderText() {
+        return NEW_PROJECT_ERROR_ALERT_HEADER_TEXT;
+    }
 
+    public String getNewProjectErrorAlertContentText() {
+        return NEW_PROJECT_ERROR_ALERT_CONTENT_TEXT;
+    }
 
     // MainApplicationWindow
     public String getMainApplicationNewProjectMenuItemText() {
