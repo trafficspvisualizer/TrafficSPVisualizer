@@ -67,10 +67,10 @@ public class ProjectSaver {
         JSONArray attributesJsonArray = new JSONArray();
 
         for (Attribute attribute : attributes) {
-            JSONObject attributeJson = createJsonAttributes(attribute.getName(), attribute.getIcon(), attribute.getPrefix(),
-                attribute.getSuffix(), attribute.isPermanentlyVisible(), attribute.getDecimalPlaces(),
-                  attribute.getChoiceOptionMappings());
-            attributesJsonArray.put(attributeJson);
+            //JSONObject attributeJson = createJsonAttributes(attribute.getName(), attribute.getIcon(), attribute.getPrefix(),
+            //    attribute.getSuffix(), attribute.isPermanentlyVisible(), attribute.getDecimalPlaces(),
+            //      attribute.getChoiceOptionMappings());
+            //attributesJsonArray.put(attributeJson);
         }
 
 

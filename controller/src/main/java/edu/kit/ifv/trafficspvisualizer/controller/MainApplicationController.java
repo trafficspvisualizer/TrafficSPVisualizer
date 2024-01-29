@@ -44,7 +44,7 @@ public class MainApplicationController {
     }
 
     public void actionOnSaveButton(){
-        new ProjectSaver().saveProject(controllerFacade.getProject(), controllerFacade.getProject().getExportSettings().getExportPath());
+        //new ProjectSaver().saveProject(controllerFacade.getProject(), controllerFacade.getProject().getExportSettings().getExportPath());
     }
 
     public void actionOnHelpButton(){
