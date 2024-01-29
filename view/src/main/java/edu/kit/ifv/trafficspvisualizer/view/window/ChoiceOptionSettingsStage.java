@@ -1,6 +1,5 @@
 package edu.kit.ifv.trafficspvisualizer.view.window;
 
-import edu.kit.ifv.trafficspvisualizer.model.ChoiceOptionSettings;
 import edu.kit.ifv.trafficspvisualizer.view.ViewFacade;
 import javafx.stage.Stage;
 
