@@ -61,6 +61,11 @@ public class ControllerFacade {
         return viewFacade;
     }
 
+    public void setViewFacade(ViewFacade viewFacade) {
+        this.viewFacade = viewFacade;
+    }
+
+
     public void createAttributeController() {
         this.attributeController = new AttributeController(this);
     }
@@ -117,7 +122,5 @@ public class ControllerFacade {
         this.projectCreationController = null;
     }
 
-    private void setActionListeners(){
 
-    }
 }
