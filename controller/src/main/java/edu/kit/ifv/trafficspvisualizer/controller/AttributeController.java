@@ -35,7 +35,7 @@ public class AttributeController {
     public void actionOnActiveCheck(int attributeIndex){
         AbstractAttribute attribute = controllerFacade.getProject().getAttributes().get(attributeIndex);
         //TODO: missing methods in AbstractAttribute
-        attribute.setActive(!attribute.getActive());
+        //attribute.setActive(!attribute.getActive());
         controllerFacade.getViewFacade().getAttributeStage().updateStage();
     }
 
@@ -49,7 +49,7 @@ public class AttributeController {
 
         controllerFacade.getProject().getAttributes().set(attributeIndex - 1, chosenAttribute);
         controllerFacade.getProject().getAttributes().set(attributeIndex, swappedAttribute);
-
+        //Test
         controllerFacade.getViewFacade().getAttributeStage().updateStage();
     }
 
@@ -73,5 +73,8 @@ public class AttributeController {
         controllerFacade.getViewFacade().getAttributeStage().close();
         controllerFacade.getViewFacade().setAttributeStage(null);
         controllerFacade.deleteAttributeController();
+    }
+    private void setActionListeners(){
+
     }
 }
