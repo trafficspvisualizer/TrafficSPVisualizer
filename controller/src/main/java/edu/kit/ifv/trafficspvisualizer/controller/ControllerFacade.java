@@ -5,7 +5,7 @@ import edu.kit.ifv.trafficspvisualizer.view.ViewFacade;
 
 public class ControllerFacade {
 
-    private ViewFacade viewFacade;
+    private final ViewFacade viewFacade;
     private Project project;
 
     private MainApplicationController mainApplicationController;
@@ -60,11 +60,6 @@ public class ControllerFacade {
     public ViewFacade getViewFacade() {
         return viewFacade;
     }
-
-    public void setViewFacade(ViewFacade viewFacade) {
-        this.viewFacade = viewFacade;
-    }
-
 
     public void createAttributeController() {
         this.attributeController = new AttributeController(this);

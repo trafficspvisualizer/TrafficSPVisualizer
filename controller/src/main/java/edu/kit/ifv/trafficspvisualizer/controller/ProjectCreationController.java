@@ -7,32 +7,26 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.IOException;
 
 public class ProjectCreationController {
-    private ControllerFacade controllerFacade;
+    private final ControllerFacade controllerFacade;
 
     public ProjectCreationController(ControllerFacade controllerFacade) {
         this.controllerFacade = controllerFacade;
-    }
-
-    public ProjectCreationController() {
         controllerFacade.getViewFacade().getProjectCreationStage();
         //TODO: Set all action handlers for buttons
     }
+
     public void actionOnProjectFolderButton(){
-        Stage fileChooserStage = new Stage();
-        FileChooser fileChooser = new FileChooser();
-        File selectedFile = fileChooser.showOpenDialog(fileChooserStage);
-        fileChooserStage.close();
-        controllerFacade.getViewFacade().getProjectCreationStage().setSaveProjectDirectory(selectedFile);
+        File selectedFile = controllerFacade.getViewFacade().getProjectCreationStage().showFileChooserDialog();
+        controllerFacade.getViewFacade().getProjectCreationStage().setProjectFolderPath(selectedFile);
     }
 
     public void actionOnInputFileButton(){
-        Stage fileChooserStage = new Stage();
-        FileChooser fileChooser = new FileChooser();
-        File selectedFile = fileChooser.showOpenDialog(fileChooserStage);
-        fileChooserStage.close();
-        controllerFacade.getViewFacade().getProjectCreationStage().setInputDataFile(selectedFile);
+
+        File selectedFile = controllerFacade.getViewFacade().getProjectCreationStage().showFileChooserDialog();
+        controllerFacade.getViewFacade().getProjectCreationStage().setInputDataPath(selectedFile);
     }
 
     public void actionOnSaveButton(String projectName, File projectFolder, File inputFile){
@@ -52,8 +46,15 @@ public class ProjectCreationController {
             return;
         }
 
-        //TODO: missing constructor
-        Project newProject = new Project(projectName, projectFolder, dataObject);
+        // Temporary solution so that the Application builds
+        Project newProject;
+        try {
+            newProject = new Project(projectName, projectFolder, dataObject);
+        } catch (IOException e) {
+            //TODO
+            return;
+        }
+
         controllerFacade.getViewFacade().setProject(newProject);
         controllerFacade.setProject(newProject);
 
@@ -61,6 +62,11 @@ public class ProjectCreationController {
 
     public void actionOnCancelButton(){
         controllerFacade.getViewFacade().getProjectCreationStage().close();
+        controllerFacade.getViewFacade().setProjectCreationStage(null);
         controllerFacade.deleteProjectCreationController();
+    }
+
+    private void setActionListeners(){
+
     }
 }

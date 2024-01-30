@@ -1,26 +1,48 @@
 package edu.kit.ifv.trafficspvisualizer.model;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class Project {
+    private static final String CACHE_NAME = "TrafficSP";
     private final String name;
-    private final File filePath;
+    private final File projectPath;
     private final DataObject dataObject;
     private final List<AbstractAttribute> attributes;
     private final List<ChoiceOption> choiceOptions;
+    private final Path cacheDirectory;
+    private final IconManager iconManager;
     private ExportSettings exportSettings;
     private int currentPreviewSituation;
 
-    public Project(String name, File filePath, DataObject dataObject) {
+    public Project(String name, File projectPath, DataObject dataObject) throws IOException {
         this.name = name;
-        this.filePath = filePath;
+        this.projectPath = projectPath;
         this.dataObject = dataObject;
         this.attributes = new ArrayList<>();
         this.choiceOptions = initializeChoiceOptions();
-        this.exportSettings = new ExportSettings();
+        this.exportSettings = new ExportSettings(this.projectPath);
         this.currentPreviewSituation = 1;
+        this.cacheDirectory = Files.createTempDirectory(CACHE_NAME);
+        this.iconManager = new IconManager(cacheDirectory);
+    }
+
+    public Project(String name, File projectPath, DataObject dataObject, List<AbstractAttribute> attributes,
+                   List<ChoiceOption> choiceOptions, ExportSettings exportSettings, int currentPreviewSituation)
+        throws IOException {
+        this.name = name;
+        this.projectPath = projectPath;
+        this.dataObject = dataObject;
+        this.attributes = new ArrayList<>(attributes);
+        this.choiceOptions = new ArrayList<>(choiceOptions);
+        this.exportSettings = exportSettings;
+        this.currentPreviewSituation = currentPreviewSituation;
+        this.cacheDirectory = Files.createTempDirectory(CACHE_NAME);
+        this.iconManager = new IconManager(cacheDirectory);
     }
 
     private List<ChoiceOption> initializeChoiceOptions() {
@@ -85,8 +107,8 @@ public class Project {
         return exportSettings;
     }
 
-    public File getFilePath() {
-        return filePath;
+    public File getProjectPath() {
+        return projectPath;
     }
 
     public String getName() {
@@ -103,5 +125,9 @@ public class Project {
 
     public void setExportSettings(ExportSettings exportSettings) {
         this.exportSettings = exportSettings;
+    }
+
+    public Path getCacheDirectory() {
+        return cacheDirectory;
     }
 }
