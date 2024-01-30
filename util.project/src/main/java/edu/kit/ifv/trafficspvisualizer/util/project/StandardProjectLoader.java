@@ -6,7 +6,7 @@ import edu.kit.ifv.trafficspvisualizer.util.parse.Parser;
 
 import java.io.File;
 
-public class ProjectLoader extends AbstractLoader {
+public class StandardProjectLoader extends AbstractLoader {
     @Override
     public Project loadProject(File file) {
         Parser ngdParser = new NGDParser();
@@ -14,4 +14,8 @@ public class ProjectLoader extends AbstractLoader {
 
         return null;
     }
+
+
+
+
 }

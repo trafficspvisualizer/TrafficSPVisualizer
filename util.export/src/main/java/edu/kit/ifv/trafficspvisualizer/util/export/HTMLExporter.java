@@ -9,7 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class HTMLExporter extends Exporter{
-
+    //todo nach szenatio trennen und methode nur für Buttons erstellen machen wegen erweiterbarkeit und eigenen Ordner erstellen und schauen ob so ein Ordner exstetier wenn ja Fehler und Html Datei namen ändern
     @Override
     public void export(ChoiceOptionImage[] images, File file) throws IOException {
         ImageExporter imageExporter = new ImageExporter();
@@ -35,7 +35,7 @@ public class HTMLExporter extends Exporter{
             );
 
             for (int i = 0; i < images.length; i++) {
-                StringBuilder path = new StringBuilder(file.getPath() + "\\");
+                StringBuilder path = new StringBuilder();
                 for (String info : images[i].getInfos()) {
                     path.append("#c_").append(info).append("#");
                 }
@@ -48,9 +48,8 @@ public class HTMLExporter extends Exporter{
             }
 
             bufferedWriter.write("\n" +
-                    "</form>\n");
-
-            bufferedWriter.write("<form>\n" +
+                    "</form>\n" +
+                    "<form>\n" +
                     "<div>\n" +
                     "    <input type=\"hidden\" id=\"v_10\" name=\"v_10\" value=\"#v_10#\" readonly />\n" +
                     "</div>\n" +
