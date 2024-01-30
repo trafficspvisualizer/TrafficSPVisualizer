@@ -9,13 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class IconManager {
-    private final static String DIR_NAME = "icon-cache";
+    private final static String DIR_NAME = "icon";
     private final Path iconDir;
     private final List<Icon> icons;
     private int nextIdentifier;
 
-    public IconManager() throws IOException {
-        this.iconDir = Files.createTempDirectory(DIR_NAME);
+    public IconManager(Path cacheDirectory) throws IOException {
+        this.iconDir = cacheDirectory.resolve(DIR_NAME);
+        Files.createDirectories(iconDir);
         this.nextIdentifier = 0;
         this.icons = initIcons();
     }
