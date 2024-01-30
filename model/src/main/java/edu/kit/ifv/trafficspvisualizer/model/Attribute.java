@@ -8,7 +8,6 @@ import java.util.Map;
 
 public class Attribute extends AbstractAttribute {
 
-    private boolean active;
     private String name;
     private Icon icon;
     private String prefix;
@@ -41,14 +40,6 @@ public class Attribute extends AbstractAttribute {
 
     public boolean removeMapping(ChoiceOption choiceOption, String dataName) {
         return getMapping(choiceOption).remove(dataName);
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
     }
 
     public String getName() {

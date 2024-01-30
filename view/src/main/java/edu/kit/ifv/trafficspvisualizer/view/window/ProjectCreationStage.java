@@ -225,10 +225,10 @@ public class ProjectCreationStage extends Stage {
         // scene
 
         // stage
-        setMinWidth(720);
-        setMinHeight(405);
-        setWidth(720);
-        setHeight(405);
+        setMinWidth(960);
+        setMinHeight(540);
+        setWidth(960);
+        setHeight(540);
     }
 
     // setter-methods

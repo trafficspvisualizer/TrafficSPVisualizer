@@ -87,7 +87,7 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
     private final static String ATTRIBUTE_SETTINGS_SUFFIX_TEXT = "Suffix:";
     private final static String ATTRIBUTE_SETTINGS_NUMBER_OF_DECIMAL_PLACES_TEXT = "Number of decimal places:";
 
-    private final static String ATTRIBUTE_SETTINGS_ALWAYS_VISIBLE_TEXT = "Always visible:";
+    private final static String ATTRIBUTE_SETTINGS_PERMANENTLY_VISIBLE_TEXT = "Always visible:";
 
     private final static String ATTRIBUTE_SETTINGS_SAVE_BUTTON_TEXT = "Save";
 
@@ -267,8 +267,8 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
         return ATTRIBUTE_SETTINGS_NUMBER_OF_DECIMAL_PLACES_TEXT;
     }
 
-    public String getAttributeSettingsAlwaysVisibleText() {
-        return ATTRIBUTE_SETTINGS_ALWAYS_VISIBLE_TEXT;
+    public String getAttributeSettingsPermanentlyVisibleText() {
+        return ATTRIBUTE_SETTINGS_PERMANENTLY_VISIBLE_TEXT;
     }
 
     public String getAttributeSettingsSaveButtonText() {

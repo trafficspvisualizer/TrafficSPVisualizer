@@ -108,7 +108,7 @@ public abstract class LanguageStrategy {
     public abstract String getAttributeSettingsSuffixText();
     public abstract String getAttributeSettingsNumberOfDecimalPlacesText();
 
-    public abstract String getAttributeSettingsAlwaysVisibleText();
+    public abstract String getAttributeSettingsPermanentlyVisibleText();
 
     public abstract String getAttributeSettingsSaveButtonText();
 

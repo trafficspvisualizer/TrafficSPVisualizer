@@ -1,10 +1,8 @@
 package edu.kit.ifv.trafficspvisualizer.view.window;
 
-import edu.kit.ifv.trafficspvisualizer.model.AbstractAttribute;
 import edu.kit.ifv.trafficspvisualizer.model.Attribute;
 import edu.kit.ifv.trafficspvisualizer.view.ViewFacade;
 import edu.kit.ifv.trafficspvisualizer.view.data.font.FontLibrary;
-import edu.kit.ifv.trafficspvisualizer.view.data.language.EnglishLanguageStrategy;
 import edu.kit.ifv.trafficspvisualizer.view.data.language.LanguageStrategy;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -14,7 +12,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -56,9 +53,9 @@ public class AttributeSettingsStage extends Stage {
 
     private TextField numberOfDecimalPlacesTextField;
 
-    private Text alwaysVisibleText;
+    private Text permanentlyVisibleText;
 
-    private CheckBox alwaysVisibleCheckBox;
+    private CheckBox permanentlyVisibleCheckBox;
 
     private GridPane configGridPane;
 
@@ -118,9 +115,9 @@ public class AttributeSettingsStage extends Stage {
 
         numberOfDecimalPlacesTextField = new TextField();
 
-        alwaysVisibleText = new Text(languageStrategy.getAttributeSettingsAlwaysVisibleText());
+        permanentlyVisibleText = new Text(languageStrategy.getAttributeSettingsPermanentlyVisibleText());
 
-        alwaysVisibleCheckBox = new CheckBox();
+        permanentlyVisibleCheckBox = new CheckBox();
 
         configGridPane = new GridPane();
         configGridPane.add(activeText,0,0);
@@ -135,8 +132,8 @@ public class AttributeSettingsStage extends Stage {
         configGridPane.add(suffixTextField,1,4);
         configGridPane.add(numberOfDecimalPlacesText,0,5);
         configGridPane.add(numberOfDecimalPlacesTextField,1,5);
-        configGridPane.add(alwaysVisibleText,0,6);
-        configGridPane.add(alwaysVisibleCheckBox,1,6);
+        configGridPane.add(permanentlyVisibleText,0,6);
+        configGridPane.add(permanentlyVisibleCheckBox,1,6);
 
 
         saveButton = new Button(languageStrategy.getAttributeSettingsSaveButtonText());
@@ -231,13 +228,13 @@ public class AttributeSettingsStage extends Stage {
         numberOfDecimalPlacesTextField.setFont(FontLibrary.getSmallFont());
 
         // alwaysVisibleText
-        GridPane.setHalignment(alwaysVisibleText, HPos.LEFT);
-        GridPane.setValignment(alwaysVisibleText, VPos.CENTER);
-        alwaysVisibleText.setFont(FontLibrary.getMidFont());
+        GridPane.setHalignment(permanentlyVisibleText, HPos.LEFT);
+        GridPane.setValignment(permanentlyVisibleText, VPos.CENTER);
+        permanentlyVisibleText.setFont(FontLibrary.getMidFont());
 
         // alwaysVisibleCheckBox
-        GridPane.setHalignment(alwaysVisibleCheckBox, HPos.LEFT);
-        GridPane.setValignment(alwaysVisibleCheckBox, VPos.CENTER);
+        GridPane.setHalignment(permanentlyVisibleCheckBox, HPos.LEFT);
+        GridPane.setValignment(permanentlyVisibleCheckBox, VPos.CENTER);
 
         // configGridPane
         BorderPane.setAlignment(configGridPane, Pos.TOP_LEFT);
@@ -266,14 +263,31 @@ public class AttributeSettingsStage extends Stage {
         // scene
 
         // stage
-        setMinWidth(720);
-        setMinHeight(405);
-        setWidth(720);
-        setHeight(405);
+        setMinWidth(960);
+        setMinHeight(540);
+        setWidth(960);
+        setHeight(540);
     }
 
     // update-methods
     private void updateStage() {
+        Attribute attribute = (Attribute) viewFacade.getProject().getAttributes().get(attributeIndex);
+
+        activeCheckBox.setSelected(attribute.isActive());
+
+        nameTextField.setText(attribute.getName());
+
+        //TODO: iconButtonImageView.setImage();
+
+        prefixTextField.setText(attribute.getPrefix());
+
+        suffixTextField.setText(attribute.getSuffix());
+
+        numberOfDecimalPlacesTextField.setText(String.valueOf(attribute.getDecimalPlaces()));
+
+        permanentlyVisibleCheckBox.setSelected(attribute.isPermanentlyVisible());
+
+
     }
 
 

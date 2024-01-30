@@ -252,10 +252,10 @@ public class MainApplicationWindow {
 
 
 
-        stage.setMinWidth(960);
-        stage.setMinHeight(540);
-        stage.setWidth(960);
-        stage.setHeight(540);
+        stage.setMinWidth(1440);
+        stage.setMinHeight(810);
+        stage.setWidth(1440);
+        stage.setHeight(810);
     }
 
 
