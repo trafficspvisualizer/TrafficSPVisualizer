@@ -17,7 +17,7 @@ class ImageExporterTest {
     @Test
     void export() {
         URL url = this.getClass().getClassLoader().getResource("Bike.png");
-        File file = null;
+        File file;
         try {
             file = new File(url.toURI());
         } catch (URISyntaxException e) {

@@ -4,24 +4,24 @@ import edu.kit.ifv.trafficspvisualizer.util.image.ChoiceOptionImage;
 
 import javax.imageio.ImageIO;
 import java.io.File;
-import java.io.FileOutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.io.IOException;
 import java.io.OutputStream;
 
-public class ImageExporter extends Exporter{
+public class ImageExporter extends Exporter {
 
     @Override
     public void export(ChoiceOptionImage[] images, File file) throws IOException {
-        for (ChoiceOptionImage image: images) {
+        for (ChoiceOptionImage image : images) {
             StringBuilder path = new StringBuilder(file.getPath() + File.separator);
-            for (String info: image.getInfos()) {
+            for (String info : image.getInfos()) {
                 path.append("#c_").append(info).append("#");
             }
-            File imageFile = new File(path + ".png");
-            if (!imageFile.getParentFile().exists()) {
-                imageFile.getParentFile().mkdirs();
-            }
-            try (OutputStream os = new FileOutputStream(imageFile)) {
+            Path imagePath = Paths.get(path + ".png");
+            Files.createDirectories(imagePath.getParent());
+            try (OutputStream os = Files.newOutputStream(imagePath)) {
                 ImageIO.write(image.getImage(), "png", os);
             }
         }

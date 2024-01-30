@@ -1,19 +1,16 @@
 package edu.kit.ifv.trafficspvisualizer.util.project;
 
 import edu.kit.ifv.trafficspvisualizer.model.*;
-import edu.kit.ifv.trafficspvisualizer.model.Project;
 import javafx.scene.paint.Color;
-import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class ProjectSaver {
+public abstract class AbstractSaver {
     private static final String KEY_IMAGE_HEIGHT = "imageHeight";
     private static final String KEY_IMAGE_WIDTH = "imageWidth";
     private static final String KEY_EXPORT_PATH = "exportPath";
@@ -37,28 +34,23 @@ public class ProjectSaver {
     private static final String KEY_ATTRIBUTES = "attributes";
     private static final String KEY_EXPORT_SETTINGS = "exportSettings";
 
-    public void saveProject(Project project, File file) throws IOException {
-        File dir = makeDir(project.getName(), file.getPath());
-        File cacheDir = new File("");
-        List<Attribute> listAttribute = new ArrayList<>();
-        List<SeparatorLine> listSeparatorLine = new ArrayList<>(); //todo
-        for (AbstractAttribute attribute: project.getAttributes()) {
-            if (attribute instanceof Attribute) {
-                listAttribute.add((Attribute) attribute);
-            } else if (attribute instanceof SeparatorLine){
-                listSeparatorLine.add((SeparatorLine) attribute);
-            }
-        }
-        JSONObject jsonObject = createJsonProject(project.getName(), listAttribute,
-                project.getExportSettings());
+    public abstract void saveProject(Project project, File file) throws IOException;
 
-        try (FileWriter jsonFile = new FileWriter(new File(dir, "project.json"))) {
-            jsonFile.write(jsonObject.toString());
-            FileUtils.copyDirectory(cacheDir, dir);
+    protected File makeDir(String name, String path) {
+        File dir = new File(path + File.separator + name);
+
+        if (dir.exists()) {
+            throw new IllegalArgumentException("Directory " + name + " already exists at " + path);
         }
+
+        if (!dir.mkdir()) {
+            throw new IllegalArgumentException("Failed to create directory " + name + " at " + path);
+        }
+
+        return dir;
     }
 
-    private JSONObject createJsonProject(String name, List<Attribute> attributes,
+    protected JSONObject createJsonProject(String name, List<Attribute> attributes,
                                          ExportSettings exportSettings) {
         if (name == null  || attributes == null || exportSettings == null) {
             throw new IllegalArgumentException("Invalid parameters");
@@ -86,21 +78,9 @@ public class ProjectSaver {
         return jsonObject;
     }
 
-    private File makeDir(String name, String path) {
-        File dir = new File(path + File.separator + name);
 
-        if (dir.exists()) {
-            throw new IllegalArgumentException("Directory " + name + " already exists at " + path);
-        }
 
-        if (!dir.mkdir()) {
-            throw new IllegalArgumentException("Failed to create directory " + name + " at " + path);
-        }
-
-        return dir;
-    }
-
-    private JSONObject createJsonExportSettings(int imageHeight, int imageWidth, File exportPath,
+    protected JSONObject createJsonExportSettings(int imageHeight, int imageWidth, File exportPath,
                                                 FileFormat fileFormat, ExportType exportType) {
         if (imageHeight <= 0 || imageWidth <= 0 || exportPath == null || fileFormat == null || exportType == null) {
             throw new IllegalArgumentException(INVALID_PARAMETERS);
@@ -116,7 +96,7 @@ public class ProjectSaver {
         return jsonObject;
     }
 
-    private JSONObject createJsonRouteSection(Icon icon, String choiceDataKey, LineType lineType) {
+    protected JSONObject createJsonRouteSection(Icon icon, String choiceDataKey, LineType lineType) {
         if (icon == null || choiceDataKey == null || lineType == null) {
             throw new IllegalArgumentException(INVALID_PARAMETERS);
         }
@@ -129,9 +109,9 @@ public class ProjectSaver {
         return jsonObject;
     }
 
-    private JSONObject createJsonAttributes(String name, File icon, String prefix, String suffix,
+    protected JSONObject createJsonAttributes(String name, File icon, String prefix, String suffix,
                                             boolean permanentlyVisible, int decimalPlaces, Map<ChoiceOption,
-                                            List<String>> choiceOptionMappings) {
+            List<String>> choiceOptionMappings) {
         if (name == null || icon == null || prefix == null || suffix == null || choiceOptionMappings == null) {
             throw new IllegalArgumentException(INVALID_PARAMETERS);
         }
@@ -158,7 +138,7 @@ public class ProjectSaver {
         return jsonObject;
     }
 
-    private JSONObject createJsonChoiceOption(String name, List<RouteSection> routeSections,
+    protected JSONObject createJsonChoiceOption(String name, List<RouteSection> routeSections,
                                               String title, Color color) {
         if (name == null || routeSections == null || title == null || color == null) {
             throw new IllegalArgumentException(INVALID_PARAMETERS);
@@ -178,5 +158,4 @@ public class ProjectSaver {
 
         return jsonObject;
     }
-
 }
