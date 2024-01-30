@@ -33,4 +33,18 @@ public class StandardProjectSaver extends AbstractSaver {
             FileUtils.copyDirectory(cacheDir, dir);
         }
     }
+
+    private File makeDir(String name, String path) {
+        File dir = new File(path + File.separator + name);
+
+        if (dir.exists()) {
+            throw new IllegalArgumentException("Directory " + name + " already exists at " + path);
+        }
+
+        if (!dir.mkdir()) {
+            throw new IllegalArgumentException("Failed to create directory " + name + " at " + path);
+        }
+
+        return dir;
+    }
 }

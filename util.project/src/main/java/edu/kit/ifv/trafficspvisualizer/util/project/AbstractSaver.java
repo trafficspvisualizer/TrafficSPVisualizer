@@ -36,19 +36,7 @@ public abstract class AbstractSaver {
 
     public abstract void saveProject(Project project, File file) throws IOException;
 
-    protected File makeDir(String name, String path) {
-        File dir = new File(path + File.separator + name);
 
-        if (dir.exists()) {
-            throw new IllegalArgumentException("Directory " + name + " already exists at " + path);
-        }
-
-        if (!dir.mkdir()) {
-            throw new IllegalArgumentException("Failed to create directory " + name + " at " + path);
-        }
-
-        return dir;
-    }
 
     protected JSONObject createJsonProject(String name, List<Attribute> attributes,
                                          ExportSettings exportSettings) {
