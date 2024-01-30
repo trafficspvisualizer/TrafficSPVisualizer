@@ -110,7 +110,7 @@ public abstract class LanguageStrategy {
 
     public abstract String getAttributeSettingsAlwaysVisibleText();
 
-    public abstract String getAttributeSettingsSaveText();
+    public abstract String getAttributeSettingsSaveButtonText();
 
-    public abstract String getAttributeSettingsCancelText();
+    public abstract String getAttributeSettingsCancelButtonText();
 }

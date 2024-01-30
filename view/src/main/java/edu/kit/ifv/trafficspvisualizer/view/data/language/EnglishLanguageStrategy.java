@@ -89,9 +89,9 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
 
     private final static String ATTRIBUTE_SETTINGS_ALWAYS_VISIBLE_TEXT = "Always visible:";
 
-    private final static String ATTRIBUTE_SETTINGS_SAVE_TEXT = "Save";
+    private final static String ATTRIBUTE_SETTINGS_SAVE_BUTTON_TEXT = "Save";
 
-    private final static String ATTRIBUTE_SETTINGS_CANCEL_TEXT = "Cancel";
+    private final static String ATTRIBUTE_SETTINGS_CANCEL_BUTTTON_TEXT = "Cancel";
 
 
 
@@ -271,11 +271,11 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
         return ATTRIBUTE_SETTINGS_ALWAYS_VISIBLE_TEXT;
     }
 
-    public String getAttributeSettingsSaveText() {
-        return ATTRIBUTE_SETTINGS_SAVE_TEXT;
+    public String getAttributeSettingsSaveButtonText() {
+        return ATTRIBUTE_SETTINGS_SAVE_BUTTON_TEXT;
     }
 
-    public String getAttributeSettingsCancelText() {
-        return ATTRIBUTE_SETTINGS_CANCEL_TEXT;
+    public String getAttributeSettingsCancelButtonText() {
+        return ATTRIBUTE_SETTINGS_CANCEL_BUTTTON_TEXT;
     }
 }

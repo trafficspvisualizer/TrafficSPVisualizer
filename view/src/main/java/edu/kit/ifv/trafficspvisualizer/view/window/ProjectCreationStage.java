@@ -209,8 +209,8 @@ public class ProjectCreationStage extends Stage {
         createNewProjectButton.setFont(FontLibrary.getSmallFont());
 
         // cancelButton
-        GridPane.setHalignment(createNewProjectButton, HPos.LEFT);
-        GridPane.setValignment(createNewProjectButton, VPos.CENTER);
+        GridPane.setHalignment(cancelButton, HPos.LEFT);
+        GridPane.setValignment(cancelButton, VPos.CENTER);
         cancelButton.setFont(FontLibrary.getSmallFont());
 
         // saveAndCancelGridPane

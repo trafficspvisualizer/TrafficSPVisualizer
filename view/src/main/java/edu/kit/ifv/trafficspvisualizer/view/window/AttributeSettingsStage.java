@@ -1,6 +1,16 @@
 package edu.kit.ifv.trafficspvisualizer.view.window;
 
+import edu.kit.ifv.trafficspvisualizer.model.AbstractAttribute;
+import edu.kit.ifv.trafficspvisualizer.model.Attribute;
 import edu.kit.ifv.trafficspvisualizer.view.ViewFacade;
+import edu.kit.ifv.trafficspvisualizer.view.data.font.FontLibrary;
+import edu.kit.ifv.trafficspvisualizer.view.data.language.EnglishLanguageStrategy;
+import edu.kit.ifv.trafficspvisualizer.view.data.language.LanguageStrategy;
+import javafx.geometry.HPos;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.geometry.VPos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
@@ -8,8 +18,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.w3c.dom.Text;
 
 public class AttributeSettingsStage extends Stage {
 
@@ -59,6 +71,8 @@ public class AttributeSettingsStage extends Stage {
 
     private BorderPane bodyBorderPane;
 
+    private Scene scene;
+
 
 
 
@@ -76,17 +90,190 @@ public class AttributeSettingsStage extends Stage {
 
     // build-methods
     private void buildStage() {
+        LanguageStrategy languageStrategy = viewFacade.getLanguageStrategy();
 
+        activeText = new Text(languageStrategy.getAttributeSettingsActiveText());
+
+        activeCheckBox = new CheckBox();
+
+        nameText = new Text(languageStrategy.getAttributeSettingsNameText());
+
+        nameTextField = new TextField();
+
+        iconText = new Text(languageStrategy.getAttributeSettingsIconText());
+
+        iconButtonImageView = new ImageView();
+        iconButton = new Button();
+        iconButton.setGraphic(iconButtonImageView);
+
+        prefixText = new Text(languageStrategy.getAttributeSettingsPrefixText());
+
+        prefixTextField = new TextField();
+
+        suffixText = new Text(languageStrategy.getAttributeSettingsSuffixText());
+
+        suffixTextField = new TextField();
+
+        numberOfDecimalPlacesText = new Text(languageStrategy.getAttributeSettingsNumberOfDecimalPlacesText());
+
+        numberOfDecimalPlacesTextField = new TextField();
+
+        alwaysVisibleText = new Text(languageStrategy.getAttributeSettingsAlwaysVisibleText());
+
+        alwaysVisibleCheckBox = new CheckBox();
+
+        configGridPane = new GridPane();
+        configGridPane.add(activeText,0,0);
+        configGridPane.add(activeCheckBox,1,0);
+        configGridPane.add(nameText,0,1);
+        configGridPane.add(nameTextField,1,1);
+        configGridPane.add(iconText,0,2);
+        configGridPane.add(iconButton,1,2);
+        configGridPane.add(prefixText,0,3);
+        configGridPane.add(prefixTextField,1,3);
+        configGridPane.add(suffixText,0,4);
+        configGridPane.add(suffixTextField,1,4);
+        configGridPane.add(numberOfDecimalPlacesText,0,5);
+        configGridPane.add(numberOfDecimalPlacesTextField,1,5);
+        configGridPane.add(alwaysVisibleText,0,6);
+        configGridPane.add(alwaysVisibleCheckBox,1,6);
+
+
+        saveButton = new Button(languageStrategy.getAttributeSettingsSaveButtonText());
+
+        cancelButton = new Button(languageStrategy.getAttributeSettingsCancelButtonText());
+
+        saveAndCancelGridPane = new GridPane();
+        saveAndCancelGridPane.add(saveButton, 0,0);
+        saveAndCancelGridPane.add(cancelButton,1,0);
+
+        bodyBorderPane = new BorderPane();
+        bodyBorderPane.setTop(configGridPane);
+        bodyBorderPane.setBottom(saveAndCancelGridPane);
+
+        scene = new Scene(bodyBorderPane);
+
+        setTitle(languageStrategy.getAttributeSettingsTitle());
+        setScene(scene);
+        initModality(Modality.APPLICATION_MODAL);
     }
 
     // style-methods
     private void styleStage() {
 
+        // activeText
+        GridPane.setHalignment(activeText, HPos.LEFT);
+        GridPane.setValignment(activeText, VPos.CENTER);
+        activeText.setFont(FontLibrary.getMidFont());
+
+        // activeCheckBox
+        GridPane.setHalignment(activeCheckBox, HPos.LEFT);
+        GridPane.setValignment(activeCheckBox, VPos.CENTER);
+
+
+        // nameText
+        GridPane.setHalignment(nameText, HPos.LEFT);
+        GridPane.setValignment(nameText, VPos.CENTER);
+        nameText.setFont(FontLibrary.getMidFont());
+
+        // nameTextField
+        GridPane.setHalignment(nameTextField, HPos.LEFT);
+        GridPane.setValignment(nameTextField, VPos.CENTER);
+        GridPane.setHgrow(nameTextField, Priority.ALWAYS);
+        nameTextField.setFont(FontLibrary.getSmallFont());
+
+        // iconText
+        GridPane.setHalignment(iconText, HPos.LEFT);
+        GridPane.setValignment(iconText, VPos.CENTER);
+        iconText.setFont(FontLibrary.getMidFont());
+
+
+        // iconButtonImageView
+        iconButtonImageView.setFitWidth(50);
+        iconButtonImageView.setFitHeight(50);
+        iconButtonImageView.setPreserveRatio(true);
+
+        // iconButton
+        GridPane.setHalignment(iconButton, HPos.LEFT);
+        GridPane.setValignment(iconButton, VPos.CENTER);
+
+        // prefixText
+        GridPane.setHalignment(prefixText, HPos.LEFT);
+        GridPane.setValignment(prefixText, VPos.CENTER);
+        prefixText.setFont(FontLibrary.getMidFont());
+
+        // prefixTextField
+        GridPane.setHalignment(prefixTextField, HPos.LEFT);
+        GridPane.setValignment(prefixTextField, VPos.CENTER);
+        GridPane.setHgrow(prefixTextField, Priority.ALWAYS);
+        prefixTextField.setFont(FontLibrary.getSmallFont());
+
+        // suffixText
+        GridPane.setHalignment(suffixText, HPos.LEFT);
+        GridPane.setValignment(suffixText, VPos.CENTER);
+        suffixText.setFont(FontLibrary.getMidFont());
+
+        // suffixTextField
+        GridPane.setHalignment(suffixTextField, HPos.LEFT);
+        GridPane.setValignment(suffixTextField, VPos.CENTER);
+        GridPane.setHgrow(suffixTextField, Priority.ALWAYS);
+        suffixTextField.setFont(FontLibrary.getSmallFont());
+
+        // numberOfDecimalPlacesText
+        GridPane.setHalignment(numberOfDecimalPlacesText, HPos.LEFT);
+        GridPane.setValignment(numberOfDecimalPlacesText, VPos.CENTER);
+        numberOfDecimalPlacesText.setFont(FontLibrary.getMidFont());
+
+        // numberOfDecimalPlacesTextField
+        GridPane.setHalignment(numberOfDecimalPlacesTextField, HPos.LEFT);
+        GridPane.setValignment(numberOfDecimalPlacesTextField, VPos.CENTER);
+        GridPane.setHgrow(numberOfDecimalPlacesTextField, Priority.ALWAYS);
+        numberOfDecimalPlacesTextField.setFont(FontLibrary.getSmallFont());
+
+        // alwaysVisibleText
+        GridPane.setHalignment(alwaysVisibleText, HPos.LEFT);
+        GridPane.setValignment(alwaysVisibleText, VPos.CENTER);
+        alwaysVisibleText.setFont(FontLibrary.getMidFont());
+
+        // alwaysVisibleCheckBox
+        GridPane.setHalignment(alwaysVisibleCheckBox, HPos.LEFT);
+        GridPane.setValignment(alwaysVisibleCheckBox, VPos.CENTER);
+
+        // configGridPane
+        BorderPane.setAlignment(configGridPane, Pos.TOP_LEFT);
+        configGridPane.setPadding(new Insets(15));
+        configGridPane.setHgap(15);
+        configGridPane.setVgap(15);
+
+        // saveButton
+        GridPane.setHalignment(saveButton, HPos.LEFT);
+        GridPane.setValignment(saveButton, VPos.CENTER);
+        saveButton.setFont(FontLibrary.getSmallFont());
+
+        // cancelButton
+        GridPane.setHalignment(cancelButton, HPos.LEFT);
+        GridPane.setValignment(cancelButton, VPos.CENTER);
+        cancelButton.setFont(FontLibrary.getSmallFont());
+
+        // saveAndCancelGridPane
+        BorderPane.setAlignment(saveAndCancelGridPane, Pos.BOTTOM_LEFT);
+        saveAndCancelGridPane.setPadding(new Insets(15));
+        saveAndCancelGridPane.setHgap(15);
+        saveAndCancelGridPane.setVgap(15);
+
+        // bodyBorderPane
+
+        // scene
+
+        // stage
+        setMinWidth(720);
+        setMinHeight(405);
+        setWidth(720);
+        setHeight(405);
     }
 
     // update-methods
     private void updateStage() {
-
     }
 
 

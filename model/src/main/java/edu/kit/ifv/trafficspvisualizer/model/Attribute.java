@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 public class Attribute extends AbstractAttribute {
+
+    private boolean active;
     private String name;
     private File icon;
     private String prefix;
@@ -26,6 +28,14 @@ public class Attribute extends AbstractAttribute {
     public boolean removeMapping(String choiceName, String dataName) {
         //TODO
         return false;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public String getName() {
