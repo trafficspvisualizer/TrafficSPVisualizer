@@ -88,4 +88,8 @@ public class Attribute extends AbstractAttribute {
     public void setDecimalPlaces(int decimalPlaces) {
         this.decimalPlaces = decimalPlaces;
     }
+
+    public Map<ChoiceOption, List<String>> getChoiceOptionMappings() {
+        return Map.copyOf(choiceOptionMappings);
+    }
 }
