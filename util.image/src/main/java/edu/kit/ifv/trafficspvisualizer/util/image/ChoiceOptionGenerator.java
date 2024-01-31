@@ -8,5 +8,7 @@ public class ChoiceOptionGenerator extends ImageCollectionGenerator{
     @Override
     public BufferedImage[] createImage(Project project) {
         return new BufferedImage[0];
+        //TODO
+        //TODO
     }
 }
