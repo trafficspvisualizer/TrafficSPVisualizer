@@ -41,6 +41,9 @@ public class MainApplicationController {
         controllerFacade.setProject(newProject);
         controllerFacade.getViewFacade().setProject(newProject);
 
+        //TODO: Load MainApplicationWindow
+        // Update Preview
+        updatePreview();
     }
 
     public void actionOnSaveButton(){
@@ -60,11 +63,17 @@ public class MainApplicationController {
     public void actionOnMoveChoiceOptionUpButton(int choiceOptionNumber){
         controllerFacade.getProject().swapChoiceOptionUp(choiceOptionNumber);
         controllerFacade.getViewFacade().getMainApplicationWindow().updateChoiceOptions();
+
+        // Update Preview
+        updatePreview();
     }
 
     public void actionOnMoveChoiceOptionDownButton(int choiceOptionNumber){
         controllerFacade.getProject().swapChoiceOptionDown(choiceOptionNumber);
         controllerFacade.getViewFacade().getMainApplicationWindow().updateChoiceOptions();
+
+        // Update Preview
+        updatePreview();
     }
 
     public void actionOnExportButton(){
@@ -93,15 +102,23 @@ public class MainApplicationController {
 
     public void actionOnNextPreviewButton(){
         controllerFacade.getProject().incrementPreview();
-        controllerFacade.getViewFacade().getMainApplicationWindow().updateCurrentPreviewSituation();
+
+        // Update Preview
+        updatePreview();
     }
 
     public void actionOnPreviousPreviewButton(){
         controllerFacade.getProject().decrementPreview();
-        controllerFacade.getViewFacade().getMainApplicationWindow().updateCurrentPreviewSituation();
+
+        // Update Preview
+        updatePreview();
     }
 
     private void setActionListeners(){
 
+    }
+
+    public void updatePreview() {
+        controllerFacade.getViewFacade().getMainApplicationWindow().updateCurrentPreviewSituation();
     }
 }

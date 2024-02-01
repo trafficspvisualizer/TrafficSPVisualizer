@@ -73,6 +73,9 @@ public class AttributeController {
         controllerFacade.getViewFacade().getAttributeStage().close();
         controllerFacade.getViewFacade().setAttributeStage(null);
         controllerFacade.deleteAttributeController();
+
+        // Update Preview
+        controllerFacade.getMainApplicationController().updatePreview();
     }
     private void setActionListeners(){
 

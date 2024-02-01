@@ -21,6 +21,9 @@ public class ChoiceOptionSettingsController implements IconDisplayingController{
         controllerFacade.getViewFacade().getChoiceOptionSettingsStage().close();
         controllerFacade.getViewFacade().setChoiceOptionSettingsStage(null);
         controllerFacade.deleteChoiceOptionSettingsController();
+
+        // Update Preview
+        controllerFacade.getMainApplicationController().updatePreview();
     }
 
     public void actionOnColorButton(){

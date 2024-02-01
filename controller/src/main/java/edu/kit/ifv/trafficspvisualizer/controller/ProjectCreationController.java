@@ -58,6 +58,8 @@ public class ProjectCreationController {
         controllerFacade.getViewFacade().setProject(newProject);
         controllerFacade.setProject(newProject);
 
+        // Update Preview
+        controllerFacade.getMainApplicationController().updatePreview();
     }
 
     public void actionOnCancelButton(){
