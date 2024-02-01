@@ -76,6 +76,8 @@ public class AttributeSettingsController implements IconDisplayingController {
     }
 
     private void setActionListeners(){
-
+        // Icon
+        // Save
+        // Cancel
     }
 }

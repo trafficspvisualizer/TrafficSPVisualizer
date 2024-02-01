@@ -115,7 +115,14 @@ public class MainApplicationController {
     }
 
     private void setActionListeners(){
-
+        // Choice Option Settings
+        // Move Up & Down
+        // Export
+        // Export Settings
+        // File-Button
+        // Help-Button
+        // Attributes
+        // Preview Arrows
     }
 
     public void updatePreview() {

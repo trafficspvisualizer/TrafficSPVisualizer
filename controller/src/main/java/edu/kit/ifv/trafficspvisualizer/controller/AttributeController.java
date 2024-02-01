@@ -78,6 +78,12 @@ public class AttributeController {
         controllerFacade.getMainApplicationController().updatePreview();
     }
     private void setActionListeners(){
-
+        // Move Up & Down
+        // Active
+        // Settings
+        // Delete
+        // New Attribute
+        // New Separator Line
+        // Close
     }
 }
