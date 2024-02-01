@@ -36,32 +36,39 @@ public abstract class AbstractSaver {
 
     public abstract void saveProject(Project project, File file) throws IOException;
 
+    //todo icon Manager, Icon,
 
-
-    protected JSONObject createJsonProject(String name, List<Attribute> attributes,
+    protected JSONObject createJsonProject(String name, List<AbstractAttribute> attributes,
                                          ExportSettings exportSettings) {
         if (name == null  || attributes == null || exportSettings == null) {
             throw new IllegalArgumentException("Invalid parameters");
         }
 
         JSONArray attributesJsonArray = new JSONArray();
+        JSONObject attributeJson = new JSONObject();
+        for (AbstractAttribute attribute : attributes) {
+            if (attribute instanceof Attribute) {
+                Attribute attribute1 = (Attribute)attribute;
+                attributeJson = createJsonAttributes(attribute1.getName(), attribute1.getIcon(), attribute1.getPrefix(),
+                         attribute1.getSuffix(), attribute1.isPermanentlyVisible(), attribute1.getDecimalPlaces(),
+                         attribute1.getChoiceOptionMappings());
+            } else if (attribute instanceof SeparatorLine) {
+                createJsonLineSeparator();
+            }
 
-        for (Attribute attribute : attributes) {
-            //JSONObject attributeJson = createJsonAttributes(attribute.getName(), attribute.getIcon(), attribute.getPrefix(),
-            //    attribute.getSuffix(), attribute.isPermanentlyVisible(), attribute.getDecimalPlaces(),
-            //      attribute.getChoiceOptionMappings());
-            //attributesJsonArray.put(attributeJson);
+            attributesJsonArray.put(attributeJson);
         }
 
 
         JSONObject exportSettingsJson = createJsonExportSettings(exportSettings.getImageHeight(), exportSettings.getImageWidth(),
                 exportSettings.getExportPath(), exportSettings.getFileFormat(),
                 exportSettings.getExportType());
-
+        JSONObject iconManagerJson = createJsonIconManager();
         JSONObject jsonObject = new JSONObject();
         jsonObject.put(KEY_NAME, name);
         jsonObject.put(KEY_ATTRIBUTES, attributesJsonArray);
         jsonObject.put(KEY_EXPORT_SETTINGS, exportSettingsJson);
+        jsonObject.put("IconManager", iconManagerJson);
 
         return jsonObject;
     }
@@ -84,6 +91,14 @@ public abstract class AbstractSaver {
         return jsonObject;
     }
 
+    protected JSONObject createJsonLineSeparator(){
+        return new JSONObject().put("LineSeperator", "");
+    }
+
+    protected JSONObject createJsonIconManager(){
+        return null;
+    }
+
     protected JSONObject createJsonRouteSection(Icon icon, String choiceDataKey, LineType lineType) {
         if (icon == null || choiceDataKey == null || lineType == null) {
             throw new IllegalArgumentException(INVALID_PARAMETERS);
@@ -97,7 +112,7 @@ public abstract class AbstractSaver {
         return jsonObject;
     }
 
-    protected JSONObject createJsonAttributes(String name, File icon, String prefix, String suffix,
+    protected JSONObject createJsonAttributes(String name, Icon icon, String prefix, String suffix,
                                             boolean permanentlyVisible, int decimalPlaces, Map<ChoiceOption,
             List<String>> choiceOptionMappings) {
         if (name == null || icon == null || prefix == null || suffix == null || choiceOptionMappings == null) {
@@ -116,7 +131,7 @@ public abstract class AbstractSaver {
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.put(KEY_NAME, name);
-        jsonObject.put(KEY_ICON_PATH, icon.getPath());
+        jsonObject.put(KEY_ICON_PATH, icon.getIdentifier());
         jsonObject.put(KEY_PREFIX, prefix);
         jsonObject.put(KEY_SUFFIX, suffix);
         jsonObject.put(KEY_PERMANENTLY_VISIBLE, permanentlyVisible);

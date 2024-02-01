@@ -11,26 +11,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StandardProjectSaver extends AbstractSaver {
-    //todo lineseperator in
+
     @Override
     public void saveProject(Project project, File file) throws IOException {
         File dir = makeDir(project.getName(), file.getPath());
         File cacheDir = new File("");
-        List<Attribute> listAttribute = new ArrayList<>();
-        List<SeparatorLine> listSeparatorLine = new ArrayList<>(); //todo
-        for (AbstractAttribute attribute: project.getAttributes()) {
-            if (attribute instanceof Attribute) {
-                listAttribute.add((Attribute) attribute);
-            } else if (attribute instanceof SeparatorLine){
-                listSeparatorLine.add((SeparatorLine) attribute);
-            }
-        }
-        JSONObject jsonObject = createJsonProject(project.getName(), listAttribute,
+        JSONObject jsonObject = createJsonProject(project.getName(), project.getAttributes(),
                 project.getExportSettings());
 
         try (FileWriter jsonFile = new FileWriter(new File(dir, "project.json"))) {
             jsonFile.write(jsonObject.toString());
-            FileUtils.copyDirectory(cacheDir, dir);
+            FileUtils.copyDirectory(project., dir);
         }
     }
 
