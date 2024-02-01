@@ -53,6 +53,11 @@ public class ChoiceOptionSettingsController implements IconDisplayingController{
         controllerFacade.getViewFacade().getChoiceOptionSettingsStage().updateRouteSections();
     }
 
+    public void actionOnRouteSectionColumnMenu(int routeSectionIndex){
+        //TODO
+    }
+
+
     public void actionOnAttributeColumnMenu(int attributeIndex){
         //should  be called when option is selected
         //TODO: Missing method to get AttributeColumn value
@@ -93,7 +98,14 @@ public class ChoiceOptionSettingsController implements IconDisplayingController{
     }
 
     private void setActionListeners(){
-
+        // New Route Section
+        // Delete Route Section
+        // Icon
+        // LineType
+        // RS Column
+        // ColorPicker
+        // Attribute Column
+        // Close
     }
 
 }
