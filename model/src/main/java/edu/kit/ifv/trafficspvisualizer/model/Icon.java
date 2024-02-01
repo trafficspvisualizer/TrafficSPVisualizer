@@ -1,24 +1,23 @@
 package edu.kit.ifv.trafficspvisualizer.model;
 
-import java.io.File;
+import java.nio.file.Path;
 
 public class Icon {
-    private static int uniqueIdentifier = 0;
+    private final static String FILE_NAME_FORMAT = "%s.svg";
 
-    private final int identifier;
-    private final File filePath;
+    private final String identifier;
+    private final Path iconPath;
 
-    public Icon(File filePath) {
-        this.filePath = filePath;
-        this.identifier = uniqueIdentifier;
-        uniqueIdentifier++;
+    protected Icon(Path iconPath, String identifier) {
+        this.identifier = identifier;
+        this.iconPath = iconPath.resolve(FILE_NAME_FORMAT.formatted(identifier));
     }
 
-    public int getIdentifier() {
+    public String getIdentifier() {
         return identifier;
     }
 
-    public File getFilePath() {
-        return filePath;
+    public Path getFilePath() {
+        return iconPath;
     }
 }

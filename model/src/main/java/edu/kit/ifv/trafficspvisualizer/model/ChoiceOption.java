@@ -28,6 +28,13 @@ public class ChoiceOption {
         nextColor = ++nextColor % DEFAULT_COLORS.length;
     }
 
+    public ChoiceOption(String name, String title, List<RouteSection> routeSections, Color color) {
+        this.name = name;
+        this.title = title;
+        this.routeSections = new ArrayList<>(routeSections);
+        this.color = color;
+    }
+
     public void addRouteSection(RouteSection routeSection) {
         routeSections.add(routeSection);
     }

@@ -1,16 +1,24 @@
 package edu.kit.ifv.trafficspvisualizer.model;
 
 import java.io.File;
+import java.nio.file.Path;
 
 public class ExportSettings {
+    private static final int DEFAULT_HEIGHT = 270; // Full HD divided by 4
+    private static final int DEFAULT_WIDTH = 1920; // Full HD
+
     private int imageHeight;
     private int imageWidth;
     private File exportPath;
     private FileFormat fileFormat;
     private ExportType exportType;
 
-    public ExportSettings() {
-        //TODO Default values
+    public ExportSettings(File exportPath) {
+        this.imageHeight = DEFAULT_HEIGHT;
+        this.imageWidth = DEFAULT_WIDTH;
+        this.exportPath = exportPath;
+        this.fileFormat = FileFormat.PNG;
+        this.exportType = ExportType.SITUATION;
     }
 
     public ExportSettings(int imageHeight, int imageWidth, File exportPath, FileFormat fileFormat, ExportType exportType) {
