@@ -7,6 +7,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.IOException;
 
 public class ProjectCreationController {
     private final ControllerFacade controllerFacade;
@@ -45,7 +46,15 @@ public class ProjectCreationController {
             return;
         }
 
-        Project newProject = new Project(projectName, projectFolder, dataObject);
+        // Temporary solution so that the Application builds
+        Project newProject;
+        try {
+            newProject = new Project(projectName, projectFolder, dataObject);
+        } catch (IOException e) {
+            //TODO
+            return;
+        }
+
         controllerFacade.getViewFacade().setProject(newProject);
         controllerFacade.setProject(newProject);
 
