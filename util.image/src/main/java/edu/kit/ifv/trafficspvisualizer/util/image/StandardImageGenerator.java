@@ -11,7 +11,7 @@ import java.util.List;
 public class StandardImageGenerator extends ImageGenerator{
     @Override
     public BufferedImage createChoiceOption(ChoiceOption choiceOption, ChoiceData choiceData,
-                                            List<AbstractAttribute> attributes, int height, int width, int min, int max) {
+                                            List<AbstractAttribute> attributes, int height, int width, double min, double max) {
         return null;
     }
 }

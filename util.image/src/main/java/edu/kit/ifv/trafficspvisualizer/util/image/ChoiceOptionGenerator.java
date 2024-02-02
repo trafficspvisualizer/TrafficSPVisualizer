@@ -24,23 +24,16 @@ public class ChoiceOptionGenerator extends ImageCollectionGenerator {
         StandardImageGenerator standardImageGenerator = new StandardImageGenerator();
         ChoiceOption currentChoiceOption;
         int situationNumber;
+        BufferedImage[] images = new BufferedImage[numberOfChoiceOptions];
 
         for (int j = 0; j < numberOfChoiceOptions; j++) {
             currentChoiceOption = project.getChoiceOptions().get(j);
             situationNumber = j / numberOfChoiceOptionsPerSituation;
-            double lengthOfRouteSections = 0;
-            double lengthOfCurrentRouteSection;
-            for (RouteSection routeSection : currentChoiceOption.getRouteSections()) {
-                lengthOfCurrentRouteSection = dataObject.getAttributeValue(situationNumber, currentChoiceOption.getName(), routeSection.getChoiceDataKey());
-                lengthOfRouteSections += lengthOfCurrentRouteSection;
-            }
+            double lengthOfRouteSections = calculateLengthOfRouteSection(currentChoiceOption, situationNumber);
             BufferedImage bufferedImage = standardImageGenerator.createChoiceOption(currentChoiceOption,
-                    new ChoiceData(new HashMap<>()), attributeList, choiceOptionHeight, choiceOptionWidth, 0, (int) lengthOfRouteSections); //remove int cast
+                    new ChoiceData(new HashMap<>()), attributeList, choiceOptionHeight, choiceOptionWidth, 0, lengthOfRouteSections); // TODO add bufferedImage to ChoiceOptionImage
+            images[j] = bufferedImage;
         }
-        /* this.choiceOptionMappings =
-        List<ChoiceOption> choiceOption = new ArrayList<>(ChoiceOption);
-        choiceOption = project.getChoiceOptions();
-        return new BufferedImage[0];*/
-        return null;
+        return images;
     }
 }
