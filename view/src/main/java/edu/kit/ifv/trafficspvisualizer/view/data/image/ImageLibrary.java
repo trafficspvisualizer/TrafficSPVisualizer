@@ -45,6 +45,7 @@ public final class ImageLibrary {
             "/data/image/mainApplicationDownSwitchChoiceOptionButtonImage.png")));
 
 
+
     // ProjectCreationStage
     private static final Image PROJECT_CREATION_DIRECTORY_CHOOSER_BUTTON_IMAGE
             = new Image(String.valueOf(ImageLibrary.class.getResource(
@@ -53,6 +54,13 @@ public final class ImageLibrary {
     private static final Image PROJECT_CREATION_FILE_CHOOSER_BUTTON_IMAGE
             = new Image(String.valueOf(ImageLibrary.class.getResource(
             "/data/image/projectCreationFileChooserButtonImage.png")));
+
+
+    // ExportSettingsStage
+    private static final Image EXPORT_SETTINGS_DIRECTORY_CHOOSER_BUTTON_IMAGE
+            = PROJECT_CREATION_DIRECTORY_CHOOSER_BUTTON_IMAGE;
+
+
 
 
     // Application
@@ -94,8 +102,9 @@ public final class ImageLibrary {
         return MAIN_APPLICATION_DOWN_SWITCH_CHOICE_OPTION_BUTTON_IMAGE;
     }
 
-    // ProjectCreationStage
 
+
+    // ProjectCreationStage
 
     public static Image getProjectCreationDirectoryChooserButtonImage() {
         return PROJECT_CREATION_DIRECTORY_CHOOSER_BUTTON_IMAGE;
@@ -103,5 +112,12 @@ public final class ImageLibrary {
 
     public static Image getProjectCreationFileChooserButtonImage() {
         return PROJECT_CREATION_FILE_CHOOSER_BUTTON_IMAGE;
+    }
+
+
+
+    // ExportSettingsStage
+    public static Image getExportSettingsDirectoryChooserButtonImage() {
+        return EXPORT_SETTINGS_DIRECTORY_CHOOSER_BUTTON_IMAGE;
     }
 }

@@ -153,8 +153,6 @@ public class MainApplicationWindow {
         stage.setScene(scene);
         stage.setTitle(viewFacade.getLanguageStrategy().getApplicationName());
         stage.getIcons().add(ImageLibrary.getApplicationIcon());
-
-
     }
 
     private void buildMenuBar() {

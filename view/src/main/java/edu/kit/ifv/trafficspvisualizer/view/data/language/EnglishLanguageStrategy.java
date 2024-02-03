@@ -1,8 +1,12 @@
 package edu.kit.ifv.trafficspvisualizer.view.data.language;
 
+import edu.kit.ifv.trafficspvisualizer.model.ExportType;
+
 public final class EnglishLanguageStrategy extends LanguageStrategy {
 
-    // Application Alerts
+    // Application
+
+        // Application Alerts
 
     private final static String CONFIRMATION_ALERT_TITLE = "Conformation";
 
@@ -32,7 +36,17 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
 
     private final static String NEW_PROJECT_ERROR_ALERT_CONTENT_TEXT = "Please check your project name, input data file and save path.";
 
+    private final static String SAVE_ATTRIBUTE_SETTINGS_ERROR_ALERT_HEADER_TEXT = "Something went wrong! Could not save attribute settings.";
 
+    private final static String SAVE_ATTRIBUTE_SETTINGS_ERROR_ALERT_CONTENT_TEXT = "Please check the changed entries/configurations.";
+
+        // ENUMS
+
+    private final static String EXPORT_TYPE_HTML_TEXT = "HTML (Hyper text markup language)";
+
+    private final static String EXPORT_TYPE_CHOICE_OPTION_TEXT = "Choice option";
+
+    private final static String EXPORT_TYPE_SITUATION_TEXT = "Situation";
 
 
 
@@ -91,12 +105,30 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
 
     private final static String ATTRIBUTE_SETTINGS_SAVE_BUTTON_TEXT = "Save";
 
-    private final static String ATTRIBUTE_SETTINGS_CANCEL_BUTTTON_TEXT = "Cancel";
+    private final static String ATTRIBUTE_SETTINGS_CANCEL_BUTTON_TEXT = "Cancel";
+
+    // ExportSettingsStage
+
+    private final static String EXPORT_SETTINGS_TITLE = "Export Settings";
+
+    private final static String EXPORT_SETTINGS_CHOICE_OPTION_SIZE_TEXT = "Choice option size:";
+
+    private final static String EXPORT_SETTINGS_HEIGHT_TEXT = "Height in pixel:";
+
+    private final static String EXPORT_SETTINGS_WIDTH_TEXT = "Width in pixel:";
+
+    private final static String EXPORT_SETTINGS_EXPORT_DIRECTORY_TEXT = "Export directory:";
+
+    private final static String EXPORT_SETTINGS_EXPORT_TYPE_TEXT = "Export type:";
+
+    private final static String EXPORT_SETTINGS_SAVE_BUTTON_TEXT = ATTRIBUTE_SETTINGS_SAVE_BUTTON_TEXT;
+
+    private final static String EXPORT_SETTINGS_CANCEL_BUTTON_TEXT = ATTRIBUTE_SETTINGS_CANCEL_BUTTON_TEXT;
 
 
+    // Application
 
-
-    // Application Alerts
+        // Application Alerts
 
 
     public String getCloseProjectConfirmationAlertTitle() {
@@ -159,6 +191,10 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
         return SAVE_PROJECT_ERROR_ALERT_CONTENT_TEXT;
     }
 
+    public String getNewProjectErrorAlertTitle() {
+        return ERROR_ALERT_TITLE;
+    }
+
     public String getNewProjectErrorAlertHeaderText() {
         return NEW_PROJECT_ERROR_ALERT_HEADER_TEXT;
     }
@@ -167,7 +203,40 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
         return NEW_PROJECT_ERROR_ALERT_CONTENT_TEXT;
     }
 
+    public String getSaveAttributeSettingsErrorAlertTitle() {
+        return ERROR_ALERT_TITLE;
+    }
+
+    public String getSaveAttributeSettingsErrorAlertHeaderText() {
+        return SAVE_ATTRIBUTE_SETTINGS_ERROR_ALERT_HEADER_TEXT;
+    }
+
+    public String getSaveAttributeSettingsErrorAlertContentText() {
+        return SAVE_ATTRIBUTE_SETTINGS_ERROR_ALERT_CONTENT_TEXT;
+    }
+
+        // ENUMS
+
+    public String getExportTypeText(ExportType exportType) {
+        switch (exportType) {
+            case HTML -> {
+                return EXPORT_TYPE_HTML_TEXT;
+            }
+            case CHOICE_OPTION -> {
+                return EXPORT_TYPE_CHOICE_OPTION_TEXT;
+            }
+            case SITUATION -> {
+                return EXPORT_TYPE_SITUATION_TEXT;
+            }
+            default -> {
+                return null;
+            }
+        }
+    }
+
+
     // MainApplicationWindow
+
     public String getMainApplicationNewProjectMenuItemText() {
         return MAIN_APPLICATION_NEW_PROJECT_MENU_ITEM_TEXT;
     }
@@ -238,7 +307,6 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
 
     // AttributeSettingsStage
 
-
     public String getAttributeSettingsTitle() {
         return ATTRIBUTE_SETTINGS_TITLE;
     }
@@ -276,6 +344,41 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
     }
 
     public String getAttributeSettingsCancelButtonText() {
-        return ATTRIBUTE_SETTINGS_CANCEL_BUTTTON_TEXT;
+        return ATTRIBUTE_SETTINGS_CANCEL_BUTTON_TEXT;
+    }
+
+    // ExportSettingsStage
+
+
+    public String getExportSettingsTitle() {
+        return EXPORT_SETTINGS_TITLE;
+    }
+
+    public String getExportSettingsChoiceOptionSizeText() {
+        return EXPORT_SETTINGS_CHOICE_OPTION_SIZE_TEXT;
+    }
+
+    public String getExportSettingsHeightText() {
+        return EXPORT_SETTINGS_HEIGHT_TEXT;
+    }
+
+    public String getExportSettingsWidthText() {
+        return EXPORT_SETTINGS_WIDTH_TEXT;
+    }
+
+    public String getExportSettingsExportDirectoryText() {
+        return EXPORT_SETTINGS_EXPORT_DIRECTORY_TEXT;
+    }
+
+    public String getExportSettingsExportTypeText() {
+        return EXPORT_SETTINGS_EXPORT_TYPE_TEXT;
+    }
+
+    public String getExportSettingsSaveButtonText() {
+        return EXPORT_SETTINGS_SAVE_BUTTON_TEXT;
+    }
+
+    public String getExportSettingsCancelButtonText() {
+        return EXPORT_SETTINGS_CANCEL_BUTTON_TEXT;
     }
 }

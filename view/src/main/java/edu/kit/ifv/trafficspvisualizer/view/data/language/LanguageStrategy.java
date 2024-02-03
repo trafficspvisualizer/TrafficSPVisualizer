@@ -1,8 +1,12 @@
 package edu.kit.ifv.trafficspvisualizer.view.data.language;
 
+import edu.kit.ifv.trafficspvisualizer.model.ExportType;
+
 public abstract class LanguageStrategy {
     // Application
     private static final String APPLICATION_NAME = "TrafficSPVisualizer";
+
+
 
     // MainApplicationWindow
 
@@ -16,7 +20,7 @@ public abstract class LanguageStrategy {
         return APPLICATION_NAME;
     }
 
-    // Application Alerts
+        // Application Alerts
 
     public abstract String getCloseProjectConfirmationAlertTitle();
 
@@ -48,9 +52,20 @@ public abstract class LanguageStrategy {
 
     public abstract String getSaveProjectErrorAlertContentText();
 
+    public abstract String getNewProjectErrorAlertTitle();
+
     public abstract String getNewProjectErrorAlertHeaderText();
 
     public abstract String getNewProjectErrorAlertContentText();
+
+    public abstract String getSaveAttributeSettingsErrorAlertTitle();
+
+    public abstract String getSaveAttributeSettingsErrorAlertHeaderText();
+
+    public abstract String  getSaveAttributeSettingsErrorAlertContentText();
+
+        // ENUMS
+    public abstract String getExportTypeText(ExportType exportType);
 
 
 
@@ -80,6 +95,7 @@ public abstract class LanguageStrategy {
     public abstract String getMainApplicationChoiceOptionText();
 
 
+
     // ProjectCreationStage
 
     public abstract String getProjectCreationTitle();
@@ -93,6 +109,8 @@ public abstract class LanguageStrategy {
     public abstract String getProjectCreationCreateNewProjectButtonText();
 
     public abstract String getProjectCreationCancelButtonText();
+
+
 
     // AttributeSettingsStage
 
@@ -113,4 +131,24 @@ public abstract class LanguageStrategy {
     public abstract String getAttributeSettingsSaveButtonText();
 
     public abstract String getAttributeSettingsCancelButtonText();
+
+
+
+    // ExportSettingsStage
+
+    public abstract String getExportSettingsTitle();
+
+    public abstract String getExportSettingsChoiceOptionSizeText();
+
+    public abstract String getExportSettingsHeightText();
+
+    public abstract String getExportSettingsWidthText();
+
+    public abstract String getExportSettingsExportDirectoryText();
+
+    public abstract String getExportSettingsExportTypeText();
+
+    public abstract String getExportSettingsSaveButtonText();
+
+    public abstract String getExportSettingsCancelButtonText();
 }

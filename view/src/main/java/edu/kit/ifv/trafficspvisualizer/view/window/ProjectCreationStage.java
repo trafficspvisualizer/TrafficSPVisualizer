@@ -30,7 +30,7 @@ public class ProjectCreationStage extends Stage {
     private ViewFacade viewFacade;
 
 
-    private Text projectNameText;
+    private Text nameText;
 
     private TextField projectNameTextField;
 
@@ -85,7 +85,7 @@ public class ProjectCreationStage extends Stage {
     private void buildStage() {
         LanguageStrategy languageStrategy = viewFacade.getLanguageStrategy();
 
-        projectNameText = new Text(languageStrategy.getProjectCreationProjectNameText());
+        nameText = new Text(languageStrategy.getProjectCreationProjectNameText());
 
         projectNameTextField = new TextField();
 
@@ -110,7 +110,7 @@ public class ProjectCreationStage extends Stage {
         inputDataFileButton.setGraphic(inputDataFileButtonImageView);
 
         configGridPane = new GridPane();
-        configGridPane.add(projectNameText,0,0);
+        configGridPane.add(nameText,0,0);
         configGridPane.add(projectNameTextField,1,0);
         configGridPane.add(saveProjectDirectoryText,0,1);
         configGridPane.add(saveProjectDirectoryTextField,1,1);
@@ -138,15 +138,16 @@ public class ProjectCreationStage extends Stage {
         setTitle(languageStrategy.getProjectCreationTitle());
         setScene(scene);
         initModality(Modality.APPLICATION_MODAL);
+        getIcons().add(ImageLibrary.getApplicationIcon());
     }
 
     // style-methods
 
     private void styleStage() {
         // projectNameText
-        GridPane.setHalignment(projectNameText, HPos.LEFT);
-        GridPane.setValignment(projectNameText, VPos.CENTER);
-        projectNameText.setFont(FontLibrary.getMidFont());
+        GridPane.setHalignment(nameText, HPos.LEFT);
+        GridPane.setValignment(nameText, VPos.CENTER);
+        nameText.setFont(FontLibrary.getMidFont());
 
 
         // projectNameTextField
@@ -257,7 +258,7 @@ public class ProjectCreationStage extends Stage {
         LanguageStrategy languageStrategy = viewFacade.getLanguageStrategy();
 
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(languageStrategy.getSaveProjectErrorAlertTitle());
+        alert.setTitle(languageStrategy.getNewProjectErrorAlertTitle());
         alert.setHeaderText(languageStrategy.getNewProjectErrorAlertHeaderText());
         alert.setContentText(languageStrategy.getNewProjectErrorAlertContentText());
 

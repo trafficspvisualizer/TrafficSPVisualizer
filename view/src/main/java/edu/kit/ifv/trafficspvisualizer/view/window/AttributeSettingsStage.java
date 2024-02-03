@@ -3,12 +3,14 @@ package edu.kit.ifv.trafficspvisualizer.view.window;
 import edu.kit.ifv.trafficspvisualizer.model.Attribute;
 import edu.kit.ifv.trafficspvisualizer.view.ViewFacade;
 import edu.kit.ifv.trafficspvisualizer.view.data.font.FontLibrary;
+import edu.kit.ifv.trafficspvisualizer.view.data.image.ImageLibrary;
 import edu.kit.ifv.trafficspvisualizer.view.data.language.LanguageStrategy;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
@@ -153,6 +155,7 @@ public class AttributeSettingsStage extends Stage {
         setTitle(languageStrategy.getAttributeSettingsTitle());
         setScene(scene);
         initModality(Modality.APPLICATION_MODAL);
+        getIcons().add(ImageLibrary.getApplicationIcon());
     }
 
     // style-methods
@@ -293,13 +296,20 @@ public class AttributeSettingsStage extends Stage {
 
 
     // setter-methods
-    public void setIconPreview(int iconId) {
-
+    public void setIcon(int iconId) {
+        //TODO: iconButtonImageView.setImage(); & iconButtonImageView.userData();
     }
 
     // show-methods
     public void showSaveErrorAlert() {
+        LanguageStrategy languageStrategy = viewFacade.getLanguageStrategy();
 
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(languageStrategy.getSaveAttributeSettingsErrorAlertTitle());
+        alert.setHeaderText(languageStrategy.getSaveAttributeSettingsErrorAlertHeaderText());
+        alert.setContentText(languageStrategy.getSaveAttributeSettingsErrorAlertContentText());
+
+        alert.showAndWait();
     }
 
 }
