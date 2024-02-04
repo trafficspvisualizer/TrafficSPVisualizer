@@ -17,7 +17,7 @@ public class ImageExporter extends Exporter {
     private static final String IMAGE_FORMAT = "png";
     private static final String INFO_PREFIX = "#c_";
     private static final String INFO_SUFFIX = "#";
-    private static final String DIRECTORY_NAME = "images";
+    private static final String DIRECTORY_NAME = "trafficSPVisulizer";
 
     /**
      * Exports an array of images to a specified file.

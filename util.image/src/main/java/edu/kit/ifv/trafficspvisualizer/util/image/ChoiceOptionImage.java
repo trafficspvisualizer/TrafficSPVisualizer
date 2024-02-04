@@ -6,13 +6,13 @@ import java.util.List;
 
 public class ChoiceOptionImage {
     private BufferedImage image;
-    private String title = "";
-    private int blockNumber;
-    private int scenarioNumber;
-    private int choiceOptionNumber;
-
     private final List<String> infos = new ArrayList<>();
 
+    public ChoiceOptionImage() {
+        infos.add("0");
+        infos.add("0");
+        infos.add("0");
+    }
     public void setImage(BufferedImage image) {
         this.image = image;
     }
@@ -21,47 +21,45 @@ public class ChoiceOptionImage {
         infos.add(info);
     }
 
-    public void remove(String info){
-        infos.remove(info);
-    }
 
     public List<String> getInfos() {
-        return infos;
+        return List.copyOf(infos);
     }
 
     public BufferedImage getImage() {
         return image;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public String getBlockNumber() {
+        return infos.get(1);
     }
 
-    public String getTitle() {
-        return title;
+    public String getChoiceOptionNumber() {
+        return infos.get(2);
     }
 
-    public int getBlockNumber() {
-        return blockNumber;
-    }
-
-    public int getChoiceOptionNumber() {
-        return choiceOptionNumber;
-    }
-
-    public int getScenarioNumber() {
-        return scenarioNumber;
+    public String getScenarioNumber() {
+        return infos.get(0);
     }
 
     public void setBlockNumber(int blockNumber) {
-        this.blockNumber = blockNumber;
+        if (blockNumber < 0) {
+            throw new IllegalArgumentException("Scenario Number must be greater than 0");
+        }
+        infos.set(1,String.valueOf(blockNumber));
     }
 
     public void setChoiceOptionNumber(int choiceOptionNumber) {
-        this.choiceOptionNumber = choiceOptionNumber;
+        if (choiceOptionNumber < 0) {
+            throw new IllegalArgumentException("Scenario Number must be greater than 0");
+        }
+        infos.set(1,String.valueOf(choiceOptionNumber));
     }
 
     public void setScenarioNumber(int scenarioNumber) {
-        this.scenarioNumber = scenarioNumber;
+        if (scenarioNumber < 0) {
+            throw new IllegalArgumentException("Scenario Number must be greater than 0");
+        }
+        infos.set(1,String.valueOf(scenarioNumber));
     }
 }
