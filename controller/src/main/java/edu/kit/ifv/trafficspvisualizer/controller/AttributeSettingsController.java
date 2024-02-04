@@ -4,19 +4,54 @@ import edu.kit.ifv.trafficspvisualizer.model.Attribute;
 import edu.kit.ifv.trafficspvisualizer.model.Icon;
 import javafx.scene.image.Image;
 
+/**
+ * The AttributeSettingsController represents the logic unit associated with the
+ * {@link edu.kit.ifv.trafficspvisualizer.view.window.AttributeSettingsStage}.
+ * It provides all the methods that are executed when a button is pressed in the AttributeSettingsStage.
+ * The controller has direct access to the window to keep the icon preview up to date.
+ * This controller implements the 'IconDisplayingController' interface, ensuring that the icon
+ * preview is always up-to-date.
+ *
+ * @author ughhz
+ * @version 1.0
+ */
 public class AttributeSettingsController implements IconDisplayingController {
+
+    /**
+     * Front-facing interface for the controller package.
+     */
     private final ControllerFacade controllerFacade;
+
+    /**
+     * Index of the {@link Attribute} on which the controller is working.
+     */
     private final int attributeIndex;
 
+    /**
+     * Constructs the AttributeSettingsController.
+     *
+     * @param controllerFacade the front-facing interface for the controller package
+     * @param attributeIndex the index of the attribute on which the controller is working
+     */
     public AttributeSettingsController(ControllerFacade controllerFacade, int attributeIndex) {
         this.controllerFacade = controllerFacade;
         this.attributeIndex = attributeIndex;
     }
 
+    /**
+     * Creates new {@link IconSelectionController}.
+     * Sets AttributeSettingsController as parentController of IconSelectionController and attributeIndex as index.
+     */
     public void actionOnIconButton(){
         controllerFacade.createIconSelectionController(this, attributeIndex);
     }
 
+    /**
+     * Scrapes necessary data from {@link edu.kit.ifv.trafficspvisualizer.view.window.AttributeSettingsStage}.
+     * If working on existent attribute updates its values to scraped values.
+     * If working on newly created attribute, a new {@link Attribute} is created with scraped data.
+     * Closes the stage/controller afterward and instructs {@link AttributeController} to update.
+     */
     public void actionOnSaveButton(){
         //scraping data from view
         //TODO: placeholder methods
@@ -56,9 +91,15 @@ public class AttributeSettingsController implements IconDisplayingController {
 
         //close stage
         actionOnCancelButton();
+        controllerFacade.getAttributeController().update();
 
     }
 
+    /**
+     * Closes the {@link edu.kit.ifv.trafficspvisualizer.view.window.AttributeSettingsStage} and
+     * deletes its reference in the {@link edu.kit.ifv.trafficspvisualizer.view.ViewFacade}.
+     * Deletes AttributeSettingsController from {@link ControllerFacade}.
+     */
     public void actionOnCancelButton(){
         controllerFacade.getViewFacade().getAttributeSettingsStage().close();
         controllerFacade.getViewFacade().setAttributeSettingsStage(null);
@@ -71,13 +112,10 @@ public class AttributeSettingsController implements IconDisplayingController {
         //controllerFacade.getViewFacade().getAttributeSettingsStage().setIconPreview(icon);
     }
 
-    public int getAttributeIndex() {
-        return attributeIndex;
-    }
-
     private void setActionListeners(){
         // Icon
         // Save
         // Cancel
+        //TODO
     }
 }

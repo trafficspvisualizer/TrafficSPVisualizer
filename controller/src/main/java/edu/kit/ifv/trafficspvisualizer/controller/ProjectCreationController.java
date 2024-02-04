@@ -9,28 +9,73 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * The ProjectCreationController is the logic unit associated with the
+ * {@link edu.kit.ifv.trafficspvisualizer.view.window.ProjectCreationStage}.
+ * It provides all the methods that are executed when a button is pressed in the ProjectCreationStage.
+ * The controller can access the window directly to keep the path preview up to date.
+ * The controller also has the task of creating new projects.
+ *
+ * @author ughhz
+ * @version 1.0
+ */
 public class ProjectCreationController {
+
+    /**
+     * Front-facing interface for the controller package.
+     */
     private final ControllerFacade controllerFacade;
 
+    /**
+     * Constructs the ProjectCreationController.
+     *
+     * @param controllerFacade the front-facing interface for the controller package
+     */
     public ProjectCreationController(ControllerFacade controllerFacade) {
         this.controllerFacade = controllerFacade;
         controllerFacade.getViewFacade().getProjectCreationStage();
-        //TODO: Set all action handlers for buttons
+        setActionListeners();
     }
 
+    /**
+     * Instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.ProjectCreationStage} to open
+     * {@link javafx.stage.FileChooser} and sets returned value as project folder path.
+     */
     public void actionOnProjectFolderButton(){
         File selectedFile = controllerFacade.getViewFacade().getProjectCreationStage().showFileChooserDialog();
         controllerFacade.getViewFacade().getProjectCreationStage().setProjectFolderPath(selectedFile);
     }
 
+    /**
+     * Instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.ProjectCreationStage} to open
+     * {@link javafx.stage.FileChooser} and sets returned value as input file path.
+     */
     public void actionOnInputFileButton(){
 
         File selectedFile = controllerFacade.getViewFacade().getProjectCreationStage().showFileChooserDialog();
         controllerFacade.getViewFacade().getProjectCreationStage().setInputDataPath(selectedFile);
     }
 
-    public void actionOnSaveButton(String projectName, File projectFolder, File inputFile){
+    /**
+     * Scrapes data from {@link edu.kit.ifv.trafficspvisualizer.view.window.ProjectCreationStage} and
+     * if possible creates a new {@link Project} based on scraped data.
+     * If creation was successful references to new project are set in
+     * {@link edu.kit.ifv.trafficspvisualizer.view.ViewFacade} and {@link ControllerFacade};
+     *
+     */
+    public void actionOnSaveButton(){
         DataObject dataObject = null;
+
+        //TODO: remove, placeholder
+        String projectName = null;
+        File projectFolder = null;
+        File inputFile = null;
+
+        //TODO: missing getter methods
+        //Scrape data
+        //String projectName = controllerFacade.getViewFacade().getProjectCreationStage().getProjectName();
+        //File projectFolder = controllerFacade.getViewFacade().getProjectCreationStage().getProjectFolder();
+        //File inputFile = controllerFacade.getViewFacade().getProjectCreationStage().getInputFile();
 
         //try to parse inputFile
         try {
@@ -58,10 +103,16 @@ public class ProjectCreationController {
         controllerFacade.getViewFacade().setProject(newProject);
         controllerFacade.setProject(newProject);
 
+        //TODO: Update/initialize MainApplicationWindow
         // Update Preview
         controllerFacade.getMainApplicationController().updatePreview();
     }
 
+    /**
+     * Closes the {@link edu.kit.ifv.trafficspvisualizer.view.window.ProjectCreationStage} and
+     * deletes its reference in the {@link edu.kit.ifv.trafficspvisualizer.view.ViewFacade}.
+     * Deletes ProjectCreationController from {@link ControllerFacade}.
+     */
     public void actionOnCancelButton(){
         controllerFacade.getViewFacade().getProjectCreationStage().close();
         controllerFacade.getViewFacade().setProjectCreationStage(null);
@@ -73,5 +124,6 @@ public class ProjectCreationController {
         // InputFile-Button
         // Save-Button
         // Cancel-Button
+        //TODO
     }
 }
