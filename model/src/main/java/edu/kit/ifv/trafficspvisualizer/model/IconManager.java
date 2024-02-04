@@ -2,54 +2,53 @@ package edu.kit.ifv.trafficspvisualizer.model;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class IconManager {
     private final static String DIR_NAME = "icon";
     private final Path iconDir;
-    private final List<Icon> icons;
+    private final Map<Integer, Icon> icons;
     private int nextIdentifier;
 
     public IconManager(Path cacheDirectory) throws IOException {
+        this(cacheDirectory, null);
+    }
+
+    public IconManager(Path cacheDirectory, Path iconDirectory) throws IOException {
         this.iconDir = cacheDirectory.resolve(DIR_NAME);
         Files.createDirectories(iconDir);
         this.nextIdentifier = 0;
-        this.icons = initIcons();
+        this.icons = new HashMap<>();
+        initIcons(iconDirectory);
     }
 
-    private List<Icon> initIcons() {
-        List<Icon> icons = new ArrayList<>();
-        try (DirectoryStream<Path> dirStream = Files.newDirectoryStream(iconDir)) {
-            for (Path path : dirStream) {
-                if (path.endsWith(".svg")) {
-                    // Split the filename at the "." to get the name without extension
-                    String fileName = path.getFileName().toString().split("\\.")[0];
-                    icons.add(new Icon(iconDir, fileName));
-                }
-            }
-        } catch (IOException e) {
-            // On Error just return the current icons
-            return icons;
+    private void initIcons(Path iconDirectory) throws IOException {
+        if (!iconDirectory.toFile().isDirectory()) {
+            //TODO: Maybe throw an exception?
+            return;
+        }
+        File[] iconFiles = iconDirectory.toFile().listFiles();
+        if (iconFiles == null) {
+            return;
         }
 
-        return icons;
+        for (File icon : iconFiles) {
+            createIcon(icon.toPath());
+        }
     }
 
-    public Icon createIcon(Path iconPath) throws IOException {
-        Icon icon = new Icon(iconDir, String.valueOf(nextIdentifier));
+    public void createIcon(Path iconPath) throws IOException {
+        Icon icon = new Icon(iconDir, nextIdentifier);
         nextIdentifier++;
         Path out = new File(iconDir.toFile(), String.valueOf(icon.getIdentifier())).toPath();
         Files.copy(iconPath, out);
-        icons.add(icon);
-
-        return icon;
+        icons.put(icon.getIdentifier(), icon);
     }
 
-    public List<Icon> getIcons() {
-        return List.copyOf(icons);
+    public Map<Integer, Icon> getIcons() {
+        return Map.copyOf(icons);
     }
 }

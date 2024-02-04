@@ -8,9 +8,9 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Project {
-    private static final String CACHE_NAME = "TrafficSP";
+    private static final String CACHE_NAME = "TrafficSP_%s";
     private final String name;
-    private final File projectPath;
+    private final Path projectPath;
     private final DataObject dataObject;
     private final List<AbstractAttribute> attributes;
     private final List<ChoiceOption> choiceOptions;
@@ -19,7 +19,7 @@ public class Project {
     private ExportSettings exportSettings;
     private int currentPreviewSituation;
 
-    public Project(String name, File projectPath, DataObject dataObject) throws IOException {
+    public Project(String name, Path projectPath, DataObject dataObject, File NGDFile) throws IOException {
         this.name = name;
         this.projectPath = projectPath;
         this.dataObject = dataObject;
@@ -27,12 +27,13 @@ public class Project {
         this.choiceOptions = initializeChoiceOptions();
         this.exportSettings = new ExportSettings(this.projectPath);
         this.currentPreviewSituation = 1;
-        this.cacheDirectory = Files.createTempDirectory(CACHE_NAME);
+        this.cacheDirectory = createCache(NGDFile);
         this.iconManager = new IconManager(cacheDirectory);
     }
 
-    public Project(String name, File projectPath, DataObject dataObject, List<AbstractAttribute> attributes,
-                   List<ChoiceOption> choiceOptions, ExportSettings exportSettings, int currentPreviewSituation)
+    public Project(String name, Path projectPath, DataObject dataObject, List<AbstractAttribute> attributes,
+                   List<ChoiceOption> choiceOptions, ExportSettings exportSettings,
+                   Path iconDirectory, File NGDFile)
         throws IOException {
         this.name = name;
         this.projectPath = projectPath;
@@ -40,9 +41,15 @@ public class Project {
         this.attributes = new ArrayList<>(attributes);
         this.choiceOptions = new ArrayList<>(choiceOptions);
         this.exportSettings = exportSettings;
-        this.currentPreviewSituation = currentPreviewSituation;
-        this.cacheDirectory = Files.createTempDirectory(CACHE_NAME);
-        this.iconManager = new IconManager(cacheDirectory);
+        this.cacheDirectory = createCache(NGDFile);
+        this.iconManager = new IconManager(cacheDirectory, iconDirectory);
+        this.currentPreviewSituation = 1;
+    }
+
+    private Path createCache(File NGDFile) throws IOException {
+        Path cacheDirectory = Files.createTempDirectory(CACHE_NAME.formatted(name));
+        Files.copy(NGDFile.toPath(), cacheDirectory);
+        return cacheDirectory;
     }
 
     private List<ChoiceOption> initializeChoiceOptions() {
@@ -107,7 +114,7 @@ public class Project {
         return exportSettings;
     }
 
-    public File getProjectPath() {
+    public Path getProjectPath() {
         return projectPath;
     }
 
@@ -129,5 +136,8 @@ public class Project {
 
     public Path getCacheDirectory() {
         return cacheDirectory;
+    }
+    public IconManager getIconManager() {
+        return  this.iconManager;
     }
 }
