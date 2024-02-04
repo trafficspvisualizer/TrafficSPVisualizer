@@ -21,7 +21,7 @@ public class StandardProjectSaver extends AbstractSaver {
 
         try (FileWriter jsonFile = new FileWriter(new File(dir, "project.json"))) {
             jsonFile.write(jsonObject.toString());
-            FileUtils.copyDirectory(project., dir);
+            FileUtils.copyDirectory(project.getCacheDirectory().toFile(), dir);
         }
     }
 
