@@ -44,6 +44,10 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
 
     private final static String SAVE_EXPORT_SETTINGS_ERROR_ALERT_CONTENT_TEXT = SAVE_ATTRIBUTE_SETTINGS_ERROR_ALERT_CONTENT_TEXT;
 
+    private final static String ADD_ICON_ERROR_ALERT_HEADER_TEXT = "Something went wrong! Could not save add the selected icon.";
+
+    private final static String ADD_ICON_ERROR_ALERT_CONTENT_TEXT = "Please check the selected icon.";
+
         // ENUMS
 
     private final static String EXPORT_TYPE_HTML_TEXT = "HTML (Hyper text markup language)";
@@ -129,6 +133,16 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
 
     private final static String EXPORT_SETTINGS_CANCEL_BUTTON_TEXT = ATTRIBUTE_SETTINGS_CANCEL_BUTTON_TEXT;
 
+
+    // IconSelectionStage
+
+    private final static String ICON_SELECTION_TITLE = "Select icon";
+
+    private final static String ICON_SELECTION_ADD_ICON_BUTTON_TEXT = "Add icon";
+
+    private final static String ICON_SELECTION_SELECT_BUTTON_TEXT = "Select";
+
+    private final static String ICON_SELECTION_CANCEL_BUTTON_TEXT = ATTRIBUTE_SETTINGS_CANCEL_BUTTON_TEXT;
 
     // Application
 
@@ -229,6 +243,18 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
 
     public String getSaveExportSettingsErrorAlertContentText() {
         return SAVE_EXPORT_SETTINGS_ERROR_ALERT_CONTENT_TEXT;
+    }
+
+    public String getAddIconErrorAlertTitle() {
+        return ERROR_ALERT_TITLE;
+    }
+
+    public String getAddIconErrorAlertHeaderText() {
+        return ADD_ICON_ERROR_ALERT_HEADER_TEXT;
+    }
+
+    public String getAddIconErrorAlertContentText() {
+        return ADD_ICON_ERROR_ALERT_CONTENT_TEXT;
     }
 
     // ENUMS
@@ -363,8 +389,8 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
         return ATTRIBUTE_SETTINGS_CANCEL_BUTTON_TEXT;
     }
 
-    // ExportSettingsStage
 
+    // ExportSettingsStage
 
     public String getExportSettingsTitle() {
         return EXPORT_SETTINGS_TITLE;
@@ -396,5 +422,23 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
 
     public String getExportSettingsCancelButtonText() {
         return EXPORT_SETTINGS_CANCEL_BUTTON_TEXT;
+    }
+
+
+    // IconSelectionStage
+    public String getIconSelectionTitle() {
+        return ICON_SELECTION_TITLE;
+    }
+
+    public String getIconSelectionAddIconButtonText() {
+        return ICON_SELECTION_ADD_ICON_BUTTON_TEXT;
+    }
+
+    public String getIconSelectionSelectButtonText() {
+        return ICON_SELECTION_SELECT_BUTTON_TEXT;
+    }
+
+    public String getIconSelectionCancelButtonText() {
+        return ICON_SELECTION_CANCEL_BUTTON_TEXT;
     }
 }

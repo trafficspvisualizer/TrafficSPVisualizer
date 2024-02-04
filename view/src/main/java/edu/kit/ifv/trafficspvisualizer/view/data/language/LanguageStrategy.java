@@ -69,6 +69,12 @@ public abstract class LanguageStrategy {
     public abstract String getSaveExportSettingsErrorAlertHeaderText();
     public abstract String getSaveExportSettingsErrorAlertContentText();
 
+    public abstract String getAddIconErrorAlertTitle();
+
+    public abstract String getAddIconErrorAlertHeaderText();
+
+    public abstract String getAddIconErrorAlertContentText();
+
         // ENUMS
     public abstract String getExportTypeText(ExportType exportType);
 
@@ -156,4 +162,14 @@ public abstract class LanguageStrategy {
     public abstract String getExportSettingsSaveButtonText();
 
     public abstract String getExportSettingsCancelButtonText();
+
+
+    // IconSelectionStage
+    public abstract String getIconSelectionTitle();
+
+    public abstract String getIconSelectionAddIconButtonText();
+
+    public abstract String getIconSelectionSelectButtonText();
+
+    public abstract String getIconSelectionCancelButtonText();
 }

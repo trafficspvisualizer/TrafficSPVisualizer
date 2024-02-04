@@ -61,7 +61,7 @@ public class ProjectCreationStage extends Stage {
 
     private Button cancelButton;
 
-    private GridPane saveAndCancelGridPane;
+    private GridPane createAndCancelGridPane;
 
 
     private BorderPane bodyBorderPane;
@@ -124,14 +124,14 @@ public class ProjectCreationStage extends Stage {
 
         cancelButton = new Button(languageStrategy.getProjectCreationCancelButtonText());
 
-        saveAndCancelGridPane = new GridPane();
-        saveAndCancelGridPane.add(createNewProjectButton, 0, 0);
-        saveAndCancelGridPane.add(cancelButton, 1, 0);
+        createAndCancelGridPane = new GridPane();
+        createAndCancelGridPane.add(createNewProjectButton, 0, 0);
+        createAndCancelGridPane.add(cancelButton, 1, 0);
 
 
         bodyBorderPane = new BorderPane();
         bodyBorderPane.setTop(configGridPane);
-        bodyBorderPane.setBottom(saveAndCancelGridPane);
+        bodyBorderPane.setBottom(createAndCancelGridPane);
 
         scene = new Scene(bodyBorderPane);
 
@@ -215,10 +215,10 @@ public class ProjectCreationStage extends Stage {
         cancelButton.setFont(FontLibrary.getSmallFont());
 
         // saveAndCancelGridPane
-        BorderPane.setAlignment(saveAndCancelGridPane, Pos.BOTTOM_LEFT);
-        saveAndCancelGridPane.setPadding(new Insets(15));
-        saveAndCancelGridPane.setHgap(15);
-        saveAndCancelGridPane.setVgap(15);
+        BorderPane.setAlignment(createAndCancelGridPane, Pos.BOTTOM_LEFT);
+        createAndCancelGridPane.setPadding(new Insets(15));
+        createAndCancelGridPane.setHgap(15);
+        createAndCancelGridPane.setVgap(15);
 
 
         // bodyBorderPane
