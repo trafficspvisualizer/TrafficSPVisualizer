@@ -2,15 +2,15 @@ package edu.kit.ifv.trafficspvisualizer.controller;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 
 import edu.kit.ifv.trafficspvisualizer.model.Project;
 import edu.kit.ifv.trafficspvisualizer.model.ExportType;
-import edu.kit.ifv.trafficspvisualizer.util.export.Exporter;
 import edu.kit.ifv.trafficspvisualizer.util.image.ChoiceOptionGenerator;
 import edu.kit.ifv.trafficspvisualizer.util.image.ImageCollectionGenerator;
 import edu.kit.ifv.trafficspvisualizer.util.image.SituationGenerator;
-import edu.kit.ifv.trafficspvisualizer.util.project.ProjectLoader;
-import edu.kit.ifv.trafficspvisualizer.util.project.ProjectSaver;
+import edu.kit.ifv.trafficspvisualizer.util.project.StandardProjectLoader;
+import edu.kit.ifv.trafficspvisualizer.util.project.StandardProjectSaver;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -32,7 +32,7 @@ public class MainApplicationController {
         fileChooserStage.close();
         Project newProject;
         try {
-            newProject = new ProjectLoader().loadProject(selectedFile);
+            newProject = new StandardProjectLoader().loadProject(selectedFile);
         } catch (Exception e) {
             controllerFacade.getViewFacade().getMainApplicationWindow().showLoadProjectErrorAlert();
             return;
@@ -43,8 +43,8 @@ public class MainApplicationController {
 
     }
 
-    public void actionOnSaveButton(){
-        new ProjectSaver().saveProject(controllerFacade.getProject(), controllerFacade.getProject().getExportSettings().getExportPath().toFile());
+    public void actionOnSaveButton() throws IOException {
+        new StandardProjectSaver().saveProject(controllerFacade.getProject(), controllerFacade.getProject().getExportSettings().getExportPath());
     }
 
     public void actionOnHelpButton(){

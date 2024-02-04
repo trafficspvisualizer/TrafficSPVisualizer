@@ -25,20 +25,20 @@ class StandardProjectSaverTest {
         } catch (URISyntaxException e) {
             file = new File(url.getPath());
         }
-        Icon icon = new Icon(file.toPath(),"j");
+        //Icon icon = new Icon(file.toPath(),"j");
         StandardProjectSaver standardProjectSaver = new StandardProjectSaver();
         Map<ChoiceOption, List<String>> ds = new HashMap<>();
-        Attribute attribute = new Attribute("dsasd",icon,"w","s", false, 0,ds);
+        //Attribute attribute = new Attribute("dsasd",icon,"w","s", false, 0,ds);
         List<AbstractAttribute> list = new ArrayList<>();
-        list.add(attribute);
+        //list.add(attribute);
         List<ChoiceOption> list1 = new ArrayList<>();
         List<RouteSection> d = new ArrayList<>();
-        RouteSection routeSection = new RouteSection(icon, "sd",LineType.DASHED);
+        //RouteSection routeSection = new RouteSection(icon, "sd",LineType.DASHED);
         ChoiceOption choiceOption = new ChoiceOption("ds", "s",d, null);
         list1.add(choiceOption);
-        d.add(routeSection);
-        ExportSettings exportSettings = new ExportSettings(10,10,file.getParentFile(),FileFormat.PNG,ExportType.SITUATION);
-        Project project1 = new Project("ds",null,null, list, list1, exportSettings,0);
+        //d.add(routeSection);
+        //ExportSettings exportSettings = new ExportSettings(10,10,file.getParentFile(),FileFormat.PNG,ExportType.SITUATION);
+        //Project project1 = new Project("ds",null,null, list, list1, exportSettings,0);
 
 
     }

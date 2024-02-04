@@ -17,7 +17,6 @@ import static java.util.stream.Collectors.*;
 public abstract class AbstractSaver {
     private static final String KEY_IMAGE_HEIGHT = "imageHeight";
     private static final String KEY_IMAGE_WIDTH = "imageWidth";
-    private static final String KEY_EXPORT_PATH = "exportPath";
     private static final String KEY_FILE_FORMAT = "fileFormat";
     private static final String KEY_EXPORT_TYPE = "exportType";
     private static final String KEY_ICON = "icon";
@@ -37,7 +36,7 @@ public abstract class AbstractSaver {
     private static final String KEY_ATTRIBUTES = "attributes";
     private static final String KEY_EXPORT_SETTINGS = "exportSettings";
     private static final String KEY_ICONS = "Icons";
-
+    private static final String KEY_ICONMANAGER = "IconManager";
     public abstract void saveProject(Project project, Path path) throws IOException;
 
     protected JSONObject createJsonProject(String name, List<AbstractAttribute> attributes,
@@ -56,7 +55,6 @@ public abstract class AbstractSaver {
         jsonObject.put(KEY_NAME, name);
         jsonObject.put(KEY_ATTRIBUTES, attributesJsonArray);
         jsonObject.put(KEY_EXPORT_SETTINGS, createJsonExportSettings(exportSettings));
-        jsonObject.put("IconManager", createJsonIconManager(iconManager));
 
         return jsonObject;
     }
@@ -82,7 +80,6 @@ public abstract class AbstractSaver {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put(KEY_IMAGE_HEIGHT, exportSettings.getImageHeight());
         jsonObject.put(KEY_IMAGE_WIDTH, exportSettings.getImageWidth());
-        jsonObject.put(KEY_EXPORT_PATH, exportSettings.getExportPath().getPath());
         jsonObject.put(KEY_FILE_FORMAT, exportSettings.getFileFormat().toString());
         jsonObject.put(KEY_EXPORT_TYPE, exportSettings.getExportType().toString());
 
@@ -93,22 +90,7 @@ public abstract class AbstractSaver {
         return new JSONObject().put("LineSeperator", "");
     }
 
-    protected JSONObject createJsonIconManager(IconManager iconManager){
-        JSONArray attributesJsonArray = new JSONArray();
-        for (Icon icon: iconManager.getIcons()) {
-            JSONObject jsonAttribute = createJsonIconManager(icon);
-            attributesJsonArray.put(jsonAttribute);
-        }
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put(KEY_ICONS, attributesJsonArray);
-        return jsonObject;
-    }
 
-    protected JSONObject createJsonIconManager(Icon icon) {
-        JSONObject jsonObject = new JSONObject();
-
-        return jsonObject;
-    }
 
     protected JSONObject createJsonRouteSection(Icon icon, String choiceDataKey, LineType lineType) {
         Objects.requireNonNull(icon, "Icon cannot be null");
