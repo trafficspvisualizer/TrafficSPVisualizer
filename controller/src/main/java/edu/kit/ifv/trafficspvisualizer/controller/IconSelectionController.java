@@ -44,6 +44,7 @@ public class IconSelectionController {
         this.controllerFacade = controllerFacade;
         this.parentController = parentController;
         this.index = index;
+        //TODO: Create Stage and set action listeners.
     }
 
     /**

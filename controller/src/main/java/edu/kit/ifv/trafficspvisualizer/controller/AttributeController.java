@@ -27,6 +27,7 @@ public class AttributeController {
      */
     public AttributeController(ControllerFacade controllerFacade) {
         this.controllerFacade = controllerFacade;
+        //TODO: Create Stage and set action listeners.
     }
 
     /**

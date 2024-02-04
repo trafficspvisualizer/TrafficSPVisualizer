@@ -38,6 +38,7 @@ public class ChoiceOptionSettingsController implements IconDisplayingController 
     public ChoiceOptionSettingsController(int choiceOptionId, ControllerFacade controllerFacade) {
         this.choiceOptionId = choiceOptionId;
         this.controllerFacade = controllerFacade;
+        //TODO: Create Stage and set action listeners.
     }
 
     /**

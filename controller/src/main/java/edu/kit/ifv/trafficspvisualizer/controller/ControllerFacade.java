@@ -67,6 +67,7 @@ public class ControllerFacade {
     public ControllerFacade(ViewFacade viewFacade, Project project){
         this.viewFacade = viewFacade;
         this.project = project;
+        //TODO: Create Stage and set action listeners.
     }
 
     /**

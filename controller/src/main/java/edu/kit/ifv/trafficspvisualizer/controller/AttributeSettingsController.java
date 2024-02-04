@@ -36,6 +36,7 @@ public class AttributeSettingsController implements IconDisplayingController {
     public AttributeSettingsController(ControllerFacade controllerFacade, int attributeIndex) {
         this.controllerFacade = controllerFacade;
         this.attributeIndex = attributeIndex;
+        //TODO: Create Stage and set action listeners.
     }
 
     /**

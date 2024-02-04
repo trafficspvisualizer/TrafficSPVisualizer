@@ -33,8 +33,7 @@ public class ProjectCreationController {
      */
     public ProjectCreationController(ControllerFacade controllerFacade) {
         this.controllerFacade = controllerFacade;
-        controllerFacade.getViewFacade().getProjectCreationStage();
-        setActionListeners();
+        //TODO: Create Stage and set action listeners.
     }
 
     /**
