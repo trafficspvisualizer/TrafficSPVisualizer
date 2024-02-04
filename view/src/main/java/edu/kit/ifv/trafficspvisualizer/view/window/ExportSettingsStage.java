@@ -11,6 +11,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
@@ -261,6 +262,13 @@ public class ExportSettingsStage extends Stage {
     }
 
     public void showSaveErrorAlert() {
+        LanguageStrategy languageStrategy = viewFacade.getLanguageStrategy();
 
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(languageStrategy.getSaveExportSettingsErrorAlertTitle());
+        alert.setHeaderText(languageStrategy.getSaveExportSettingsErrorAlertHeaderText());
+        alert.setContentText(languageStrategy.getSaveExportSettingsErrorAlertContentText());
+
+        alert.showAndWait();
     }
 }

@@ -64,6 +64,11 @@ public abstract class LanguageStrategy {
 
     public abstract String  getSaveAttributeSettingsErrorAlertContentText();
 
+    public abstract String getSaveExportSettingsErrorAlertTitle();
+
+    public abstract String getSaveExportSettingsErrorAlertHeaderText();
+    public abstract String getSaveExportSettingsErrorAlertContentText();
+
         // ENUMS
     public abstract String getExportTypeText(ExportType exportType);
 

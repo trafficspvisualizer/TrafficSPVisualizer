@@ -40,6 +40,10 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
 
     private final static String SAVE_ATTRIBUTE_SETTINGS_ERROR_ALERT_CONTENT_TEXT = "Please check the changed entries/configurations.";
 
+    private final static String SAVE_EXPORT_SETTINGS_ERROR_ALERT_HEADER_TEXT = "Something went wrong! Could not save export settings.";
+
+    private final static String SAVE_EXPORT_SETTINGS_ERROR_ALERT_CONTENT_TEXT = SAVE_ATTRIBUTE_SETTINGS_ERROR_ALERT_CONTENT_TEXT;
+
         // ENUMS
 
     private final static String EXPORT_TYPE_HTML_TEXT = "HTML (Hyper text markup language)";
@@ -215,7 +219,19 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
         return SAVE_ATTRIBUTE_SETTINGS_ERROR_ALERT_CONTENT_TEXT;
     }
 
-        // ENUMS
+    public String getSaveExportSettingsErrorAlertTitle() {
+        return ERROR_ALERT_TITLE;
+    }
+
+    public String getSaveExportSettingsErrorAlertHeaderText() {
+        return SAVE_EXPORT_SETTINGS_ERROR_ALERT_HEADER_TEXT;
+    }
+
+    public String getSaveExportSettingsErrorAlertContentText() {
+        return SAVE_EXPORT_SETTINGS_ERROR_ALERT_CONTENT_TEXT;
+    }
+
+    // ENUMS
 
     public String getExportTypeText(ExportType exportType) {
         switch (exportType) {
