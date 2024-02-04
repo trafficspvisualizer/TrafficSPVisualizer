@@ -7,6 +7,9 @@ import java.util.List;
 public class ChoiceOptionImage {
     private BufferedImage image;
     private String title = "";
+    private int blockNumber;
+    private int scenarioNumber;
+    private int choiceOptionNumber;
 
     private final List<String> infos = new ArrayList<>();
 
@@ -36,5 +39,29 @@ public class ChoiceOptionImage {
 
     public String getTitle() {
         return title;
+    }
+
+    public int getBlockNumber() {
+        return blockNumber;
+    }
+
+    public int getChoiceOptionNumber() {
+        return choiceOptionNumber;
+    }
+
+    public int getScenarioNumber() {
+        return scenarioNumber;
+    }
+
+    public void setBlockNumber(int blockNumber) {
+        this.blockNumber = blockNumber;
+    }
+
+    public void setChoiceOptionNumber(int choiceOptionNumber) {
+        this.choiceOptionNumber = choiceOptionNumber;
+    }
+
+    public void setScenarioNumber(int scenarioNumber) {
+        this.scenarioNumber = scenarioNumber;
     }
 }

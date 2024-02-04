@@ -15,7 +15,6 @@ public class StandardProjectSaver extends AbstractSaver {
     @Override
     public void saveProject(Project project, File file) throws IOException {
         File dir = makeDir(project.getName(), file.getPath());
-        File cacheDir = new File("");
         JSONObject jsonObject = createJsonProject(project.getName(), project.getAttributes(),
                 project.getExportSettings());
 
@@ -30,9 +29,7 @@ public class StandardProjectSaver extends AbstractSaver {
 
         if (dir.exists()) {
             throw new IllegalArgumentException("Directory " + name + " already exists at " + path);
-        }
-
-        if (!dir.mkdir()) {
+        } else if (!dir.mkdir()) {
             throw new IllegalArgumentException("Failed to create directory " + name + " at " + path);
         }
 
