@@ -5,10 +5,12 @@ import java.io.File;
 
 import edu.kit.ifv.trafficspvisualizer.model.Project;
 import edu.kit.ifv.trafficspvisualizer.model.ExportType;
+import edu.kit.ifv.trafficspvisualizer.util.export.Exporter;
 import edu.kit.ifv.trafficspvisualizer.util.image.ChoiceOptionGenerator;
 import edu.kit.ifv.trafficspvisualizer.util.image.ImageCollectionGenerator;
 import edu.kit.ifv.trafficspvisualizer.util.image.SituationGenerator;
-import edu.kit.ifv.trafficspvisualizer.util.project.StandardProjectLoader;
+import edu.kit.ifv.trafficspvisualizer.util.project.ProjectLoader;
+import edu.kit.ifv.trafficspvisualizer.util.project.ProjectSaver;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -30,7 +32,7 @@ public class MainApplicationController {
         fileChooserStage.close();
         Project newProject;
         try {
-            newProject = new StandardProjectLoader().loadProject(selectedFile);
+            newProject = new ProjectLoader().loadProject(selectedFile);
         } catch (Exception e) {
             controllerFacade.getViewFacade().getMainApplicationWindow().showLoadProjectErrorAlert();
             return;
@@ -42,7 +44,7 @@ public class MainApplicationController {
     }
 
     public void actionOnSaveButton(){
-        //new ProjectSaver().saveProject(controllerFacade.getProject(), controllerFacade.getProject().getExportSettings().getExportPath());
+        new ProjectSaver().saveProject(controllerFacade.getProject(), controllerFacade.getProject().getExportSettings().getExportPath().toFile());
     }
 
     public void actionOnHelpButton(){
