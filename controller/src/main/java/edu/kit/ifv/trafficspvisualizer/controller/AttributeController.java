@@ -93,16 +93,7 @@ public class AttributeController {
      * @param attributeIndex the index of the attribute which should be moved up
      */
     public void actionOnMoveAttributeUpButton(int attributeIndex) {
-        //check if attribute can be moved up
-        if (attributeIndex == 0) return;
-
-        AbstractAttribute chosenAttribute = controllerFacade.getProject().getAttributes().get(attributeIndex);
-
-        AbstractAttribute swappedAttribute = controllerFacade.getProject().getAttributes().get(attributeIndex - 1);
-
-        controllerFacade.getProject().getAttributes().set(attributeIndex - 1, chosenAttribute);
-        controllerFacade.getProject().getAttributes().set(attributeIndex, swappedAttribute);
-        //Test
+        controllerFacade.getProject().swapAttributeUp(attributeIndex);
         controllerFacade.getViewFacade().getAttributeStage().updateStage();
     }
 
@@ -114,18 +105,7 @@ public class AttributeController {
      * @param attributeIndex the index of the attribute which should be moved down
      */
     public void actionOnMoveAttributeDownButton(int attributeIndex){
-
-        //check if attribute can be moved down
-        int sizeOfAttributeList = controllerFacade.getProject().getAttributes().size();
-        if (attributeIndex == sizeOfAttributeList - 1) return;
-
-        AbstractAttribute chosenAttribute = controllerFacade.getProject().getAttributes().get(attributeIndex);
-
-        AbstractAttribute swappedAttribute = controllerFacade.getProject().getAttributes().get(attributeIndex + 1);
-
-        controllerFacade.getProject().getAttributes().set(attributeIndex + 1, chosenAttribute);
-        controllerFacade.getProject().getAttributes().set(attributeIndex, swappedAttribute);
-
+        controllerFacade.getProject().swapAttributeDown(attributeIndex);
         controllerFacade.getViewFacade().getAttributeStage().updateStage();
     }
 
