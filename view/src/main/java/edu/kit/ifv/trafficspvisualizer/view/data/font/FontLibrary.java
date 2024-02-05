@@ -9,7 +9,7 @@ public final class FontLibrary {
 
     private final static double MID_FONT_SIZE = 18;
 
-    private final static String FONT_NAME = "Calibrie";
+    private final static String FONT_NAME = "Calibri";
 
     private final static Font SMALL_FONT = Font.font(FONT_NAME, SMALL_FONT_SIZE);
 

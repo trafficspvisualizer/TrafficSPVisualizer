@@ -1,5 +1,7 @@
 package edu.kit.ifv.trafficspvisualizer.view.window;
 
+import edu.kit.ifv.trafficspvisualizer.model.AbstractAttribute;
+import edu.kit.ifv.trafficspvisualizer.model.Attribute;
 import edu.kit.ifv.trafficspvisualizer.view.ViewFacade;
 import edu.kit.ifv.trafficspvisualizer.view.data.font.FontLibrary;
 import edu.kit.ifv.trafficspvisualizer.view.data.image.ImageLibrary;
@@ -20,6 +22,9 @@ import javafx.scene.layout.Priority;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AttributeStage extends Stage {
 
@@ -42,6 +47,12 @@ public class AttributeStage extends Stage {
 
     private Pane sizingPane;
 
+    private final List<Button> attributeSettingsButtonList;
+
+    private final List<Button> upSwitchAttriubuteButtonList;
+
+    private final List<Button> downSwitchAttributeButtonList;
+
     private GridPane attributeGridPane;
 
     private ScrollPane attributeScrollPane;
@@ -62,6 +73,9 @@ public class AttributeStage extends Stage {
 
 
     public AttributeStage(ViewFacade viewFacade) {
+        attributeSettingsButtonList = new ArrayList<>();
+        upSwitchAttriubuteButtonList = new ArrayList<>();
+        downSwitchAttributeButtonList = new ArrayList<>();
         this.viewFacade = viewFacade;
 
         buildStage();
@@ -214,6 +228,20 @@ public class AttributeStage extends Stage {
 
     // update-methods
     public void updateStage() {
+        attributeGridPane.getChildren().removeIf(node -> GridPane.getRowIndex(node) >= 1);
+        attributeSettingsButtonList.clear();
+        upSwitchAttriubuteButtonList.clear();
+        downSwitchAttributeButtonList.clear();
+
+        int currentRow = 0;
+        for (AbstractAttribute abstractAttribute : viewFacade.getProject().getAttributes()) {
+            currentRow += 2;
+
+            if (abstractAttribute instanceof Attribute) {
+
+            }
+
+        }
 
     }
 }
