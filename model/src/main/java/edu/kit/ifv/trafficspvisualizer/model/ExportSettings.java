@@ -1,6 +1,5 @@
 package edu.kit.ifv.trafficspvisualizer.model;
 
-import java.io.File;
 import java.nio.file.Path;
 
 public class ExportSettings {
@@ -9,19 +8,19 @@ public class ExportSettings {
 
     private int imageHeight;
     private int imageWidth;
-    private File exportPath;
+    private Path exportPath;
     private FileFormat fileFormat;
     private ExportType exportType;
 
-    public ExportSettings(File exportPath) {
+    public ExportSettings(Path exportPath) {
         this.imageHeight = DEFAULT_HEIGHT;
         this.imageWidth = DEFAULT_WIDTH;
         this.exportPath = exportPath;
         this.fileFormat = FileFormat.PNG;
-        this.exportType = ExportType.SITUATION;
+        this.exportType = ExportType.CHOICE_OPTION;
     }
 
-    public ExportSettings(int imageHeight, int imageWidth, File exportPath, FileFormat fileFormat, ExportType exportType) {
+    public ExportSettings(int imageHeight, int imageWidth, Path exportPath, FileFormat fileFormat, ExportType exportType) {
         this.imageHeight = imageHeight;
         this.imageWidth = imageWidth;
         this.exportPath = exportPath;
@@ -45,11 +44,11 @@ public class ExportSettings {
         this.imageWidth = imageWidth;
     }
 
-    public File getExportPath() {
+    public Path getExportPath() {
         return exportPath;
     }
 
-    public void setExportPath(File exportPath) {
+    public void setExportPath(Path exportPath) {
         this.exportPath = exportPath;
     }
 
