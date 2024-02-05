@@ -6,12 +6,12 @@ import edu.kit.ifv.trafficspvisualizer.util.export.Exporter;
 import edu.kit.ifv.trafficspvisualizer.util.image.ChoiceOptionGenerator;
 import edu.kit.ifv.trafficspvisualizer.util.image.ImageCollectionGenerator;
 import edu.kit.ifv.trafficspvisualizer.util.image.SituationGenerator;
-import edu.kit.ifv.trafficspvisualizer.util.project.ProjectLoader;
-import edu.kit.ifv.trafficspvisualizer.util.project.ProjectSaver;
-import javafx.stage.Stage;
+import edu.kit.ifv.trafficspvisualizer.util.project.StandardProjectLoader;
+import edu.kit.ifv.trafficspvisualizer.util.project.StandardProjectSaver;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 
 /**
  * The MainApplicationController represents the logic unit associated with
@@ -72,10 +72,16 @@ public class MainApplicationController {
 
 
     /**
-     * Instructs {@link ProjectSaver} to save project.
+     * Instructs {@link StandardProjectSaver} to save project.
      */
-    public void actionOnSaveButton() throws IOException {
-        new StandardProjectSaver().saveProject(controllerFacade.getProject(), controllerFacade.getProject().getExportSettings().getExportPath());
+    public void actionOnSaveButton() {
+        try {
+            new StandardProjectSaver().saveProject(controllerFacade.getProject(),
+                    controllerFacade.getProject().getExportSettings().getExportPath().toPath());
+        } catch (IOException e) {
+            //TODO: Add exception handling
+        }
+    }
 
     /**
      * Instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow} to show help dialog.
@@ -199,7 +205,6 @@ public class MainApplicationController {
         // Help-Button
         // Attributes
         // Preview Arrows
-
         //TODO
     }
 }
