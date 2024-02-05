@@ -1,5 +1,6 @@
 package edu.kit.ifv.trafficspvisualizer.model;
 
+import java.awt.image.BufferedImage;
 import java.nio.file.Path;
 
 public abstract class Icon implements BufferedImageConvertible {
@@ -19,4 +20,6 @@ public abstract class Icon implements BufferedImageConvertible {
     public Path getFilePath() {
         return iconPath;
     }
+
+    public abstract BufferedImage toBufferedImage(int width, int height);
 }
