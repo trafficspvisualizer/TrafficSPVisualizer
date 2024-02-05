@@ -2,6 +2,7 @@ package edu.kit.ifv.trafficspvisualizer.util.image;
 
 import edu.kit.ifv.trafficspvisualizer.model.ChoiceData;
 import edu.kit.ifv.trafficspvisualizer.model.ChoiceOption;
+import edu.kit.ifv.trafficspvisualizer.model.DataObject;
 import edu.kit.ifv.trafficspvisualizer.model.Project;
 
 import java.awt.*;
@@ -21,7 +22,7 @@ public class SituationGenerator extends ImageCollectionGenerator{
         return new BufferedImage[0];
     }
 
-    public BufferedImage createPreviewImage(Project project) { //TODO parameter situation index
+    public BufferedImage createPreviewImage(Project project) {
         int situationIndex = 0;
         setUpImageCreation(project);
         this.standardImageGenerator = new StandardImageGenerator();
@@ -60,7 +61,7 @@ public class SituationGenerator extends ImageCollectionGenerator{
         for (int j = 0; j < numberOfChoiceOptionsPerSituation; j++) {
             ChoiceOption currentChoiceOption = project.getChoiceOptions().get(j);
             BufferedImage bufferedImage = standardImageGenerator.createChoiceOption(currentChoiceOption,
-                    new ChoiceData(new HashMap<>()), attributeList, choiceOptionHeight, //TODO substitute choiiceData with DataObject
+                    new DataObject(null), attributeList, choiceOptionHeight, //TODO substitute choiiceData with DataObject
                     choiceOptionWidth, 0,longestRouteSectionOfSituation);
             choiceOptionImages[j] = bufferedImage;
         }
