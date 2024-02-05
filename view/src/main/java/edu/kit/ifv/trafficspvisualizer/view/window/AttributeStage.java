@@ -14,7 +14,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -237,7 +239,34 @@ public class AttributeStage extends Stage {
         for (AbstractAttribute abstractAttribute : viewFacade.getProject().getAttributes()) {
             currentRow += 2;
 
-            if (abstractAttribute instanceof Attribute) {
+            if (abstractAttribute instanceof Attribute attribute) {
+
+                CheckBox attributeActiveCheckBox = new CheckBox();
+                attributeActiveCheckBox.setSelected(attribute.isActive());
+                attributeActiveCheckBox.setDisable(true);
+
+                Text attributeNameText = new Text(attribute.getName());
+
+                // TODO: Convert and add image
+                ImageView attributeIconImageView = new ImageView();
+
+                Text attributePrefixText = new Text(attribute.getPrefix());
+
+                Text attributeSuffixText = new Text(attribute.getSuffix());
+
+                Text attributeNumberOfDecimalPlacesText = new Text(String.valueOf(attribute.getDecimalPlaces()));
+
+                CheckBox attributePermanentlyVisibleCheckBox = new CheckBox();
+                attributeActiveCheckBox.setSelected(attribute.isPermanentlyVisible());
+                attributeActiveCheckBox.setDisable(true);
+
+
+
+
+
+
+
+            } else {
 
             }
 
