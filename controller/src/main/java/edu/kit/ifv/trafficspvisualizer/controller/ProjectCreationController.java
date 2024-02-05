@@ -4,6 +4,7 @@ import edu.kit.ifv.trafficspvisualizer.model.DataObject;
 import edu.kit.ifv.trafficspvisualizer.model.Project;
 import edu.kit.ifv.trafficspvisualizer.util.parse.NGDParser;
 import edu.kit.ifv.trafficspvisualizer.view.window.ExportSettingsStage;
+import edu.kit.ifv.trafficspvisualizer.view.window.IconSelectionStage;
 import edu.kit.ifv.trafficspvisualizer.view.window.ProjectCreationStage;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -29,7 +30,8 @@ public class ProjectCreationController {
     private final ControllerFacade controllerFacade;
 
     /**
-     * Constructs the ProjectCreationController.
+     * Constructs the ProjectCreationController. Creates new {@link ProjectCreationStage},
+     * saves it in ViewFacade and sets its ActionListeners.
      *
      * @param controllerFacade the front-facing interface for the controller package
      */

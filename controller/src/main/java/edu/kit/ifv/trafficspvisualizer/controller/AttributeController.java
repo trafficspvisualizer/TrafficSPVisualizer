@@ -4,6 +4,7 @@ import edu.kit.ifv.trafficspvisualizer.model.AbstractAttribute;
 import edu.kit.ifv.trafficspvisualizer.model.SeparatorLine;
 import edu.kit.ifv.trafficspvisualizer.view.window.AttributeStage;
 import edu.kit.ifv.trafficspvisualizer.view.window.ExportSettingsStage;
+import edu.kit.ifv.trafficspvisualizer.view.window.IconSelectionStage;
 
 /**
  * The AttributeController represents the logic unit associated with the
@@ -23,7 +24,8 @@ public class AttributeController {
     private final ControllerFacade controllerFacade;
 
     /**
-     * Constructs the AttributeController.
+     * Constructs the AttributeController. Creates new {@link AttributeStage},
+     * saves it in ViewFacade and sets its ActionListeners.
      *
      * @param controllerFacade the front-facing interface for the controller package
      */

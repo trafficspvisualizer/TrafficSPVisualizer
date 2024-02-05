@@ -4,6 +4,7 @@ import edu.kit.ifv.trafficspvisualizer.model.ExportSettings;
 import edu.kit.ifv.trafficspvisualizer.model.ExportType;
 import edu.kit.ifv.trafficspvisualizer.model.FileFormat;
 import edu.kit.ifv.trafficspvisualizer.view.window.ExportSettingsStage;
+import edu.kit.ifv.trafficspvisualizer.view.window.IconSelectionStage;
 
 import java.io.File;
 
@@ -26,7 +27,8 @@ public class ExportSettingsController {
     private final ControllerFacade controllerFacade;
 
     /**
-     * Constructs the ExportSettingsController.
+     * Constructs the ExportSettingsController.Creates new {@link ExportSettingsStage},
+     * saves it in ViewFacade and sets its ActionListeners.
      *
      * @param controllerFacade the front-facing interface for the controller package
      */

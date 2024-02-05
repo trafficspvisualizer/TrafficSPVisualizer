@@ -30,7 +30,7 @@ public class MainApplicationController {
     private final ControllerFacade controllerFacade;
 
     /**
-     * Constructs the MainApplicationController.
+     * Constructs the MainApplicationController and sets ActionListeners.
      *
      * @param controllerFacade the front-facing interface for the controller package
      */

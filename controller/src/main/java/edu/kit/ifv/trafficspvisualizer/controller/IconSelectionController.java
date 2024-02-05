@@ -35,7 +35,8 @@ public class IconSelectionController {
     private final int index;
 
     /**
-     * Constructs an IconSelectionController.
+     * Constructs an IconSelectionController. Creates new {@link IconSelectionStage},
+     * saves it in ViewFacade and sets its ActionListeners.
      *
      * @param controllerFacade the front-facing interface for the controller package
      * @param parentController the ontroller, which requested creation of IconSelectionController

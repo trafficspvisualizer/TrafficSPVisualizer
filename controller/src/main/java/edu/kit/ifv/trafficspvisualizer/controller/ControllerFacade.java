@@ -59,7 +59,7 @@ public class ControllerFacade {
     private ExportSettingsController exportSettingsController;
 
     /**
-     * Constructs the ControllerFacade.
+     * Constructs the ControllerFacade and creates {@link MainApplicationController}.
      *
      * @param viewFacade the front-facing interface of the view package
      * @param project the project on which the user is currently working

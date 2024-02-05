@@ -4,6 +4,7 @@ import edu.kit.ifv.trafficspvisualizer.model.Attribute;
 import edu.kit.ifv.trafficspvisualizer.model.Icon;
 import edu.kit.ifv.trafficspvisualizer.view.window.AttributeSettingsStage;
 import edu.kit.ifv.trafficspvisualizer.view.window.ExportSettingsStage;
+import edu.kit.ifv.trafficspvisualizer.view.window.IconSelectionStage;
 import javafx.scene.image.Image;
 
 /**
@@ -30,7 +31,8 @@ public class AttributeSettingsController implements IconDisplayingController {
     private final int attributeIndex;
 
     /**
-     * Constructs the AttributeSettingsController.
+     * Constructs the AttributeSettingsController. Creates new {@link AttributeSettingsStage},
+     * saves it in ViewFacade and sets its ActionListeners.
      *
      * @param controllerFacade the front-facing interface for the controller package
      * @param attributeIndex the index of the attribute on which the controller is working
