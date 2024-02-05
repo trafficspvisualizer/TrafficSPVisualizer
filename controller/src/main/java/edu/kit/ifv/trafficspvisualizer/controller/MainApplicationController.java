@@ -36,7 +36,9 @@ public class MainApplicationController {
      */
     public MainApplicationController(ControllerFacade controllerFacade) {
         this.controllerFacade = controllerFacade;
-        //TODO: Create Stage and set action listeners.
+        // MainApplicationWindow is created when starting application
+        setActionListeners();
+
     }
 
     /**
