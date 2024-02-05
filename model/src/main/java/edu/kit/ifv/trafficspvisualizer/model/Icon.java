@@ -2,15 +2,14 @@ package edu.kit.ifv.trafficspvisualizer.model;
 
 import java.nio.file.Path;
 
-public class Icon {
-    private final static String FILE_NAME_FORMAT = "%d.svg";
+public abstract class Icon implements BufferedImageConvertible {
 
     private final int identifier;
     private final Path iconPath;
 
-    protected Icon(Path iconPath, int identifier) {
+    protected Icon(Path iconPath, int identifier, String fileNameFormat) {
         this.identifier = identifier;
-        this.iconPath = iconPath.resolve(FILE_NAME_FORMAT.formatted(identifier));
+        this.iconPath = iconPath.resolve(fileNameFormat.formatted(identifier));
     }
 
     public int getIdentifier() {
