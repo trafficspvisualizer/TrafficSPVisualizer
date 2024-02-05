@@ -118,8 +118,9 @@ public class MainApplicationController {
         controllerFacade.getProject().swapChoiceOptionUp(choiceOptionIndex);
         controllerFacade.getViewFacade().getMainApplicationWindow().updateChoiceOptions();
 
-        // Update Preview
+        // Update MainApplicationWindow
         updatePreview();
+        updateChoiceOptions();
     }
 
     /**
@@ -134,8 +135,9 @@ public class MainApplicationController {
         controllerFacade.getProject().swapChoiceOptionDown(choiceOptionIndex);
         controllerFacade.getViewFacade().getMainApplicationWindow().updateChoiceOptions();
 
-        // Update Preview
+        // Update MainApplicationWindow
         updatePreview();
+        updateChoiceOptions();
     }
 
     /**
@@ -201,6 +203,31 @@ public class MainApplicationController {
         controllerFacade.getViewFacade().getMainApplicationWindow().updateCurrentPreviewSituation();
     }
 
+    private void updateChoiceOptions() {
+        controllerFacade.getViewFacade().getMainApplicationWindow().updateChoiceOptions();
+        setChoiceOptionActionListeners();
+    }
+
+    private void setChoiceOptionActionListeners() {
+
+        MainApplicationWindow mainApplicationWindow = controllerFacade.getViewFacade().getMainApplicationWindow();
+
+        //Choice Options Buttons
+        // Settings Buttons
+        List<Button> choiceOptionSettingsButtonList = mainApplicationWindow.getChoiceOptionSettingsButtonList();
+        // Switch-Up-Buttons
+        List<Button> upSwitchChoiceOptionButtonList = mainApplicationWindow.getUpSwitchChoiceOptionButtonList();
+        // Switch-Down-Buttons
+        List<Button> downSwitchChoiceOptionButtonList = mainApplicationWindow.getDownSwitchChoiceOptionButtonList();
+
+        for(int i = 0; i < choiceOptionSettingsButtonList.size(); i++) {
+            final int index = i;
+            choiceOptionSettingsButtonList.get(i).setOnAction(e -> actionOnChoiceOptionSettingsButton(index));
+            upSwitchChoiceOptionButtonList.get(i).setOnAction(e -> actionOnMoveChoiceOptionUpButton(index));
+            downSwitchChoiceOptionButtonList.get(i).setOnAction(e -> actionOnMoveChoiceOptionDownButton(index));
+        }
+    }
+
     private void setActionListeners(){
 
         MainApplicationWindow mainApplicationWindow = controllerFacade.getViewFacade().getMainApplicationWindow();
@@ -221,19 +248,7 @@ public class MainApplicationController {
         mainApplicationWindow.getAttributesButton().setOnAction(e -> actionOnAttributeButton());
 
         //Choice Options Buttons
-        // Settings Buttons
-        List<Button> choiceOptionSettingsButtonList = mainApplicationWindow.getChoiceOptionSettingsButtonList();
-        // Switch-Up-Buttons
-        List<Button> upSwitchChoiceOptionButtonList = mainApplicationWindow.getUpSwitchChoiceOptionButtonList();
-        // Switch-Down-Buttons
-        List<Button> downSwitchChoiceOptionButtonList = mainApplicationWindow.getDownSwitchChoiceOptionButtonList();
-
-        for(int i = 0; i < choiceOptionSettingsButtonList.size(); i++) {
-            final int index = i;
-            choiceOptionSettingsButtonList.get(i).setOnAction(e -> actionOnChoiceOptionSettingsButton(index));
-            upSwitchChoiceOptionButtonList.get(i).setOnAction(e -> actionOnMoveChoiceOptionUpButton(index));
-            downSwitchChoiceOptionButtonList.get(i).setOnAction(e -> actionOnMoveChoiceOptionDownButton(index));
-        }
+        setChoiceOptionActionListeners();
 
         // Preview arrows
         mainApplicationWindow.getLeftSwitchPreviewButton().setOnAction(e -> actionOnPreviousPreviewButton());
