@@ -8,10 +8,7 @@ import java.nio.file.Path;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 import java.util.Objects;
-
-import static java.util.stream.Collectors.*;
 
 
 public abstract class AbstractSaver {
@@ -35,8 +32,6 @@ public abstract class AbstractSaver {
     private static final String KEY_COLOR = "color";
     private static final String KEY_ATTRIBUTES = "attributes";
     private static final String KEY_EXPORT_SETTINGS = "exportSettings";
-    private static final String KEY_ICONS = "Icons";
-    private static final String KEY_ICONMANAGER = "IconManager";
     public abstract void saveProject(Project project, Path path) throws IOException;
 
     protected JSONObject createJsonProject(String name, List<AbstractAttribute> attributes,
@@ -47,7 +42,7 @@ public abstract class AbstractSaver {
 
         JSONArray attributesJsonArray = new JSONArray();
         for (AbstractAttribute attribute : attributes) {
-            JSONObject jsonAttribute = createJsonAttribute(attribute);
+            JSONObject jsonAttribute = createJsonAbstractAttribute(attribute);
             attributesJsonArray.put(jsonAttribute);
         }
 
@@ -59,7 +54,7 @@ public abstract class AbstractSaver {
         return jsonObject;
     }
 
-    private JSONObject createJsonAttribute(AbstractAttribute attribute) {
+    private JSONObject createJsonAbstractAttribute(AbstractAttribute attribute) {
         Objects.requireNonNull(attribute, "Attribute cannot be null");
 
         if (attribute instanceof Attribute) {

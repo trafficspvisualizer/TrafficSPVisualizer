@@ -38,10 +38,10 @@ class ImageExporterTest {
         ChoiceOptionImage[] choiceOptionImages = new ChoiceOptionImage[1];
         choiceOptionImages[0] = choiceOptionImage;
 
-        //try {
-        //    imageExporter.export(choiceOptionImages,new File(file.getParent()));
-       // } catch (IOException e) {
-        //    throw new RuntimeException(e);
-        //}
+        try {
+            imageExporter.export(choiceOptionImages,new File(file.getParent()));
+        } catch (IOException e) {
+            System.out.println("It exsists the same folder");
+        }
     }
 }

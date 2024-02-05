@@ -47,7 +47,7 @@ public class StandardProjectLoader extends AbstractLoader {
         if (files.length > 0 && jsonFile.length > 0) {
             String content = new String(Files.readAllBytes(Paths.get(jsonFile[0].getPath())));
             JSONObject json = new JSONObject(content);
-            createProject(json,files[0],iconDir);
+            createProject(json,files[0],iconDir,file.toPath());
         }
         return null;
     }
