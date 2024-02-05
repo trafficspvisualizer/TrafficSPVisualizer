@@ -45,7 +45,7 @@ public class ExportSettingsController {
      * {@link javafx.stage.FileChooser} and sets returned value as export folder path.
      */
     public void actionOnExportFolderButton(){
-        File selectedFile = controllerFacade.getViewFacade().getExportSettingsStage().showFileChooserDialog();
+        File selectedFile = controllerFacade.getViewFacade().getExportSettingsStage().showDirectoryChooserDialog();
         controllerFacade.getViewFacade().getExportSettingsStage().setExportFolderPath(selectedFile);
     }
 
