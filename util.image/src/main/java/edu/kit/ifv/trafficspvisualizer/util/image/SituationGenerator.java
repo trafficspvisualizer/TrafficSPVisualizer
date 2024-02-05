@@ -23,7 +23,7 @@ public class SituationGenerator extends ImageCollectionGenerator{
     }
 
     public BufferedImage createPreviewImage(Project project) {
-        int situationIndex = 0;
+        int situationIndex = project.getCurrentPreviewSituation();
         setUpImageCreation(project);
         this.standardImageGenerator = new StandardImageGenerator();
         return createSituationImage(situationIndex);
@@ -61,7 +61,7 @@ public class SituationGenerator extends ImageCollectionGenerator{
         for (int j = 0; j < numberOfChoiceOptionsPerSituation; j++) {
             ChoiceOption currentChoiceOption = project.getChoiceOptions().get(j);
             BufferedImage bufferedImage = standardImageGenerator.createChoiceOption(currentChoiceOption,
-                    new DataObject(null), attributeList, choiceOptionHeight, //TODO substitute choiiceData with DataObject
+                    project.getDataObject(), attributeList, choiceOptionHeight,
                     choiceOptionWidth, 0,longestRouteSectionOfSituation);
             choiceOptionImages[j] = bufferedImage;
         }

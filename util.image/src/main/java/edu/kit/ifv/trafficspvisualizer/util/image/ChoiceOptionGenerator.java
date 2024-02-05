@@ -31,7 +31,7 @@ public class ChoiceOptionGenerator extends ImageCollectionGenerator {
             situationNumber = j / numberOfChoiceOptionsPerSituation;
             double lengthOfRouteSections = calculateLengthOfRouteSection(currentChoiceOption, situationNumber);
             BufferedImage bufferedImage = standardImageGenerator.createChoiceOption(currentChoiceOption,
-                    new DataObject(null), attributeList, choiceOptionHeight, choiceOptionWidth, 0, lengthOfRouteSections); // TODO add bufferedImage to ChoiceOptionImage
+                    project.getDataObject(), attributeList, choiceOptionHeight, choiceOptionWidth, 0, lengthOfRouteSections); // TODO add bufferedImage to ChoiceOptionImage
             images[j] = bufferedImage;
         }
         return images;
