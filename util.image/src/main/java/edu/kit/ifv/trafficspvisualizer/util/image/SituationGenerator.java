@@ -1,13 +1,9 @@
 package edu.kit.ifv.trafficspvisualizer.util.image;
 
-import edu.kit.ifv.trafficspvisualizer.model.ChoiceData;
 import edu.kit.ifv.trafficspvisualizer.model.ChoiceOption;
-import edu.kit.ifv.trafficspvisualizer.model.DataObject;
 import edu.kit.ifv.trafficspvisualizer.model.Project;
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.HashMap;
 
 public class SituationGenerator extends ImageCollectionGenerator{
     private StandardImageGenerator standardImageGenerator;

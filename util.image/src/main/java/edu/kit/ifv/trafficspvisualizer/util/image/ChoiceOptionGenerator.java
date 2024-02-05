@@ -1,19 +1,8 @@
 package edu.kit.ifv.trafficspvisualizer.util.image;
 
-import edu.kit.ifv.trafficspvisualizer.model.AbstractAttribute;
-import edu.kit.ifv.trafficspvisualizer.model.Attribute;
-import edu.kit.ifv.trafficspvisualizer.model.ChoiceData;
 import edu.kit.ifv.trafficspvisualizer.model.ChoiceOption;
-import edu.kit.ifv.trafficspvisualizer.model.DataObject;
-import edu.kit.ifv.trafficspvisualizer.model.ExportSettings;
 import edu.kit.ifv.trafficspvisualizer.model.Project;
-import edu.kit.ifv.trafficspvisualizer.model.RouteSection;
-
-import java.awt.*;
-import java.util.List;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 public class ChoiceOptionGenerator extends ImageCollectionGenerator {

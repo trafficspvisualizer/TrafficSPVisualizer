@@ -2,41 +2,71 @@ package edu.kit.ifv.trafficspvisualizer.util.image;
 
 import edu.kit.ifv.trafficspvisualizer.model.AbstractAttribute;
 import edu.kit.ifv.trafficspvisualizer.model.Attribute;
-import edu.kit.ifv.trafficspvisualizer.model.ChoiceData;
 import edu.kit.ifv.trafficspvisualizer.model.ChoiceOption;
 import edu.kit.ifv.trafficspvisualizer.model.DataObject;
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
 public class StandardImageGenerator extends ImageGenerator{
-    private int hightOfHeadline;
+    private int heightOfHeadline;
     private int width;
-    private int hight;
+    private int height;
     private int distanceToSide;
+    private ChoiceOption choiceOption;
+    private Graphics2D graphics2DHeadline;
+    private Graphics2D graphics2DChoiceOption;
+    private List<AbstractAttribute> attributes;
     @Override
     public BufferedImage createChoiceOption(ChoiceOption choiceOption, DataObject dataObject,
                                             List<AbstractAttribute> attributes, int height, int width, double min, double max) {
         BufferedImage choiceOptionImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-        this.hightOfHeadline = height / 4;
-        this.hight = height;
+        this.heightOfHeadline = height / 4;
+        this.height = height;
         this.width = width;
-        this.distanceToSide = hightOfHeadline / 3;
+        this.distanceToSide = heightOfHeadline / 3;
+        this.choiceOption = choiceOption;
+        this.attributes = attributes;
+        graphics2DChoiceOption = choiceOptionImage.createGraphics();
+        fillGraphicWhite(graphics2DChoiceOption, width, height);
 
         BufferedImage headlineImage = createHeadlineImage();
+        graphics2DChoiceOption.drawImage(headlineImage,0,0,null);
+        BufferedImage attributeImage = createAttributeImage();
         return null;
     }
 
     private BufferedImage createHeadlineImage() {
-        BufferedImage headlineImage = new BufferedImage(width, hightOfHeadline, BufferedImage.TYPE_INT_RGB);
-        Graphics2D graphics2D = headlineImage.createGraphics();
-        int sizeOfFont = hightOfHeadline / 3;
-        Font font = new Font("Arial Bolt", Font.PLAIN, sizeOfFont);
-        graphics2D.setFont(font);
-        String headline = "";
-        graphics2D.drawString(headline, distanceToSide, ( 2 * hightOfHeadline) / 3);
+        BufferedImage headlineImage = new BufferedImage(width, heightOfHeadline, BufferedImage.TYPE_INT_RGB);
+        graphics2DHeadline = headlineImage.createGraphics();
+        fillGraphicWhite(graphics2DHeadline, width, heightOfHeadline);
+
+        int sizeOfFont = heightOfHeadline / 3;
+        Font font = new Font("Calibre", Font.BOLD, sizeOfFont);
+        graphics2DHeadline.setFont(font);
+        String headline = choiceOption.getTitle();
+        graphics2DHeadline.drawString(headline, distanceToSide, ( 2 * heightOfHeadline) / 3);
 
         return headlineImage;
+    }
+
+    private BufferedImage createAttributeImage() {
+        int numberOfAttributes = calculateNumberOfAttributes();
+        return null;
+    }
+
+    private int calculateNumberOfAttributes() {
+        int numberOfAttributes = 0;
+        for(AbstractAttribute attribute : attributes) {
+            if (attribute instanceof Attribute) {
+                numberOfAttributes++;
+            }
+        }
+        return numberOfAttributes;
+    }
+
+    private void fillGraphicWhite(Graphics2D graphics2D,int width, int height) {
+        graphics2D.setColor(Color.WHITE);
+        graphics2D.fillRect(0,0, width, height);
     }
 }
