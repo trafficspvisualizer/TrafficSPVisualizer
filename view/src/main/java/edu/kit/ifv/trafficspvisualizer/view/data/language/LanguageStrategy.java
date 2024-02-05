@@ -172,4 +172,28 @@ public abstract class LanguageStrategy {
     public abstract String getIconSelectionSelectButtonText();
 
     public abstract String getIconSelectionCancelButtonText();
+
+
+    // AttributeStage
+    public abstract String getAttributeTitle();
+
+    public abstract String getAttributeActiveText();
+
+    public abstract String getAttributeNameText();
+
+    public abstract String getAttributeIconText();
+
+    public abstract String getAttributePrefixText();
+
+    public abstract String getAttributeSuffixText();
+
+    public abstract String getAttributeNumberOfDecimalPlacesText();
+
+    public abstract String getAttributePermanentlyVisibleText();
+
+    public abstract String getAttributeAddAttributeButtonText();
+
+    public abstract String getAttributeAddSeparatorLineButtonText();
+
+    public abstract String getAttributeCloseButtonText();
 }

@@ -135,7 +135,6 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
 
 
     // IconSelectionStage
-
     private final static String ICON_SELECTION_TITLE = "Select icon";
 
     private final static String ICON_SELECTION_ADD_ICON_BUTTON_TEXT = "Add icon";
@@ -143,6 +142,33 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
     private final static String ICON_SELECTION_SELECT_BUTTON_TEXT = "Select";
 
     private final static String ICON_SELECTION_CANCEL_BUTTON_TEXT = ATTRIBUTE_SETTINGS_CANCEL_BUTTON_TEXT;
+
+
+    // AttributeStage
+    private final static String ATTRIBUTE_TITLE = "Attributes";
+
+    private final static String ATTRIBUTE_ACTIVE_TEXT = "Active";
+
+    private final static String ATTRIBUTE_NAME_TEXT = "Name";
+
+    private final static String ATTRIBUTE_ICON_TEXT = "Icon";
+
+    private final static String ATTRIBUTE_PREFIX_TEXT = "Prefix";
+
+    private final static String ATTRIBUTE_SUFFIX_TEXT = "Suffix";
+
+    private final static String ATTRIBUTE_NUMBER_OF_DECIMAL_PLACES_TEXT = "Decimal places";
+
+    private final static String ATTRIBUTE_PERMANENTLY_VISIBLE_TEXT = "Permanently visible";
+
+    private final static String ATTRIBUTE_ADD_ATTRIBUTE_BUTTON_TEXT = "Add attribute";
+
+    private final static String ATTRIBUTE_ADD_SEPARATOR_LINE_BUTTON_TEXT = "Add separator line";
+
+    private final static String ATTRIBUTE_CLOSE_BUTTON_TEXT = "Close";
+
+
+
 
     // Application
 
@@ -440,5 +466,53 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
 
     public String getIconSelectionCancelButtonText() {
         return ICON_SELECTION_CANCEL_BUTTON_TEXT;
+    }
+
+
+    // AttributeStage
+
+
+    public String getAttributeTitle() {
+        return ATTRIBUTE_TITLE;
+    }
+
+    public String getAttributeActiveText() {
+        return ATTRIBUTE_ACTIVE_TEXT;
+    }
+
+    public String getAttributeNameText() {
+        return ATTRIBUTE_NAME_TEXT;
+    }
+
+    public String getAttributeIconText() {
+        return ATTRIBUTE_ICON_TEXT;
+    }
+
+    public String getAttributePrefixText() {
+        return ATTRIBUTE_PREFIX_TEXT;
+    }
+
+    public String getAttributeSuffixText() {
+        return ATTRIBUTE_SUFFIX_TEXT;
+    }
+
+    public String getAttributeNumberOfDecimalPlacesText() {
+        return ATTRIBUTE_NUMBER_OF_DECIMAL_PLACES_TEXT;
+    }
+
+    public String getAttributePermanentlyVisibleText() {
+        return ATTRIBUTE_PERMANENTLY_VISIBLE_TEXT;
+    }
+
+    public String getAttributeAddAttributeButtonText() {
+        return ATTRIBUTE_ADD_ATTRIBUTE_BUTTON_TEXT;
+    }
+
+    public String getAttributeAddSeparatorLineButtonText() {
+        return ATTRIBUTE_ADD_SEPARATOR_LINE_BUTTON_TEXT;
+    }
+
+    public String getAttributeCloseButtonText() {
+        return ATTRIBUTE_CLOSE_BUTTON_TEXT;
     }
 }

@@ -61,6 +61,16 @@ public final class ImageLibrary {
             = PROJECT_CREATION_DIRECTORY_CHOOSER_BUTTON_IMAGE;
 
 
+    // AttributeStage
+    private static final Image ATTRIBUTE_ATRIBUTE_SETTINGS_BUTTON_IMAGE
+            = MAIN_APPLICATION_CHOICE_OPTION_SETTINGS_BUTTON_IMAGE;
+
+    private static final Image ATTRIBUTE_UP_SWITCH_ATTRIBUTE_BUTTON_IMAGE
+            = MAIN_APPLICATION_UP_SWITCH_CHOICE_OPTION_BUTTON_IMAGE;
+
+    private static final Image ATTRIBUTE_DOWN_SWITCH_ATTRIBUTE_BUTTON_IMAGE
+            = MAIN_APPLICATION_UP_SWITCH_CHOICE_OPTION_BUTTON_IMAGE;
+
 
 
     // Application
@@ -119,5 +129,19 @@ public final class ImageLibrary {
     // ExportSettingsStage
     public static Image getExportSettingsDirectoryChooserButtonImage() {
         return EXPORT_SETTINGS_DIRECTORY_CHOOSER_BUTTON_IMAGE;
+    }
+
+
+    // AttributeStage
+    public static Image getAttributeAtributeSettingsButtonImage() {
+        return ATTRIBUTE_ATRIBUTE_SETTINGS_BUTTON_IMAGE;
+    }
+
+    public static Image getAttributeUpSwitchAttributeButtonImage() {
+        return ATTRIBUTE_UP_SWITCH_ATTRIBUTE_BUTTON_IMAGE;
+    }
+
+    public static Image getAttributeDownSwitchAttributeButtonImage() {
+        return ATTRIBUTE_DOWN_SWITCH_ATTRIBUTE_BUTTON_IMAGE;
     }
 }
