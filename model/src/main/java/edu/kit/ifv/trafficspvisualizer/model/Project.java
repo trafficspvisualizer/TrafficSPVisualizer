@@ -102,6 +102,10 @@ public class Project {
         }
     }
 
+    public int getCurrentPreviewSituation() {
+        return currentPreviewSituation;
+    }
+
     public List<AbstractAttribute> getAttributes() {
         return attributes;
     }
@@ -124,6 +128,10 @@ public class Project {
 
     public void setExportSettings(ExportSettings exportSettings) {
         this.exportSettings = exportSettings;
+    }
+
+    public DataObject getDataObject() {
+        return dataObject;
     }
 
     public Path getCacheDirectory() {
