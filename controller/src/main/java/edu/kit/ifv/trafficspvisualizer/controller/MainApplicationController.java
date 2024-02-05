@@ -8,10 +8,13 @@ import edu.kit.ifv.trafficspvisualizer.util.image.ImageCollectionGenerator;
 import edu.kit.ifv.trafficspvisualizer.util.image.SituationGenerator;
 import edu.kit.ifv.trafficspvisualizer.util.project.StandardProjectLoader;
 import edu.kit.ifv.trafficspvisualizer.util.project.StandardProjectSaver;
+import edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow;
+import javafx.scene.control.Button;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * The MainApplicationController represents the logic unit associated with
@@ -54,7 +57,7 @@ public class MainApplicationController {
      * Updates {@link edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow}.
      */
     public void actionOnLoadProject(){
-        File selectedFile = controllerFacade.getViewFacade().getMainApplicationWindow().showFileChooserDialog();
+        File selectedFile = controllerFacade.getViewFacade().getMainApplicationWindow().showDirectoryChooserDialog();
 
         Project newProject;
         try {
@@ -199,14 +202,41 @@ public class MainApplicationController {
     }
 
     private void setActionListeners(){
-        // Choice Option Settings
-        // Move Up & Down
-        // Export
-        // Export Settings
-        // File-Button
-        // Help-Button
-        // Attributes
-        // Preview Arrows
-        //TODO
+
+        MainApplicationWindow mainApplicationWindow = controllerFacade.getViewFacade().getMainApplicationWindow();
+
+        // File Menu
+        mainApplicationWindow.getNewProjectMenuItem().setOnAction(e -> actionOnNewProjectButton());
+        mainApplicationWindow.getLoadProjectMenuItem().setOnAction(e -> actionOnLoadProject());
+        mainApplicationWindow.getSaveProjectMenuItem().setOnAction(e -> actionOnSaveButton());
+
+        //Help Menu
+        mainApplicationWindow.getHelpMenu().setOnAction(e -> actionOnHelpButton());
+
+        //Export Buttons
+        mainApplicationWindow.getExportButton().setOnAction(e -> actionOnExportButton());
+        mainApplicationWindow.getExportSettingsButton().setOnAction(e -> actionOnExportSettingsButton());
+
+        //Attributes Button
+        mainApplicationWindow.getAttributesButton().setOnAction(e -> actionOnAttributeButton());
+
+        //Choice Options Buttons
+        // Settings Buttons
+        List<Button> choiceOptionSettingsButtonList = mainApplicationWindow.getChoiceOptionSettingsButtonList();
+        // Switch-Up-Buttons
+        List<Button> upSwitchChoiceOptionButtonList = mainApplicationWindow.getUpSwitchChoiceOptionButtonList();
+        // Switch-Down-Buttons
+        List<Button> downSwitchChoiceOptionButtonList = mainApplicationWindow.getDownSwitchChoiceOptionButtonList();
+
+        for(int i = 0; i < choiceOptionSettingsButtonList.size(); i++) {
+            final int index = i;
+            choiceOptionSettingsButtonList.get(i).setOnAction(e -> actionOnChoiceOptionSettingsButton(index));
+            upSwitchChoiceOptionButtonList.get(i).setOnAction(e -> actionOnMoveChoiceOptionUpButton(index));
+            downSwitchChoiceOptionButtonList.get(i).setOnAction(e -> actionOnMoveChoiceOptionDownButton(index));
+        }
+
+        // Preview arrows
+        mainApplicationWindow.getLeftSwitchPreviewButton().setOnAction(e -> actionOnPreviousPreviewButton());
+        mainApplicationWindow.getRightSwitchPreviewButton().setOnAction(e -> actionOnNextPreviewButton());
     }
 }

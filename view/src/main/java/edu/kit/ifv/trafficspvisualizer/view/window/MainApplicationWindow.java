@@ -584,5 +584,53 @@ public class MainApplicationWindow {
         alert.showAndWait();
     }
 
+    //Getters
 
+    public Button getExportButton() {
+        return exportButton;
+    }
+
+    public Button getExportSettingsButton() {
+        return exportSettingsButton;
+    }
+
+    public MenuItem getNewProjectMenuItem() {
+        return newProjectMenuItem;
+    }
+
+    public MenuItem getLoadProjectMenuItem() {
+        return loadProjectMenuItem;
+    }
+
+    public MenuItem getSaveProjectMenuItem() {
+        return saveProjectMenuItem;
+    }
+
+    public Menu getHelpMenu() {
+        return helpMenu;
+    }
+
+    public Button getLeftSwitchPreviewButton() {
+        return leftSwitchPreviewButton;
+    }
+
+    public Button getRightSwitchPreviewButton() {
+        return rightSwitchPreviewButton;
+    }
+
+    public Button getAttributesButton() {
+        return attributesButton;
+    }
+
+    public List<Button> getChoiceOptionSettingsButtonList() {
+        return choiceOptionSettingsButtonList;
+    }
+
+    public List<Button> getUpSwitchChoiceOptionButtonList() {
+        return upSwitchChoiceOptionButtonList;
+    }
+
+    public List<Button> getDownSwitchChoiceOptionButtonList() {
+        return downSwitchChoiceOptionButtonList;
+    }
 }
