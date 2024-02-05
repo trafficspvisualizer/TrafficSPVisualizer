@@ -4,6 +4,8 @@ import edu.kit.ifv.trafficspvisualizer.model.Attribute;
 import edu.kit.ifv.trafficspvisualizer.model.Icon;
 import edu.kit.ifv.trafficspvisualizer.model.LineType;
 import edu.kit.ifv.trafficspvisualizer.model.RouteSection;
+import edu.kit.ifv.trafficspvisualizer.view.window.ChoiceOptionSettingsStage;
+import edu.kit.ifv.trafficspvisualizer.view.window.ExportSettingsStage;
 import javafx.scene.paint.Color;
 import java.util.List;
 
@@ -38,7 +40,12 @@ public class ChoiceOptionSettingsController implements IconDisplayingController 
     public ChoiceOptionSettingsController(int choiceOptionId, ControllerFacade controllerFacade) {
         this.choiceOptionId = choiceOptionId;
         this.controllerFacade = controllerFacade;
-        //TODO: Create Stage and set action listeners.
+
+        //creates and shows new stage
+        controllerFacade.getViewFacade().
+                setChoiceOptionSettingsStage(new ChoiceOptionSettingsStage(controllerFacade.getViewFacade(),
+                        choiceOptionId));
+        setActionListeners();
     }
 
     /**

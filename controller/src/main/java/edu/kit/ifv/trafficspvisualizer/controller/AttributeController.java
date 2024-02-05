@@ -2,6 +2,8 @@ package edu.kit.ifv.trafficspvisualizer.controller;
 
 import edu.kit.ifv.trafficspvisualizer.model.AbstractAttribute;
 import edu.kit.ifv.trafficspvisualizer.model.SeparatorLine;
+import edu.kit.ifv.trafficspvisualizer.view.window.AttributeStage;
+import edu.kit.ifv.trafficspvisualizer.view.window.ExportSettingsStage;
 
 /**
  * The AttributeController represents the logic unit associated with the
@@ -27,7 +29,11 @@ public class AttributeController {
      */
     public AttributeController(ControllerFacade controllerFacade) {
         this.controllerFacade = controllerFacade;
-        //TODO: Create Stage and set action listeners.
+
+        //creates and shows new stage
+        controllerFacade.getViewFacade().
+                setAttributeStage(new AttributeStage(controllerFacade.getViewFacade()));
+        setActionListeners();
     }
 
     /**

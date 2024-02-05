@@ -3,6 +3,7 @@ package edu.kit.ifv.trafficspvisualizer.controller;
 import edu.kit.ifv.trafficspvisualizer.model.ExportSettings;
 import edu.kit.ifv.trafficspvisualizer.model.ExportType;
 import edu.kit.ifv.trafficspvisualizer.model.FileFormat;
+import edu.kit.ifv.trafficspvisualizer.view.window.ExportSettingsStage;
 
 import java.io.File;
 
@@ -31,7 +32,10 @@ public class ExportSettingsController {
      */
     public ExportSettingsController(ControllerFacade controllerFacade) {
         this.controllerFacade = controllerFacade;
-        //TODO: Create Stage and set action listeners.
+        //creates and shows new stage
+        controllerFacade.getViewFacade().
+                setExportSettingsStage(new ExportSettingsStage(controllerFacade.getViewFacade()));
+        setActionListeners();
     }
 
     /**

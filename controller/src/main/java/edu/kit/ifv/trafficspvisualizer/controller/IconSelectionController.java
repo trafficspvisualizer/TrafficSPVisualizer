@@ -1,6 +1,8 @@
 package edu.kit.ifv.trafficspvisualizer.controller;
 
 import edu.kit.ifv.trafficspvisualizer.model.Icon;
+import edu.kit.ifv.trafficspvisualizer.view.window.ExportSettingsStage;
+import edu.kit.ifv.trafficspvisualizer.view.window.IconSelectionStage;
 import javafx.scene.image.Image;
 
 import java.io.File;
@@ -44,7 +46,11 @@ public class IconSelectionController {
         this.controllerFacade = controllerFacade;
         this.parentController = parentController;
         this.index = index;
-        //TODO: Create Stage and set action listeners.
+
+        //creates and shows new stage
+        controllerFacade.getViewFacade().
+                setIconSelectionStage(new IconSelectionStage(controllerFacade.getViewFacade()));
+        setActionListeners();
     }
 
     /**

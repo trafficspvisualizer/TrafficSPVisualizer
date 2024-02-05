@@ -3,6 +3,8 @@ package edu.kit.ifv.trafficspvisualizer.controller;
 import edu.kit.ifv.trafficspvisualizer.model.DataObject;
 import edu.kit.ifv.trafficspvisualizer.model.Project;
 import edu.kit.ifv.trafficspvisualizer.util.parse.NGDParser;
+import edu.kit.ifv.trafficspvisualizer.view.window.ExportSettingsStage;
+import edu.kit.ifv.trafficspvisualizer.view.window.ProjectCreationStage;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -33,7 +35,10 @@ public class ProjectCreationController {
      */
     public ProjectCreationController(ControllerFacade controllerFacade) {
         this.controllerFacade = controllerFacade;
-        //TODO: Create Stage and set action listeners.
+        //creates and shows new stage
+        controllerFacade.getViewFacade().
+                setProjectCreationStage(new ProjectCreationStage(controllerFacade.getViewFacade()));
+        setActionListeners();
     }
 
     /**

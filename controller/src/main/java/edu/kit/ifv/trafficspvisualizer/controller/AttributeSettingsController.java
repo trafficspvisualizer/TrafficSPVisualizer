@@ -2,6 +2,8 @@ package edu.kit.ifv.trafficspvisualizer.controller;
 
 import edu.kit.ifv.trafficspvisualizer.model.Attribute;
 import edu.kit.ifv.trafficspvisualizer.model.Icon;
+import edu.kit.ifv.trafficspvisualizer.view.window.AttributeSettingsStage;
+import edu.kit.ifv.trafficspvisualizer.view.window.ExportSettingsStage;
 import javafx.scene.image.Image;
 
 /**
@@ -36,7 +38,11 @@ public class AttributeSettingsController implements IconDisplayingController {
     public AttributeSettingsController(ControllerFacade controllerFacade, int attributeIndex) {
         this.controllerFacade = controllerFacade;
         this.attributeIndex = attributeIndex;
-        //TODO: Create Stage and set action listeners.
+
+        //creates and shows new stage
+        controllerFacade.getViewFacade().
+                setAttributeSettingsStage(new AttributeSettingsStage(controllerFacade.getViewFacade(), attributeIndex));
+        setActionListeners();
     }
 
     /**
