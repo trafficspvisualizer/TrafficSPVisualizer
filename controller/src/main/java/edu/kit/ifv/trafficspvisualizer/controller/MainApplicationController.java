@@ -56,7 +56,7 @@ public class MainApplicationController {
 
         Project newProject;
         try {
-            newProject = new ProjectLoader().loadProject(selectedFile);
+            newProject = new StandardProjectLoader().loadProject(selectedFile);
         } catch (Exception e) {
             controllerFacade.getViewFacade().getMainApplicationWindow().showLoadProjectErrorAlert();
             return;
@@ -70,13 +70,12 @@ public class MainApplicationController {
         updatePreview();
     }
 
+
     /**
      * Instructs {@link ProjectSaver} to save project.
      */
-    public void actionOnSaveButton(){
-        new ProjectSaver().saveProject(controllerFacade.getProject(),
-                controllerFacade.getProject().getExportSettings().getExportPath());
-    }
+    public void actionOnSaveButton() throws IOException {
+        new StandardProjectSaver().saveProject(controllerFacade.getProject(), controllerFacade.getProject().getExportSettings().getExportPath());
 
     /**
      * Instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow} to show help dialog.
