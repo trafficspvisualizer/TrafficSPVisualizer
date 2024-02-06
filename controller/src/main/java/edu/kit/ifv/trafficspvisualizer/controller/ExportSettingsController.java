@@ -4,7 +4,6 @@ import edu.kit.ifv.trafficspvisualizer.model.ExportSettings;
 import edu.kit.ifv.trafficspvisualizer.model.ExportType;
 import edu.kit.ifv.trafficspvisualizer.model.FileFormat;
 import edu.kit.ifv.trafficspvisualizer.view.window.ExportSettingsStage;
-import edu.kit.ifv.trafficspvisualizer.view.window.IconSelectionStage;
 
 import java.io.File;
 
@@ -55,20 +54,33 @@ public class ExportSettingsController {
      */
     public void actionOnSaveButton(){
 
-        // scraping data from view
-        //TODO: Placeholder methods
-        //FileFormat fileFormat = controllerFacade.getViewFacade().getExportSettingsStage().getFileFormat();
-        //int height = controllerFacade.getViewFacade().getExportSettingsStage().getHeightTEST();
-        //int width = controllerFacade.getViewFacade().getExportSettingsStage().getWidthTEST();
-        //File exportFolder exportFolder = controllerFacade.getViewFacade().getExportSettingsStage().getExportFolder();
-        //ExportType exportType = controllerFacade.getViewFacade().getExportSettingsStage().getExportType();
+        // scraping data from view in String format
+        String heightString = controllerFacade.getViewFacade().getExportSettingsStage().getHeightString();
+        String widthString = controllerFacade.getViewFacade().getExportSettingsStage().getWidthString();
+        String exportDirectoryPathString = controllerFacade.getViewFacade().getExportSettingsStage().
+                                                                                        getExportDirectoryPathString();
+        String exportTypeString = controllerFacade.getViewFacade().getExportSettingsStage().getExportTypeString();
+
+        int height;
+        int width;
+        File exportPath;
+        ExportType exportType;
 
         // checking validity of scrape data
-        //TODO: checking validity of scraped data
+        try {
+            height = Integer.parseInt(heightString);
+            width = Integer.parseInt(widthString);
+            exportPath = new File(exportDirectoryPathString);
+            // fromString method exists on ubuav branch
+            exportType = ExportType.fromString(exportTypeString);
+        } catch (NullPointerException | IllegalArgumentException exception) {
+            controllerFacade.getViewFacade().getExportSettingsStage().showSaveErrorAlert();
+            return;
+        }
 
-        // setting new export settings in model
-        //ExportSettings exportSettings = new ExportSettings(height, width, exportFolder, fileFormat, exportType);
-        //controllerFacade.getProject().setExportSettings(exportSettings);
+        // setting new export settings in model, png as default because we currently only support png export
+        ExportSettings exportSettings = new ExportSettings(height, width, exportPath, FileFormat.PNG, exportType);
+        controllerFacade.getProject().setExportSettings(exportSettings);
     }
 
     /**
@@ -83,9 +95,16 @@ public class ExportSettingsController {
     }
 
     private void setActionListeners(){
+
+        ExportSettingsStage exportSettingsStage = controllerFacade.getViewFacade().getExportSettingsStage();
+
         //ExportFolder
+        exportSettingsStage.getExportDirectoryButton().setOnAction(e -> actionOnExportFolderButton());
+
         //Save
+        exportSettingsStage.getSaveButton().setOnAction(e -> actionOnSaveButton());
+
         //Cancel
-        //TODO
+        exportSettingsStage.getCancelButton().setOnAction(e -> actionOnCancelButton());
     }
 }
