@@ -1,11 +1,17 @@
 package edu.kit.ifv.trafficspvisualizer.controller;
 
 import edu.kit.ifv.trafficspvisualizer.model.Attribute;
+import edu.kit.ifv.trafficspvisualizer.model.ChoiceOption;
 import edu.kit.ifv.trafficspvisualizer.model.Icon;
+import edu.kit.ifv.trafficspvisualizer.model.IconManager;
 import edu.kit.ifv.trafficspvisualizer.view.window.AttributeSettingsStage;
 import edu.kit.ifv.trafficspvisualizer.view.window.ExportSettingsStage;
 import edu.kit.ifv.trafficspvisualizer.view.window.IconSelectionStage;
 import javafx.scene.image.Image;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * The AttributeSettingsController represents the logic unit associated with the
@@ -63,15 +69,26 @@ public class AttributeSettingsController implements IconDisplayingController {
      */
     public void actionOnSaveButton(){
         //scraping data from view
-        //TODO: placeholder methods
-        //String name = controllerFacade.getViewFacade().getAttributeSettingsStage().getName();
-        //Icon icon = controllerFacade.getViewFacade().getAttributeSettingsStage().getIcon();
-        //String prefix = controllerFacade.getViewFacade().getAttributeSettingsStage().getPrefix();
-        //String suffix = controllerFacade.getViewFacade().getAttributeSettingsStage().getSuffix();
-        //boolean isPermanentlyVisible = controllerFacade.getViewFacade().
-        //                                    getAttributeSettingsStage().getPermanentlyVisible();
-        //int decimalPlaces = controllerFacade.getViewFacade().getAttributeSettingsStage().getDecimalPlaces();
+        String name = controllerFacade.getViewFacade().getAttributeSettingsStage().getName();
+        int iconId = controllerFacade.getViewFacade().getAttributeSettingsStage().getIconId();
+        String prefix = controllerFacade.getViewFacade().getAttributeSettingsStage().getPrefix();
+        String suffix = controllerFacade.getViewFacade().getAttributeSettingsStage().getSuffix();
+        boolean isPermanentlyVisible = controllerFacade.getViewFacade().getAttributeSettingsStage().isActive();
+        String decimalPlacesString = controllerFacade.getViewFacade().
+                                            getAttributeSettingsStage().getNumberOfDecimalPlaces();
 
+        // check if decimal places string is actually a number
+        final String decimalPlacesRegex = "^\\d*$";
+        if(!decimalPlacesString.matches(decimalPlacesRegex)) {
+            controllerFacade.getViewFacade().getAttributeSettingsStage().showSaveErrorAlert();
+            return;
+        }
+
+        // converting to integer, should never throw exception because of check before
+        int decimalPlaces = Integer.parseInt(decimalPlacesString);
+
+        //TODO: get icon from iconId
+        Icon icon = null;
 
         //check if editing existing Attribute or adding new one
         // if attributeIndex is index of attribute list
@@ -80,22 +97,23 @@ public class AttributeSettingsController implements IconDisplayingController {
             // type casting should be no problem cause index is given by AttributeController which ensures
             // only indexes of non-separator-line Attributes are given
             Attribute existingAttribute = (Attribute) controllerFacade.getProject().getAttributes().get(attributeIndex);
-            //existingAttribute.setName(name);
-            //TODO: icon should be changed to type Icon instead of Image
-            //existingAttribute.setIcon(icon);
-            //existingAttribute.setPrefix(prefix);
-            //existingAttribute.setSuffix(suffix);
-            //existingAttribute.setPermanentlyVisible(isPermanentlyVisible);
-            //existingAttribute.setDecimalPlaces(decimalPlaces);
+            existingAttribute.setName(name);
+            existingAttribute.setIcon(icon);
+            existingAttribute.setPrefix(prefix);
+            existingAttribute.setSuffix(suffix);
+            existingAttribute.setPermanentlyVisible(isPermanentlyVisible);
+            existingAttribute.setDecimalPlaces(decimalPlaces);
 
 
         // if attributeIndex is out of bounds, index is given by AttributeController
         } else {
             //create new attribute
-            //TODO: Attribute constructor missing
-            //Attribute newAttribute = new Attribute(name, icon, prefix, suffix, isPermanentlyVisible, decimalPlaces);
+            //TODO: Not sure if this works
+            Map<ChoiceOption, List<String>> choiceOptionMappings = new HashMap<>();
+            Attribute newAttribute = new Attribute(name, icon, prefix, suffix, isPermanentlyVisible,
+                                                                                decimalPlaces, choiceOptionMappings);
             //TODO: maybe add "addAttribute()" method, no need to give list
-            //controllerFacade.getProject().getAttributes().add(newAttribute);
+            controllerFacade.getProject().getAttributes().add(newAttribute);
         }
 
         //close stage
@@ -122,9 +140,15 @@ public class AttributeSettingsController implements IconDisplayingController {
     }
 
     private void setActionListeners(){
-        // Icon
-        // Save
-        // Cancel
-        //TODO
+        AttributeSettingsStage attributeSettingsStage = controllerFacade.getViewFacade().getAttributeSettingsStage();
+
+        // Icon Button
+        attributeSettingsStage.getIconButton().setOnAction(e -> actionOnIconButton());
+
+        // Save Button
+        attributeSettingsStage.getSaveButton().setOnAction(e -> actionOnSaveButton());
+
+        // Cancel Button
+        attributeSettingsStage.getCancelButton().setOnAction(e -> actionOnCancelButton());
     }
 }

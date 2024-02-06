@@ -312,4 +312,44 @@ public class AttributeSettingsStage extends Stage {
         alert.showAndWait();
     }
 
+    //getter-methods
+
+
+    public Button getIconButton() {
+        return iconButton;
+    }
+
+    public Button getCancelButton() {
+        return cancelButton;
+    }
+
+    public Button getSaveButton() {
+        return saveButton;
+    }
+
+    public boolean isActive() {
+        return activeCheckBox.isSelected();
+    }
+
+    public String getNumberOfDecimalPlaces() {
+        // returns String because validity is checked in controller
+        return numberOfDecimalPlacesTextField.getText();
+    }
+
+    public String getPrefix() {
+        return prefixTextField.getText();
+    }
+
+    public String getSuffix() {
+        return suffixTextField.getText();
+    }
+
+    public String getName() {
+        return nameTextField.getText();
+    }
+
+    public int getIconId() {
+        return (int) iconButtonImageView.getUserData();
+    }
+
 }
