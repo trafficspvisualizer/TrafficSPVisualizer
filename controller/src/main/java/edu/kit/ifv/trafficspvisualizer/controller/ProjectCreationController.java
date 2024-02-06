@@ -72,16 +72,10 @@ public class ProjectCreationController {
     public void actionOnSaveButton(){
         DataObject dataObject = null;
 
-        //TODO: remove, placeholder
-        String projectName = null;
-        File projectFolder = null;
-        File inputFile = null;
-
-        //TODO: missing getter methods
         //Scrape data
-        //String projectName = controllerFacade.getViewFacade().getProjectCreationStage().getProjectName();
-        //File projectFolder = controllerFacade.getViewFacade().getProjectCreationStage().getProjectFolder();
-        //File inputFile = controllerFacade.getViewFacade().getProjectCreationStage().getInputFile();
+        String projectName = controllerFacade.getViewFacade().getProjectCreationStage().getProjectName();
+        File projectFolder = controllerFacade.getViewFacade().getProjectCreationStage().getSaveProjectDirectory();
+        File inputFile = controllerFacade.getViewFacade().getProjectCreationStage().getInputDataFile();
 
         //try to parse inputFile
         try {
@@ -126,10 +120,18 @@ public class ProjectCreationController {
     }
 
     private void setActionListeners(){
+        ProjectCreationStage projectCreationStage = controllerFacade.getViewFacade().getProjectCreationStage();
+
         // ProjectFolder-Button
+        projectCreationStage.getSaveProjectDirectoryButton().setOnAction(e -> actionOnProjectFolderButton());
+
         // InputFile-Button
+        projectCreationStage.getInputDataFileButton().setOnAction(e -> actionOnInputFileButton());
+
         // Save-Button
+        projectCreationStage.getCreateNewProjectButton().setOnAction(e -> actionOnSaveButton());
+
         // Cancel-Button
-        //TODO
+        projectCreationStage.getCancelButton().setOnAction(e -> actionOnCancelButton());
     }
 }
