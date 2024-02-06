@@ -7,6 +7,7 @@ import edu.kit.ifv.trafficspvisualizer.view.ViewFacade;
 import edu.kit.ifv.trafficspvisualizer.view.data.font.FontLibrary;
 import edu.kit.ifv.trafficspvisualizer.view.data.image.ImageLibrary;
 import edu.kit.ifv.trafficspvisualizer.view.data.language.LanguageStrategy;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -37,6 +38,7 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -394,13 +396,13 @@ public class MainApplicationWindow {
 
 
     // setter-methods
-    public void setPreviewImage(Image previewImage) {
-        previewImageView.setImage(previewImage);
+    public void setPreviewImage(BufferedImage previewImage) {
+        previewImageView.setImage(SwingFXUtils.toFXImage(previewImage, null));
     }
 
 
 
-    // update-methods
+    // update- and add-methods
     public void updateCurrentPreviewSituation() {
         Project project = viewFacade.getProject();
         if (project == null) {
@@ -427,97 +429,98 @@ public class MainApplicationWindow {
 
 
 
-        for (ChoiceOption co : project.getChoiceOptions()) {
-
-            Text choiceOptionTitleText = new Text(co.getName());
-            choiceOptionTitleText.setFill(co.getColor());
-
-            choiceOptionTitleText.setFont(FontLibrary.getSmallFont());
-            BorderPane.setAlignment(choiceOptionTitleText, Pos.TOP_LEFT);
-
-
-
-            ImageView choiceOptionSettingsButtonImageView = new ImageView(
-                    ImageLibrary.getMainApplicationChoiceOptionSettingsButtonImage());
-
-            choiceOptionSettingsButtonImageView.setFitWidth(25);
-            choiceOptionSettingsButtonImageView.setFitHeight(25);
-
-            Button choiceOptionSettingsButton = new Button();
-            choiceOptionSettingsButton.setGraphic(choiceOptionSettingsButtonImageView);
-
-            choiceOptionSettingsButtonList.add(choiceOptionSettingsButton);
-
-
-            ImageView upSwitchChoiceOptionButtonImageView = new ImageView(
-                    ImageLibrary.getMainApplicationUpSwitchChoiceOptionButtonImage());
-
-            upSwitchChoiceOptionButtonImageView.setFitWidth(15);
-            upSwitchChoiceOptionButtonImageView.setFitHeight(15);
-
-            Button upSwitchChoiceOptionButton = new Button();
-            upSwitchChoiceOptionButton.setGraphic(upSwitchChoiceOptionButtonImageView);
-
-            upSwitchChoiceOptionButtonList.add(upSwitchChoiceOptionButton);
-
-
-            ImageView downSwitchChoiceOptionButtonImageView = new ImageView(
-                    ImageLibrary.getMainApplicationDownSwitchChoiceOptionButtonImage());
-
-            downSwitchChoiceOptionButtonImageView.setFitWidth(15);
-            downSwitchChoiceOptionButtonImageView.setFitHeight(15);
-
-            Button downSwitchChoiceOptionButton = new Button();
-            downSwitchChoiceOptionButton.setGraphic(downSwitchChoiceOptionButtonImageView);
-
-            choiceOptionSettingsButtonList.add(downSwitchChoiceOptionButton);
-
-
-            GridPane choiceOptionButtonGridPane = new GridPane();
-            choiceOptionButtonGridPane.add(choiceOptionSettingsButton, 0, 0);
-            choiceOptionButtonGridPane.add(upSwitchChoiceOptionButton, 0, 1);
-            choiceOptionButtonGridPane.add(downSwitchChoiceOptionButton, 0,2);
-
-
-            BorderPane.setAlignment(choiceOptionButtonGridPane, Pos.TOP_RIGHT);
-            choiceOptionButtonGridPane.setPadding(new Insets(15));
-            choiceOptionButtonGridPane.setHgap(15);
-            choiceOptionButtonGridPane.setVgap(15);
-
-
-            GridPane routeSectionGridPane = new GridPane();
-            List<RouteSection> routeSectionList = co.getRouteSections();
-            for (int i = 0; i < routeSectionList.size(); i++) {
-                //TODO getting (image path)/(image) and converting svg image to javafx image
-
-
-                ImageView routeSelectionImageView = new ImageView();
-
-                routeSelectionImageView.setFitWidth(25);
-                routeSelectionImageView.setFitHeight(25);
-
-                routeSectionGridPane.add(routeSelectionImageView, i,0);
-            }
-
-            BorderPane.setAlignment(routeSectionGridPane, Pos.BOTTOM_LEFT);
-            routeSectionGridPane.setPadding(new Insets(15));
-            routeSectionGridPane.setHgap(15);
-            routeSectionGridPane.setVgap(15);
-
-
-
-            BorderPane choiceOptionBorderPane = new BorderPane();
-            choiceOptionBorderPane.setLeft(choiceOptionTitleText);
-            choiceOptionBorderPane.setRight(choiceOptionButtonGridPane);
-            choiceOptionBorderPane.setBottom(routeSectionGridPane);
-
-            choiceOptionVBox.getChildren().add(choiceOptionBorderPane);
+        for (ChoiceOption choiceOption : project.getChoiceOptions()) {
+            addChoiceOption(choiceOption);
         }
 
         if (!project.getChoiceOptions().isEmpty()) {
             upSwitchChoiceOptionButtonList.getFirst().setDisable(true);
             downSwitchChoiceOptionButtonList.getLast().setDisable(true);
         }
+    }
+
+    private void addChoiceOption(ChoiceOption choiceOption) {
+        Text choiceOptionTitleText = new Text(choiceOption.getName());
+        choiceOptionTitleText.setFill(choiceOption.getColor());
+
+        choiceOptionTitleText.setFont(FontLibrary.getSmallFont());
+        BorderPane.setAlignment(choiceOptionTitleText, Pos.TOP_LEFT);
+
+
+        ImageView choiceOptionSettingsButtonImageView = new ImageView(
+                ImageLibrary.getMainApplicationChoiceOptionSettingsButtonImage());
+
+        choiceOptionSettingsButtonImageView.setFitWidth(25);
+        choiceOptionSettingsButtonImageView.setFitHeight(25);
+
+        Button choiceOptionSettingsButton = new Button();
+        choiceOptionSettingsButton.setGraphic(choiceOptionSettingsButtonImageView);
+
+        choiceOptionSettingsButtonList.add(choiceOptionSettingsButton);
+
+
+        ImageView upSwitchChoiceOptionButtonImageView = new ImageView(
+                ImageLibrary.getMainApplicationUpSwitchChoiceOptionButtonImage());
+
+        upSwitchChoiceOptionButtonImageView.setFitWidth(15);
+        upSwitchChoiceOptionButtonImageView.setFitHeight(15);
+
+        Button upSwitchChoiceOptionButton = new Button();
+        upSwitchChoiceOptionButton.setGraphic(upSwitchChoiceOptionButtonImageView);
+
+        upSwitchChoiceOptionButtonList.add(upSwitchChoiceOptionButton);
+
+
+        ImageView downSwitchChoiceOptionButtonImageView = new ImageView(
+                ImageLibrary.getMainApplicationDownSwitchChoiceOptionButtonImage());
+
+        downSwitchChoiceOptionButtonImageView.setFitWidth(15);
+        downSwitchChoiceOptionButtonImageView.setFitHeight(15);
+
+        Button downSwitchChoiceOptionButton = new Button();
+        downSwitchChoiceOptionButton.setGraphic(downSwitchChoiceOptionButtonImageView);
+
+        choiceOptionSettingsButtonList.add(downSwitchChoiceOptionButton);
+
+
+        GridPane choiceOptionButtonGridPane = new GridPane();
+        choiceOptionButtonGridPane.add(choiceOptionSettingsButton, 0, 0);
+        choiceOptionButtonGridPane.add(upSwitchChoiceOptionButton, 0, 1);
+        choiceOptionButtonGridPane.add(downSwitchChoiceOptionButton, 0,2);
+
+
+        BorderPane.setAlignment(choiceOptionButtonGridPane, Pos.TOP_RIGHT);
+        choiceOptionButtonGridPane.setPadding(new Insets(15));
+        choiceOptionButtonGridPane.setHgap(15);
+        choiceOptionButtonGridPane.setVgap(15);
+
+
+        GridPane routeSectionGridPane = new GridPane();
+        List<RouteSection> routeSectionList = choiceOption.getRouteSections();
+        for (int i = 0; i < routeSectionList.size(); i++) {
+            //TODO getting (image path)/(image) and converting svg image to javafx image
+
+
+            ImageView routeSelectionImageView = new ImageView();
+
+            routeSelectionImageView.setFitWidth(25);
+            routeSelectionImageView.setFitHeight(25);
+
+            routeSectionGridPane.add(routeSelectionImageView, i,0);
+        }
+
+        BorderPane.setAlignment(routeSectionGridPane, Pos.BOTTOM_LEFT);
+        routeSectionGridPane.setPadding(new Insets(15));
+        routeSectionGridPane.setHgap(15);
+        routeSectionGridPane.setVgap(15);
+
+
+        BorderPane choiceOptionBorderPane = new BorderPane();
+        choiceOptionBorderPane.setLeft(choiceOptionTitleText);
+        choiceOptionBorderPane.setRight(choiceOptionButtonGridPane);
+        choiceOptionBorderPane.setBottom(routeSectionGridPane);
+
+        choiceOptionVBox.getChildren().add(choiceOptionBorderPane);
     }
 
 

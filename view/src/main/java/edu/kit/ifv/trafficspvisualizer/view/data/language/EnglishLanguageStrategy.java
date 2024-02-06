@@ -161,6 +161,8 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
 
     private final static String ATTRIBUTE_PERMANENTLY_VISIBLE_TEXT = "Permanently visible";
 
+    private final static String ATTRIBUTE_SEPARATOR_LINE_TEXT = "SEPARATOR LINE";
+
     private final static String ATTRIBUTE_ADD_ATTRIBUTE_BUTTON_TEXT = "Add attribute";
 
     private final static String ATTRIBUTE_ADD_SEPARATOR_LINE_BUTTON_TEXT = "Add separator line";
@@ -502,6 +504,10 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
 
     public String getAttributePermanentlyVisibleText() {
         return ATTRIBUTE_PERMANENTLY_VISIBLE_TEXT;
+    }
+
+    public String getAttributeSeparatorLineText() {
+        return ATTRIBUTE_SEPARATOR_LINE_TEXT;
     }
 
     public String getAttributeAddAttributeButtonText() {

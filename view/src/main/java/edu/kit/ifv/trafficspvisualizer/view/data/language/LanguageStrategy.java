@@ -191,6 +191,8 @@ public abstract class LanguageStrategy {
 
     public abstract String getAttributePermanentlyVisibleText();
 
+    public abstract String getAttributeSeparatorLineText();
+
     public abstract String getAttributeAddAttributeButtonText();
 
     public abstract String getAttributeAddSeparatorLineButtonText();
