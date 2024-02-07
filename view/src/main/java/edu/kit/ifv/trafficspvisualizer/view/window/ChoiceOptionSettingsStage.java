@@ -94,10 +94,23 @@ public class ChoiceOptionSettingsStage extends Stage {
         routeSectionRemoveButtonList = new ArrayList<>();
         this.viewFacade = viewFacade;
         this.choiceOptionIndex = choiceOptionIndex;
-
+        buildStage();
+        styleStage();
+        updateStage();
 
         show();
     }
+
+    // build-methods
+    private void buildStage() {
+
+    }
+
+    // style-methods
+    private void styleStage() {
+
+    }
+
 
     // update-methods
     private void updateStage() {
