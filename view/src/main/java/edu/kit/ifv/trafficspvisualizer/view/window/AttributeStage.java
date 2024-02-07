@@ -2,6 +2,7 @@ package edu.kit.ifv.trafficspvisualizer.view.window;
 
 import edu.kit.ifv.trafficspvisualizer.model.AbstractAttribute;
 import edu.kit.ifv.trafficspvisualizer.model.Attribute;
+import edu.kit.ifv.trafficspvisualizer.model.LineType;
 import edu.kit.ifv.trafficspvisualizer.view.ViewFacade;
 import edu.kit.ifv.trafficspvisualizer.view.data.font.FontLibrary;
 import edu.kit.ifv.trafficspvisualizer.view.data.image.ImageLibrary;
@@ -10,8 +11,6 @@ import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -21,6 +20,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -51,7 +53,7 @@ public class AttributeStage extends Stage {
 
     private final List<Button> attributeSettingsButtonList;
 
-    private final List<Button> upSwitchAttriubuteButtonList;
+    private final List<Button> upSwitchAttributeButtonList;
 
     private final List<Button> downSwitchAttributeButtonList;
 
@@ -76,7 +78,7 @@ public class AttributeStage extends Stage {
 
     public AttributeStage(ViewFacade viewFacade) {
         attributeSettingsButtonList = new ArrayList<>();
-        upSwitchAttriubuteButtonList = new ArrayList<>();
+        upSwitchAttributeButtonList = new ArrayList<>();
         downSwitchAttributeButtonList = new ArrayList<>();
         this.viewFacade = viewFacade;
 
@@ -192,7 +194,8 @@ public class AttributeStage extends Stage {
         attributeGridPane.setVgap(15);
 
         // attributeScrollPane
-
+        attributeScrollPane.prefHeightProperty().bind(
+                scene.heightProperty().subtract(closeAndAddGridPane.heightProperty()));
 
         // addAttributeButton
         GridPane.setHalignment(addAttributeButton, HPos.LEFT);
@@ -228,49 +231,171 @@ public class AttributeStage extends Stage {
 
 
 
-    // update-methods
+    // update- and add-methods
     public void updateStage() {
         attributeGridPane.getChildren().removeIf(node -> GridPane.getRowIndex(node) >= 1);
         attributeSettingsButtonList.clear();
-        upSwitchAttriubuteButtonList.clear();
+        upSwitchAttributeButtonList.clear();
         downSwitchAttributeButtonList.clear();
 
         int currentRow = 0;
         for (AbstractAttribute abstractAttribute : viewFacade.getProject().getAttributes()) {
             currentRow += 2;
 
+
+            ImageView upSwitchAttributeButtonImageView =
+                    new ImageView(ImageLibrary.getAttributeUpSwitchAttributeButtonImage());
+
+            upSwitchAttributeButtonImageView.setFitWidth(15);
+            upSwitchAttributeButtonImageView.setFitHeight(15);
+            upSwitchAttributeButtonImageView.setPreserveRatio(true);
+
+            Button upSwitchAttributeButton = new Button();
+            upSwitchAttributeButton.setGraphic(upSwitchAttributeButtonImageView);
+
+            GridPane.setHalignment(upSwitchAttributeButton, HPos.CENTER);
+            GridPane.setValignment(upSwitchAttributeButton, VPos.CENTER);
+
+            upSwitchAttributeButtonList.add(upSwitchAttributeButton);
+            attributeGridPane.add(upSwitchAttributeButton, 8, currentRow);
+
+
+
+            ImageView downSwitchAttributeButtonImageView =
+                    new ImageView(ImageLibrary.getAttributeDownSwitchAttributeButtonImage());
+
+            downSwitchAttributeButtonImageView.setFitWidth(15);
+            downSwitchAttributeButtonImageView.setFitHeight(15);
+            downSwitchAttributeButtonImageView.setPreserveRatio(true);
+
+            Button downSwitchAttributeButton = new Button();
+            downSwitchAttributeButton.setGraphic(downSwitchAttributeButtonImageView);
+
+            GridPane.setHalignment(downSwitchAttributeButton, HPos.CENTER);
+            GridPane.setValignment(downSwitchAttributeButton, VPos.CENTER);
+
+            downSwitchAttributeButtonList.add(downSwitchAttributeButton);
+            attributeGridPane.add(downSwitchAttributeButton, 9, currentRow);
+
+
+
+            ImageView attributeSettingsButtonImageView =
+                    new ImageView(ImageLibrary.getAttributeAttributeSettingsButtonImage());
+
+            attributeSettingsButtonImageView.setFitWidth(25);
+            attributeSettingsButtonImageView.setFitHeight(25);
+            attributeSettingsButtonImageView.setPreserveRatio(true);
+
+            Button attributeSettingsButton = new Button();
+            attributeSettingsButton.setGraphic(attributeSettingsButtonImageView);
+
+            GridPane.setHalignment(attributeSettingsButton, HPos.CENTER);
+            GridPane.setValignment(attributeSettingsButton, VPos.CENTER);
+
+            attributeSettingsButtonList.add(attributeSettingsButton);
+            attributeGridPane.add(attributeSettingsButton, 10, currentRow);
+
+
+
             if (abstractAttribute instanceof Attribute attribute) {
-
-                CheckBox attributeActiveCheckBox = new CheckBox();
-                attributeActiveCheckBox.setSelected(attribute.isActive());
-                attributeActiveCheckBox.setDisable(true);
-
-                Text attributeNameText = new Text(attribute.getName());
-
-                // TODO: Convert and add image
-                ImageView attributeIconImageView = new ImageView();
-
-                Text attributePrefixText = new Text(attribute.getPrefix());
-
-                Text attributeSuffixText = new Text(attribute.getSuffix());
-
-                Text attributeNumberOfDecimalPlacesText = new Text(String.valueOf(attribute.getDecimalPlaces()));
-
-                CheckBox attributePermanentlyVisibleCheckBox = new CheckBox();
-                attributeActiveCheckBox.setSelected(attribute.isPermanentlyVisible());
-                attributeActiveCheckBox.setDisable(true);
-
-
-
-
-
-
-
+                addAttribute(attribute, currentRow);
             } else {
+                Text separatorLineText = new Text(viewFacade.getLanguageStrategy().getAttributeSeparatorLineText());
 
+                GridPane.setHalignment(separatorLineText, HPos.CENTER);
+                GridPane.setValignment(separatorLineText, VPos.CENTER);
+                separatorLineText.setFont(FontLibrary.getMidFont());
+
+                attributeGridPane.add(separatorLineText, 0, currentRow, 7,1);
+
+
+
+                attributeSettingsButton.setDisable(true);
             }
 
+            if (!viewFacade.getProject().getAttributes().isEmpty()) {
+                upSwitchAttributeButtonList.getFirst().setDisable(true);
+                downSwitchAttributeButtonList.getLast().setDisable(true);
+            }
         }
+
+    }
+
+    private void addAttribute(Attribute attribute, int rowIndex) {
+
+        CheckBox attributeActiveCheckBox = new CheckBox();
+        attributeActiveCheckBox.setSelected(attribute.isActive());
+        attributeActiveCheckBox.setDisable(true);
+
+        GridPane.setHalignment(attributeActiveCheckBox, HPos.CENTER);
+        GridPane.setValignment(attributeActiveCheckBox, VPos.CENTER);
+        attributeActiveCheckBox.setFont(FontLibrary.getSmallFont());
+
+        attributeGridPane.add(attributeActiveCheckBox, 0, rowIndex);
+
+
+
+        Text attributeNameText = new Text(attribute.getName());
+
+        GridPane.setHalignment(attributeNameText, HPos.CENTER);
+        GridPane.setValignment(attributeNameText, VPos.CENTER);
+        attributeNameText.setFont(FontLibrary.getSmallFont());
+
+        attributeGridPane.add(attributeNameText, 1, rowIndex);
+
+
+
+        // TODO: Convert and add image
+        ImageView attributeIconImageView = new ImageView();
+
+        GridPane.setHalignment(attributeIconImageView, HPos.CENTER);
+        GridPane.setValignment(attributeIconImageView, VPos.CENTER);
+        attributeIconImageView.setFitWidth(25);
+        attributeIconImageView.setFitHeight(25);
+        attributeIconImageView.setPreserveRatio(true);
+
+        attributeGridPane.add(attributeIconImageView, 2, rowIndex);
+
+
+
+        Text attributePrefixText = new Text(attribute.getPrefix());
+
+        GridPane.setHalignment(attributePrefixText, HPos.CENTER);
+        GridPane.setValignment(attributePrefixText, VPos.CENTER);
+        attributePrefixText.setFont(FontLibrary.getSmallFont());
+
+        attributeGridPane.add(attributePrefixText, 3, rowIndex);
+
+
+
+        Text attributeSuffixText = new Text(attribute.getSuffix());
+
+        GridPane.setHalignment(attributeSuffixText, HPos.CENTER);
+        GridPane.setValignment(attributeSuffixText, VPos.CENTER);
+        attributeSuffixText.setFont(FontLibrary.getSmallFont());
+
+        attributeGridPane.add(attributeSuffixText, 4, rowIndex);
+
+
+
+        Text attributeNumberOfDecimalPlacesText = new Text(String.valueOf(attribute.getDecimalPlaces()));
+
+        GridPane.setHalignment(attributeNumberOfDecimalPlacesText, HPos.CENTER);
+        GridPane.setValignment(attributeNumberOfDecimalPlacesText, VPos.CENTER);
+        attributeNumberOfDecimalPlacesText.setFont(FontLibrary.getSmallFont());
+
+        attributeGridPane.add(attributeNumberOfDecimalPlacesText, 5, rowIndex);
+
+
+
+        CheckBox attributePermanentlyVisibleCheckBox = new CheckBox();
+        attributeActiveCheckBox.setSelected(attribute.isPermanentlyVisible());
+        attributeActiveCheckBox.setDisable(true);
+
+        GridPane.setHalignment(attributePermanentlyVisibleCheckBox, HPos.CENTER);
+        GridPane.setValignment(attributePermanentlyVisibleCheckBox, VPos.CENTER);
+
+        attributeGridPane.add(attributePermanentlyVisibleCheckBox, 6, rowIndex);
 
     }
 }

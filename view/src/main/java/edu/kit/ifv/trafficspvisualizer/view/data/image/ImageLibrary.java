@@ -1,6 +1,5 @@
 package edu.kit.ifv.trafficspvisualizer.view.data.image;
 
-import edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow;
 import javafx.scene.image.Image;
 
 public final class ImageLibrary {
@@ -133,7 +132,7 @@ public final class ImageLibrary {
 
 
     // AttributeStage
-    public static Image getAttributeAtributeSettingsButtonImage() {
+    public static Image getAttributeAttributeSettingsButtonImage() {
         return ATTRIBUTE_ATRIBUTE_SETTINGS_BUTTON_IMAGE;
     }
 

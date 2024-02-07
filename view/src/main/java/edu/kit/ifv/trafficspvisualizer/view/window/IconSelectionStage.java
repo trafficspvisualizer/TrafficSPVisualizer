@@ -89,7 +89,10 @@ public class IconSelectionStage extends Stage {
     }
     private void styleStage() {
         // iconListView
-        iconListView.prefHeightProperty().bind(scene.heightProperty().subtract(140));
+        iconListView.prefHeightProperty().bind(
+                scene.heightProperty()
+                        .subtract(selectAndCancelGridPane.heightProperty())
+                        .subtract(15 * 2));
         GridPane.setHgrow(iconListView, Priority.ALWAYS);
 
         // iconGridPane
