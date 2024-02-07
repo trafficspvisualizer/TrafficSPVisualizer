@@ -221,6 +221,7 @@ public class MainApplicationController {
         List<Button> downSwitchChoiceOptionButtonList = mainApplicationWindow.getDownSwitchChoiceOptionButtonList();
 
         for(int i = 0; i < choiceOptionSettingsButtonList.size(); i++) {
+            // index in view is same as index in attribute list of project
             final int index = i;
             choiceOptionSettingsButtonList.get(i).setOnAction(e -> actionOnChoiceOptionSettingsButton(index));
             upSwitchChoiceOptionButtonList.get(i).setOnAction(e -> actionOnMoveChoiceOptionUpButton(index));

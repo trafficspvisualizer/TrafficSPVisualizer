@@ -398,4 +398,31 @@ public class AttributeStage extends Stage {
         attributeGridPane.add(attributePermanentlyVisibleCheckBox, 6, rowIndex);
 
     }
+
+    // getters-method
+
+
+    public Button getCloseButton() {
+        return closeButton;
+    }
+
+    public Button getAddAttributeButton() {
+        return addAttributeButton;
+    }
+
+    public Button getAddSeparatorLineButton() {
+        return addSeparatorLineButton;
+    }
+
+    public List<Button> getAttributeSettingsButtonList() {
+        return List.copyOf(attributeSettingsButtonList);
+    }
+
+    public List<Button> getDownSwitchAttributeButtonList() {
+        return List.copyOf(downSwitchAttributeButtonList);
+    }
+
+    public List<Button> getUpSwitchAttributeButtonList() {
+        return List.copyOf(upSwitchAttributeButtonList);
+    }
 }

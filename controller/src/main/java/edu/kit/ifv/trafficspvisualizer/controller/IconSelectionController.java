@@ -60,7 +60,7 @@ public class IconSelectionController {
      */
     public void actionOnChooseButton() {
         String iconIdentifier = controllerFacade.getViewFacade().getIconSelectionStage().getSelectedIconIdentifier();
-        //TODO: missing getIconManager() method, exists on ubuav branch
+        //TODO: missing getIconManager() method exists on master
         //Icon selectedIcon = controllerFacade.getProject().getIconManager().getIcons().get(iconIdentifier);
         //parentController.updateIcon(selectedIcon, index);
         actionOnCancelButton();
@@ -72,7 +72,7 @@ public class IconSelectionController {
      */
     public void actionOnNewIconButton(){
         File selectedFile = controllerFacade.getViewFacade().getIconSelectionStage().showDirectoryChooserDialog();
-        //TODO: missing getIconManager() method, exists on ubuav branch
+        //TODO: missing getIconManager() method exists on master
         //controllerFacade.getProject().getIconManager().createIcon(selectedFile.toPath());
         //TODO: public update method
         //controllerFacade.getViewFacade().getIconSelectionStage().update();
