@@ -3,6 +3,7 @@ plugins {
     id 'org.javamodularity.moduleplugin' version '1.8.12'
     id 'org.openjfx.javafxplugin' version '0.1.0'
     id 'org.beryx.jlink' version '3.0.1'
+    id 'jacoco'
 }
 
 group = 'edu.kit.ifv'
@@ -35,15 +36,17 @@ dependencies {
     implementation project(path: ':view')
     testImplementation platform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation 'org.mockito:mockito-core:5.10.0'
 }
 
 test {
     useJUnitPlatform()
+    finalizedBy jacocoTestReport
 }
 
 jlink {
     imageZip = project.file("distributions/app-${javafx.platform.classifier}.zip")
-    options = ['--strip-debug', '--no-header-files', '--no-man-pages']
+    options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
     launcher {
         name = 'TrafficSPVisualizer'
         noConsole = true
@@ -61,3 +64,8 @@ jlink {
 jlinkZip {
     group = 'distribution'
 }
+
+jacocoTestReport {
+    dependsOn test // tests are required to run before generating the report
+}
+
