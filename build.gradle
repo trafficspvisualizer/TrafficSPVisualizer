@@ -52,6 +52,10 @@ jlink {
         noConsole = true
 
     }
+
+    jpackage {
+        imageOptions += ['--icon', 'src/main/resources/applicationIcon.ico']
+    }
 }
 
 
