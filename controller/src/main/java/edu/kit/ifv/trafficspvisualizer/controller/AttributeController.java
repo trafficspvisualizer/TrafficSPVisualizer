@@ -88,8 +88,7 @@ public class AttributeController {
      */
     public void actionOnActiveCheck(int attributeIndex){
         AbstractAttribute attribute = controllerFacade.getProject().getAttributes().get(attributeIndex);
-        //TODO: missing methods in AbstractAttribute
-        //attribute.setActive(!attribute.getActive());
+        attribute.setActive(!attribute.isActive());
         controllerFacade.getViewFacade().getAttributeStage().updateStage();
     }
 
