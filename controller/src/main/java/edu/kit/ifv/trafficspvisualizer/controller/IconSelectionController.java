@@ -59,8 +59,9 @@ public class IconSelectionController {
      * instructs {@link IconSelectionController#parentController} to update icon. Closes controller and stage.
      */
     public void actionOnChooseButton() {
-        //TODO: placeholder methods
-        //Icon selectedIcon = controllerFacade.getViewFacade().getIconSelectionStage().getSelectedIcon();
+        String iconIdentifier = controllerFacade.getViewFacade().getIconSelectionStage().getSelectedIconIdentifier();
+        //TODO: missing getIconManager() method, exists on ubuav branch
+        //Icon selectedIcon = controllerFacade.getProject().getIconManager().getIcons().get(iconIdentifier);
         //parentController.updateIcon(selectedIcon, index);
         actionOnCancelButton();
     }
@@ -71,8 +72,9 @@ public class IconSelectionController {
      */
     public void actionOnNewIconButton(){
         File selectedFile = controllerFacade.getViewFacade().getIconSelectionStage().showDirectoryChooserDialog();
-        //TODO: placeholder methods
-        //controllerFacade.getProject().addIcon(selectedFile);
+        //TODO: missing getIconManager() method, exists on ubuav branch
+        //controllerFacade.getProject().getIconManager().createIcon(selectedFile.toPath());
+        //TODO: public update method
         //controllerFacade.getViewFacade().getIconSelectionStage().update();
     }
 
@@ -88,9 +90,15 @@ public class IconSelectionController {
     }
 
     private void setActionListeners(){
+        IconSelectionStage iconSelectionStage = controllerFacade.getViewFacade().getIconSelectionStage();
+
         // New Icon
+        iconSelectionStage.getAddIconButton().setOnAction(e -> actionOnNewIconButton());
+
         // Choose
+        iconSelectionStage.getSelectButton().setOnAction(e -> actionOnChooseButton());
+
         // Cancel
-        //TODO
+        iconSelectionStage.getCancelButton().setOnAction(e -> actionOnCancelButton());
     }
 }

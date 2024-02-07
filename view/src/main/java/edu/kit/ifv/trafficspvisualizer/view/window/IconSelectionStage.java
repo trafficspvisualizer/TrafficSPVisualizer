@@ -161,4 +161,24 @@ public class IconSelectionStage extends Stage {
 
         alert.showAndWait();
     }
+
+    // getter-methods
+
+
+    public Button getAddIconButton() {
+        return addIconButton;
+    }
+
+    public Button getSelectButton() {
+        return selectButton;
+    }
+
+    public Button getCancelButton() {
+        return cancelButton;
+    }
+
+    public String getSelectedIconIdentifier() {
+        //TODO: Maybe directly give icon, userData can be icon
+        return (String) iconListView.getSelectionModel().getSelectedItem().getUserData();
+    }
 }
