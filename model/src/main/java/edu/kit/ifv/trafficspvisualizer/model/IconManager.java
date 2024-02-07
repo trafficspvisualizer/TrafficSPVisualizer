@@ -77,6 +77,7 @@ public class IconManager {
         try (OutputStream out = new FileOutputStream(newIcon.getIconPath().toFile())) {
             out.write(iconStream.readAllBytes());
         }
+        icons.put(newIcon.getIdentifier(), newIcon);
     }
 
     public Map<Integer, Icon> getIcons() {

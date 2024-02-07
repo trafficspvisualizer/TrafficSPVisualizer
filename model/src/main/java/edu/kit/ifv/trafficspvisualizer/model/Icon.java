@@ -2,6 +2,7 @@ package edu.kit.ifv.trafficspvisualizer.model;
 
 import java.awt.image.BufferedImage;
 import java.nio.file.Path;
+import java.util.Objects;
 
 public abstract class Icon implements BufferedImageConvertible {
 
