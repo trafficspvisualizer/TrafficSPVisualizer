@@ -12,7 +12,9 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
@@ -29,6 +31,7 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class AttributeStage extends Stage {
 
@@ -51,11 +54,15 @@ public class AttributeStage extends Stage {
 
     private Pane sizingPane;
 
+    private final List<CheckBox> attributeActiveCheckBoxList;
+
     private final List<Button> attributeSettingsButtonList;
 
     private final List<Button> upSwitchAttributeButtonList;
 
     private final List<Button> downSwitchAttributeButtonList;
+
+    private final List<Button> attributeRemoveButtonList;
 
     private GridPane attributeGridPane;
 
@@ -77,9 +84,11 @@ public class AttributeStage extends Stage {
 
 
     public AttributeStage(ViewFacade viewFacade) {
+        attributeActiveCheckBoxList = new ArrayList<>();
         attributeSettingsButtonList = new ArrayList<>();
         upSwitchAttributeButtonList = new ArrayList<>();
         downSwitchAttributeButtonList = new ArrayList<>();
+        attributeRemoveButtonList = new ArrayList<>();
         this.viewFacade = viewFacade;
 
         buildStage();
@@ -242,6 +251,17 @@ public class AttributeStage extends Stage {
         for (AbstractAttribute abstractAttribute : viewFacade.getProject().getAttributes()) {
             currentRow += 2;
 
+            CheckBox attributeActiveCheckBox = new CheckBox();
+            attributeActiveCheckBox.setSelected(abstractAttribute.isActive());
+
+            GridPane.setHalignment(attributeActiveCheckBox, HPos.CENTER);
+            GridPane.setValignment(attributeActiveCheckBox, VPos.CENTER);
+            attributeActiveCheckBox.setFont(FontLibrary.getSmallFont());
+
+            attributeActiveCheckBoxList.add(attributeActiveCheckBox);
+            attributeGridPane.add(attributeActiveCheckBox, 0, currentRow);
+
+
 
             ImageView upSwitchAttributeButtonImageView =
                     new ImageView(ImageLibrary.getAttributeUpSwitchAttributeButtonImage());
@@ -297,6 +317,24 @@ public class AttributeStage extends Stage {
 
 
 
+            ImageView attributeRemoveButtonImageView =
+                    new ImageView(ImageLibrary.getAttributeAttributeRemoveButtonImage());
+
+            attributeRemoveButtonImageView.setFitWidth(25);
+            attributeRemoveButtonImageView.setFitHeight(25);
+            attributeRemoveButtonImageView.setPreserveRatio(true);
+
+            Button attributeRemoveButton = new Button();
+            attributeRemoveButton.setGraphic(attributeSettingsButtonImageView);
+
+            GridPane.setHalignment(attributeRemoveButton, HPos.CENTER);
+            GridPane.setValignment(attributeRemoveButton, VPos.CENTER);
+
+            attributeRemoveButtonList.add(attributeRemoveButton);
+            attributeGridPane.add(attributeRemoveButton, 11, currentRow);
+
+
+
             if (abstractAttribute instanceof Attribute attribute) {
                 addAttribute(attribute, currentRow);
             } else {
@@ -306,7 +344,7 @@ public class AttributeStage extends Stage {
                 GridPane.setValignment(separatorLineText, VPos.CENTER);
                 separatorLineText.setFont(FontLibrary.getMidFont());
 
-                attributeGridPane.add(separatorLineText, 0, currentRow, 7,1);
+                attributeGridPane.add(separatorLineText, 1, currentRow, 6,1);
 
 
 
@@ -322,18 +360,6 @@ public class AttributeStage extends Stage {
     }
 
     private void addAttribute(Attribute attribute, int rowIndex) {
-
-        CheckBox attributeActiveCheckBox = new CheckBox();
-        attributeActiveCheckBox.setSelected(attribute.isActive());
-        attributeActiveCheckBox.setDisable(true);
-
-        GridPane.setHalignment(attributeActiveCheckBox, HPos.CENTER);
-        GridPane.setValignment(attributeActiveCheckBox, VPos.CENTER);
-        attributeActiveCheckBox.setFont(FontLibrary.getSmallFont());
-
-        attributeGridPane.add(attributeActiveCheckBox, 0, rowIndex);
-
-
 
         Text attributeNameText = new Text(attribute.getName());
 
@@ -389,14 +415,26 @@ public class AttributeStage extends Stage {
 
 
         CheckBox attributePermanentlyVisibleCheckBox = new CheckBox();
-        attributeActiveCheckBox.setSelected(attribute.isPermanentlyVisible());
-        attributeActiveCheckBox.setDisable(true);
+        attributePermanentlyVisibleCheckBox.setSelected(attribute.isPermanentlyVisible());
+        attributePermanentlyVisibleCheckBox.setDisable(true);
 
         GridPane.setHalignment(attributePermanentlyVisibleCheckBox, HPos.CENTER);
         GridPane.setValignment(attributePermanentlyVisibleCheckBox, VPos.CENTER);
 
         attributeGridPane.add(attributePermanentlyVisibleCheckBox, 6, rowIndex);
+    }
 
+
+    // show-methods
+    public Optional<ButtonType> showRemoveAttributeProjectConfirmationAlert() {
+        LanguageStrategy languageStrategy = viewFacade.getLanguageStrategy();
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle(languageStrategy.getRemoveAttributeConfirmationAlertTitle());
+        alert.setHeaderText(languageStrategy.getRemoveAttributeConfirmationAlertHeaderText());
+        alert.setContentText(languageStrategy.getRemoveAttributeConfirmationAlertContentText());
+
+        return alert.showAndWait();
     }
 
     // getters-method

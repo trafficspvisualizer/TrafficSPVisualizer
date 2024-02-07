@@ -28,11 +28,6 @@ public class AttributeSettingsStage extends Stage {
 
     private int attributeIndex;
 
-
-    private Text activeText;
-
-    private CheckBox activeCheckBox;
-
     private Text nameText;
 
     private TextField nameTextField;
@@ -91,10 +86,6 @@ public class AttributeSettingsStage extends Stage {
     private void buildStage() {
         LanguageStrategy languageStrategy = viewFacade.getLanguageStrategy();
 
-        activeText = new Text(languageStrategy.getAttributeSettingsActiveText());
-
-        activeCheckBox = new CheckBox();
-
         nameText = new Text(languageStrategy.getAttributeSettingsNameText());
 
         nameTextField = new TextField();
@@ -122,20 +113,18 @@ public class AttributeSettingsStage extends Stage {
         permanentlyVisibleCheckBox = new CheckBox();
 
         configGridPane = new GridPane();
-        configGridPane.add(activeText,0,0);
-        configGridPane.add(activeCheckBox,1,0);
-        configGridPane.add(nameText,0,1);
-        configGridPane.add(nameTextField,1,1);
-        configGridPane.add(iconText,0,2);
-        configGridPane.add(iconButton,1,2);
-        configGridPane.add(prefixText,0,3);
-        configGridPane.add(prefixTextField,1,3);
-        configGridPane.add(suffixText,0,4);
-        configGridPane.add(suffixTextField,1,4);
-        configGridPane.add(numberOfDecimalPlacesText,0,5);
-        configGridPane.add(numberOfDecimalPlacesTextField,1,5);
-        configGridPane.add(permanentlyVisibleText,0,6);
-        configGridPane.add(permanentlyVisibleCheckBox,1,6);
+        configGridPane.add(nameText,0,0);
+        configGridPane.add(nameTextField,1,0);
+        configGridPane.add(iconText,0,1);
+        configGridPane.add(iconButton,1,1);
+        configGridPane.add(prefixText,0,2);
+        configGridPane.add(prefixTextField,1,2);
+        configGridPane.add(suffixText,0,3);
+        configGridPane.add(suffixTextField,1,3);
+        configGridPane.add(numberOfDecimalPlacesText,0,4);
+        configGridPane.add(numberOfDecimalPlacesTextField,1,4);
+        configGridPane.add(permanentlyVisibleText,0,5);
+        configGridPane.add(permanentlyVisibleCheckBox,1,5);
 
 
         saveButton = new Button(languageStrategy.getAttributeSettingsSaveButtonText());
@@ -160,17 +149,6 @@ public class AttributeSettingsStage extends Stage {
 
     // style-methods
     private void styleStage() {
-
-        // activeText
-        GridPane.setHalignment(activeText, HPos.LEFT);
-        GridPane.setValignment(activeText, VPos.CENTER);
-        activeText.setFont(FontLibrary.getMidFont());
-
-        // activeCheckBox
-        GridPane.setHalignment(activeCheckBox, HPos.LEFT);
-        GridPane.setValignment(activeCheckBox, VPos.CENTER);
-
-
         // nameText
         GridPane.setHalignment(nameText, HPos.LEFT);
         GridPane.setValignment(nameText, VPos.CENTER);
@@ -275,8 +253,6 @@ public class AttributeSettingsStage extends Stage {
     // update-methods
     private void updateStage() {
         Attribute attribute = (Attribute) viewFacade.getProject().getAttributes().get(attributeIndex);
-
-        activeCheckBox.setSelected(attribute.isActive());
 
         nameTextField.setText(attribute.getName());
 

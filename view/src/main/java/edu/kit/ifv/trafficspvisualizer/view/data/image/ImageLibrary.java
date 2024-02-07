@@ -6,52 +6,52 @@ public final class ImageLibrary {
     private ImageLibrary() {}
     // Application
 
-    private static final Image APPLICATION_ICON
-            = new Image(String.valueOf(ImageLibrary.class.getResource(
+    private static final Image APPLICATION_ICON =
+            new Image(String.valueOf(ImageLibrary.class.getResource(
             "/data/image/applicationIcon.png")));
 
     // MainApplicationWindow
-    private static final Image MAIN_APPLICATION_LEFT_SWITCH_PREVIEW_BUTTON_IMAGE
-            = new Image(String.valueOf(ImageLibrary.class.getResource(
+    private static final Image MAIN_APPLICATION_LEFT_SWITCH_PREVIEW_BUTTON_IMAGE =
+            new Image(String.valueOf(ImageLibrary.class.getResource(
                     "/data/image/mainApplicationLeftSwitchPreviewButtonImage.png")));
 
-    private static final Image MAIN_APPLICATION_RIGHT_SWITCH_PREVIEW_BUTTON_IMAGE
-            = new Image(String.valueOf(ImageLibrary.class.getResource(
+    private static final Image MAIN_APPLICATION_RIGHT_SWITCH_PREVIEW_BUTTON_IMAGE =
+            new Image(String.valueOf(ImageLibrary.class.getResource(
                     "/data/image/mainApplicationRightSwitchPreviewButtonImage.png")));
 
-    private static final Image MAIN_APPLICATION_EXPORT_BUTTON_IMAGE
-            = new Image(String.valueOf(ImageLibrary.class.getResource(
+    private static final Image MAIN_APPLICATION_EXPORT_BUTTON_IMAGE =
+            new Image(String.valueOf(ImageLibrary.class.getResource(
                     "/data/image/mainApplicationExportButtonImage.png")));
 
-    private static final Image MAIN_APPLICATION_EXPORT_SETTINGS_BUTTON_IMAGE
-            = new Image(String.valueOf(ImageLibrary.class.getResource(
+    private static final Image MAIN_APPLICATION_EXPORT_SETTINGS_BUTTON_IMAGE =
+            new Image(String.valueOf(ImageLibrary.class.getResource(
             "/data/image/mainApplicationExportSettingsButtonImage.png")));
 
-    private static final Image MAIN_APPLICATION_ATTRIBUTES_BUTTON_IMAGE
-            = new Image(String.valueOf(ImageLibrary.class.getResource(
+    private static final Image MAIN_APPLICATION_ATTRIBUTES_BUTTON_IMAGE =
+            new Image(String.valueOf(ImageLibrary.class.getResource(
             "/data/image/mainApplicationAttributesButtonImage.png")));
 
-    private static final Image MAIN_APPLICATION_CHOICE_OPTION_SETTINGS_BUTTON_IMAGE
-            = new Image(String.valueOf(ImageLibrary.class.getResource(
+    private static final Image MAIN_APPLICATION_CHOICE_OPTION_SETTINGS_BUTTON_IMAGE =
+            new Image(String.valueOf(ImageLibrary.class.getResource(
             "/data/image/mainApplicationChoiceOptionSettingsButtonImage.png")));
 
-    private static final Image MAIN_APPLICATION_UP_SWITCH_CHOICE_OPTION_BUTTON_IMAGE
-            = new Image(String.valueOf(ImageLibrary.class.getResource(
+    private static final Image MAIN_APPLICATION_UP_SWITCH_CHOICE_OPTION_BUTTON_IMAGE =
+            new Image(String.valueOf(ImageLibrary.class.getResource(
             "/data/image/mainApplicationUpSwitchChoiceOptionButtonImage.png")));
 
-    private static final Image MAIN_APPLICATION_DOWN_SWITCH_CHOICE_OPTION_BUTTON_IMAGE
-            = new Image(String.valueOf(ImageLibrary.class.getResource(
+    private static final Image MAIN_APPLICATION_DOWN_SWITCH_CHOICE_OPTION_BUTTON_IMAGE =
+            new Image(String.valueOf(ImageLibrary.class.getResource(
             "/data/image/mainApplicationDownSwitchChoiceOptionButtonImage.png")));
 
 
 
     // ProjectCreationStage
-    private static final Image PROJECT_CREATION_DIRECTORY_CHOOSER_BUTTON_IMAGE
-            = new Image(String.valueOf(ImageLibrary.class.getResource(
+    private static final Image PROJECT_CREATION_DIRECTORY_CHOOSER_BUTTON_IMAGE =
+            new Image(String.valueOf(ImageLibrary.class.getResource(
             "/data/image/projectCreationDirectoryChooserButtonImage.png")));
 
-    private static final Image PROJECT_CREATION_FILE_CHOOSER_BUTTON_IMAGE
-            = new Image(String.valueOf(ImageLibrary.class.getResource(
+    private static final Image PROJECT_CREATION_FILE_CHOOSER_BUTTON_IMAGE =
+            new Image(String.valueOf(ImageLibrary.class.getResource(
             "/data/image/projectCreationFileChooserButtonImage.png")));
 
 
@@ -61,14 +61,18 @@ public final class ImageLibrary {
 
 
     // AttributeStage
-    private static final Image ATTRIBUTE_ATRIBUTE_SETTINGS_BUTTON_IMAGE
-            = MAIN_APPLICATION_CHOICE_OPTION_SETTINGS_BUTTON_IMAGE;
-
     private static final Image ATTRIBUTE_UP_SWITCH_ATTRIBUTE_BUTTON_IMAGE
             = MAIN_APPLICATION_UP_SWITCH_CHOICE_OPTION_BUTTON_IMAGE;
 
     private static final Image ATTRIBUTE_DOWN_SWITCH_ATTRIBUTE_BUTTON_IMAGE
             = MAIN_APPLICATION_UP_SWITCH_CHOICE_OPTION_BUTTON_IMAGE;
+
+    private static final Image ATTRIBUTE_ATTRIBUTE_SETTINGS_BUTTON_IMAGE
+            = MAIN_APPLICATION_CHOICE_OPTION_SETTINGS_BUTTON_IMAGE;
+
+    private static final Image ATTRIBUTE_ATTRIBUTE_REMOVE_BUTTON_IMAGE =
+            new Image(String.valueOf(ImageLibrary.class.getResource(
+                    "/data/image/attributeAttributeRemoveButtonImage.png")));
 
 
 
@@ -132,15 +136,19 @@ public final class ImageLibrary {
 
 
     // AttributeStage
-    public static Image getAttributeAttributeSettingsButtonImage() {
-        return ATTRIBUTE_ATRIBUTE_SETTINGS_BUTTON_IMAGE;
-    }
-
     public static Image getAttributeUpSwitchAttributeButtonImage() {
         return ATTRIBUTE_UP_SWITCH_ATTRIBUTE_BUTTON_IMAGE;
     }
 
     public static Image getAttributeDownSwitchAttributeButtonImage() {
         return ATTRIBUTE_DOWN_SWITCH_ATTRIBUTE_BUTTON_IMAGE;
+    }
+
+    public static Image getAttributeAttributeSettingsButtonImage() {
+        return ATTRIBUTE_ATTRIBUTE_SETTINGS_BUTTON_IMAGE;
+    }
+
+    public static Image getAttributeAttributeRemoveButtonImage() {
+        return ATTRIBUTE_ATTRIBUTE_REMOVE_BUTTON_IMAGE;
     }
 }

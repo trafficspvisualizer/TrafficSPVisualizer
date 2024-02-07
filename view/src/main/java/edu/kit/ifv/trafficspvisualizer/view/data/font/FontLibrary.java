@@ -17,6 +17,8 @@ public final class FontLibrary {
 
     private final static Font MID_FONT = Font.font(FONT_NAME, MID_FONT_SIZE);
 
+    private final static Font MID_BOLD_FONT = Font.font(FONT_NAME, FontWeight.BOLD, MID_FONT_SIZE);
+
 
     private FontLibrary(){}
 
@@ -30,5 +32,9 @@ public final class FontLibrary {
 
     public static Font getMidFont() {
         return MID_FONT;
+    }
+
+    public static Font getMidBoldFont() {
+        return MID_BOLD_FONT;
     }
 }
