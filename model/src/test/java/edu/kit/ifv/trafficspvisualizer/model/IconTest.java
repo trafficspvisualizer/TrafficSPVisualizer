@@ -12,14 +12,14 @@ class IconTest {
 
     @ParameterizedTest
     @ValueSource (ints = { 0, 1, -1, 1000 })
-    void getIdentifier(int id) {
+    void testGetIdentifier(int id) {
         Icon icon = new SVGIcon(Path.of("test"), id);
         assertEquals(id, icon.getIdentifier());
 
     }
 
     @Test
-    void getFilePath() {
+    void testGetFilePath() {
         Path testPath = Path.of("path/test");
         Icon icon = new SVGIcon(testPath, 100);
         assertEquals("path/test/100.svg", icon.getIconPath().toString());
