@@ -82,7 +82,7 @@ public class MainApplicationController {
     public void actionOnSaveButton() {
         try {
             new StandardProjectSaver().saveProject(controllerFacade.getProject(),
-                    controllerFacade.getProject().getExportSettings().getExportPath().toPath());
+                    controllerFacade.getProject().getExportSettings().getExportPath());
         } catch (IOException e) {
             //TODO: Add exception handling
         }

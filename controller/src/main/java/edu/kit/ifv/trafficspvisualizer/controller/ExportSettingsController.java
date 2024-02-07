@@ -79,7 +79,8 @@ public class ExportSettingsController {
         }
 
         // setting new export settings in model, png as default because we currently only support png export
-        ExportSettings exportSettings = new ExportSettings(height, width, exportPath, FileFormat.PNG, exportType);
+        ExportSettings exportSettings = new ExportSettings(height, width, exportPath.toPath(),
+                                                                                            FileFormat.PNG, exportType);
         controllerFacade.getProject().setExportSettings(exportSettings);
     }
 

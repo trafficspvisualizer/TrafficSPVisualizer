@@ -90,7 +90,7 @@ public class ProjectCreationController {
         // Temporary solution so that the Application builds
         Project newProject;
         try {
-            newProject = new Project(projectName, projectFolder, dataObject);
+            newProject = new Project(projectName, projectFolder.toPath(), dataObject, inputFile);
         } catch (IOException e) {
             //TODO
             return;
