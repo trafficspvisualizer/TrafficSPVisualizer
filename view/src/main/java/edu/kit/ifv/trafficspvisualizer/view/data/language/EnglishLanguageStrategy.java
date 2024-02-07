@@ -7,49 +7,98 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
     // Application
 
         // Application Alerts
-
     private final static String CONFIRMATION_ALERT_TITLE = "Conformation";
 
-    private final static String CLOSE_PROJECT_CONFIRMATION_ALERT_HEADER_TEXT = "Unsaved Project can be lost. Are you sure?";
+    private final static String CLOSE_PROJECT_CONFIRMATION_ALERT_TITLE = CONFIRMATION_ALERT_TITLE;
 
-    private final static String CLOSE_PROJECT_CONFIRMATION_ALERT_CONTENT_TEXT = "If you continue a potential unsaved project can be lost.";
+    private final static String CLOSE_PROJECT_CONFIRMATION_ALERT_HEADER_TEXT =
+            "Unsaved Project can be lost. Are you sure?";
+
+    private final static String CLOSE_PROJECT_CONFIRMATION_ALERT_CONTENT_TEXT =
+            "If you continue a potential unsaved project can be lost.";
+
+    private final static String REMOVE_ATTRIBUTE_CONFIRMATION_ALERT_TITLE = CONFIRMATION_ALERT_TITLE;
+
+    private final static String REMOVE_ATTRIBUTE_CONFIRMATION_ALERT_HEADER_TEXT =
+            "Are you sure you want to delete the attribute?";
+
+    private final static String REMOVE_ATTRIBUTE_CONFIRMATION_ALERT_CONTENT_TEXT =
+            "If you continue the attribute will be removed.";
+
+    private final static String REMOVE_ROUTE_SECTION_CONFIRMATION_ALERT_TITLE = CONFIRMATION_ALERT_TITLE;
+
+    private final static String REMOVE_ROUTE_SECTION_CONFIRMATION_ALERT_HEADER_TEXT =
+            "Are you sure you want to delete the route section?";
+
+    private final static String REMOVE_ROUTE_SECTION_CONFIRMATION_ALERT_CONTENT_TEXT =
+            "If you continue the route section will be removed.";
+
 
     private final static String ERROR_ALERT_TITLE = "Error";
 
+    private final static String EXPORT_ERROR_ALERT_TITLE = ERROR_ALERT_TITLE;
+
     private final static String EXPORT_ERROR_ALERT_HEADER_TEXT = "Something went wrong! Could not export.";
 
-    private final static String EXPORT_ERROR_ALERT_CONTENT_TEXT = "Please check your export settings and project configurations.";
+    private final static String EXPORT_ERROR_ALERT_CONTENT_TEXT =
+            "Please check your export settings and project configurations.";
 
-    private final static String NO_PROJECT_ERROR_ALERT_HEADER_TEXT = "Something went wrong! Could not do this action because you need a current project.";
+    private final static String NO_PROJECT_ERROR_ALERT_TITLE = ERROR_ALERT_TITLE;
+
+    private final static String NO_PROJECT_ERROR_ALERT_HEADER_TEXT =
+            "Something went wrong! Could not do this action because you need a current project.";
 
     private final static String NO_PROJECT_ERROR_ALERT_CONTENT_TEXT = "Please load or create a new project.";
 
-    private final static String LOAD_PROJECT_ERROR_ALERT_HEADER_TEXT = "Something went wrong! Could not load the project.";
+    private final static String LOAD_PROJECT_ERROR_ALERT_TITLE = ERROR_ALERT_TITLE;
 
-    private final static String LOAD_PROJECT_ERROR_ALERT_CONTENT_TEXT = "Please check if you selected a valid project directory.";
+    private final static String LOAD_PROJECT_ERROR_ALERT_HEADER_TEXT =
+            "Something went wrong! Could not load the project.";
 
-    private final static String SAVE_PROJECT_ERROR_ALERT_HEADER_TEXT = "Something went wrong! Could not save the current project!";
+    private final static String LOAD_PROJECT_ERROR_ALERT_CONTENT_TEXT =
+            "Please check if you selected a valid project directory.";
 
-    private final static String SAVE_PROJECT_ERROR_ALERT_CONTENT_TEXT = "Please check if you selected a valid save directory.";
+    private final static String SAVE_PROJECT_ERROR_ALERT_TITLE = ERROR_ALERT_TITLE;
 
-    private final static String NEW_PROJECT_ERROR_ALERT_HEADER_TEXT = "Something went wrong! Could not create new project.";
+    private final static String SAVE_PROJECT_ERROR_ALERT_HEADER_TEXT =
+            "Something went wrong! Could not save the current project!";
 
-    private final static String NEW_PROJECT_ERROR_ALERT_CONTENT_TEXT = "Please check your project name, input data file and save path.";
+    private final static String SAVE_PROJECT_ERROR_ALERT_CONTENT_TEXT =
+            "Please check if you selected a valid save directory.";
 
-    private final static String SAVE_ATTRIBUTE_SETTINGS_ERROR_ALERT_HEADER_TEXT = "Something went wrong! Could not save attribute settings.";
+    private final static String NEW_PROJECT_ERROR_ALERT_TITLE = ERROR_ALERT_TITLE;
 
-    private final static String SAVE_ATTRIBUTE_SETTINGS_ERROR_ALERT_CONTENT_TEXT = "Please check the changed entries/configurations.";
+    private final static String NEW_PROJECT_ERROR_ALERT_HEADER_TEXT =
+            "Something went wrong! Could not create new project.";
 
-    private final static String SAVE_EXPORT_SETTINGS_ERROR_ALERT_HEADER_TEXT = "Something went wrong! Could not save export settings.";
+    private final static String NEW_PROJECT_ERROR_ALERT_CONTENT_TEXT =
+            "Please check your project name, input data file and save path.";
 
-    private final static String SAVE_EXPORT_SETTINGS_ERROR_ALERT_CONTENT_TEXT = SAVE_ATTRIBUTE_SETTINGS_ERROR_ALERT_CONTENT_TEXT;
+    private final static String SAVE_ATTRIBUTE_SETTINGS_ERROR_ALERT_TITLE = ERROR_ALERT_TITLE;
 
-    private final static String ADD_ICON_ERROR_ALERT_HEADER_TEXT = "Something went wrong! Could not save add the selected icon.";
+    private final static String SAVE_ATTRIBUTE_SETTINGS_ERROR_ALERT_HEADER_TEXT =
+            "Something went wrong! Could not save attribute settings.";
+
+    private final static String SAVE_ATTRIBUTE_SETTINGS_ERROR_ALERT_CONTENT_TEXT =
+            "Please check the changed entries/configurations.";
+
+    private final static String SAVE_EXPORT_SETTINGS_ERROR_ALERT_TITLE = ERROR_ALERT_TITLE;
+
+    private final static String SAVE_EXPORT_SETTINGS_ERROR_ALERT_HEADER_TEXT =
+            "Something went wrong! Could not save export settings.";
+
+    private final static String SAVE_EXPORT_SETTINGS_ERROR_ALERT_CONTENT_TEXT =
+            SAVE_ATTRIBUTE_SETTINGS_ERROR_ALERT_CONTENT_TEXT;
+
+    private final static String ADD_ICON_ERROR_ALERT_TITLE = ERROR_ALERT_TITLE;
+
+    private final static String ADD_ICON_ERROR_ALERT_HEADER_TEXT =
+            "Something went wrong! Could not save add the selected icon.";
 
     private final static String ADD_ICON_ERROR_ALERT_CONTENT_TEXT = "Please check the selected icon.";
 
-        // ENUMS
 
+        // ENUMS
     private final static String EXPORT_TYPE_HTML_TEXT = "HTML (Hyper text markup language)";
 
     private final static String EXPORT_TYPE_CHOICE_OPTION_TEXT = "Choice option";
@@ -80,8 +129,8 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
     private final static String MAIN_APPLICATION_CHOICE_OPTION_TEXT = "Choice options";
 
 
-    // ProjectCreationStage
 
+    // ProjectCreationStage
     private final static String PROJECT_CREATION_TITLE = "New project";
 
     private final static String PROJECT_CREATION_PROJECT_NAME_TEXT = "Project name:";
@@ -94,8 +143,10 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
 
     private final static String PROJECT_CREATION_CANCEL_BUTTON_TEXT = "Cancel";
 
-    // AttributeSettingsStage
 
+
+
+    // AttributeSettingsStage
     private final static String ATTRIBUTE_SETTINGS_TITLE = "Edit Attribute";
 
     private final static String ATTRIBUTE_SETTINGS_ACTIVE_TEXT = "Active:";
@@ -115,8 +166,9 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
 
     private final static String ATTRIBUTE_SETTINGS_CANCEL_BUTTON_TEXT = "Cancel";
 
-    // ExportSettingsStage
 
+
+    // ExportSettingsStage
     private final static String EXPORT_SETTINGS_TITLE = "Export Settings";
 
     private final static String EXPORT_SETTINGS_CHOICE_OPTION_SIZE_TEXT = "Choice option size:";
@@ -134,6 +186,7 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
     private final static String EXPORT_SETTINGS_CANCEL_BUTTON_TEXT = ATTRIBUTE_SETTINGS_CANCEL_BUTTON_TEXT;
 
 
+
     // IconSelectionStage
     private final static String ICON_SELECTION_TITLE = "Select icon";
 
@@ -142,6 +195,7 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
     private final static String ICON_SELECTION_SELECT_BUTTON_TEXT = "Select";
 
     private final static String ICON_SELECTION_CANCEL_BUTTON_TEXT = ATTRIBUTE_SETTINGS_CANCEL_BUTTON_TEXT;
+
 
 
     // AttributeStage
@@ -171,14 +225,40 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
 
 
 
+    // ChoiceOptionSettingsStage
+    private final static String CHOICE_OPTION_SETTINGS_TITLE_FORMAT = "Edit choice option - %d";
+
+    private final static String CHOICE_OPTION_SETTINGS_TITLE_TEXT = "Title:";
+
+    private final static String CHOICE_OPTION_SETTINGS_COLOR_TEXT = "Color:";
+
+    private final static String CHOICE_OPTION_SETTINGS_ATTRIBUTES_TEXT = "Attributes:";
+
+    private final static String CHOICE_OPTION_SETTINGS_ATTRIBUTES_NAME_TEXT = "Name";
+
+    private final static String CHOICE_OPTION_SETTINGS_ATTRIBUTES_COLUMNS_TEXT = "Columns";
+
+    private final static String CHOICE_OPTION_SETTINGS_ROUTE_SECTIONS_TEXT = "Route sections:";
+
+    private final static String CHOICE_OPTION_SETTINGS_ROUTE_SECTIONS_NUMBER_TEXT = "Number";
+
+    private final static String CHOICE_OPTION_SETTINGS_ROUTE_SECTIONS_ICON_TEXT = ATTRIBUTE_ICON_TEXT;
+
+    private final static String CHOICE_OPTION_SETTINGS_ROUTE_SECTIONS_LINE_TYPE_TEXT = "Line type";
+
+    private final static String CHOICE_OPTION_SETTINGS_ROUTE_SECTIONS_COLUMN_TEXT = "Column";
+
+    private final static String CHOICE_OPTION_SETTINGS_ADD_ROUTE_SECTION_BUTTON_TEXT = "Add route section";
+
+    private final static String CHOICE_OPTION_SETTINGS_CLOSE_BUTTON_TEXT = ATTRIBUTE_CLOSE_BUTTON_TEXT;
+
+
 
     // Application
 
         // Application Alerts
-
-
     public String getCloseProjectConfirmationAlertTitle() {
-        return CONFIRMATION_ALERT_TITLE;
+        return CLOSE_PROJECT_CONFIRMATION_ALERT_TITLE;
     }
 
     public String getCloseProjectConfirmationAlertHeaderText() {
@@ -189,8 +269,32 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
         return CLOSE_PROJECT_CONFIRMATION_ALERT_CONTENT_TEXT;
     }
 
+    public String getRemoveAttributeConfirmationAlertTitle() {
+        return REMOVE_ATTRIBUTE_CONFIRMATION_ALERT_TITLE;
+    }
+
+    public String getRemoveAttributeConfirmationAlertHeaderText() {
+        return REMOVE_ATTRIBUTE_CONFIRMATION_ALERT_HEADER_TEXT;
+    }
+
+    public String getRemoveAttributeConfirmationAlertContentText() {
+        return REMOVE_ATTRIBUTE_CONFIRMATION_ALERT_CONTENT_TEXT;
+    }
+
+    public String getRemoveRouteSectionConfirmationAlertTitle() {
+        return REMOVE_ROUTE_SECTION_CONFIRMATION_ALERT_TITLE;
+    }
+
+    public String getRemoveRouteSectionConfirmationAlertHeaderText() {
+        return REMOVE_ROUTE_SECTION_CONFIRMATION_ALERT_HEADER_TEXT;
+    }
+
+    public String getRemoveRouteSectionConfirmationAlertContentText() {
+        return REMOVE_ROUTE_SECTION_CONFIRMATION_ALERT_CONTENT_TEXT;
+    }
+
     public String getExportErrorAlertTitle() {
-        return ERROR_ALERT_TITLE;
+        return EXPORT_ERROR_ALERT_TITLE;
     }
 
     public String getExportErrorAlertHeaderText() {
@@ -202,7 +306,7 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
     }
 
     public String getNoProjectErrorAlertTitle() {
-        return ERROR_ALERT_TITLE;
+        return NO_PROJECT_ERROR_ALERT_TITLE;
     }
 
     public String getNoProjectErrorAlertHeaderText() {
@@ -214,7 +318,7 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
     }
 
     public String getLoadProjectErrorAlertTitle() {
-        return ERROR_ALERT_TITLE;
+        return LOAD_PROJECT_ERROR_ALERT_TITLE;
     }
 
     public String getLoadProjectErrorAlertHeaderText() {
@@ -226,7 +330,7 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
     }
 
     public String getSaveProjectErrorAlertTitle() {
-        return ERROR_ALERT_TITLE;
+        return SAVE_PROJECT_ERROR_ALERT_TITLE;
     }
 
     public String getSaveProjectErrorAlertHeaderText() {
@@ -238,7 +342,7 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
     }
 
     public String getNewProjectErrorAlertTitle() {
-        return ERROR_ALERT_TITLE;
+        return NEW_PROJECT_ERROR_ALERT_TITLE;
     }
 
     public String getNewProjectErrorAlertHeaderText() {
@@ -250,7 +354,7 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
     }
 
     public String getSaveAttributeSettingsErrorAlertTitle() {
-        return ERROR_ALERT_TITLE;
+        return SAVE_ATTRIBUTE_SETTINGS_ERROR_ALERT_TITLE;
     }
 
     public String getSaveAttributeSettingsErrorAlertHeaderText() {
@@ -262,7 +366,7 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
     }
 
     public String getSaveExportSettingsErrorAlertTitle() {
-        return ERROR_ALERT_TITLE;
+        return SAVE_EXPORT_SETTINGS_ERROR_ALERT_TITLE;
     }
 
     public String getSaveExportSettingsErrorAlertHeaderText() {
@@ -274,7 +378,7 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
     }
 
     public String getAddIconErrorAlertTitle() {
-        return ERROR_ALERT_TITLE;
+        return ADD_ICON_ERROR_ALERT_TITLE;
     }
 
     public String getAddIconErrorAlertHeaderText() {
@@ -285,8 +389,8 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
         return ADD_ICON_ERROR_ALERT_CONTENT_TEXT;
     }
 
-    // ENUMS
 
+        // ENUMS
     public String getExportTypeText(ExportType exportType) {
         switch (exportType) {
             case HTML -> {
@@ -305,8 +409,8 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
     }
 
 
-    // MainApplicationWindow
 
+    // MainApplicationWindow
     public String getMainApplicationNewProjectMenuItemText() {
         return MAIN_APPLICATION_NEW_PROJECT_MENU_ITEM_TEXT;
     }
@@ -348,8 +452,8 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
     }
 
 
-    // ProjectCreationStage
 
+    // ProjectCreationStage
     public String getProjectCreationTitle() {
         return PROJECT_CREATION_TITLE;
     }
@@ -375,8 +479,8 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
     }
 
 
-    // AttributeSettingsStage
 
+    // AttributeSettingsStage
     public String getAttributeSettingsTitle() {
         return ATTRIBUTE_SETTINGS_TITLE;
     }
@@ -418,8 +522,8 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
     }
 
 
-    // ExportSettingsStage
 
+    // ExportSettingsStage
     public String getExportSettingsTitle() {
         return EXPORT_SETTINGS_TITLE;
     }
@@ -453,6 +557,7 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
     }
 
 
+
     // IconSelectionStage
     public String getIconSelectionTitle() {
         return ICON_SELECTION_TITLE;
@@ -471,9 +576,8 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
     }
 
 
+
     // AttributeStage
-
-
     public String getAttributeTitle() {
         return ATTRIBUTE_TITLE;
     }
@@ -521,4 +625,61 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
     public String getAttributeCloseButtonText() {
         return ATTRIBUTE_CLOSE_BUTTON_TEXT;
     }
+
+
+
+    // ChoiceOptionSettingsStage
+    public String getChoiceOptionSettingsTitleFormat() {
+        return CHOICE_OPTION_SETTINGS_TITLE_FORMAT;
+    }
+
+    public String getChoiceOptionSettingsTitleText() {
+        return CHOICE_OPTION_SETTINGS_TITLE_TEXT;
+    }
+
+    public String getChoiceOptionSettingsColorText() {
+        return CHOICE_OPTION_SETTINGS_COLOR_TEXT;
+    }
+
+
+    public String getChoiceOptionSettingsAttributesText() {
+        return CHOICE_OPTION_SETTINGS_ATTRIBUTES_TEXT;
+    }
+
+    public String getChoiceOptionSettingsAttributesNameText() {
+        return CHOICE_OPTION_SETTINGS_ATTRIBUTES_NAME_TEXT;
+    }
+
+    public String getChoiceOptionSettingsAttributesColumnsText() {
+        return CHOICE_OPTION_SETTINGS_ATTRIBUTES_COLUMNS_TEXT;
+    }
+
+    public String getChoiceOptionSettingsRouteSectionsText() {
+        return CHOICE_OPTION_SETTINGS_ROUTE_SECTIONS_TEXT;
+    }
+
+    public String getChoiceOptionSettingsRouteSectionsNumberText() {
+        return CHOICE_OPTION_SETTINGS_ROUTE_SECTIONS_NUMBER_TEXT;
+    }
+
+    public String getChoiceOptionSettingsRouteSectionsIconText() {
+        return CHOICE_OPTION_SETTINGS_ROUTE_SECTIONS_ICON_TEXT;
+    }
+
+    public String getChoiceOptionSettingsRouteSectionsLineTypeText() {
+        return CHOICE_OPTION_SETTINGS_ROUTE_SECTIONS_LINE_TYPE_TEXT;
+    }
+
+    public String getChoiceOptionSettingsRouteSectionsColumnText() {
+        return CHOICE_OPTION_SETTINGS_ROUTE_SECTIONS_COLUMN_TEXT;
+    }
+
+    public String getChoiceOptionSettingsAddRouteSectionButtonText() {
+        return CHOICE_OPTION_SETTINGS_ADD_ROUTE_SECTION_BUTTON_TEXT;
+    }
+
+    public String getChoiceOptionSettingsCloseButtonText() {
+        return CHOICE_OPTION_SETTINGS_CLOSE_BUTTON_TEXT;
+    }
+
 }

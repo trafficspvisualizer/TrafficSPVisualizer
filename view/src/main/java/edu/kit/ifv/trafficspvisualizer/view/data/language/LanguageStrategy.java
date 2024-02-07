@@ -9,24 +9,34 @@ public abstract class LanguageStrategy {
 
 
     // MainApplicationWindow
-
     private static final String MAIN_APPLICATION_CURRENT_PREVIEW_TEXT_FORMAT = "%d / %d";
 
 
 
     // Application
-
     public String getApplicationName() {
         return APPLICATION_NAME;
     }
 
-        // Application Alerts
 
+        // Application Alerts
     public abstract String getCloseProjectConfirmationAlertTitle();
 
     public abstract String getCloseProjectConfirmationAlertHeaderText();
 
     public abstract String getCloseProjectConformationAlertContentText();
+
+    public abstract String getRemoveAttributeConfirmationAlertTitle();
+
+    public abstract String getRemoveAttributeConfirmationAlertHeaderText();
+
+    public abstract String getRemoveAttributeConfirmationAlertContentText();
+
+    public abstract String getRemoveRouteSectionConfirmationAlertTitle();
+
+    public abstract String getRemoveRouteSectionConfirmationAlertHeaderText();
+
+    public abstract String getRemoveRouteSectionConfirmationAlertContentText();
 
     public abstract String getExportErrorAlertTitle();
 
@@ -75,6 +85,7 @@ public abstract class LanguageStrategy {
 
     public abstract String getAddIconErrorAlertContentText();
 
+
         // ENUMS
     public abstract String getExportTypeText(ExportType exportType);
 
@@ -108,7 +119,6 @@ public abstract class LanguageStrategy {
 
 
     // ProjectCreationStage
-
     public abstract String getProjectCreationTitle();
 
     public abstract String getProjectCreationProjectNameText();
@@ -124,7 +134,6 @@ public abstract class LanguageStrategy {
 
 
     // AttributeSettingsStage
-
     public abstract String getAttributeSettingsTitle();
 
     public abstract String getAttributeSettingsActiveText();
@@ -146,7 +155,6 @@ public abstract class LanguageStrategy {
 
 
     // ExportSettingsStage
-
     public abstract String getExportSettingsTitle();
 
     public abstract String getExportSettingsChoiceOptionSizeText();
@@ -164,6 +172,7 @@ public abstract class LanguageStrategy {
     public abstract String getExportSettingsCancelButtonText();
 
 
+
     // IconSelectionStage
     public abstract String getIconSelectionTitle();
 
@@ -172,6 +181,7 @@ public abstract class LanguageStrategy {
     public abstract String getIconSelectionSelectButtonText();
 
     public abstract String getIconSelectionCancelButtonText();
+
 
 
     // AttributeStage
@@ -198,4 +208,34 @@ public abstract class LanguageStrategy {
     public abstract String getAttributeAddSeparatorLineButtonText();
 
     public abstract String getAttributeCloseButtonText();
+
+
+
+    // ChoiceOptionSettingsStage
+    public abstract String getChoiceOptionSettingsTitleFormat();
+
+    public abstract String getChoiceOptionSettingsTitleText();
+
+    public abstract String getChoiceOptionSettingsColorText();
+
+    public abstract String getChoiceOptionSettingsAttributesText();
+
+    public abstract String getChoiceOptionSettingsAttributesNameText();
+
+    public abstract String getChoiceOptionSettingsAttributesColumnsText();
+
+    public abstract String getChoiceOptionSettingsRouteSectionsText();
+
+    public abstract String getChoiceOptionSettingsRouteSectionsNumberText();
+
+    public abstract String getChoiceOptionSettingsRouteSectionsIconText();
+
+    public abstract String getChoiceOptionSettingsRouteSectionsLineTypeText();
+
+    public abstract String getChoiceOptionSettingsRouteSectionsColumnText();
+
+    public abstract String getChoiceOptionSettingsAddRouteSectionButtonText();
+
+    public abstract String getChoiceOptionSettingsCloseButtonText();
+
 }
