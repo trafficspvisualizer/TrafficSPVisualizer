@@ -463,4 +463,12 @@ public class AttributeStage extends Stage {
     public List<Button> getUpSwitchAttributeButtonList() {
         return List.copyOf(upSwitchAttributeButtonList);
     }
+
+    public List<Button> getAttributeRemoveButtonList() {
+        return List.copyOf(attributeRemoveButtonList);
+    }
+
+    public List<CheckBox> getAttributeActiveCheckBoxList() {
+        return List.copyOf(attributeActiveCheckBoxList);
+    }
 }
