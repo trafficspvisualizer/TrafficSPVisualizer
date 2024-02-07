@@ -18,7 +18,10 @@ javafx {
 }
 
 dependencies {
-    implementation 'org.apache.xmlgraphics:batik-all:1.17'
+    implementation ('org.apache.xmlgraphics:batik-all:1.17') {
+        exclude group: 'xml-apis', module: 'xml-apis'
+    }
+
     testImplementation platform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
     testImplementation 'org.mockito:mockito-core:5.10.0'
