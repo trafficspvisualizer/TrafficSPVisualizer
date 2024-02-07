@@ -67,14 +67,14 @@ public class IconManager {
     public void createIcon(Path icon) throws IOException {
         Icon newIcon = new SVGIcon(iconDir, nextIdentifier);
         nextIdentifier++;
-        Files.copy(icon, newIcon.getFilePath());
+        Files.copy(icon, newIcon.getIconPath());
         icons.put(newIcon.getIdentifier(), newIcon);
     }
 
     public void createIcon(InputStream iconStream) throws IOException {
         Icon newIcon = new SVGIcon(iconDir, nextIdentifier);
         nextIdentifier++;
-        try (OutputStream out = new FileOutputStream(newIcon.getFilePath().toFile())) {
+        try (OutputStream out = new FileOutputStream(newIcon.getIconPath().toFile())) {
             out.write(iconStream.readAllBytes());
         }
     }

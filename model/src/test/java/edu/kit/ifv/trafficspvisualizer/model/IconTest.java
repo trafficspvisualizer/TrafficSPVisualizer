@@ -22,6 +22,6 @@ class IconTest {
     void getFilePath() {
         Path testPath = Path.of("path/test");
         Icon icon = new SVGIcon(testPath, 100);
-        assertEquals("path/test/100.svg", icon.getFilePath().toString());
+        assertEquals("path/test/100.svg", icon.getIconPath().toString());
     }
 }

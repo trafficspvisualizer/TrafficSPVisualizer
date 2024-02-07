@@ -17,9 +17,9 @@ public abstract class Icon implements BufferedImageConvertible {
         return identifier;
     }
 
-    public Path getFilePath() {
+    public Path getIconPath() {
         return iconPath;
     }
 
-    public abstract BufferedImage toBufferedImage(int width, int height);
+    public abstract BufferedImage toBufferedImage(float width, float height);
 }
