@@ -24,6 +24,8 @@ public class ChoiceOptionSettingsStage extends Stage {
 
     private ViewFacade viewFacade;
 
+    private int choiceOptionIndex;
+
     private Text titleText;
 
     private TextField titleTextView;
@@ -41,7 +43,7 @@ public class ChoiceOptionSettingsStage extends Stage {
 
     private Text attributesColumnsText;
 
-    private List<List<CheckBox>> attributesColumnsCheckBoxList;
+    private final List<List<CheckBox>> attributesColumnsCheckBoxList;
 
     private GridPane attributesGridPane;
 
@@ -84,13 +86,14 @@ public class ChoiceOptionSettingsStage extends Stage {
 
 
 
-    public ChoiceOptionSettingsStage(ViewFacade viewFacade, int coIndex) {
+    public ChoiceOptionSettingsStage(ViewFacade viewFacade, int choiceOptionIndex) {
+        attributesColumnsCheckBoxList = new ArrayList<>();
         routeSectionIconButtonList = new ArrayList<>();
         routeSectionLineTypeChoiceBoxList = new ArrayList<>();
         routeSectionColumnChoiceBoxList = new ArrayList<>();
         routeSectionRemoveButtonList = new ArrayList<>();
         this.viewFacade = viewFacade;
-
+        this.choiceOptionIndex = choiceOptionIndex;
 
 
         show();
