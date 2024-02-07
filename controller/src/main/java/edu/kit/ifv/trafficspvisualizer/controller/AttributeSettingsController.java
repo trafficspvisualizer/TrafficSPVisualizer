@@ -73,7 +73,8 @@ public class AttributeSettingsController implements IconDisplayingController {
         int iconId = controllerFacade.getViewFacade().getAttributeSettingsStage().getIconId();
         String prefix = controllerFacade.getViewFacade().getAttributeSettingsStage().getPrefix();
         String suffix = controllerFacade.getViewFacade().getAttributeSettingsStage().getSuffix();
-        boolean isPermanentlyVisible = controllerFacade.getViewFacade().getAttributeSettingsStage().isActive();
+        boolean isPermanentlyVisible = controllerFacade.getViewFacade().getAttributeSettingsStage()
+                                                                                                .isPermanentlyVisible();
         String decimalPlacesString = controllerFacade.getViewFacade().
                                             getAttributeSettingsStage().getNumberOfDecimalPlaces();
 
