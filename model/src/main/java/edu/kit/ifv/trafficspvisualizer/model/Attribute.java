@@ -1,6 +1,7 @@
 package edu.kit.ifv.trafficspvisualizer.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,12 @@ public class Attribute extends AbstractAttribute {
     private boolean permanentlyVisible;
     private int decimalPlaces;
     private final Map<ChoiceOption, List<String>> choiceOptionMappings;
+
+
+    public Attribute(String name, Icon icon, String prefix, String suffix,
+                     boolean permanentlyVisible, int decimalPlaces) {
+        this(name, icon, prefix, suffix, permanentlyVisible, decimalPlaces, Collections.emptyMap());
+    }
 
     public Attribute(String name, Icon icon, String prefix, String suffix, boolean permanentlyVisible,
                      int decimalPlaces, Map<ChoiceOption, List<String>> choiceOptionMappings) {
