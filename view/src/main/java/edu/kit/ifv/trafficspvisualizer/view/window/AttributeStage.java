@@ -203,8 +203,7 @@ public class AttributeStage extends Stage {
         attributeGridPane.setVgap(15);
 
         // attributeScrollPane
-        attributeScrollPane.prefHeightProperty().bind(
-                scene.heightProperty().subtract(closeAndAddGridPane.heightProperty()));
+        attributeScrollPane.setFitToHeight(true);
 
         // addAttributeButton
         GridPane.setHalignment(addAttributeButton, HPos.LEFT);

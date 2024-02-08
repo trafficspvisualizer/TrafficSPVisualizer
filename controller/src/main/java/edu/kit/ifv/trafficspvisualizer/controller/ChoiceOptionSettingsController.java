@@ -2,11 +2,6 @@ package edu.kit.ifv.trafficspvisualizer.controller;
 
 import edu.kit.ifv.trafficspvisualizer.model.Attribute;
 import edu.kit.ifv.trafficspvisualizer.model.Icon;
-import edu.kit.ifv.trafficspvisualizer.model.LineType;
-import edu.kit.ifv.trafficspvisualizer.model.RouteSection;
-import javafx.scene.paint.Color;
-
-import java.util.List;
 
 public class ChoiceOptionSettingsController implements IconDisplayingController{
     private final ControllerFacade controllerFacade;
@@ -47,7 +42,7 @@ public class ChoiceOptionSettingsController implements IconDisplayingController{
         //                                                                    .getLineTypeMenuValue(routeSectionIndex);
         //controllerFacade.getProject().getChoiceOptions().get(choiceOptionId).getRouteSections()
        //                                                     .get(routeSectionIndex).setLineType(newLineType);
-        controllerFacade.getViewFacade().getChoiceOptionSettingsStage().updateRouteSections();
+        controllerFacade.getViewFacade().getChoiceOptionSettingsStage().updateRouteSectionScrollPane();
     }
 
     public void actionOnAttributeColumnMenu(int attributeIndex){
@@ -64,25 +59,25 @@ public class ChoiceOptionSettingsController implements IconDisplayingController{
         //                                .get(choiceOptionId).getName(), column);
         //}
 
-        controllerFacade.getViewFacade().getChoiceOptionSettingsStage().updateAttributes();
+        controllerFacade.getViewFacade().getChoiceOptionSettingsStage().updateAttributeScrollPane();
     }
 
     public void actionOnNewRouteSectionButton(){
         // TODO: needs a standard constructor with default values
         //controllerFacade.getProject().getChoiceOptions().get(choiceOptionId).addRouteSection(new RouteSection());
-        controllerFacade.getViewFacade().getChoiceOptionSettingsStage().updateRouteSections();
+        controllerFacade.getViewFacade().getChoiceOptionSettingsStage().updateRouteSectionScrollPane();
     }
 
     public void actionOnDeleteButton(int routeSectionIndex){
         controllerFacade.getProject().getChoiceOptions().get(choiceOptionId).removeRouteSection(routeSectionIndex);
-        controllerFacade.getViewFacade().getChoiceOptionSettingsStage().updateRouteSections();
+        controllerFacade.getViewFacade().getChoiceOptionSettingsStage().updateRouteSectionScrollPane();
     }
 
     @Override
     public void updateIcon(Icon icon, int routeSectionIndex){
         controllerFacade.getProject().getChoiceOptions().get(choiceOptionId)
                                                     .getRouteSections().get(routeSectionIndex).setIcon(icon);
-        controllerFacade.getViewFacade().getChoiceOptionSettingsStage().updateRouteSections();
+        controllerFacade.getViewFacade().getChoiceOptionSettingsStage().updateRouteSectionScrollPane();
     }
 
     public int getChoiceOptionId() {
