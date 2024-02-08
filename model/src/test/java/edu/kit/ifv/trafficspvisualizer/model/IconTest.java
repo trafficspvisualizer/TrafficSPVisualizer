@@ -20,8 +20,8 @@ class IconTest {
 
     @Test
     void getFilePath() {
-        Path testPath = Path.of("path/test");
+        Path testPath = Path.of("path\\test");
         Icon icon = new Icon(testPath, 100);
-        assertEquals("path/test/100.svg", icon.getFilePath().toString());
+        assertEquals("path\\test\\100.svg", icon.getFilePath().toString());
     }
 }

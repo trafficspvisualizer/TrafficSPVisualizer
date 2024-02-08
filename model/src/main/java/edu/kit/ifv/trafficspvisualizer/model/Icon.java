@@ -3,7 +3,7 @@ package edu.kit.ifv.trafficspvisualizer.model;
 import java.nio.file.Path;
 
 public class Icon {
-    private final static String FILE_NAME_FORMAT = "%d.svg";
+    private final static String FILE_NAME_FORMAT = "%s.svg";
 
     private final int identifier;
     private final Path iconPath;
