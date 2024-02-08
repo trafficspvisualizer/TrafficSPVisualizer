@@ -65,7 +65,7 @@ public class AttributeController {
      * @param attributeIndex the index of the attribute which should be deleted
      */
     public void actionOnDeleteButton(int attributeIndex){
-        AbstractAttribute attribute = controllerFacade.getProject().getAttributes().remove(attributeIndex);
+        controllerFacade.getProject().getAttributes().remove(attributeIndex);
         controllerFacade.getViewFacade().getAttributeStage().updateStage();
     }
 

@@ -71,7 +71,6 @@ public class ExportSettingsController {
             height = Integer.parseInt(heightString);
             width = Integer.parseInt(widthString);
             exportPath = new File(exportDirectoryPathString);
-            // fromString method exists on ubuav branch
             exportType = ExportType.fromString(exportTypeString);
         } catch (NullPointerException | IllegalArgumentException exception) {
             controllerFacade.getViewFacade().getExportSettingsStage().showSaveErrorAlert();

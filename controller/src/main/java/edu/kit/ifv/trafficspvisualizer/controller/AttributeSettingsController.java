@@ -3,11 +3,7 @@ package edu.kit.ifv.trafficspvisualizer.controller;
 import edu.kit.ifv.trafficspvisualizer.model.Attribute;
 import edu.kit.ifv.trafficspvisualizer.model.ChoiceOption;
 import edu.kit.ifv.trafficspvisualizer.model.Icon;
-import edu.kit.ifv.trafficspvisualizer.model.IconManager;
 import edu.kit.ifv.trafficspvisualizer.view.window.AttributeSettingsStage;
-import edu.kit.ifv.trafficspvisualizer.view.window.ExportSettingsStage;
-import edu.kit.ifv.trafficspvisualizer.view.window.IconSelectionStage;
-import javafx.scene.image.Image;
 
 import java.util.HashMap;
 import java.util.List;

@@ -66,7 +66,7 @@ public class ProjectCreationController {
      *
      */
     public void actionOnSaveButton(){
-        DataObject dataObject = null;
+        DataObject dataObject;
 
         //Scrape data
         String projectName = controllerFacade.getViewFacade().getProjectCreationStage().getProjectName();
