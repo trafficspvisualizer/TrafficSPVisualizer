@@ -19,7 +19,7 @@ public class Project {
     private ExportSettings exportSettings;
     private int currentPreviewSituation;
 
-    public Project(String name, Path projectPath, DataObject dataObject, File NGDFile) throws IOException {
+    public Project(String name, Path projectPath, DataObject dataObject, File ngdFile) throws IOException {
         this.name = name;
         this.projectPath = projectPath;
         this.dataObject = dataObject;
@@ -27,13 +27,13 @@ public class Project {
         this.choiceOptions = initializeChoiceOptions();
         this.exportSettings = new ExportSettings(this.projectPath);
         this.currentPreviewSituation = 1;
-        this.cacheDirectory = createCache(NGDFile);
+        this.cacheDirectory = createCache(ngdFile);
         this.iconManager = new IconManager(cacheDirectory);
     }
 
     public Project(String name, Path projectPath, DataObject dataObject, List<AbstractAttribute> attributes,
                    List<ChoiceOption> choiceOptions, ExportSettings exportSettings,
-                   Path iconDirectory, File NGDFile)
+                   Path iconDirectory, File ngdFile)
         throws IOException {
         this.name = name;
         this.projectPath = projectPath;
@@ -41,14 +41,14 @@ public class Project {
         this.attributes = new ArrayList<>(attributes);
         this.choiceOptions = new ArrayList<>(choiceOptions);
         this.exportSettings = exportSettings;
-        this.cacheDirectory = createCache(NGDFile);
+        this.cacheDirectory = createCache(ngdFile);
         this.iconManager = new IconManager(cacheDirectory, iconDirectory);
         this.currentPreviewSituation = 1;
     }
 
-    private Path createCache(File NGDFile) throws IOException {
+    private Path createCache(File ngdFile) throws IOException {
         Path cacheDirectory = Files.createTempDirectory(CACHE_NAME.formatted(name));
-        Files.copy(NGDFile.toPath(), cacheDirectory);
+        Files.copy(ngdFile.toPath(), cacheDirectory);
         return cacheDirectory;
     }
 
