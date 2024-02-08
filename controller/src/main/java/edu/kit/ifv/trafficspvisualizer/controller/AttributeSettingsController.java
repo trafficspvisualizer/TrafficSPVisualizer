@@ -88,8 +88,8 @@ public class AttributeSettingsController implements IconDisplayingController {
         // converting to integer, should never throw exception because of check before
         int decimalPlaces = Integer.parseInt(decimalPlacesString);
 
-        //TODO: get icon from iconId
-        Icon icon = null;
+        // get icon from iconId
+        Icon icon = controllerFacade.getProject().getIconManager().getIcons().get(iconId);
 
         //check if editing existing Attribute or adding new one
         // if attributeIndex is index of attribute list
