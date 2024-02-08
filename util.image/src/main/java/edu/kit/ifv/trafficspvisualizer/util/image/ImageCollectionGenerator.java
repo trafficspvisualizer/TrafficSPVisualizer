@@ -51,4 +51,18 @@ public abstract class ImageCollectionGenerator {
         return lengthOfRouteSections;
     }
 
+    protected double calculateLongestRouteSection(int situationIndex) {
+        double lengthOfLongestRouteSection = 0;
+        double lengthOfCurrentRouteSection;
+        ChoiceOption currentChoiceOption;
+        for (int m = 0; m < numberOfChoiceOptionsPerSituation; m++) {
+            currentChoiceOption = project.getChoiceOptions().get(m + (situationIndex * numberOfChoiceOptionsPerSituation));
+            lengthOfCurrentRouteSection = calculateLengthOfRouteSection(currentChoiceOption, situationIndex);
+            if (lengthOfCurrentRouteSection > lengthOfLongestRouteSection) {
+                lengthOfLongestRouteSection = lengthOfCurrentRouteSection;
+            }
+        }
+        return lengthOfLongestRouteSection;
+    }
+
 }

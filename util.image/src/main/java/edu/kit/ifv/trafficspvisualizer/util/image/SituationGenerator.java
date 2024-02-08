@@ -34,19 +34,7 @@ public class SituationGenerator extends ImageCollectionGenerator {
         return createSituationImage(situationIndex);
     }
 
-    private double calculateLongestRouteSection(int situationIndex) {
-        double lengthOfLongestRouteSection = 0;
-        double lengthOfCurrentRouteSection;
-        ChoiceOption currentChoiceOption;
-        for (int m = 0; m < numberOfChoiceOptionsPerSituation; m++) {
-            currentChoiceOption = project.getChoiceOptions().get(m + (situationIndex * numberOfChoiceOptionsPerSituation));
-            lengthOfCurrentRouteSection = calculateLengthOfRouteSection(currentChoiceOption, situationIndex);
-            if (lengthOfCurrentRouteSection > lengthOfLongestRouteSection) {
-                lengthOfLongestRouteSection = lengthOfCurrentRouteSection;
-            }
-        }
-        return lengthOfLongestRouteSection;
-    }
+
 
     private BufferedImage combineChoiceOptionImages(BufferedImage[] choiceOptionImages) {
         BufferedImage situationImage = new BufferedImage(exportWidth, exportHeight, BufferedImage.TYPE_INT_RGB);
@@ -57,7 +45,6 @@ public class SituationGenerator extends ImageCollectionGenerator {
         g2d.dispose();
         return situationImage;
     }
-
 
 
     private BufferedImage createSituationImage(int situationIndex) {
