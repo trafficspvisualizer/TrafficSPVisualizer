@@ -92,7 +92,7 @@ public class ProjectCreationController {
         try {
             newProject = new Project(projectName, projectFolder.toPath(), dataObject, inputFile);
         } catch (IOException e) {
-            //TODO
+            controllerFacade.getViewFacade().getProjectCreationStage().showNewProjectErrorAlert();
             return;
         }
 
