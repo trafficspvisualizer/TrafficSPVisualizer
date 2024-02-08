@@ -57,7 +57,7 @@ public class SituationGenerator extends ImageCollectionGenerator{
         for (int j = 0; j < numberOfChoiceOptionsPerSituation; j++) {
             ChoiceOption currentChoiceOption = project.getChoiceOptions().get(j);
             BufferedImage bufferedImage = standardImageGenerator.createChoiceOption(currentChoiceOption,
-                    project.getDataObject(), attributeList, choiceOptionHeight,
+                    dataObject, attributeList, choiceOptionHeight,
                     choiceOptionWidth, 0,longestRouteSectionOfSituation);
             choiceOptionImages[j] = bufferedImage;
         }

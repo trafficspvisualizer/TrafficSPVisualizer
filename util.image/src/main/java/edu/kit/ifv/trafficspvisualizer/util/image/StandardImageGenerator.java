@@ -24,7 +24,7 @@ public class StandardImageGenerator extends ImageGenerator{
         this.heightOfHeadline = height / 4;
         this.height = height;
         this.width = width;
-        this.distanceToSide = heightOfHeadline / 3;
+        this.distanceToSide = width / 20;
         this.choiceOption = choiceOption;
         this.attributes = attributes;
         graphics2DChoiceOption = choiceOptionImage.createGraphics();
@@ -42,16 +42,24 @@ public class StandardImageGenerator extends ImageGenerator{
         fillGraphicWhite(graphics2DHeadline, width, heightOfHeadline);
 
         int sizeOfFont = heightOfHeadline / 3;
-        Font font = new Font("Calibre", Font.BOLD, sizeOfFont);
+        Font font = new Font("Arial Bold", Font.BOLD, sizeOfFont);
         graphics2DHeadline.setFont(font);
         String headline = choiceOption.getTitle();
+        int widthOfString = graphics2DHeadline.getFontMetrics().stringWidth(headline) + distanceToSide;
+        while (widthOfString > width) {
+            sizeOfFont--;
+            font = new Font("Arial Bold", Font.BOLD, sizeOfFont);
+            graphics2DHeadline.setFont(font);
+            widthOfString = graphics2DHeadline.getFontMetrics().stringWidth(headline) + distanceToSide;
+        }
         graphics2DHeadline.drawString(headline, distanceToSide, ( 2 * heightOfHeadline) / 3);
-
+        graphics2DHeadline.dispose();
         return headlineImage;
     }
 
     private BufferedImage createAttributeImage() {
         int numberOfAttributes = calculateNumberOfAttributes();
+        int numberOfSeparatorLines = attributes.size() - numberOfAttributes;
         return null;
     }
 
