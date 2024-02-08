@@ -4,6 +4,7 @@ import edu.kit.ifv.trafficspvisualizer.model.Project;
 import edu.kit.ifv.trafficspvisualizer.model.ExportType;
 import edu.kit.ifv.trafficspvisualizer.util.export.Exporter;
 import edu.kit.ifv.trafficspvisualizer.util.image.ChoiceOptionGenerator;
+import edu.kit.ifv.trafficspvisualizer.util.image.ChoiceOptionImage;
 import edu.kit.ifv.trafficspvisualizer.util.image.ImageCollectionGenerator;
 import edu.kit.ifv.trafficspvisualizer.util.image.SituationGenerator;
 import edu.kit.ifv.trafficspvisualizer.util.project.StandardProjectLoader;
@@ -154,7 +155,8 @@ public class MainApplicationController {
             imageCollectionGenerator = new ChoiceOptionGenerator();
         }
 
-        BufferedImage[] images = imageCollectionGenerator.createImage(controllerFacade.getProject());
+        // TODO: ChoiceOptionImage is already return type on urnyq branch
+        //ChoiceOptionImage[] images = imageCollectionGenerator.createImage(controllerFacade.getProject());
         //TODO: missing method in Exporter class
         //Exporter exporter = Exporter.getExporter(controllerFacade.getProject().getExportSettings().getExportType());
         //exporter.export(images, controllerFacade.getProject().getExportSettings().getExportPath());
