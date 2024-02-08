@@ -136,8 +136,7 @@ public class AttributeSettingsController implements IconDisplayingController {
 
     @Override
     public void updateIcon(Icon icon, int index){
-        //TODO: setIconPreview should accept Type Icon
-        //controllerFacade.getViewFacade().getAttributeSettingsStage().setIconPreview(icon);
+        controllerFacade.getViewFacade().getAttributeSettingsStage().setIcon(icon.getIdentifier());
     }
 
     private void setActionListeners(){
