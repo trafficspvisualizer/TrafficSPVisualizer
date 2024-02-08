@@ -177,8 +177,8 @@ public class IconSelectionStage extends Stage {
         return cancelButton;
     }
 
-    public String getSelectedIconIdentifier() {
+    public int getSelectedIconIdentifier() {
         //TODO: Maybe directly give icon, userData can be icon
-        return (String) iconListView.getSelectionModel().getSelectedItem().getUserData();
+        return (int) iconListView.getSelectionModel().getSelectedItem().getUserData();
     }
 }

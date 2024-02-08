@@ -1,11 +1,11 @@
 package edu.kit.ifv.trafficspvisualizer.controller;
 
 import edu.kit.ifv.trafficspvisualizer.model.Icon;
-import edu.kit.ifv.trafficspvisualizer.view.window.ExportSettingsStage;
 import edu.kit.ifv.trafficspvisualizer.view.window.IconSelectionStage;
-import javafx.scene.image.Image;
+
 
 import java.io.File;
+import java.io.IOException;
 
 /**
  * The IconSelectionController is the logic unit associated with the
@@ -39,7 +39,7 @@ public class IconSelectionController {
      * saves it in ViewFacade and sets its ActionListeners.
      *
      * @param controllerFacade the front-facing interface for the controller package
-     * @param parentController the ontroller, which requested creation of IconSelectionController
+     * @param parentController the controller, which requested creation of IconSelectionController
      * @param index the index of the component for which an icon is selected
      */
     public IconSelectionController(ControllerFacade controllerFacade, IconDisplayingController parentController,
@@ -59,10 +59,9 @@ public class IconSelectionController {
      * instructs {@link IconSelectionController#parentController} to update icon. Closes controller and stage.
      */
     public void actionOnChooseButton() {
-        String iconIdentifier = controllerFacade.getViewFacade().getIconSelectionStage().getSelectedIconIdentifier();
-        //TODO: missing getIconManager() method, exists on ubuav branch
-        //Icon selectedIcon = controllerFacade.getProject().getIconManager().getIcons().get(iconIdentifier);
-        //parentController.updateIcon(selectedIcon, index);
+        int iconIdentifier = controllerFacade.getViewFacade().getIconSelectionStage().getSelectedIconIdentifier();
+        Icon selectedIcon = controllerFacade.getProject().getIconManager().getIcons().get(iconIdentifier);
+        parentController.updateIcon(selectedIcon, index);
         actionOnCancelButton();
     }
 
@@ -72,8 +71,14 @@ public class IconSelectionController {
      */
     public void actionOnNewIconButton(){
         File selectedFile = controllerFacade.getViewFacade().getIconSelectionStage().showDirectoryChooserDialog();
-        //TODO: missing getIconManager() method, exists on ubuav branch
-        //controllerFacade.getProject().getIconManager().createIcon(selectedFile.toPath());
+
+        try {
+            controllerFacade.getProject().getIconManager().createIcon(selectedFile.toPath());
+        } catch (IOException e) {
+            // if icon can not be loaded
+            controllerFacade.getViewFacade().getIconSelectionStage().showAddIconErrorAlert();
+            return;
+        }
         //TODO: public update method
         //controllerFacade.getViewFacade().getIconSelectionStage().update();
     }

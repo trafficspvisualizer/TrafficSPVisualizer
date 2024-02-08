@@ -303,8 +303,8 @@ public class AttributeSettingsStage extends Stage {
         return saveButton;
     }
 
-    public boolean isActive() {
-        return activeCheckBox.isSelected();
+    public boolean isPermanentlyVisible() {
+        return permanentlyVisibleCheckBox.isSelected();
     }
 
     public String getNumberOfDecimalPlaces() {

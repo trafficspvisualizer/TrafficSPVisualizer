@@ -66,7 +66,7 @@ public class ProjectCreationController {
      *
      */
     public void actionOnSaveButton(){
-        DataObject dataObject = null;
+        DataObject dataObject;
 
         //Scrape data
         String projectName = controllerFacade.getViewFacade().getProjectCreationStage().getProjectName();
@@ -90,9 +90,9 @@ public class ProjectCreationController {
         // Temporary solution so that the Application builds
         Project newProject;
         try {
-            newProject = new Project(projectName, projectFolder, dataObject);
+            newProject = new Project(projectName, projectFolder.toPath(), dataObject, inputFile);
         } catch (IOException e) {
-            //TODO
+            controllerFacade.getViewFacade().getProjectCreationStage().showNewProjectErrorAlert();
             return;
         }
 

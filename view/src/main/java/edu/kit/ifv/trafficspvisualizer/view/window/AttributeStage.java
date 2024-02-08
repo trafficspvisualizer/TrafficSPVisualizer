@@ -203,8 +203,7 @@ public class AttributeStage extends Stage {
         attributeGridPane.setVgap(15);
 
         // attributeScrollPane
-        attributeScrollPane.prefHeightProperty().bind(
-                scene.heightProperty().subtract(closeAndAddGridPane.heightProperty()));
+        attributeScrollPane.setFitToHeight(true);
 
         // addAttributeButton
         GridPane.setHalignment(addAttributeButton, HPos.LEFT);
@@ -435,5 +434,40 @@ public class AttributeStage extends Stage {
         alert.setContentText(languageStrategy.getRemoveAttributeConfirmationAlertContentText());
 
         return alert.showAndWait();
+    }
+
+    // getters-method
+
+
+    public Button getCloseButton() {
+        return closeButton;
+    }
+
+    public Button getAddAttributeButton() {
+        return addAttributeButton;
+    }
+
+    public Button getAddSeparatorLineButton() {
+        return addSeparatorLineButton;
+    }
+
+    public List<Button> getAttributeSettingsButtonList() {
+        return List.copyOf(attributeSettingsButtonList);
+    }
+
+    public List<Button> getDownSwitchAttributeButtonList() {
+        return List.copyOf(downSwitchAttributeButtonList);
+    }
+
+    public List<Button> getUpSwitchAttributeButtonList() {
+        return List.copyOf(upSwitchAttributeButtonList);
+    }
+
+    public List<Button> getAttributeRemoveButtonList() {
+        return List.copyOf(attributeRemoveButtonList);
+    }
+
+    public List<CheckBox> getAttributeActiveCheckBoxList() {
+        return List.copyOf(attributeActiveCheckBoxList);
     }
 }

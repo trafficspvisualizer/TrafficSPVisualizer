@@ -3,8 +3,6 @@ package edu.kit.ifv.trafficspvisualizer.controller;
 import edu.kit.ifv.trafficspvisualizer.model.AbstractAttribute;
 import edu.kit.ifv.trafficspvisualizer.model.SeparatorLine;
 import edu.kit.ifv.trafficspvisualizer.view.window.AttributeStage;
-import edu.kit.ifv.trafficspvisualizer.view.window.ExportSettingsStage;
-import edu.kit.ifv.trafficspvisualizer.view.window.IconSelectionStage;
 
 /**
  * The AttributeController represents the logic unit associated with the
@@ -67,7 +65,7 @@ public class AttributeController {
      * @param attributeIndex the index of the attribute which should be deleted
      */
     public void actionOnDeleteButton(int attributeIndex){
-        AbstractAttribute attribute = controllerFacade.getProject().getAttributes().remove(attributeIndex);
+        controllerFacade.getProject().getAttributes().remove(attributeIndex);
         controllerFacade.getViewFacade().getAttributeStage().updateStage();
     }
 
@@ -136,14 +134,47 @@ public class AttributeController {
     public void update() {
         controllerFacade.getViewFacade().getAttributeStage().updateStage();
     }
+
+    private void updateActionListeners() {
+
+        AttributeStage attributeStage = controllerFacade.getViewFacade().getAttributeStage();
+
+
+
+        // Move Up
+        for(int i = 0; i < attributeStage.getUpSwitchAttributeButtonList().size(); i++) {
+            // index in view is same as index in attribute list of project
+            final int index = i;
+            // Move up & down
+            attributeStage.getUpSwitchAttributeButtonList().get(index)
+                                                                .setOnAction(e -> actionOnMoveAttributeUpButton(index));
+            attributeStage.getDownSwitchAttributeButtonList().get(index)
+                                                            .setOnAction(e -> actionOnMoveAttributeDownButton(index));
+
+            // Settings-Button
+            attributeStage.getAttributeSettingsButtonList().get(index).setOnAction(e -> actionOnSettingsButton(index));
+
+            // Active-Checkbox
+            attributeStage.getAttributeActiveCheckBoxList().get(index).setOnAction(e -> actionOnActiveCheck(index));
+
+            // Delete-Button
+            attributeStage.getAttributeRemoveButtonList().get(index).setOnAction(e -> actionOnDeleteButton(index));
+        }
+    }
     private void setActionListeners(){
-        // Move Up & Down
-        // Active
-        // Settings
-        // Delete
+        AttributeStage attributeStage = controllerFacade.getViewFacade().getAttributeStage();
+
+        // action listeners which can change when order is changed
+        updateActionListeners();
+
+        // Non-changing action listeners
         // New Attribute
+        attributeStage.getAddAttributeButton().setOnAction(e -> actionOnNewAttributeButton());
+
         // New Separator Line
-        // Close
-        //TODO
+        attributeStage.getAddSeparatorLineButton().setOnAction(e -> actionOnNewSeparatorLineButton());
+
+        // Close-Button
+        attributeStage.getCloseButton().setOnAction(e -> actionOnCompleteButton());
     }
 }

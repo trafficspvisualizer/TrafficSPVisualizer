@@ -71,7 +71,6 @@ public class ExportSettingsController {
             height = Integer.parseInt(heightString);
             width = Integer.parseInt(widthString);
             exportPath = new File(exportDirectoryPathString);
-            // fromString method exists on ubuav branch
             exportType = ExportType.fromString(exportTypeString);
         } catch (NullPointerException | IllegalArgumentException exception) {
             controllerFacade.getViewFacade().getExportSettingsStage().showSaveErrorAlert();
@@ -79,7 +78,8 @@ public class ExportSettingsController {
         }
 
         // setting new export settings in model, png as default because we currently only support png export
-        ExportSettings exportSettings = new ExportSettings(height, width, exportPath, FileFormat.PNG, exportType);
+        ExportSettings exportSettings = new ExportSettings(height, width, exportPath.toPath(),
+                                                                                            FileFormat.PNG, exportType);
         controllerFacade.getProject().setExportSettings(exportSettings);
     }
 

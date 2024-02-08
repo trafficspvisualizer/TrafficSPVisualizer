@@ -3,11 +3,7 @@ package edu.kit.ifv.trafficspvisualizer.controller;
 import edu.kit.ifv.trafficspvisualizer.model.Attribute;
 import edu.kit.ifv.trafficspvisualizer.model.ChoiceOption;
 import edu.kit.ifv.trafficspvisualizer.model.Icon;
-import edu.kit.ifv.trafficspvisualizer.model.IconManager;
 import edu.kit.ifv.trafficspvisualizer.view.window.AttributeSettingsStage;
-import edu.kit.ifv.trafficspvisualizer.view.window.ExportSettingsStage;
-import edu.kit.ifv.trafficspvisualizer.view.window.IconSelectionStage;
-import javafx.scene.image.Image;
 
 import java.util.HashMap;
 import java.util.List;
@@ -73,7 +69,8 @@ public class AttributeSettingsController implements IconDisplayingController {
         int iconId = controllerFacade.getViewFacade().getAttributeSettingsStage().getIconId();
         String prefix = controllerFacade.getViewFacade().getAttributeSettingsStage().getPrefix();
         String suffix = controllerFacade.getViewFacade().getAttributeSettingsStage().getSuffix();
-        boolean isPermanentlyVisible = controllerFacade.getViewFacade().getAttributeSettingsStage().isActive();
+        boolean isPermanentlyVisible = controllerFacade.getViewFacade().getAttributeSettingsStage()
+                                                                                                .isPermanentlyVisible();
         String decimalPlacesString = controllerFacade.getViewFacade().
                                             getAttributeSettingsStage().getNumberOfDecimalPlaces();
 
@@ -87,8 +84,8 @@ public class AttributeSettingsController implements IconDisplayingController {
         // converting to integer, should never throw exception because of check before
         int decimalPlaces = Integer.parseInt(decimalPlacesString);
 
-        //TODO: get icon from iconId
-        Icon icon = null;
+        // get icon from iconId
+        Icon icon = controllerFacade.getProject().getIconManager().getIcons().get(iconId);
 
         //check if editing existing Attribute or adding new one
         // if attributeIndex is index of attribute list
@@ -135,8 +132,7 @@ public class AttributeSettingsController implements IconDisplayingController {
 
     @Override
     public void updateIcon(Icon icon, int index){
-        //TODO: setIconPreview should accept Type Icon
-        //controllerFacade.getViewFacade().getAttributeSettingsStage().setIconPreview(icon);
+        controllerFacade.getViewFacade().getAttributeSettingsStage().setIcon(icon.getIdentifier());
     }
 
     private void setActionListeners(){
