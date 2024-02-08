@@ -18,4 +18,3 @@ class FileFormatTest {
         assertThrows(IllegalArgumentException.class, () -> FileFormat.fromString(string));
     }
 }
-

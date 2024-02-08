@@ -21,4 +21,3 @@ class ExportTypeTest {
         assertThrows(IllegalArgumentException.class, () -> ExportType.fromString(string));
     }
 }
-

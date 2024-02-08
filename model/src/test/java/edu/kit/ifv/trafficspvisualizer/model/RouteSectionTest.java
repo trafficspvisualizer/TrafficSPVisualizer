@@ -36,4 +36,3 @@ class RouteSectionTest {
         assertEquals(LineType.SOLID, routeSection.getLineType());
     }
 }
-

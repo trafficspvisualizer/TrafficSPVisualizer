@@ -70,4 +70,3 @@ class ExportSettingsTest {
         assertEquals(newType, exportSettings.getExportType());
     }
 }
-

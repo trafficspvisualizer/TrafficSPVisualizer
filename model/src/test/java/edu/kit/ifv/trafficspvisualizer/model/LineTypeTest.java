@@ -19,4 +19,3 @@ class LineTypeTest {
         assertThrows(IllegalArgumentException.class, () -> LineType.fromString(string));
     }
 }
-
