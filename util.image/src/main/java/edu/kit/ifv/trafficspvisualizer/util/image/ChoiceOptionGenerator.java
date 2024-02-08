@@ -8,20 +8,23 @@ import java.util.Map;
 public class ChoiceOptionGenerator extends ImageCollectionGenerator {
     private Map<ChoiceOption, java.util.List<String>> choiceOptionMappings;
     @Override
-    public BufferedImage[] createImage(Project project) {
+    public ChoiceOptionImage[] createImage(Project project) {
         setUpImageCreation(project);
         StandardImageGenerator standardImageGenerator = new StandardImageGenerator();
         ChoiceOption currentChoiceOption;
         int situationNumber;
-        BufferedImage[] images = new BufferedImage[numberOfChoiceOptions];
-
+        ChoiceOptionImage[] images = new ChoiceOptionImage[numberOfChoiceOptions];
+        ChoiceOptionImage currentChoiceOptionImage;
         for (int j = 0; j < numberOfChoiceOptions; j++) {
+            currentChoiceOptionImage = new ChoiceOptionImage();
             currentChoiceOption = project.getChoiceOptions().get(j);
             situationNumber = j / numberOfChoiceOptionsPerSituation;
             double lengthOfRouteSections = calculateLengthOfRouteSection(currentChoiceOption, situationNumber);
             BufferedImage bufferedImage = standardImageGenerator.createChoiceOption(currentChoiceOption,
                     dataObject, attributeList, choiceOptionHeight, choiceOptionWidth, 0, lengthOfRouteSections); // TODO add bufferedImage to ChoiceOptionImage
-            images[j] = bufferedImage;
+            currentChoiceOptionImage.setImage(bufferedImage);
+            currentChoiceOptionImage.setChoiceOptionNumber(0);
+            images[j] = currentChoiceOptionImage;
         }
         return images;
     }

@@ -5,23 +5,32 @@ import edu.kit.ifv.trafficspvisualizer.model.Project;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class SituationGenerator extends ImageCollectionGenerator{
-    private StandardImageGenerator standardImageGenerator;
+public class SituationGenerator extends ImageCollectionGenerator {
+    private static final int PREVIEW_WIDTH = 1920;
+    private static final int PREVIEW_HEIGHT = 1024;
+
+
+
     @Override
-    public BufferedImage[] createImage(Project project) {
+    public ChoiceOptionImage[] createImage(Project project) {
         setUpImageCreation(project);
-        this.standardImageGenerator = new StandardImageGenerator();
-        for (int i = 0;i < numberOfSituations; i++) {
-            BufferedImage situationImage = createSituationImage(i);
+        ChoiceOptionImage[] situationImages = new ChoiceOptionImage[numberOfSituations];
+        ChoiceOptionImage currentSituationImage;
+        for (int i = 0; i < numberOfSituations; i++) {
+            currentSituationImage = new ChoiceOptionImage();
+            BufferedImage situationBufferedImage = createSituationImage(i);
+            currentSituationImage.setImage(situationBufferedImage);
+            currentSituationImage.setBlockNumber(dataObject.getBlockNumber(i));
+            situationImages[i] = currentSituationImage;
         }
-        //TODO use exportClass
-        return new BufferedImage[0];
+        return situationImages;
     }
 
     public BufferedImage createPreviewImage(Project project) {
         int situationIndex = project.getCurrentPreviewSituation();
         setUpImageCreation(project);
-        this.standardImageGenerator = new StandardImageGenerator();
+        this.choiceOptionWidth = PREVIEW_WIDTH;
+        this.choiceOptionHeight = PREVIEW_HEIGHT;
         return createSituationImage(situationIndex);
     }
 

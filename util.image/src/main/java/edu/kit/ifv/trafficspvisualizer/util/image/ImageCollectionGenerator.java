@@ -22,19 +22,23 @@ public abstract class ImageCollectionGenerator {
     protected DataObject dataObject;
     protected ExportSettings exportSettings;
     protected Project project;
+    protected StandardImageGenerator standardImageGenerator;
 
-    public abstract BufferedImage[] createImage(Project project);
+    public abstract ChoiceOptionImage[] createImage(Project project);
 
     protected void setUpImageCreation(Project project) {
         this.exportSettings = project.getExportSettings();
         this.choiceOptionWidth = exportSettings.getImageWidth();
         this.choiceOptionHeight = exportSettings.getImageHeight();
-        this.dataObject = project.getDataObject(); // insert get ChoiceData
+        this.exportHeight = choiceOptionHeight * numberOfChoiceOptions;
+        this.exportWidth = choiceOptionWidth;
+        this.dataObject = project.getDataObject();
         this.numberOfSituations = dataObject.getSituationCount();
         this.numberOfChoiceOptions = project.getChoiceOptions().size();
         this.numberOfChoiceOptionsPerSituation = numberOfChoiceOptions / numberOfSituations;
         this.attributeList = project.getAttributes();
         this.project = project;
+        this.standardImageGenerator = new StandardImageGenerator();
     }
 
     protected double calculateLengthOfRouteSection(ChoiceOption choiceOption, int situationNumber) {
