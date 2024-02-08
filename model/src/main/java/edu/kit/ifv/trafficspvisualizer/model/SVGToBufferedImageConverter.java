@@ -14,7 +14,12 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.awt.image.BufferedImage;
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
 
 public class SVGToBufferedImageConverter implements ImageToBufferedImageConverter {
     private final DocumentBuilderFactory factory;
@@ -45,7 +50,7 @@ public class SVGToBufferedImageConverter implements ImageToBufferedImageConverte
         transcoder.addTranscodingHint(PNGTranscoder.KEY_WIDTH, scaledWidth);
 
         try (
-                InputStream inputStream = new FileInputStream(file);
+                InputStream inputStream = Files.newInputStream(file.toPath());
                 ByteArrayOutputStream outputStream = new ByteArrayOutputStream()
         ) {
             TranscoderInput input = new TranscoderInput(inputStream);
