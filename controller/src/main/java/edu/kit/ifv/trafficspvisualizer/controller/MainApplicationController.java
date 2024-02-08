@@ -12,7 +12,6 @@ import edu.kit.ifv.trafficspvisualizer.util.project.StandardProjectSaver;
 import edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow;
 import javafx.scene.control.Button;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -81,6 +80,12 @@ public class MainApplicationController {
      * Instructs {@link StandardProjectSaver} to save project.
      */
     public void actionOnSaveButton() {
+        // if no project is currently loaded
+        if (controllerFacade.getProject() == null) {
+            controllerFacade.getViewFacade().getMainApplicationWindow().showNoProjectErrorAlert();
+            return;
+        }
+
         try {
             new StandardProjectSaver().saveProject(controllerFacade.getProject(),
                     controllerFacade.getProject().getExportSettings().getExportPath());
@@ -146,6 +151,12 @@ public class MainApplicationController {
      * Then creates subclass {@link Exporter} to export the generated images.
      */
     public void actionOnExportButton(){
+        // if no project is currently loaded
+        if (controllerFacade.getProject() == null) {
+            controllerFacade.getViewFacade().getMainApplicationWindow().showNoProjectErrorAlert();
+            return;
+        }
+
         ExportType exportType = controllerFacade.getProject().getExportSettings().getExportType();
         ImageCollectionGenerator imageCollectionGenerator = null;
 
@@ -166,6 +177,11 @@ public class MainApplicationController {
      * Instructs creation of {@link ExportSettingsController}.
      */
     public void actionOnExportSettingsButton(){
+        // if no project is currently loaded
+        if (controllerFacade.getProject() == null) {
+            controllerFacade.getViewFacade().getMainApplicationWindow().showNoProjectErrorAlert();
+            return;
+        }
         controllerFacade.createExportSettingsController();
     }
 
@@ -173,6 +189,11 @@ public class MainApplicationController {
      * Instructs creation of {@link AttributeController}.
      */
     public void actionOnAttributeButton(){
+        // if no project is currently loaded
+        if (controllerFacade.getProject() == null) {
+            controllerFacade.getViewFacade().getMainApplicationWindow().showNoProjectErrorAlert();
+            return;
+        }
         controllerFacade.createAttributeController();
     }
 
@@ -181,6 +202,8 @@ public class MainApplicationController {
      * instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow} to update preview.
      */
     public void actionOnNextPreviewButton(){
+        // if no project is currently loaded
+        if (controllerFacade.getProject() == null) return;
         controllerFacade.getProject().incrementPreview();
 
         // Update Preview
@@ -192,6 +215,8 @@ public class MainApplicationController {
      * instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow} to update preview.
      */
     public void actionOnPreviousPreviewButton(){
+        // if no project is currently loaded
+        if (controllerFacade.getProject() == null) return;
         controllerFacade.getProject().decrementPreview();
 
         // Update Preview
