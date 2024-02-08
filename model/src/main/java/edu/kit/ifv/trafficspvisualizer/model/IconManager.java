@@ -74,7 +74,7 @@ public class IconManager {
     public void createIcon(InputStream iconStream) throws IOException {
         Icon newIcon = new SVGIcon(iconDir, nextIdentifier);
         nextIdentifier++;
-        try (OutputStream out = new FileOutputStream(newIcon.getIconPath().toFile())) {
+        try (OutputStream out = Files.newOutputStream(newIcon.getIconPath())) {
             out.write(iconStream.readAllBytes());
         }
         icons.put(newIcon.getIdentifier(), newIcon);
