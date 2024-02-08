@@ -5,8 +5,7 @@ import edu.kit.ifv.trafficspvisualizer.model.Icon;
 import edu.kit.ifv.trafficspvisualizer.model.LineType;
 import edu.kit.ifv.trafficspvisualizer.model.RouteSection;
 import edu.kit.ifv.trafficspvisualizer.view.window.ChoiceOptionSettingsStage;
-import edu.kit.ifv.trafficspvisualizer.view.window.ExportSettingsStage;
-import edu.kit.ifv.trafficspvisualizer.view.window.IconSelectionStage;
+import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 import java.util.List;
 
@@ -82,9 +81,8 @@ public class ChoiceOptionSettingsController implements IconDisplayingController 
      * at index {@link ChoiceOptionSettingsController#choiceOptionId} with given color.
      */
     public void actionOnTitleTextField(){
-        //TODO: Missing method to get title
-        //String newTitle = controllerFacade.getViewFacade().getChoiceOptionSettingsStage().getTitleTEST();
-        //controllerFacade.getProject().getChoiceOptions().get(choiceOptionId).setTitle(newTitle);
+        String newTitle = controllerFacade.getViewFacade().getChoiceOptionSettingsStage().getTitleString();
+        controllerFacade.getProject().getChoiceOptions().get(choiceOptionId).setTitle(newTitle);
     }
 
     /**
@@ -107,11 +105,12 @@ public class ChoiceOptionSettingsController implements IconDisplayingController 
      */
     public void actionOnLineTypeMenu(int routeSectionIndex){
         //should  be called when option is selected
-        //TODO: Missing method to get LineTypeMenu value
-        //LineType newLineType = controllerFacade.getViewFacade().getChoiceOptionSettingsStage()
-        //                                                                    .getLineTypeMenuValue(routeSectionIndex);
-        //controllerFacade.getProject().getChoiceOptions().get(choiceOptionId).getRouteSections()
-       //                                                     .get(routeSectionIndex).setLineType(newLineType);
+
+        String newLineTypeString = controllerFacade.getViewFacade().getChoiceOptionSettingsStage()
+                .getRouteSectionLineTypeChoiceBoxSelection(routeSectionIndex);
+        LineType newLineType = LineType.fromString(newLineTypeString);
+        controllerFacade.getProject().getChoiceOptions().get(choiceOptionId).getRouteSections()
+                                                                    .get(routeSectionIndex).setLineType(newLineType);
         controllerFacade.getViewFacade().getChoiceOptionSettingsStage().updateRouteSectionScrollPane();
     }
 
@@ -124,12 +123,11 @@ public class ChoiceOptionSettingsController implements IconDisplayingController 
      */
     public void actionOnRouteSectionChoiceDataKeyMenu(int routeSectionIndex){
         //should  be called when option is selected
-        //TODO: Missing method to get column value
-        //String choiceDataKey = controllerFacade.getViewFacade().getChoiceOptionSettingsStage()
-        //                                                          .getRouteSectionColumnMenuValue(routeSectionIndex);
-        //controllerFacade.getProject().getChoiceOptions().get(choiceOptionId).getRouteSections()
-        //                                                     .get(routeSectionIndex).setChoiceDataKey(choiceDataKey);
-        controllerFacade.getViewFacade().getChoiceOptionSettingsStage().updateRouteSections();
+        String choiceDataKey = controllerFacade.getViewFacade().getChoiceOptionSettingsStage()
+                                                            .getRouteSectionColumnChoiceBoxSelection(routeSectionIndex);
+        controllerFacade.getProject().getChoiceOptions().get(choiceOptionId).getRouteSections()
+                                                                .get(routeSectionIndex).setChoiceDataKey(choiceDataKey);
+        controllerFacade.getViewFacade().getChoiceOptionSettingsStage().updateRouteSectionScrollPane();
     }
 
     /**
@@ -163,7 +161,7 @@ public class ChoiceOptionSettingsController implements IconDisplayingController 
      */
     public void actionOnNewRouteSectionButton(){
         // TODO: needs a standard constructor with default values
-        //controllerFacade.getProject().getChoiceOptions().get(choiceOptionId).addRouteSection(new RouteSection());
+        // controllerFacade.getProject().getChoiceOptions().get(choiceOptionId).addRouteSection(new RouteSection());
         controllerFacade.getViewFacade().getChoiceOptionSettingsStage().updateRouteSectionScrollPane();
     }
 
@@ -186,14 +184,52 @@ public class ChoiceOptionSettingsController implements IconDisplayingController 
     }
 
     private void setActionListeners(){
+
+        ChoiceOptionSettingsStage choiceOptionSettingsStage = controllerFacade.getViewFacade()
+                                                                                        .getChoiceOptionSettingsStage();
+
         // New Route Section
-        // Delete Route Section
-        // Icon
-        // LineType
-        // RS Column
-        // ColorPicker
-        // Attribute Column
+        choiceOptionSettingsStage.getAddRouteSectionButton().setOnAction(e -> actionOnNewRouteSectionButton());
+
+        // Route Section
+        updateRouteSectionActionListeners();
+
+        // TODO: ColorPicker button
+
+        // TODO: Attribute Column
+
         // Close
-        //TODO
+        choiceOptionSettingsStage.getCloseButton().setOnAction(e -> actionOnCompleteButton());
+
+        // Title - when text field loses focus
+        choiceOptionSettingsStage.getTitleTextField().focusedProperty().addListener(e -> actionOnTitleTextField());
+    }
+
+    private void updateRouteSectionActionListeners() {
+
+        ChoiceOptionSettingsStage choiceOptionSettingsStage = controllerFacade.getViewFacade()
+                                                                                        .getChoiceOptionSettingsStage();
+
+        for(int i = 0; i < choiceOptionSettingsStage.getRouteSectionRemoveButtonList().size(); i++) {
+            final int index = i;
+
+            // Delete Route Section
+            choiceOptionSettingsStage.getRouteSectionRemoveButtonList().get(index)
+                                                                        .setOnAction(e -> actionOnDeleteButton(index));
+
+            // Icon button
+            choiceOptionSettingsStage.getRouteSectionIconButtonList().get(index)
+                                                                        .setOnAction(e -> actionOnIconButton(index));
+
+            // LineType - when checkbox value is picked
+            choiceOptionSettingsStage.getRouteSectionLineTypeChoiceBoxList()
+                                                .get(index).getSelectionModel().selectedIndexProperty()
+                                                .addListener(e -> actionOnLineTypeMenu(index));
+
+            // Column - when checkbox value is picked
+            choiceOptionSettingsStage.getRouteSectionColumnChoiceBoxList()
+                                                .get(index).getSelectionModel().selectedIndexProperty()
+                                                .addListener(e -> actionOnRouteSectionChoiceDataKeyMenu(index));
+        }
     }
 }

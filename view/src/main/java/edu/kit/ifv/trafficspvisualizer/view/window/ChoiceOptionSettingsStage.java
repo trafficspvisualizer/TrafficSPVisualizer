@@ -350,4 +350,56 @@ public class ChoiceOptionSettingsStage extends Stage {
 
         return alert.showAndWait();
     }
+
+    // getter-methods
+
+    // buttons
+    public Button getCloseButton() {
+        return closeButton;
+    }
+
+    public List<Button> getRouteSectionRemoveButtonList() {
+        return routeSectionRemoveButtonList;
+    }
+
+    public Button getAddRouteSectionButton() {
+        return addRouteSectionButton;
+    }
+
+    public List<Button> getRouteSectionIconButtonList() {
+        return routeSectionIconButtonList;
+    }
+
+    public TextField getTitleTextField() {
+        return titleTextField;
+    }
+
+    // Checkbox Lists
+    public List<ChoiceBox<String>> getRouteSectionLineTypeChoiceBoxList() {
+        return routeSectionLineTypeChoiceBoxList;
+    }
+
+    public List<ChoiceBox<String>> getRouteSectionColumnChoiceBoxList() {
+        return routeSectionColumnChoiceBoxList;
+    }
+
+    public List<List<CheckBox>> getAttributesColumnsCheckBoxList() {
+        return attributesColumnsCheckBoxList;
+    }
+
+    // values
+
+    public String getTitleString() {
+        return titleTextField.getText();
+    }
+
+    public String getRouteSectionLineTypeChoiceBoxSelection(int routeSectionIndex) {
+        return routeSectionLineTypeChoiceBoxList.get(routeSectionIndex).getSelectionModel().getSelectedItem();
+    }
+
+    public String getRouteSectionColumnChoiceBoxSelection(int routeSectionIndex) {
+        return routeSectionColumnChoiceBoxList.get(routeSectionIndex).getSelectionModel().getSelectedItem();
+    }
+
+
 }
