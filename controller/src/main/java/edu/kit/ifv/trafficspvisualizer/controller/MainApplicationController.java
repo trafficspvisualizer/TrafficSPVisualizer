@@ -84,7 +84,7 @@ public class MainApplicationController {
             new StandardProjectSaver().saveProject(controllerFacade.getProject(),
                     controllerFacade.getProject().getExportSettings().getExportPath());
         } catch (IOException e) {
-            //TODO: Add exception handling
+            controllerFacade.getViewFacade().getMainApplicationWindow().showSaveProjectErrorAlert();
         }
     }
 
