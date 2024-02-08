@@ -5,9 +5,7 @@ import edu.kit.ifv.trafficspvisualizer.model.Icon;
 import edu.kit.ifv.trafficspvisualizer.model.LineType;
 import edu.kit.ifv.trafficspvisualizer.model.RouteSection;
 import edu.kit.ifv.trafficspvisualizer.view.window.ChoiceOptionSettingsStage;
-import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
-import java.util.List;
 
 /**
  * The ChoiceOptionSettingsController is the logic unit associated with the
@@ -35,8 +33,9 @@ public class ChoiceOptionSettingsController implements IconDisplayingController 
      * Constructs the ChoiceOptionSettingsController. Creates new {@link ChoiceOptionSettingsStage},
      * saves it in ViewFacade and sets its ActionListeners.
      *
-     * @param choiceOptionId
-     * @param controllerFacade
+     * @param choiceOptionId the ID of the {@link edu.kit.ifv.trafficspvisualizer.model.ChoiceOption}
+     *                       on which the controller is working
+     * @param controllerFacade the front-facing interface for the controller package
      */
     public ChoiceOptionSettingsController(int choiceOptionId, ControllerFacade controllerFacade) {
         this.choiceOptionId = choiceOptionId;
