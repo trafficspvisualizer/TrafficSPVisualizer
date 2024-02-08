@@ -5,9 +5,10 @@ import java.nio.file.Path;
 
 public class SVGIcon extends Icon {
     private static final String FILE_NAME_FORMAT = "%s.svg";
-    private static final SVGToBufferedImageConverter converter = new SVGToBufferedImageConverter();
+    private final SVGToBufferedImageConverter converter;
     protected SVGIcon(Path iconPath, int identifier) {
         super(iconPath, identifier, FILE_NAME_FORMAT);
+        this.converter = new SVGToBufferedImageConverter();
     }
 
     @Override
