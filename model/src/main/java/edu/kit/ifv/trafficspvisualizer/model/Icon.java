@@ -13,12 +13,14 @@ public abstract class Icon implements BufferedImageConvertible {
 
     private final int identifier;
     private final Path iconPath;
+    private final ImageToBufferedImageConverter converter;
     protected final Map<Pair<Integer, Integer>, BufferedImage> cachedImages;
 
-    protected Icon(Path iconPath, int identifier, String fileNameFormat) {
+    protected Icon(Path iconPath, int identifier, String fileNameFormat, ImageToBufferedImageConverter converter) {
         this.identifier = identifier;
         this.iconPath = iconPath.resolve(fileNameFormat.formatted(identifier));
         this.cachedImages = new HashMap<>();
+        this.converter = converter;
         toBufferedImage();
     }
 
@@ -41,7 +43,9 @@ public abstract class Icon implements BufferedImageConvertible {
         return image;
     }
 
-    protected abstract BufferedImage generateBufferedImage(int maxHeight, int maxWidth);
+    private BufferedImage generateBufferedImage(int maxHeight, int maxWidth) {
+        return converter.convert(iconPath.toFile(), maxHeight, maxWidth);
+    }
     public BufferedImage toBufferedImage() {
         return toBufferedImage(DEFAULT_HEIGHT, DEFAULT_WIDTH);
     }
