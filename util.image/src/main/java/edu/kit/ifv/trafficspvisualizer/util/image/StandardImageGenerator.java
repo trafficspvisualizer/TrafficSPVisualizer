@@ -8,9 +8,13 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.List;
 public class StandardImageGenerator extends ImageGenerator{
+    private static final double ATTRIBUTE_DRAWING_HEIGHT_CONSTANT = 0.39;
     private int heightOfHeadline;
     private int width;
     private int height;
+    private  int attributeWidth;
+    private int attributeHeight;
+    private int attributeDrawingHeight;
     private int distanceToSide;
     private ChoiceOption choiceOption;
     private Graphics2D graphics2DHeadline;
@@ -24,6 +28,9 @@ public class StandardImageGenerator extends ImageGenerator{
         this.heightOfHeadline = height / 4;
         this.height = height;
         this.width = width;
+        this.attributeDrawingHeight = (int) (height * ATTRIBUTE_DRAWING_HEIGHT_CONSTANT);
+        this.attributeWidth = width / 17;
+        this.attributeHeight = (int) (height * 0.47);
         this.distanceToSide = width / 20;
         this.choiceOption = choiceOption;
         this.attributes = attributes;
@@ -66,6 +73,44 @@ public class StandardImageGenerator extends ImageGenerator{
     private BufferedImage createAttributeImage() {
         int numberOfAttributes = calculateNumberOfAttributes();
         int numberOfSeparatorLines = attributes.size() - numberOfAttributes;
+
+        float separatorLineStrokeWidth = (float) (width / 150 + 2);
+
+        double leftHandSideWidth = distanceToSide + attributeWidth * numberOfAttributes +
+                separatorLineStrokeWidth * numberOfSeparatorLines;
+
+
+        if (leftHandSideWidth > 0.5 * width) {
+            int widthForAttributesOnly = (int) (0.5 * width - distanceToSide -
+                    separatorLineStrokeWidth * numberOfSeparatorLines);
+            attributeWidth = widthForAttributesOnly / numberOfAttributes;
+            leftHandSideWidth = distanceToSide + attributeWidth * numberOfAttributes +
+                    separatorLineStrokeWidth * numberOfSeparatorLines;
+        }
+        int currentXCoordinate = distanceToSide;
+        for (AbstractAttribute attribute : attributes) {
+            if (attribute instanceof Attribute) {
+                BufferedImage attributeImage = createOneAttributeImage();
+                currentXCoordinate += attributeWidth;
+
+            } else {
+                BasicStroke separatorLineStroke = new BasicStroke(separatorLineStrokeWidth);
+                graphics2DChoiceOption.setStroke(separatorLineStroke);
+                graphics2DChoiceOption.drawLine(currentXCoordinate, attributeDrawingHeight, currentXCoordinate, attributeDrawingHeight + attributeHeight);
+                currentXCoordinate += (int) separatorLineStrokeWidth + 1;
+            }
+        }
+
+        float centralStrokeWidth = (float) (width / 300 + 2); // set central stroke
+        int yCoordinateOfCentralSeparatorLine = (int) (height * 0.3);
+        int xCoordinateOfCentralSeparatorLine = (int) leftHandSideWidth + 1;
+        int lengthOfCentralSeparatorLine = (int) (0.65 * height);
+        BasicStroke centralStroke = new BasicStroke(centralStrokeWidth);
+        graphics2DChoiceOption.setStroke(centralStroke);
+        graphics2DChoiceOption.drawLine(xCoordinateOfCentralSeparatorLine, yCoordinateOfCentralSeparatorLine,
+                xCoordinateOfCentralSeparatorLine, yCoordinateOfCentralSeparatorLine + lengthOfCentralSeparatorLine);
+        BasicStroke separatorLineStrokes = new BasicStroke(separatorLineStrokeWidth);
+        graphics2DChoiceOption.setStroke(separatorLineStrokes);
         return null;
     }
 
@@ -76,7 +121,6 @@ public class StandardImageGenerator extends ImageGenerator{
                 numberOfAttributes++;
             }
         }
-
         return numberOfAttributes;
     }
 
@@ -97,6 +141,10 @@ public class StandardImageGenerator extends ImageGenerator{
                 }
             }
         }
+    }
+
+    private BufferedImage createOneAttributeImage() {
+        return null;
     }
 
 }
