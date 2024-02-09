@@ -23,14 +23,14 @@ class RouteSectionTest {
     }
 
     @Test
-    void getAndSetChoiceDataKey() {
+    void testGetAndSetChoiceDataKey() {
         assertEquals("testKey1", routeSection.getChoiceDataKey());
         routeSection.setChoiceDataKey("testKey2");
         assertEquals("testKey2", routeSection.getChoiceDataKey());
     }
 
     @Test
-    void getAndSetLineType() {
+    void testGetAndSetLineType() {
         assertEquals(LineType.DASHED, routeSection.getLineType());
         routeSection.setLineType(LineType.SOLID);
         assertEquals(LineType.SOLID, routeSection.getLineType());
