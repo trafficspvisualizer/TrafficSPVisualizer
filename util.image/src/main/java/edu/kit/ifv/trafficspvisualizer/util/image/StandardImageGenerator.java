@@ -7,7 +7,6 @@ import edu.kit.ifv.trafficspvisualizer.model.DataObject;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.List;
-
 public class StandardImageGenerator extends ImageGenerator{
     private int heightOfHeadline;
     private int width;
@@ -17,6 +16,7 @@ public class StandardImageGenerator extends ImageGenerator{
     private Graphics2D graphics2DHeadline;
     private Graphics2D graphics2DChoiceOption;
     private List<AbstractAttribute> attributes;
+    private java.awt.Color color;
     @Override
     public BufferedImage createChoiceOption(ChoiceOption choiceOption, DataObject dataObject,
                                             List<AbstractAttribute> attributes, int height, int width, double min, double max) {
@@ -27,6 +27,11 @@ public class StandardImageGenerator extends ImageGenerator{
         this.distanceToSide = width / 20;
         this.choiceOption = choiceOption;
         this.attributes = attributes;
+        javafx.scene.paint.Color fxColor = choiceOption.getColor();
+        this.color = new java.awt.Color((float) fxColor.getRed(),
+                (float) fxColor.getGreen(),
+                (float) fxColor.getBlue(),
+                (float) fxColor.getOpacity());
         graphics2DChoiceOption = choiceOptionImage.createGraphics();
         fillGraphicWhite(graphics2DChoiceOption, width, height);
 
@@ -52,6 +57,7 @@ public class StandardImageGenerator extends ImageGenerator{
             graphics2DHeadline.setFont(font);
             widthOfString = graphics2DHeadline.getFontMetrics().stringWidth(headline) + distanceToSide;
         }
+        graphics2DHeadline.setColor(color);
         graphics2DHeadline.drawString(headline, distanceToSide, ( 2 * heightOfHeadline) / 3);
         graphics2DHeadline.dispose();
         return headlineImage;
@@ -68,8 +74,10 @@ public class StandardImageGenerator extends ImageGenerator{
         for(AbstractAttribute attribute : attributes) {
             if (attribute instanceof Attribute) {
                 numberOfAttributes++;
+                ((Attribute) attribute).getIcon().getFilePath();
             }
         }
+
         return numberOfAttributes;
     }
 
@@ -77,4 +85,5 @@ public class StandardImageGenerator extends ImageGenerator{
         graphics2D.setColor(Color.WHITE);
         graphics2D.fillRect(0,0, width, height);
     }
+
 }
