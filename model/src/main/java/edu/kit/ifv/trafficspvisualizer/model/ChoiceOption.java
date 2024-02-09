@@ -78,10 +78,7 @@ public class ChoiceOption {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ChoiceOption that = (ChoiceOption) o;
-        return Objects.equals(name, that.name)
-            && Objects.equals(routeSections, that.routeSections)
-            && Objects.equals(title, that.title)
-            && Objects.equals(color, that.color);
+        return Objects.equals(name, that.name);
     }
 
     @Override
