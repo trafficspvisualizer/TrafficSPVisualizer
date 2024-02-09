@@ -74,7 +74,6 @@ public class StandardImageGenerator extends ImageGenerator{
         for(AbstractAttribute attribute : attributes) {
             if (attribute instanceof Attribute) {
                 numberOfAttributes++;
-                ((Attribute) attribute).getIcon().getFilePath();
             }
         }
 
@@ -84,6 +83,20 @@ public class StandardImageGenerator extends ImageGenerator{
     private void fillGraphicWhite(Graphics2D graphics2D,int width, int height) {
         graphics2D.setColor(Color.WHITE);
         graphics2D.fillRect(0,0, width, height);
+    }
+
+    private static void changeImageColor(BufferedImage image, Color oldColor, Color newColor) {
+        int width = image.getWidth();
+        int height = image.getHeight();
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                Color pixelColor = new Color(image.getRGB(x, y), true);
+                if (pixelColor.equals(oldColor)) {
+                    image.setRGB(x, y, newColor.getRGB());
+                }
+            }
+        }
     }
 
 }
