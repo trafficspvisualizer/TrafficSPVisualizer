@@ -5,6 +5,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -22,6 +23,6 @@ class IconTest {
     void testGetFilePath() {
         Path testPath = Path.of("path/test");
         Icon icon = new SVGIcon(testPath, 100);
-        assertEquals("path/test/100.svg", icon.getIconPath().toString());
+        assertEquals(Paths.get("path/test/100.svg"), icon.getIconPath());
     }
 }
