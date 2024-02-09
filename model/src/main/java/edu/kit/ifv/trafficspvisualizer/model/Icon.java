@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public abstract class Icon implements BufferedImageConvertible {
     private static final int DEFAULT_HEIGHT = 100;
@@ -48,5 +49,19 @@ public abstract class Icon implements BufferedImageConvertible {
     }
     public BufferedImage toBufferedImage() {
         return toBufferedImage(DEFAULT_HEIGHT, DEFAULT_WIDTH);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (getClass() != o.getClass()) return false;
+        Icon icon = (Icon) o;
+        return getIdentifier() == icon.getIdentifier()
+            && Objects.equals(getIconPath(), icon.getIconPath());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getIdentifier(), getIconPath());
     }
 }
