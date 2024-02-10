@@ -44,7 +44,7 @@ public class ProjectCreationController {
      * {@link javafx.stage.FileChooser} and sets returned value as project folder path.
      */
     public void actionOnProjectFolderButton(){
-        File selectedFile = controllerFacade.getViewFacade().getProjectCreationStage().showFileChooserDialog();
+        File selectedFile = controllerFacade.getViewFacade().getProjectCreationStage().showDirectoryChooserDialog();
         controllerFacade.getViewFacade().getProjectCreationStage().setSaveProjectDirectory(selectedFile);
     }
 
