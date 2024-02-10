@@ -71,10 +71,8 @@ public class ChoiceOptionSettingsController implements IconDisplayingController 
      * at index {@link ChoiceOptionSettingsController#choiceOptionId} with given color.
      */
     public void actionOnColorButton(){
-        //TODO: Missing ColorPicker
-        //Color newColor = controllerFacade.getViewFacade().getChoiceOptionSettingsStage().showColorPickerDialog();
-        //controllerFacade.getProject().getChoiceOptions().get(choiceOptionId).setColor(newColor);
-        //TODO: update?
+        Color newColor = controllerFacade.getViewFacade().getChoiceOptionSettingsStage().getSelectedColor();
+        controllerFacade.getProject().getChoiceOptions().get(choiceOptionId).setColor(newColor);
     }
 
     /**
@@ -193,7 +191,8 @@ public class ChoiceOptionSettingsController implements IconDisplayingController 
         // Route Section
         updateRouteSectionActionListeners();
 
-        // TODO: ColorPicker button
+        // ColorPicker
+        choiceOptionSettingsStage.getColorPicker().setOnAction(e -> actionOnColorButton());
 
         // Attribute values
         updateAttributeActionListeners();

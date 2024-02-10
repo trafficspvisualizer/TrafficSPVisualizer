@@ -27,6 +27,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -522,7 +523,7 @@ public class ChoiceOptionSettingsStage extends Stage {
 
     // getter-methods
 
-    // buttons
+    // components
     public Button getCloseButton() {
         return closeButton;
     }
@@ -556,10 +557,18 @@ public class ChoiceOptionSettingsStage extends Stage {
         return attributesValueNamesCheckBoxList;
     }
 
+    public ColorPicker getColorPicker() {
+        return colorPicker;
+    }
+
     // values
 
     public String getTitleString() {
         return titleTextField.getText();
+    }
+
+    public Color getSelectedColor() {
+        return colorPicker.getValue();
     }
 
     public String getRouteSectionLineTypeChoiceBoxSelection(int routeSectionIndex) {
@@ -577,8 +586,4 @@ public class ChoiceOptionSettingsStage extends Stage {
         }
         return  attributeValues;
     }
-
-
-
-
 }
