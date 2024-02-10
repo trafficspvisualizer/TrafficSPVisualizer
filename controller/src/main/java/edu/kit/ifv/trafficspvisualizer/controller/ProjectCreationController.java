@@ -99,7 +99,8 @@ public class ProjectCreationController {
         controllerFacade.getViewFacade().setProject(newProject);
         controllerFacade.setProject(newProject);
 
-        //TODO: Update/initialize MainApplicationWindow
+        // Update/initialize MainApplicationWindow
+        controllerFacade.getViewFacade().getMainApplicationWindow().updateChoiceOptions();
         // Update Preview
         controllerFacade.getMainApplicationController().updatePreview();
     }
