@@ -549,11 +549,11 @@ public class ChoiceOptionSettingsStage extends Stage {
     }
 
     public List<ChoiceBox<String>> getRouteSectionColumnChoiceBoxList() {
-        return routeSectionColumnChoiceBoxList;
+        return routeSectionValueNameChoiceBoxList;
     }
 
     public List<List<CheckBox>> getAttributesColumnsCheckBoxList() {
-        return attributesColumnsCheckBoxList;
+        return attributesValueNamesCheckBoxList;
     }
 
     // values
@@ -567,8 +567,18 @@ public class ChoiceOptionSettingsStage extends Stage {
     }
 
     public String getRouteSectionColumnChoiceBoxSelection(int routeSectionIndex) {
-        return routeSectionColumnChoiceBoxList.get(routeSectionIndex).getSelectionModel().getSelectedItem();
+        return routeSectionValueNameChoiceBoxList.get(routeSectionIndex).getSelectionModel().getSelectedItem();
     }
+
+    public List<String> getAttributeValueSelection(int attributeIndex) {
+        List<String> attributeValues = new ArrayList<>();
+        for (CheckBox checkBox : attributesValueNamesCheckBoxList.get(attributeIndex)) {
+            attributeValues.add(checkBox.getText());
+        }
+        return  attributeValues;
+    }
+
+
 
 
 }

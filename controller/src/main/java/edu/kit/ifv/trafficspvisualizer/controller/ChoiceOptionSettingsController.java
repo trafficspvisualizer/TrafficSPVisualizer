@@ -7,6 +7,8 @@ import edu.kit.ifv.trafficspvisualizer.model.RouteSection;
 import edu.kit.ifv.trafficspvisualizer.view.window.ChoiceOptionSettingsStage;
 import javafx.scene.paint.Color;
 
+import java.util.List;
+
 /**
  * The ChoiceOptionSettingsController is the logic unit associated with the
  * {@link edu.kit.ifv.trafficspvisualizer.view.window.ChoiceOptionSettingsStage}.
@@ -138,17 +140,15 @@ public class ChoiceOptionSettingsController implements IconDisplayingController 
      */
     public void actionOnAttributeColumnMenu(int attributeIndex){
         //should  be called when option is selected
-        //TODO: Missing method to get AttributeColumn value
-        //List<String> columns = controllerFacade.getViewFacade().getChoiceOptionSettingsStage()
-        //        .getAttributeColumnValues(attributeIndex);
+        List<String> attributeValueSelection = controllerFacade.getViewFacade().getChoiceOptionSettingsStage()
+                .getAttributeValueSelection(attributeIndex);
         Attribute attribute = (Attribute)controllerFacade.getProject().getAttributes().get(attributeIndex);
 
         //map columns to attribute
         //TODO: change to accept list so no need to remove mappings, makes it easier
-        //for (String column : columns) {
-        //    attribute.mapToChoiceOption(controllerFacade.getProject().getChoiceOptions()
-        //                                .get(choiceOptionId).getName(), column);
-        //}
+        for (String value : attributeValueSelection) {
+            attribute.mapToChoiceOption(controllerFacade.getProject().getChoiceOptions().get(choiceOptionId), value);
+        }
 
         controllerFacade.getViewFacade().getChoiceOptionSettingsStage().updateAttributeScrollPane();
     }
@@ -195,7 +195,8 @@ public class ChoiceOptionSettingsController implements IconDisplayingController 
 
         // TODO: ColorPicker button
 
-        // TODO: Attribute Column
+        // Attribute values
+        updateAttributeActionListeners();
 
         // Close
         choiceOptionSettingsStage.getCloseButton().setOnAction(e -> actionOnCompleteButton());
@@ -229,6 +230,21 @@ public class ChoiceOptionSettingsController implements IconDisplayingController 
             choiceOptionSettingsStage.getRouteSectionColumnChoiceBoxList()
                                                 .get(index).getSelectionModel().selectedIndexProperty()
                                                 .addListener(e -> actionOnRouteSectionChoiceDataKeyMenu(index));
+        }
+    }
+
+    private void updateAttributeActionListeners() {
+        ChoiceOptionSettingsStage choiceOptionSettingsStage = controllerFacade.getViewFacade()
+                                                                                        .getChoiceOptionSettingsStage();
+        // iterate over attributes
+        for(int i = 0; i < choiceOptionSettingsStage.getAttributesColumnsCheckBoxList().size(); i++) {
+            // iterate over checkboxes
+            for(int j = 0; j < choiceOptionSettingsStage.getAttributesColumnsCheckBoxList().getFirst().size(); j++) {
+                int index = i;
+                // set listener for when checkbox is clicked
+                choiceOptionSettingsStage.getAttributesColumnsCheckBoxList().get(index).get(j)
+                                            .selectedProperty().addListener(e -> actionOnAttributeColumnMenu(index));
+            }
         }
     }
 }
