@@ -56,23 +56,27 @@ public final class ImageLibrary {
 
 
     // ExportSettingsStage
-    private static final Image EXPORT_SETTINGS_DIRECTORY_CHOOSER_BUTTON_IMAGE
-            = PROJECT_CREATION_DIRECTORY_CHOOSER_BUTTON_IMAGE;
+    private static final Image EXPORT_SETTINGS_DIRECTORY_CHOOSER_BUTTON_IMAGE =
+            PROJECT_CREATION_DIRECTORY_CHOOSER_BUTTON_IMAGE;
 
 
     // AttributeStage
-    private static final Image ATTRIBUTE_UP_SWITCH_ATTRIBUTE_BUTTON_IMAGE
-            = MAIN_APPLICATION_UP_SWITCH_CHOICE_OPTION_BUTTON_IMAGE;
+    private static final Image ATTRIBUTE_UP_SWITCH_ATTRIBUTE_BUTTON_IMAGE =
+            MAIN_APPLICATION_UP_SWITCH_CHOICE_OPTION_BUTTON_IMAGE;
 
-    private static final Image ATTRIBUTE_DOWN_SWITCH_ATTRIBUTE_BUTTON_IMAGE
-            = MAIN_APPLICATION_UP_SWITCH_CHOICE_OPTION_BUTTON_IMAGE;
+    private static final Image ATTRIBUTE_DOWN_SWITCH_ATTRIBUTE_BUTTON_IMAGE =
+            MAIN_APPLICATION_UP_SWITCH_CHOICE_OPTION_BUTTON_IMAGE;
 
-    private static final Image ATTRIBUTE_ATTRIBUTE_SETTINGS_BUTTON_IMAGE
-            = MAIN_APPLICATION_CHOICE_OPTION_SETTINGS_BUTTON_IMAGE;
+    private static final Image ATTRIBUTE_ATTRIBUTE_SETTINGS_BUTTON_IMAGE =
+            MAIN_APPLICATION_CHOICE_OPTION_SETTINGS_BUTTON_IMAGE;
 
     private static final Image ATTRIBUTE_ATTRIBUTE_REMOVE_BUTTON_IMAGE =
             new Image(String.valueOf(ImageLibrary.class.getResource(
                     "/data/image/attributeAttributeRemoveButtonImage.png")));
+
+    // ChoiceOptionSettingsStage
+    private static final Image CHOICE_OPTION_SETTINGS_ROUTE_SECTION_REMOVE_BUTTON_IMAGE =
+            ATTRIBUTE_ATTRIBUTE_REMOVE_BUTTON_IMAGE;
 
 
 
@@ -150,5 +154,12 @@ public final class ImageLibrary {
 
     public static Image getAttributeAttributeRemoveButtonImage() {
         return ATTRIBUTE_ATTRIBUTE_REMOVE_BUTTON_IMAGE;
+    }
+
+
+    // ChoiceOptionSettingsStage
+
+    public static Image getChoiceOptionSettingsRouteSectionRemoveButtonImage() {
+        return CHOICE_OPTION_SETTINGS_ROUTE_SECTION_REMOVE_BUTTON_IMAGE;
     }
 }

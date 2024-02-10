@@ -104,7 +104,6 @@ public class ExportSettingsStage extends Stage {
 
         exportTypeChoiceBox = new ChoiceBox<>();
         for (ExportType exportType : ExportType.values()) {
-
             exportTypeChoiceBox.getItems().add(languageStrategy.getExportTypeText(exportType));
         }
 
@@ -196,7 +195,7 @@ public class ExportSettingsStage extends Stage {
         GridPane.setValignment(exportTypeText, VPos.CENTER);
         exportTypeText.setFont(FontLibrary.getMidFont());
 
-        // exportTypeComboBox
+        // exportTypeChoiceBox
         GridPane.setHalignment(exportTypeChoiceBox, HPos.LEFT);
         GridPane.setValignment(exportTypeChoiceBox, VPos.CENTER);
         GridPane.setHgrow(exportTypeChoiceBox, Priority.ALWAYS);
