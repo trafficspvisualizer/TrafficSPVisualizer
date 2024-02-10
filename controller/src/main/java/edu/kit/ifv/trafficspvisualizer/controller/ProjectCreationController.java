@@ -76,7 +76,7 @@ public class ProjectCreationController {
         //try to parse inputFile
         try {
             dataObject = new NGDParser().parse(inputFile);
-        } catch (Exception e) {
+        } catch (IOException e) {
             controllerFacade.getViewFacade().getProjectCreationStage().showNewProjectErrorAlert();
             return;
         }

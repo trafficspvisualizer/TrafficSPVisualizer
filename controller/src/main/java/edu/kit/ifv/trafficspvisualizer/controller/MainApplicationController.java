@@ -62,7 +62,7 @@ public class MainApplicationController {
         Project newProject;
         try {
             newProject = new StandardProjectLoader().loadProject(selectedFile);
-        } catch (Exception e) {
+        } catch (IOException e) {
             controllerFacade.getViewFacade().getMainApplicationWindow().showLoadProjectErrorAlert();
             return;
         }

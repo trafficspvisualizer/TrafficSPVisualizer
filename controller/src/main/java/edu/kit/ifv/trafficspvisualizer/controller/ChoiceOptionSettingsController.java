@@ -5,6 +5,7 @@ import edu.kit.ifv.trafficspvisualizer.model.Icon;
 import edu.kit.ifv.trafficspvisualizer.model.LineType;
 import edu.kit.ifv.trafficspvisualizer.model.RouteSection;
 import edu.kit.ifv.trafficspvisualizer.view.window.ChoiceOptionSettingsStage;
+import javafx.scene.control.ButtonType;
 import javafx.scene.paint.Color;
 
 import java.util.List;
@@ -163,14 +164,24 @@ public class ChoiceOptionSettingsController implements IconDisplayingController 
     }
 
     /**
-     * Deletes {@link RouteSection} at given index from {@link edu.kit.ifv.trafficspvisualizer.model.ChoiceOption} with
-     * index {@link ChoiceOptionSettingsController#choiceOptionId}.
+     * Asks user to confirm deletion and deletes {@link RouteSection} at given index from
+     * {@link edu.kit.ifv.trafficspvisualizer.model.ChoiceOption} with index
+     * {@link ChoiceOptionSettingsController#choiceOptionId} if user clicked "ok".
      *
      * @param routeSectionIndex index of route section which should be deleted
      */
-    public void actionOnDeleteButton(int routeSectionIndex){
-        controllerFacade.getProject().getChoiceOptions().get(choiceOptionId).removeRouteSection(routeSectionIndex);
-        controllerFacade.getViewFacade().getChoiceOptionSettingsStage().updateRouteSectionScrollPane();
+    public void actionOnDeleteButton(int routeSectionIndex) {
+        // show confirmation and alert and delete route section only if user did click ok
+        controllerFacade.getViewFacade().getChoiceOptionSettingsStage()
+                .showRemoveRouteSectionConfirmationAlert()
+                .ifPresent(response -> {
+                    if (response == ButtonType.OK) {
+                        controllerFacade.getProject().getChoiceOptions()
+                                .get(choiceOptionId).removeRouteSection(routeSectionIndex);
+
+                        controllerFacade.getViewFacade().getChoiceOptionSettingsStage().updateRouteSectionScrollPane();
+                    }
+                });
     }
 
     @Override
