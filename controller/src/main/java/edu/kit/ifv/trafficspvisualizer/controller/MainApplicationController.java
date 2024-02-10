@@ -68,8 +68,8 @@ public class MainApplicationController {
         controllerFacade.setProject(newProject);
         controllerFacade.getViewFacade().setProject(newProject);
 
-        //TODO: Load MainApplicationWindow
-        // Update Preview
+        // update MainApplicationWindow
+        updateChoiceOptions();
         updatePreview();
     }
 
