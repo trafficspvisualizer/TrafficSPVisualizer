@@ -41,7 +41,7 @@ public class ProjectCreationController {
 
     /**
      * Instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.ProjectCreationStage} to open
-     * {@link javafx.stage.FileChooser} and sets returned value as project folder path.
+     * {@link javafx.stage.DirectoryChooser} and sets returned value as project folder path.
      */
     public void actionOnProjectFolderButton(){
         File selectedFile = controllerFacade.getViewFacade().getProjectCreationStage().showDirectoryChooserDialog();
