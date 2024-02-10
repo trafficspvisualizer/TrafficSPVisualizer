@@ -3,6 +3,7 @@ package edu.kit.ifv.trafficspvisualizer.controller;
 import edu.kit.ifv.trafficspvisualizer.model.AbstractAttribute;
 import edu.kit.ifv.trafficspvisualizer.model.SeparatorLine;
 import edu.kit.ifv.trafficspvisualizer.view.window.AttributeStage;
+import javafx.scene.control.ButtonType;
 
 /**
  * The AttributeController represents the logic unit associated with the
@@ -59,14 +60,21 @@ public class AttributeController {
     }
 
     /**
-     * Instructs model to delete attribute at given index and notifies
+     * Ask user for confirmation and instructs model to delete attribute at given index if user confirms. Notifies
      * {@link edu.kit.ifv.trafficspvisualizer.view.window.AttributeStage} of change.
      *
      * @param attributeIndex the index of the attribute which should be deleted
      */
     public void actionOnDeleteButton(int attributeIndex){
-        controllerFacade.getProject().getAttributes().remove(attributeIndex);
-        controllerFacade.getViewFacade().getAttributeStage().updateStage();
+
+        controllerFacade.getViewFacade().getAttributeStage()
+                .showRemoveAttributeProjectConfirmationAlert()
+                .ifPresent(response -> {
+                    if (response == ButtonType.OK) {
+                        controllerFacade.getProject().getAttributes().remove(attributeIndex);
+                        controllerFacade.getViewFacade().getAttributeStage().updateStage();
+                    }
+                });
     }
 
     /**
