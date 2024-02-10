@@ -3,10 +3,7 @@ package edu.kit.ifv.trafficspvisualizer.controller;
 import edu.kit.ifv.trafficspvisualizer.model.Project;
 import edu.kit.ifv.trafficspvisualizer.model.ExportType;
 import edu.kit.ifv.trafficspvisualizer.util.export.Exporter;
-import edu.kit.ifv.trafficspvisualizer.util.image.ChoiceOptionGenerator;
-import edu.kit.ifv.trafficspvisualizer.util.image.ChoiceOptionImage;
-import edu.kit.ifv.trafficspvisualizer.util.image.ImageCollectionGenerator;
-import edu.kit.ifv.trafficspvisualizer.util.image.SituationGenerator;
+import edu.kit.ifv.trafficspvisualizer.util.image.*;
 import edu.kit.ifv.trafficspvisualizer.util.project.StandardProjectLoader;
 import edu.kit.ifv.trafficspvisualizer.util.project.StandardProjectSaver;
 import edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow;
@@ -227,6 +224,9 @@ public class MainApplicationController {
      * Instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow} to update preview.
      */
     public void updatePreview() {
+        SituationGenerator situationGenerator = new SituationGenerator();
+        controllerFacade.getViewFacade().getMainApplicationWindow()
+                                .setPreviewImage(situationGenerator.createPreviewImage(controllerFacade.getProject()));
         controllerFacade.getViewFacade().getMainApplicationWindow().updateCurrentPreviewSituation();
     }
 
