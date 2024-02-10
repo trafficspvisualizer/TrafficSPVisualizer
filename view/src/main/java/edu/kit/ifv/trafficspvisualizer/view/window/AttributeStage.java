@@ -246,9 +246,9 @@ public class AttributeStage extends Stage {
         upSwitchAttributeButtonList.clear();
         downSwitchAttributeButtonList.clear();
 
-        int currentRow = 0;
+        int currentRowIndex = 0;
         for (AbstractAttribute abstractAttribute : viewFacade.getProject().getAttributes()) {
-            currentRow += 2;
+            currentRowIndex += 2;
 
             CheckBox attributeActiveCheckBox = new CheckBox();
             attributeActiveCheckBox.setSelected(abstractAttribute.isActive());
@@ -258,7 +258,7 @@ public class AttributeStage extends Stage {
             attributeActiveCheckBox.setFont(FontLibrary.getSmallFont());
 
             attributeActiveCheckBoxList.add(attributeActiveCheckBox);
-            attributeGridPane.add(attributeActiveCheckBox, 0, currentRow);
+            attributeGridPane.add(attributeActiveCheckBox, 0, currentRowIndex);
 
 
 
@@ -276,7 +276,7 @@ public class AttributeStage extends Stage {
             GridPane.setValignment(upSwitchAttributeButton, VPos.CENTER);
 
             upSwitchAttributeButtonList.add(upSwitchAttributeButton);
-            attributeGridPane.add(upSwitchAttributeButton, 8, currentRow);
+            attributeGridPane.add(upSwitchAttributeButton, 8, currentRowIndex);
 
 
 
@@ -294,7 +294,7 @@ public class AttributeStage extends Stage {
             GridPane.setValignment(downSwitchAttributeButton, VPos.CENTER);
 
             downSwitchAttributeButtonList.add(downSwitchAttributeButton);
-            attributeGridPane.add(downSwitchAttributeButton, 9, currentRow);
+            attributeGridPane.add(downSwitchAttributeButton, 9, currentRowIndex);
 
 
 
@@ -312,7 +312,7 @@ public class AttributeStage extends Stage {
             GridPane.setValignment(attributeSettingsButton, VPos.CENTER);
 
             attributeSettingsButtonList.add(attributeSettingsButton);
-            attributeGridPane.add(attributeSettingsButton, 10, currentRow);
+            attributeGridPane.add(attributeSettingsButton, 10, currentRowIndex);
 
 
 
@@ -330,12 +330,12 @@ public class AttributeStage extends Stage {
             GridPane.setValignment(attributeRemoveButton, VPos.CENTER);
 
             attributeRemoveButtonList.add(attributeRemoveButton);
-            attributeGridPane.add(attributeRemoveButton, 11, currentRow);
+            attributeGridPane.add(attributeRemoveButton, 11, currentRowIndex);
 
 
 
             if (abstractAttribute instanceof Attribute attribute) {
-                addAttribute(attribute, currentRow);
+                addAttribute(attribute, currentRowIndex);
             } else {
                 Text separatorLineText = new Text(viewFacade.getLanguageStrategy().getAttributeSeparatorLineText());
 
@@ -343,7 +343,7 @@ public class AttributeStage extends Stage {
                 GridPane.setValignment(separatorLineText, VPos.CENTER);
                 separatorLineText.setFont(FontLibrary.getMidFont());
 
-                attributeGridPane.add(separatorLineText, 1, currentRow, 6,1);
+                attributeGridPane.add(separatorLineText, 1, currentRowIndex, 6,1);
 
 
 
