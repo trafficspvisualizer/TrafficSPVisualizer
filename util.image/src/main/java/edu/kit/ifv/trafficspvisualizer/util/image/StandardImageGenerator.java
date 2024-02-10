@@ -7,6 +7,8 @@ import edu.kit.ifv.trafficspvisualizer.model.DataObject;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.List;
+import java.util.Map;
+
 public class StandardImageGenerator extends ImageGenerator{
     private static final double ATTRIBUTE_DRAWING_HEIGHT_CONSTANT = 0.39;
     private int heightOfHeadline;
@@ -16,6 +18,7 @@ public class StandardImageGenerator extends ImageGenerator{
     private int attributeHeight;
     private int attributeDrawingHeight;
     private int distanceToSide;
+    private DataObject dataObject;
     private ChoiceOption choiceOption;
     private Graphics2D graphics2DHeadline;
     private Graphics2D graphics2DChoiceOption;
@@ -34,6 +37,7 @@ public class StandardImageGenerator extends ImageGenerator{
         this.distanceToSide = width / 20;
         this.choiceOption = choiceOption;
         this.attributes = attributes;
+        this.dataObject = dataObject;
         javafx.scene.paint.Color fxColor = choiceOption.getColor();
         this.color = new java.awt.Color((float) fxColor.getRed(),
                 (float) fxColor.getGreen(),
@@ -90,14 +94,15 @@ public class StandardImageGenerator extends ImageGenerator{
         int currentXCoordinate = distanceToSide;
         for (AbstractAttribute attribute : attributes) {
             if (attribute instanceof Attribute) {
-                BufferedImage attributeImage = createOneAttributeImage();
+                BufferedImage attributeImage = createOneAttributeImage((Attribute) attribute);
                 currentXCoordinate += attributeWidth;
 
             } else {
+                currentXCoordinate += (int) separatorLineStrokeWidth / 2;
                 BasicStroke separatorLineStroke = new BasicStroke(separatorLineStrokeWidth);
                 graphics2DChoiceOption.setStroke(separatorLineStroke);
                 graphics2DChoiceOption.drawLine(currentXCoordinate, attributeDrawingHeight, currentXCoordinate, attributeDrawingHeight + attributeHeight);
-                currentXCoordinate += (int) separatorLineStrokeWidth + 1;
+                currentXCoordinate += (int) separatorLineStrokeWidth / 2 + 1;
             }
         }
 
@@ -143,7 +148,15 @@ public class StandardImageGenerator extends ImageGenerator{
         }
     }
 
-    private BufferedImage createOneAttributeImage() {
+    private BufferedImage createOneAttributeImage(Attribute attribute) {
+        List<String> choiceOptionMappings = attribute.getMapping(choiceOption);
+        double attributeValue = 0;
+        for (String string : choiceOptionMappings) {
+            attributeValue += dataObject.getAttributeValue(1, choiceOption.getName(), string); //TODO situationindex als Parameter
+        }
+        int decimalPlaces = attribute.getDecimalPlaces();
+        int integerAttributeValue = (int) attributeValue; //TODO roundValue
+        String text = attribute.getPrefix() + integerAttributeValue + attribute.getSuffix();
         return null;
     }
 
