@@ -10,5 +10,5 @@ import java.util.List;
 public abstract class ImageGenerator {
 
     public abstract BufferedImage createChoiceOption(ChoiceOption choiceOption, DataObject dataObject,
-                                                     List<AbstractAttribute> attributes, int height, int width, double min, double max);
+                                                     List<AbstractAttribute> attributes, int height, int width, double min, double max, int situationIndex);
 }

@@ -20,13 +20,14 @@ public class StandardImageGenerator extends ImageGenerator{
     private int distanceToSide;
     private DataObject dataObject;
     private ChoiceOption choiceOption;
+    private int situationIndex;
     private Graphics2D graphics2DHeadline;
     private Graphics2D graphics2DChoiceOption;
     private List<AbstractAttribute> attributes;
     private java.awt.Color color;
     @Override
     public BufferedImage createChoiceOption(ChoiceOption choiceOption, DataObject dataObject,
-                                            List<AbstractAttribute> attributes, int height, int width, double min, double max) {
+                                            List<AbstractAttribute> attributes, int height, int width, double min, double max, int situationIndex) {
         BufferedImage choiceOptionImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         this.heightOfHeadline = height / 4;
         this.height = height;
@@ -38,6 +39,7 @@ public class StandardImageGenerator extends ImageGenerator{
         this.choiceOption = choiceOption;
         this.attributes = attributes;
         this.dataObject = dataObject;
+        this.situationIndex = situationIndex;
         javafx.scene.paint.Color fxColor = choiceOption.getColor();
         this.color = new java.awt.Color((float) fxColor.getRed(),
                 (float) fxColor.getGreen(),
@@ -95,6 +97,7 @@ public class StandardImageGenerator extends ImageGenerator{
         for (AbstractAttribute attribute : attributes) {
             if (attribute instanceof Attribute) {
                 BufferedImage attributeImage = createOneAttributeImage((Attribute) attribute);
+                graphics2DChoiceOption.drawImage(attributeImage, currentXCoordinate, attributeDrawingHeight, null);
                 currentXCoordinate += attributeWidth;
 
             } else {
@@ -152,7 +155,7 @@ public class StandardImageGenerator extends ImageGenerator{
         List<String> choiceOptionMappings = attribute.getMapping(choiceOption);
         double attributeValue = 0;
         for (String string : choiceOptionMappings) {
-            attributeValue += dataObject.getAttributeValue(1, choiceOption.getName(), string); //TODO situationindex als Parameter
+            attributeValue += dataObject.getAttributeValue(situationIndex, choiceOption.getName(), string);
         }
         int decimalPlaces = attribute.getDecimalPlaces();
         int integerAttributeValue = (int) attributeValue; //TODO roundValue
