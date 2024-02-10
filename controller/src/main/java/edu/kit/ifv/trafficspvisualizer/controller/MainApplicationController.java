@@ -8,6 +8,7 @@ import edu.kit.ifv.trafficspvisualizer.util.project.StandardProjectLoader;
 import edu.kit.ifv.trafficspvisualizer.util.project.StandardProjectSaver;
 import edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 
 import java.io.File;
 import java.io.IOException;
@@ -148,6 +149,7 @@ public class MainApplicationController {
      * Then creates subclass {@link Exporter} to export the generated images.
      */
     public void actionOnExportButton(){
+
         // if no project is currently loaded
         if (controllerFacade.getProject() == null) {
             controllerFacade.getViewFacade().getMainApplicationWindow().showNoProjectErrorAlert();
@@ -219,6 +221,18 @@ public class MainApplicationController {
         // Update Preview
         updatePreview();
     }
+    /**
+     * Ask user for confirmation to close application without saving and closes application if user confirms.
+     */
+    public void actionOnCloseRequest(){
+        controllerFacade.getViewFacade().getMainApplicationWindow()
+                .showCloseProjectConfirmationAlert()
+                .ifPresent(response -> {
+                    if (response == ButtonType.OK) {
+                        controllerFacade.getViewFacade().getMainApplicationWindow().close();
+                    }
+                });
+    }
 
     /**
      * Instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow} to update preview.
@@ -259,6 +273,9 @@ public class MainApplicationController {
     private void setActionListeners(){
 
         MainApplicationWindow mainApplicationWindow = controllerFacade.getViewFacade().getMainApplicationWindow();
+
+        // Close Request
+        mainApplicationWindow.setOnCloseRequest(e -> actionOnCloseRequest());
 
         // File Menu
         mainApplicationWindow.getNewProjectMenuItem().setOnAction(e -> actionOnNewProjectButton());
