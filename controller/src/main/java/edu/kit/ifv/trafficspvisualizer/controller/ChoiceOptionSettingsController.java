@@ -1,9 +1,6 @@
 package edu.kit.ifv.trafficspvisualizer.controller;
 
-import edu.kit.ifv.trafficspvisualizer.model.Attribute;
-import edu.kit.ifv.trafficspvisualizer.model.Icon;
-import edu.kit.ifv.trafficspvisualizer.model.LineType;
-import edu.kit.ifv.trafficspvisualizer.model.RouteSection;
+import edu.kit.ifv.trafficspvisualizer.model.*;
 import edu.kit.ifv.trafficspvisualizer.view.window.ChoiceOptionSettingsStage;
 import javafx.scene.control.ButtonType;
 import javafx.scene.paint.Color;
@@ -141,12 +138,23 @@ public class ChoiceOptionSettingsController implements IconDisplayingController 
         //should  be called when option is selected
         List<String> attributeValueSelection = controllerFacade.getViewFacade().getChoiceOptionSettingsStage()
                 .getAttributeValueSelection(attributeIndex);
-        Attribute attribute = (Attribute)controllerFacade.getProject().getAttributes().get(attributeIndex);
 
-        //map columns to attribute
-        //TODO: change to accept list so no need to remove mappings, makes it easier
+        Attribute attribute = (Attribute) controllerFacade.getProject().getAttributes().get(attributeIndex);
+        ChoiceOption choiceOption = controllerFacade.getProject().getChoiceOptions().get(choiceOptionId);
+
+        //TODO: maybe change to accept list so no need to remove mappings, makes it easier
+
+        // get old mappings - empty list if no mappings
+        List <String> oldMappings = attribute.getMapping(choiceOption);
+
+        // delete old mappings
+        for (String oldMapping: oldMappings) {
+            attribute.removeMapping(choiceOption, oldMapping);
+        }
+
+        // map new values to attribute
         for (String value : attributeValueSelection) {
-            attribute.mapToChoiceOption(controllerFacade.getProject().getChoiceOptions().get(choiceOptionId), value);
+            attribute.mapToChoiceOption(choiceOption, value);
         }
 
         controllerFacade.getViewFacade().getChoiceOptionSettingsStage().updateAttributeScrollPane();
