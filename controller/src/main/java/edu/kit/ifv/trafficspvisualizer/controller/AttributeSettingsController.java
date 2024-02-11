@@ -105,10 +105,7 @@ public class AttributeSettingsController implements IconDisplayingController {
         // if attributeIndex is out of bounds, index is given by AttributeController
         } else {
             //create new attribute
-            //TODO: Not sure if this works
-            Map<ChoiceOption, List<String>> choiceOptionMappings = new HashMap<>();
-            Attribute newAttribute = new Attribute(name, icon, prefix, suffix, isPermanentlyVisible,
-                                                                                decimalPlaces, choiceOptionMappings);
+            Attribute newAttribute = new Attribute(name, icon, prefix, suffix, isPermanentlyVisible, decimalPlaces);
             //TODO: maybe add "addAttribute()" method, no need to give list
             controllerFacade.getProject().getAttributes().add(newAttribute);
         }
