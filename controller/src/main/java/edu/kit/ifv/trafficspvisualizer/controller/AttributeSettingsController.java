@@ -1,13 +1,8 @@
 package edu.kit.ifv.trafficspvisualizer.controller;
 
 import edu.kit.ifv.trafficspvisualizer.model.Attribute;
-import edu.kit.ifv.trafficspvisualizer.model.ChoiceOption;
 import edu.kit.ifv.trafficspvisualizer.model.Icon;
 import edu.kit.ifv.trafficspvisualizer.view.window.AttributeSettingsStage;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * The AttributeSettingsController represents the logic unit associated with the
