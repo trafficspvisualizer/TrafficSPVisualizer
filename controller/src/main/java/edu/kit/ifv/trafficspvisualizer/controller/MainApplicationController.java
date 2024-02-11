@@ -285,7 +285,7 @@ public class MainApplicationController {
         mainApplicationWindow.getSaveProjectMenuItem().setOnAction(e -> actionOnSaveButton());
 
         //Help Menu
-        mainApplicationWindow.getHelpMenu().setOnAction(e -> actionOnHelpButton());
+        mainApplicationWindow.getInstructionMenuItem().setOnAction(e -> actionOnHelpButton());
 
         //Export Buttons
         mainApplicationWindow.getExportButton().setOnAction(e -> actionOnExportButton());

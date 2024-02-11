@@ -617,8 +617,8 @@ public class MainApplicationWindow {
         return saveProjectMenuItem;
     }
 
-    public Menu getHelpMenu() {
-        return helpMenu;
+    public MenuItem getInstructionMenuItem() {
+        return instructionMenuItem;
     }
 
 
