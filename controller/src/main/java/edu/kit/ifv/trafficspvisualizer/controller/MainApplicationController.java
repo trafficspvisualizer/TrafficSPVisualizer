@@ -3,7 +3,9 @@ package edu.kit.ifv.trafficspvisualizer.controller;
 import edu.kit.ifv.trafficspvisualizer.model.Project;
 import edu.kit.ifv.trafficspvisualizer.model.ExportType;
 import edu.kit.ifv.trafficspvisualizer.util.export.Exporter;
-import edu.kit.ifv.trafficspvisualizer.util.image.*;
+import edu.kit.ifv.trafficspvisualizer.util.image.ChoiceOptionGenerator;
+import edu.kit.ifv.trafficspvisualizer.util.image.ImageCollectionGenerator;
+import edu.kit.ifv.trafficspvisualizer.util.image.SituationGenerator;
 import edu.kit.ifv.trafficspvisualizer.util.project.StandardProjectLoader;
 import edu.kit.ifv.trafficspvisualizer.util.project.StandardProjectSaver;
 import edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow;
@@ -224,6 +226,8 @@ public class MainApplicationController {
     }
     /**
      * Asks user for confirmation to close application without saving and closes application if user confirms.
+     *
+     * @param event the close event that is consumed
      */
     public void actionOnCloseRequest(Event event){
         event.consume();
