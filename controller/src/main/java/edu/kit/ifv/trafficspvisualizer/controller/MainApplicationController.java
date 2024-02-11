@@ -7,6 +7,7 @@ import edu.kit.ifv.trafficspvisualizer.util.image.*;
 import edu.kit.ifv.trafficspvisualizer.util.project.StandardProjectLoader;
 import edu.kit.ifv.trafficspvisualizer.util.project.StandardProjectSaver;
 import edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow;
+import javafx.event.Event;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 
@@ -222,9 +223,10 @@ public class MainApplicationController {
         updatePreview();
     }
     /**
-     * Ask user for confirmation to close application without saving and closes application if user confirms.
+     * Asks user for confirmation to close application without saving and closes application if user confirms.
      */
-    public void actionOnCloseRequest(){
+    public void actionOnCloseRequest(Event event){
+        event.consume();
         controllerFacade.getViewFacade().getMainApplicationWindow()
                 .showCloseProjectConfirmationAlert()
                 .ifPresent(response -> {
@@ -275,7 +277,7 @@ public class MainApplicationController {
         MainApplicationWindow mainApplicationWindow = controllerFacade.getViewFacade().getMainApplicationWindow();
 
         // Close Request
-        mainApplicationWindow.setOnCloseRequest(e -> actionOnCloseRequest());
+        mainApplicationWindow.setOnCloseRequest(event -> actionOnCloseRequest(event));
 
         // File Menu
         mainApplicationWindow.getNewProjectMenuItem().setOnAction(e -> actionOnNewProjectButton());
