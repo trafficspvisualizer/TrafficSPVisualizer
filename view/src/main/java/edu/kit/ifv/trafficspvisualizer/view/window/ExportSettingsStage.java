@@ -241,7 +241,9 @@ public class ExportSettingsStage extends Stage {
 
         widthTextField.setText(String.valueOf(exportSettings.getImageWidth()));
 
-        exportDirectoryTextField.setText(exportSettings.getExportPath().toFile().getAbsolutePath());
+        if (exportSettings.getExportPath() != null) {
+            exportDirectoryTextField.setText(exportSettings.getExportPath().toFile().getAbsolutePath());
+        }
 
         exportTypeChoiceBox.setValue(viewFacade.getLanguageStrategy()
                 .getExportTypeText(exportSettings.getExportType()));
