@@ -65,6 +65,7 @@ public class ChoiceOptionSettingsController implements IconDisplayingController 
 
         // Update Preview
         controllerFacade.getMainApplicationController().updatePreview();
+        controllerFacade.getMainApplicationController().updateChoiceOptions();
     }
 
     /**
