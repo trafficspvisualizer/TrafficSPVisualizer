@@ -69,15 +69,14 @@ public class AttributeSettingsController implements IconDisplayingController {
         String decimalPlacesString = controllerFacade.getViewFacade().
                                             getAttributeSettingsStage().getNumberOfDecimalPlaces();
 
-        // check if decimal places string is actually a number
-        final String decimalPlacesRegex = "^\\d*$";
-        if(!decimalPlacesString.matches(decimalPlacesRegex)) {
+        // converting decimal places to integer
+        int decimalPlaces;
+        try {
+            decimalPlaces = Integer.parseInt(decimalPlacesString);
+        } catch (NumberFormatException e) {
             controllerFacade.getViewFacade().getAttributeSettingsStage().showSaveErrorAlert();
             return;
         }
-
-        // converting to integer, should never throw exception because of check before
-        int decimalPlaces = Integer.parseInt(decimalPlacesString);
 
         // get icon from iconId
         Icon icon = controllerFacade.getProject().getIconManager().getIcons().get(iconId);
