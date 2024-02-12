@@ -35,4 +35,17 @@ class RouteSectionTest {
         routeSection.setLineType(LineType.SOLID);
         assertEquals(LineType.SOLID, routeSection.getLineType());
     }
+
+    @Test
+    void testEqualsAndHashCode() {
+        RouteSection other = new RouteSection(
+            routeSection.getIcon(), routeSection.getChoiceDataKey(), routeSection.getLineType()
+        );
+
+        assertEquals(routeSection, other);
+        assertEquals(routeSection.hashCode(), other.hashCode());
+        routeSection.setIcon(mock(Icon.class));
+        assertNotEquals(routeSection, other);
+        assertNotEquals(routeSection.hashCode(), other.hashCode());
+    }
 }

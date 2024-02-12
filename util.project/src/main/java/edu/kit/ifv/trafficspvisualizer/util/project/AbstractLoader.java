@@ -68,11 +68,6 @@ public abstract class AbstractLoader {
         return null;
     }
 
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
-
     /**
      * Creates an Attribute from a JSONObject.
      *
