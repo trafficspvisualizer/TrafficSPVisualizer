@@ -245,10 +245,11 @@ public class MainApplicationController {
      * Instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow} to update preview.
      */
     public void updatePreview() {
-        SituationGenerator situationGenerator = new SituationGenerator();
-        controllerFacade.getViewFacade().getMainApplicationWindow()
-                                .setPreviewImage(situationGenerator.createPreviewImage(controllerFacade.getProject()));
-        controllerFacade.getViewFacade().getMainApplicationWindow().updateCurrentPreviewSituation();
+        // TODO: Remove comments when fixed
+        //SituationGenerator situationGenerator = new SituationGenerator();
+        //controllerFacade.getViewFacade().getMainApplicationWindow()
+        //                        .setPreviewImage(situationGenerator.createPreviewImage(controllerFacade.getProject()));
+        //controllerFacade.getViewFacade().getMainApplicationWindow().updateCurrentPreviewSituation();
     }
 
     public void updateChoiceOptions() {
