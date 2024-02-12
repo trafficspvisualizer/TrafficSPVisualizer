@@ -296,8 +296,16 @@ public class ExportSettingsStage extends Stage {
         return widthTextField.getText();
     }
 
-    public String getExportTypeString() {
-        return exportTypeChoiceBox.getValue();
+    public ExportType getExportType() {
+        // check which export type fits the displayed string
+        for(ExportType exportType: ExportType.values()) {
+            if (exportTypeChoiceBox.getValue().equals(viewFacade.getLanguageStrategy().getExportTypeText(exportType))) {
+                return exportType;
+            }
+        }
+
+        // default value, method should never reach this point
+        return ExportType.CHOICE_OPTION;
     }
 
     public String getExportDirectoryPathString() {
