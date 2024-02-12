@@ -1,5 +1,6 @@
 package edu.kit.ifv.trafficspvisualizer.controller;
 
+import edu.kit.ifv.trafficspvisualizer.model.ExportSettings;
 import edu.kit.ifv.trafficspvisualizer.model.Project;
 import edu.kit.ifv.trafficspvisualizer.model.ExportType;
 import edu.kit.ifv.trafficspvisualizer.util.export.Exporter;
@@ -153,6 +154,15 @@ public class MainApplicationController {
      * Then creates subclass {@link Exporter} to export the generated images.
      */
     public void actionOnExportButton(){
+
+        // check if exportSettings are fully configured
+        ExportSettings exportSettings = controllerFacade.getProject().getExportSettings();
+        if(exportSettings.getExportPath() == null || exportSettings.getExportType() == null
+                || exportSettings.getFileFormat() == null) {
+            controllerFacade.getViewFacade().getMainApplicationWindow().showExportErrorAlert();
+            return;
+        }
+
 
         // if no project is currently loaded
         if (controllerFacade.getProject() == null) {
