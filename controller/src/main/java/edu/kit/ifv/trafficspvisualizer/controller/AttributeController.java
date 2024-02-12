@@ -51,6 +51,7 @@ public class AttributeController {
         controllerFacade.getProject().addAttribute(newAttribute);
         controllerFacade.createAttributeSettingsController(controllerFacade.getProject().getAttributes().size() - 1,
                                                                                                 true);
+
     }
 
     /**
@@ -75,10 +76,10 @@ public class AttributeController {
                 .ifPresent(response -> {
                     if (response == ButtonType.OK) {
                         controllerFacade.getProject().removeAttribute(attributeIndex);
-                        controllerFacade.getViewFacade().getAttributeStage().updateStage();
+                        update();
                     }
                 });
-        update();
+
     }
 
     /**
