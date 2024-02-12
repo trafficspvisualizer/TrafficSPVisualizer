@@ -53,13 +53,13 @@ public class ChoiceOptionImage {
         if (choiceOptionNumber < 0) {
             throw new IllegalArgumentException("Scenario Number must be greater than 0");
         }
-        infos.set(1,String.valueOf(choiceOptionNumber));
+        infos.set(2,String.valueOf(choiceOptionNumber));
     }
 
     public void setScenarioNumber(int scenarioNumber) {
         if (scenarioNumber < 0) {
             throw new IllegalArgumentException("Scenario Number must be greater than 0");
         }
-        infos.set(1,String.valueOf(scenarioNumber));
+        infos.set(0,String.valueOf(scenarioNumber));
     }
 }
