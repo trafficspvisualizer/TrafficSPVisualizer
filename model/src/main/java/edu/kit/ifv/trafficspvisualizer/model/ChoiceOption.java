@@ -54,7 +54,7 @@ public class ChoiceOption {
     }
 
     public List<RouteSection> getRouteSections() {
-        return routeSections;
+        return List.copyOf(routeSections);
     }
 
     public String getTitle() {
@@ -83,6 +83,6 @@ public class ChoiceOption {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, routeSections, title, color);
+        return Objects.hash(name);
     }
 }

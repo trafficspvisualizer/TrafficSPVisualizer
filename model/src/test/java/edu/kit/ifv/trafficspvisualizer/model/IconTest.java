@@ -19,10 +19,22 @@ class IconTest {
 
     }
 
-    @Test
-    void testGetFilePath() {
-        Path testPath = Path.of("path/test");
+    @ParameterizedTest
+    @ValueSource (strings = { "path/test", "", "123", "."})
+    void testGetFilePath(String path) {
+        Path testPath = Paths.get(path);
         Icon icon = new SVGIcon(testPath, 100);
-        assertEquals(Paths.get("path/test/100.svg"), icon.getIconPath());
+        assertEquals(testPath.resolve("100.svg"), icon.getIconPath());
+    }
+
+    @Test
+    void testEqualsAndHashCode() {
+        Icon icon = new SVGIcon(Paths.get("path/test"), 0);
+        Icon other = new SVGIcon(icon.getIconPath().getParent(), icon.getIdentifier());
+        assertEquals(icon, other);
+        assertEquals(icon.hashCode(), other.hashCode());
+        other = new SVGIcon(Paths.get("path/other"), 0);
+        assertNotEquals(icon, other);
+        assertNotEquals(icon.hashCode(), other.hashCode());
     }
 }
