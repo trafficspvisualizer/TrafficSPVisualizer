@@ -484,7 +484,7 @@ public class MainApplicationWindow {
         Button downSwitchChoiceOptionButton = new Button();
         downSwitchChoiceOptionButton.setGraphic(downSwitchChoiceOptionButtonImageView);
 
-        choiceOptionSettingsButtonList.add(downSwitchChoiceOptionButton);
+        downSwitchChoiceOptionButtonList.add(downSwitchChoiceOptionButton);
 
 
         GridPane choiceOptionButtonGridPane = new GridPane();
@@ -523,6 +523,7 @@ public class MainApplicationWindow {
         choiceOptionBorderPane.setLeft(choiceOptionTitleText);
         choiceOptionBorderPane.setRight(choiceOptionButtonGridPane);
         choiceOptionBorderPane.setBottom(routeSectionGridPane);
+
 
         choiceOptionVBox.getChildren().add(choiceOptionBorderPane);
     }
