@@ -575,14 +575,16 @@ public class ChoiceOptionSettingsStage extends Stage {
         return routeSectionLineTypeChoiceBoxList.get(routeSectionIndex).getSelectionModel().getSelectedItem();
     }
 
-    public String getRouteSectionColumnChoiceBoxSelection(int routeSectionIndex) {
+    public String getRouteSectionValueNameSelection(int routeSectionIndex) {
         return routeSectionValueNameChoiceBoxList.get(routeSectionIndex).getSelectionModel().getSelectedItem();
     }
 
-    public List<String> getAttributeValueSelection(int attributeIndex) {
+    public List<String> getAttributeValueNamesSelection(int attributeIndex) {
         List<String> attributeValues = new ArrayList<>();
         for (CheckBox checkBox : attributesValueNamesCheckBoxList.get(attributeIndex)) {
-            attributeValues.add(checkBox.getText());
+            if (checkBox.isSelected()) {
+                attributeValues.add(checkBox.getText());
+            }
         }
         return  attributeValues;
     }
