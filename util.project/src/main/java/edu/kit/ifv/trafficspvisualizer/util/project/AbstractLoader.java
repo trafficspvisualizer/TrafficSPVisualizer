@@ -59,7 +59,7 @@ public abstract class AbstractLoader {
      * @param jsonObject The JSONObject to create the AbstractAttribute from.
      * @return The created AbstractAttribute, or null if the JSONObject does not represent an attribute.
      */
-    private AbstractAttribute createAttribute(JSONObject jsonObject) {
+    protected AbstractAttribute createAttribute(JSONObject jsonObject) {
         if (jsonObject.has(SharedConstants.KEY_ATTRIBUTE)) {
             return createAttributeFromJson(jsonObject.getJSONObject(SharedConstants.KEY_ATTRIBUTE));
         } else if (jsonObject.has(SharedConstants.KEY_LINE_SEPARATOR)) {
@@ -74,7 +74,7 @@ public abstract class AbstractLoader {
      * @param attributeJSON The JSONObject to create the Attribute from.
      * @return The created Attribute.
      */
-    private Attribute createAttributeFromJson(JSONObject attributeJSON) {
+    protected Attribute createAttributeFromJson(JSONObject attributeJSON) {
         String prefix = attributeJSON.optString(SharedConstants.KEY_PREFIX);
         String name = attributeJSON.optString(SharedConstants.KEY_NAME);
         String suffix = attributeJSON.optString(SharedConstants.KEY_SUFFIX);
@@ -145,7 +145,7 @@ public abstract class AbstractLoader {
      * @param routeSection The JSONObject to create the RouteSection from.
      * @return The created RouteSection.
      */
-    private RouteSection createRouteSection(JSONObject routeSection) {
+    protected RouteSection createRouteSection(JSONObject routeSection) {
         String choiceDataKey  = routeSection.optString(SharedConstants.KEY_CHOICE_DATA_KEY);
         String lineType = routeSection.optString(SharedConstants.KEY_LINE_TYPE);
         return new RouteSection(null,choiceDataKey,LineType.fromString(lineType));
@@ -197,7 +197,7 @@ public abstract class AbstractLoader {
      * @param jsonAttributes The JSONArray containing the attributes.
      * @param choiceOptions The list of ChoiceOption to be updated.
      */
-    private void updateProjectAttributes(Project project, JSONArray jsonAttributes, List<ChoiceOption> choiceOptions) {
+    protected void updateProjectAttributes(Project project, JSONArray jsonAttributes, List<ChoiceOption> choiceOptions) {
         for (int i = 0; i < project.getAttributes().size(); i++) {
             JSONObject obj = jsonAttributes.optJSONObject(i);
             if (project.getAttributes().get(i) instanceof Attribute attribute1 && obj.has(SharedConstants.KEY_ATTRIBUTE)) {
