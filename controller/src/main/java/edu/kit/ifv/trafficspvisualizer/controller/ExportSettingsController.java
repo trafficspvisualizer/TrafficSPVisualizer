@@ -62,6 +62,13 @@ public class ExportSettingsController {
                                                                                         getExportDirectoryPathString();
         ExportType exportType = controllerFacade.getViewFacade().getExportSettingsStage().getExportType();
 
+        // check validity of input
+        if (heightString.isEmpty() || widthString.isEmpty() || exportDirectoryPathString.isEmpty()
+                || exportType == null) {
+            controllerFacade.getViewFacade().getExportSettingsStage().showSaveErrorAlert();
+            return;
+        }
+
         int height;
         int width;
         File exportPath;
@@ -79,6 +86,7 @@ public class ExportSettingsController {
         // setting new export settings in model, png as default because we currently only support png export
         ExportSettings exportSettings = new ExportSettings(height, width, exportPath.toPath(),
                                                                                             FileFormat.PNG, exportType);
+
         controllerFacade.getProject().setExportSettings(exportSettings);
 
         actionOnCancelButton();
