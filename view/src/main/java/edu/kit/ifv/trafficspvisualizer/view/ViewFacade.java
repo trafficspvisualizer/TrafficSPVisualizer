@@ -15,6 +15,14 @@ import javafx.stage.Stage;
 
 import java.util.Optional;
 
+/**
+ * The ViewFacade serves as an external-facing interface for the view package.
+ * It keeps references to all currently existing windows and can make them available if necessary.
+ * The windows can access the project and the current LanguageStrategy via the ViewFacade.
+ *
+ * @author ujwny
+ * @version 1.0
+ */
 public class ViewFacade {
 
     private Project project;
