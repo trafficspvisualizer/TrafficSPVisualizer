@@ -7,6 +7,8 @@ import edu.kit.ifv.trafficspvisualizer.view.window.ProjectCreationStage;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.ParseException;
 
 /**
@@ -79,6 +81,12 @@ public class ProjectCreationController {
         File projectFolder = controllerFacade.getViewFacade().getProjectCreationStage().getSaveProjectDirectory();
         File inputFile = controllerFacade.getViewFacade().getProjectCreationStage().getInputDataFile();
 
+        // validate input
+        if(!validateInput(projectName, projectFolder, inputFile)) {
+            controllerFacade.getViewFacade().getProjectCreationStage().showNewProjectErrorAlert();
+            return;
+        }
+
         //try to parse inputFile
         try {
             dataObject = new NGDParser().parse(inputFile);
@@ -87,13 +95,6 @@ public class ProjectCreationController {
             return;
         }
 
-        // check if projectFolder is directory
-        if (!projectFolder.isDirectory()) {
-            controllerFacade.getViewFacade().getProjectCreationStage().showNewProjectErrorAlert();
-            return;
-        }
-
-        // Temporary solution so that the Application builds
         Project newProject;
         try {
             newProject = new Project(projectName, projectFolder.toPath(), dataObject, inputFile);
@@ -138,5 +139,34 @@ public class ProjectCreationController {
 
         // Cancel-Button
         projectCreationStage.getCancelButton().setOnAction(e -> actionOnCancelButton());
+    }
+
+    private boolean validateInput(String projectName, File projectFolder, File inputFile) {
+        // check if files are not null
+        if(projectFolder == null || inputFile == null) {
+            return false;
+        }
+
+        // check if projectFolder is directory
+        if (!projectFolder.isDirectory()) {
+            return false;
+        }
+
+        // check if project name is valid
+        String validNameRegex = "^[a-zA-Z0-9]+$";
+        if (!projectName.matches(validNameRegex)) {
+            return false;
+        }
+
+        // check if folder with given name already exists in directory
+        File[] files = projectFolder.listFiles();
+        if (files != null) {
+            for(File file: files) {
+                if(file.isDirectory() && file.getName().equals(projectName)) {
+                    return false;                }
+            }
+        }
+
+        return true;
     }
 }
