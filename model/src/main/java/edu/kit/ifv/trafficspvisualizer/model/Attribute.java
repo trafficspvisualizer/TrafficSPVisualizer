@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Attribute extends AbstractAttribute {
+
     private String name;
     private Icon icon;
     private String prefix;

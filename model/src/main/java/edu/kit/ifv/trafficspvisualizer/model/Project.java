@@ -126,6 +126,14 @@ public class Project {
         return name;
     }
 
+    public int getCurrentPreviewSituation() {
+        return currentPreviewSituation;
+    }
+
+    public DataObject getDataObject() {
+        return dataObject;
+    }
+
     public void setExportSettings(ExportSettings exportSettings) {
         this.exportSettings = exportSettings;
     }

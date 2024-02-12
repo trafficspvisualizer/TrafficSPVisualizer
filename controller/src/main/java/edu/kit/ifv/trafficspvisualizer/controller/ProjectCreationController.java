@@ -20,13 +20,13 @@ public class ProjectCreationController {
 
     public void actionOnProjectFolderButton(){
         File selectedFile = controllerFacade.getViewFacade().getProjectCreationStage().showFileChooserDialog();
-        controllerFacade.getViewFacade().getProjectCreationStage().setProjectFolderPath(selectedFile);
+        controllerFacade.getViewFacade().getProjectCreationStage().setSaveProjectDirectory(selectedFile);
     }
 
     public void actionOnInputFileButton(){
 
         File selectedFile = controllerFacade.getViewFacade().getProjectCreationStage().showFileChooserDialog();
-        controllerFacade.getViewFacade().getProjectCreationStage().setInputDataPath(selectedFile);
+        controllerFacade.getViewFacade().getProjectCreationStage().setInputDataFile(selectedFile);
     }
 
     public void actionOnSaveButton(String projectName, File projectFolder, File inputFile){

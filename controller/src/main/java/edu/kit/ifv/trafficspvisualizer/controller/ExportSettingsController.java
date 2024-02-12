@@ -1,9 +1,5 @@
 package edu.kit.ifv.trafficspvisualizer.controller;
 
-import edu.kit.ifv.trafficspvisualizer.model.ExportSettings;
-import edu.kit.ifv.trafficspvisualizer.model.ExportType;
-import edu.kit.ifv.trafficspvisualizer.model.FileFormat;
-
 import java.io.File;
 
 public class ExportSettingsController {
@@ -14,7 +10,7 @@ public class ExportSettingsController {
     }
 
     public void actionOnExportFolderButton(){
-        File selectedFile = controllerFacade.getViewFacade().getExportSettingsStage().showFileChooserDialog();
+        File selectedFile = controllerFacade.getViewFacade().getExportSettingsStage().showDirectoryChooserDialog();
         controllerFacade.getViewFacade().getExportSettingsStage().setExportFolderPath(selectedFile);
     }
 
