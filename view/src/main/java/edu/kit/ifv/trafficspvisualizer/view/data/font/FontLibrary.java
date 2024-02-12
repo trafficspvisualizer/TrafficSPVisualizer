@@ -3,6 +3,12 @@ package edu.kit.ifv.trafficspvisualizer.view.data.font;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
+/**
+ * Library to get all fonts used by the view.
+ *
+ * @author ujwny
+ * @version 1.0
+ */
 public final class FontLibrary {
 
     private final static double SMALL_FONT_SIZE = 13;
@@ -22,18 +28,38 @@ public final class FontLibrary {
 
     private FontLibrary(){}
 
+    /**
+     * Gets a small-sized font.
+     *
+     * @return The small-sized font used by the view.
+     */
     public static Font getSmallFont() {
         return SMALL_FONT;
     }
 
+    /**
+     * Gets a small-sized bold font.
+     *
+     * @return The small-sized bold font used by the view.
+     */
     public static Font getSmallBoldFont() {
         return SMALL_BOLD_FONT;
     }
 
+    /**
+     * Gets a mid-sized font.
+     *
+     * @return The mid-sized font used by the view.
+     */
     public static Font getMidFont() {
         return MID_FONT;
     }
 
+    /**
+     * Gets a mid-sized bold font.
+     *
+     * @return The mid-sized bold font used by the view.
+     */
     public static Font getMidBoldFont() {
         return MID_BOLD_FONT;
     }
