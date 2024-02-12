@@ -19,6 +19,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -149,6 +150,11 @@ public class IconSelectionStage extends Stage {
     public File showDirectoryChooserDialog() {
         DirectoryChooser directoryChooser = new DirectoryChooser();
         return directoryChooser.showDialog(this);
+    }
+
+    public File showFileChooserDialog() {
+        FileChooser fileChooser = new FileChooser();
+        return fileChooser.showOpenDialog(this);
     }
 
     public void showAddIconErrorAlert() {

@@ -70,7 +70,7 @@ public class IconSelectionController {
      * {@link javafx.stage.FileChooser} and adds selected icon to model. Instructs IconSelectionStage to update.
      */
     public void actionOnNewIconButton(){
-        File selectedFile = controllerFacade.getViewFacade().getIconSelectionStage().showDirectoryChooserDialog();
+        File selectedFile = controllerFacade.getViewFacade().getIconSelectionStage().showFileChooserDialog();
 
         if (selectedFile == null) return;
 
