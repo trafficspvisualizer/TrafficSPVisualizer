@@ -93,8 +93,8 @@ public class MainApplicationController {
 
         try {
             new StandardProjectSaver().saveProject(controllerFacade.getProject(),
-                    controllerFacade.getProject().getExportSettings().getExportPath());
-        } catch (IOException e) {
+                    controllerFacade.getProject().getProjectPath());
+        } catch (IOException | IllegalArgumentException e) {
             controllerFacade.getViewFacade().getMainApplicationWindow().showSaveProjectErrorAlert();
         }
     }

@@ -22,7 +22,7 @@ public class StandardProjectSaver extends AbstractSaver {
      * @throws IOException If an I/O error occurs.
      */
     @Override
-    public void saveProject(Project project, Path path) throws IOException {
+    public void saveProject(Project project, Path path) throws IOException, IllegalArgumentException {
         Path dir = makeDir(project.getName(), path);
         JSONObject jsonObject = createJsonProject(project.getName(), project.getAttributes(),
                 project.getExportSettings());
@@ -59,9 +59,9 @@ public class StandardProjectSaver extends AbstractSaver {
      * @param name The name of the directory to create.
      * @param path The path where the directory should be created.
      * @return The Path of the created directory.
-     * @throws IOException If an I/O error occurs.
+     * @throws IllegalArgumentException If an illegal argument is passed.
      */
-    private Path makeDir(String name, Path path) throws IOException {
+    private Path makeDir(String name, Path path) throws IllegalArgumentException {
         Path dir = path.resolve(name);
 
         if (Files.exists(dir)) {
