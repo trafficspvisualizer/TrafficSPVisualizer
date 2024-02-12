@@ -4,20 +4,27 @@ import edu.kit.ifv.trafficspvisualizer.util.image.ChoiceOptionImage;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
+import java.util.*;
 import java.nio.file.StandardCopyOption;
-import java.util.Arrays;
-import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * A class for exporting images in HTML format.
+ * Inherits from the Exporter class.
+ */
 public class HTMLExporter extends Exporter {
-    private static final String IMAGE_FORMAT = "png";
-    private static final String INFO_PREFIX = "#c_";
-    private static final String INFO_SUFFIX = "#";
 
+    /**
+     * Exports an array of ChoiceOptionImage objects as an HTML file.
+     *
+     * @param images The array of ChoiceOptionImage objects to be exported.
+     * @param file The file where the images will be exported.
+     * @throws IOException If an error occurs while writing to the file.
+     */
     @Override
     public void export(ChoiceOptionImage[] images, File file) throws IOException {
         var groupedImages = groupImagesByScenario(images);
@@ -26,6 +33,12 @@ public class HTMLExporter extends Exporter {
         }
     }
 
+    /**
+     * Groups the images by scenario number.
+     *
+     * @param images The array of ChoiceOptionImage objects to be grouped.
+     * @return A list of lists of ChoiceOptionImage objects, grouped by scenario number.
+     */
     private List<List<ChoiceOptionImage>> groupImagesByScenario(ChoiceOptionImage[] images) {
         return Arrays.stream(images)
                 .collect(Collectors.groupingBy(ChoiceOptionImage::getScenarioNumber))
@@ -35,6 +48,13 @@ public class HTMLExporter extends Exporter {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Exports a group of images.
+     *
+     * @param imageGroup The group of ChoiceOptionImage objects to be exported.
+     * @param file The file where the images will be exported.
+     * @throws IOException If an error occurs while writing to the file.
+     */
     private void exportGroup(List<ChoiceOptionImage> imageGroup, File file) throws IOException {
         var imageExporter = new ImageExporter();
         imageExporter.export(imageGroup.toArray(new ChoiceOptionImage[0]), file);
@@ -46,12 +66,25 @@ public class HTMLExporter extends Exporter {
         Files.move(tempFilePath, finalFilePath, StandardCopyOption.REPLACE_EXISTING);
     }
 
+    /**
+     * Writes the HTML content for a group of images.
+     *
+     * @param imageGroup The group of ChoiceOptionImage objects for which the HTML content will be written.
+     * @param writer The BufferedWriter used to write the HTML content.
+     * @throws IOException If an error occurs while writing to the file.
+     */
     private void writeHtmlContent(List<ChoiceOptionImage> imageGroup, BufferedWriter writer) throws IOException {
         writeHtmlHeader(writer);
         writeImageForm(imageGroup, writer);
         writeHiddenForm(writer);
     }
 
+    /**
+     * Writes the HTML header.
+     *
+     * @param writer The BufferedWriter used to write the header.
+     * @throws IOException If an error occurs while writing to the file.
+     */
     private void writeHtmlHeader(BufferedWriter writer) throws IOException {
         writer.write("""
             <head>
@@ -68,12 +101,19 @@ public class HTMLExporter extends Exporter {
             """);
     }
 
+    /**
+     * Writes the HTML form for a group of images.
+     *
+     * @param imageGroup The group of ChoiceOptionImage objects for which the form will be written.
+     * @param writer The BufferedWriter used to write the form.
+     * @throws IOException If an error occurs while writing to the file.
+     */
     private void writeImageForm(List<ChoiceOptionImage> imageGroup, BufferedWriter writer) throws IOException {
         writer.write("<form>\n");
         for (int i = 0; i < imageGroup.size(); i++) {
             var image = imageGroup.get(i);
             var imagePath = constructImagePath(image);
-            var encodedPath = java.net.URLEncoder.encode(imagePath, "UTF-8");
+            var encodedPath = java.net.URLEncoder.encode(imagePath, StandardCharsets.UTF_8);
             writer.write(String.format("""
                 <label>
                     <input type="radio" name="option" value="%d">
@@ -84,14 +124,12 @@ public class HTMLExporter extends Exporter {
         writer.write("</form>\n");
     }
 
-    private String constructImagePath(ChoiceOptionImage image) {
-        return String.format("%s.%s",
-                image.getInfos().stream()
-                        .map(info -> INFO_PREFIX + info + INFO_SUFFIX)
-                        .collect(Collectors.joining()),
-                IMAGE_FORMAT);
-    }
-
+    /**
+     * Writes a hidden HTML form.
+     *
+     * @param writer The BufferedWriter used to write the form.
+     * @throws IOException If an error occurs while writing to the file.
+     */
     private void writeHiddenForm(BufferedWriter writer) throws IOException {
         writer.write("""
             <form>
