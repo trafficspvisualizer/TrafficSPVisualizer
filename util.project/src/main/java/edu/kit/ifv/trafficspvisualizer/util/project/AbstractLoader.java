@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,9 +19,9 @@ public abstract class AbstractLoader {
     private static final String KEY_ICONMANAGER = "IconManager";
     private static final String KEY_NAME = "name";
     private static final String KEY_EXPORT_SETTINGS = "exportSettings";
-    public abstract Project loadProject(File file) throws IOException;
+    public abstract Project loadProject(File file) throws IOException, ParseException;
 
-    protected DataObject createDataObject(File file) throws IOException {
+    protected DataObject createDataObject(File file) throws IOException, ParseException {
         Parser parser;
         if (FilenameUtils.getExtension(file.toString()).equals("ngd")){
             parser = new NGDParser();
@@ -32,7 +33,7 @@ public abstract class AbstractLoader {
         return null;
     }
 
-    protected Project createProject(JSONObject jsonProject,File ngdFile, Path iconDir) throws IOException {
+    protected Project createProject(JSONObject jsonProject,File ngdFile, Path iconDir) throws IOException, ParseException {
         DataObject dataObject = createDataObject(ngdFile);
         String name = jsonProject.get(KEY_NAME).toString();
         JSONArray jsonAttributes = jsonProject.getJSONArray(KEY_ATTRIBUTES);

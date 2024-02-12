@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,9 +18,10 @@ class NGDParserBlockNumberTest {
         DataObject dataObject = new DataObject(null);
         try {
             dataObject = ngdParser.parse(file);
-        } catch (IOException e) {
-            System.out.println("File not found");
+        } catch (IOException | ParseException e) {
+            assert false;
         }
+
         assertEquals(15, dataObject.getAttributeValue(0, "fuss", "fuss.fz_fuss"));
         assertEquals(16, dataObject.getSituationCount());
         assertEquals(1, dataObject.getBlockNumber(15));

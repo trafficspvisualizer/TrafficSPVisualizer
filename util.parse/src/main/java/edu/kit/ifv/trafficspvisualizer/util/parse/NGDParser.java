@@ -6,53 +6,42 @@ import edu.kit.ifv.trafficspvisualizer.model.SituationData;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
-/**
- * a
- */
+public class NGDParser extends Parser {
+    private static final String DATA_END_MARKER = "|";
+    private static final String DATA_SEPARATOR = "\t";
 
-public class NGDParser extends Parser{
-    /**
-     * a
-     * @param file
-     * @return
-     * @throws IOException
-     */
     @Override
-    public DataObject parse(File file) throws IOException {
-        String[][] data = extractData(file);
-        return createDataObject(data);
-    }
+    public DataObject parse(File file) throws IOException, ParseException {
+        List<String[]> data = new ArrayList<>();
 
-    private String[][] extractData(File file) throws IOException {
-        //The reader is inspired by ChatGPT
+        try (BufferedReader reader = Files.newBufferedReader(file.toPath())) {
+        Iterator<String> lines = reader.lines().iterator();
 
-        BufferedReader br = new BufferedReader(new FileReader(file));
-        long lineCount = br.lines().count();
-        String[][] initialData = new String[(int) lineCount][];
-        br = new BufferedReader(new FileReader(file));
-
-        int row = 0;
-        String line;
-        while ((line = br.readLine()) != null) {
-            if (line.contains("|")) {
+        while (lines.hasNext()) {
+            String line = lines.next();
+            if (line.contains(DATA_END_MARKER)) {
                 break;
             }
-            String[] values = line.split("\t");
-            initialData[row] = values;
-            row++;
+            String[] values = line.split(DATA_SEPARATOR);
+            data.add(values);
         }
-
-        String[][] requiredData = new String[row][];
-        System.arraycopy(initialData, 0, requiredData, 0, row);
-
-        return requiredData;
     }
 
-    private DataObject createDataObject(String[][] data) {
+        return createDataObject(data.toArray(String[][]::new));
+}
+
+
+
+    private DataObject createDataObject(String[][] data) throws ParseException {
         SituationData[] situations = new SituationData[data.length - 1]; //First row is not filled with data
         DataObject dataObject = new DataObject(situations);
 
@@ -62,11 +51,19 @@ public class NGDParser extends Parser{
 
         for (int i = 1; i < data.length; i++) {
 
-            HashMap<String, ChoiceData> choices = new HashMap<>();
-            int blockNumber = Integer.parseInt(data[i][data[0].length - 1]);
+            Map<String, ChoiceData> choices = new HashMap<>();
+            int blockNumber;
+            try {
+                blockNumber = Integer.parseInt(data[i][data[0].length - 1]);
+            } catch (NumberFormatException e) {
+                //TODO
+                throw new ParseException("NGD File is not valid", i);
+
+            }
+
             SituationData situationData = new SituationData(blockNumber, choices);
 
-            HashMap<String, Double> values = new HashMap<>();
+            Map<String, Double> values = new HashMap<>();
             ChoiceData choiceData = new ChoiceData(values);
             choices.put(nameOfChoiceOptions[2], choiceData);
             //First 2 columns are filled with design and situation number
@@ -81,7 +78,13 @@ public class NGDParser extends Parser{
                     choices.put(nameOfChoiceOptions[j], choiceData);
                 }
 
-                values.put(nameOfColumns[j], Double.parseDouble(data[i][j]));
+                try {
+                    values.put(nameOfColumns[j], Double.parseDouble(data[i][j]));
+                } catch (NumberFormatException e) {
+                    //TODO
+                    throw new ParseException("NGD File is not valid", j);
+                }
+
                 nameOfPreviousChoiceOption = nameOfChoiceOptions[j];
 
             }
