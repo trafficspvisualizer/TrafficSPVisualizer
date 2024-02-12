@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 
@@ -44,10 +45,10 @@ public class StandardProjectLoader extends AbstractLoader {
                 return name.toLowerCase().endsWith(".json");
             }
         });
-        if (files.length > 0 && jsonFile.length > 0) {
+        if (Objects.requireNonNull(files).length > 0 && Objects.requireNonNull(jsonFile).length > 0) {
             String content = new String(Files.readAllBytes(Paths.get(jsonFile[0].getPath())));
             JSONObject json = new JSONObject(content);
-            createProject(json,files[0],iconDir,file.toPath());
+            return createProject(json,files[0],iconDir,file.toPath());
         }
         return null;
     }

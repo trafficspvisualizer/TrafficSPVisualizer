@@ -3,6 +3,7 @@ package edu.kit.ifv.trafficspvisualizer.util.project;
 import edu.kit.ifv.trafficspvisualizer.model.*;
 import edu.kit.ifv.trafficspvisualizer.util.parse.NGDParser;
 import edu.kit.ifv.trafficspvisualizer.util.parse.Parser;
+import javafx.scene.paint.Color;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.apache.commons.io.FilenameUtils;
@@ -13,26 +14,6 @@ import java.nio.file.Paths;
 import java.util.*;
 
 public abstract class AbstractLoader {
-    private static final String KEY_IMAGE_HEIGHT = "imageHeight";
-    private static final String KEY_IMAGE_WIDTH = "imageWidth";
-    private static final String KEY_FILE_FORMAT = "fileFormat";
-    private static final String KEY_EXPORT_TYPE = "exportType";
-    private static final String KEY_ICON = "icon";
-    private static final String KEY_CHOICE_DATA_KEY = "choiceDataKey";
-    private static final String KEY_LINE_TYPE = "lineType";
-    private static final String KEY_NAME = "name";
-    private static final String KEY_ICON_PATH = "iconPath";
-    private static final String KEY_PREFIX = "prefix";
-    private static final String KEY_SUFFIX = "suffix";
-    private static final String KEY_PERMANENTLY_VISIBLE = "permanentlyVisible";
-    private static final String KEY_DECIMAL_PLACES = "decimalPlaces";
-    private static final String KEY_CHOICE_OPTION_MAPPINGS = "choiceOptionMappings";
-    private static final String KEY_NAME_CHOICE_OPTION = "name";
-    private static final String KEY_ROUTE_SECTIONS = "routeSections";
-    private static final String KEY_TITLE = "title";
-    private static final String KEY_COLOR = "color";
-    private static final String KEY_ATTRIBUTES = "attributes";
-    private static final String KEY_EXPORT_SETTINGS = "exportSettings";
     public abstract Project loadProject(File file) throws IOException;
 
     protected DataObject createDataObject(File file) throws IOException {
@@ -46,49 +27,112 @@ public abstract class AbstractLoader {
     protected List<AbstractAttribute> createAttributes(JSONArray attributes) {
         List<AbstractAttribute> attributesList = new ArrayList<>();
         for (Object object: attributes) {
-            JSONObject jsonObject = (JSONObject) object;//Todo speratorline beachten
-            String prefix = jsonObject.getString(KEY_PREFIX);
-            String name = jsonObject.getString(KEY_NAME);
-            String suffix = jsonObject.getString(KEY_SUFFIX);
-            boolean vis = jsonObject.getBoolean(KEY_PERMANENTLY_VISIBLE);
-            int dec = jsonObject.getInt(KEY_DECIMAL_PLACES);
-            Map<ChoiceOption,List<String>> choiceOptionMap = createChoiceOptions(jsonObject.getJSONArray(KEY_CHOICE_OPTION_MAPPINGS));
-            Attribute attribute = new Attribute(name,null, prefix, suffix, vis,dec,choiceOptionMap);
-            attributesList.add(attribute);
+            JSONObject jsonObject = (JSONObject) object;
+            if (jsonObject.has(SharedConstants.KEY_ATTRIBUTE)) {
+                JSONObject attributeJSON = jsonObject.getJSONObject(SharedConstants.KEY_ATTRIBUTE);
+                String prefix = attributeJSON.getString(SharedConstants.KEY_PREFIX);
+                String name = attributeJSON.getString(SharedConstants.KEY_NAME);
+                String suffix = attributeJSON.getString(SharedConstants.KEY_SUFFIX);
+                boolean vis = attributeJSON.getBoolean(SharedConstants.KEY_PERMANENTLY_VISIBLE);
+                int dec = attributeJSON.getInt(SharedConstants.KEY_DECIMAL_PLACES);
+                Map<ChoiceOption,List<String>> choiceOptionMap = createChoiceOptions(attributeJSON.getJSONArray(SharedConstants.KEY_CHOICE_OPTION_MAPPINGS));
+                Attribute attribute = new Attribute(name,null, prefix, suffix, vis,dec,choiceOptionMap);
+                attributesList.add(attribute);
+            } else if (jsonObject.has(SharedConstants.KEY_LINE_SEPARATOR)) {
+                attributesList.add(new SeparatorLine());
+            }
+
         }
         return attributesList;
     }
 
     protected Map<ChoiceOption,List<String>> createChoiceOptions(JSONArray choiceOptions) {
         Map<ChoiceOption,List<String>> choiceOptionMap = new HashMap<>();
+        for (Object object: choiceOptions) {
+            JSONObject jsonObject = (JSONObject) object;
+            JSONObject choiceOption = jsonObject.getJSONObject("ChoiceOption");
+            JSONArray list = jsonObject.getJSONArray("List");
+            choiceOptionMap.put(createOneChoiceOption(choiceOption),createList(list));
 
+        }
         return choiceOptionMap;
     }
 
-    protected List<ChoiceOption> createChoiceOptions(List<AbstractAttribute> attribute) {
+    protected List<String> createList(JSONArray list) {
+        List<String> strings = new ArrayList<>();
+        for (int i = 0; i < list.length(); i++) {
+            strings.add(list.getString(i));
+        }
+        return strings;
+    }
+
+
+    protected ChoiceOption createOneChoiceOption(JSONObject choiceOption) {
+        String name = choiceOption.getString(SharedConstants.KEY_NAME_CHOICE_OPTION);
+        String title = choiceOption.getString(SharedConstants.KEY_TITLE);
+        String colour = choiceOption.getString(SharedConstants.KEY_COLOR);
+        JSONArray routeSection = choiceOption.getJSONArray(SharedConstants.KEY_ROUTE_SECTIONS);
+
+        return new ChoiceOption(name,title,createRouteSectionList(routeSection) ,Color.valueOf(colour));
+    }
+
+    protected List<RouteSection> createRouteSectionList(JSONArray choiceOption) {
+        List<RouteSection> routeSection = new ArrayList<>();
+        for (Object object: choiceOption) {
+            JSONObject jsonObject = (JSONObject) object;
+            routeSection.add(createRouteSection(jsonObject));
+        }
+
+        return routeSection;
+    }
+
+    private RouteSection createRouteSection(JSONObject routeSection) {
+        String choiceDataKey  = routeSection.getString(SharedConstants.KEY_CHOICE_DATA_KEY);
+        String lineType = routeSection.getString(SharedConstants.KEY_LINE_TYPE);
+        return new RouteSection(null,choiceDataKey,LineType.fromString(lineType));
+    }
+
+
+    protected List<ChoiceOption> createChoiceOptionList(List<AbstractAttribute> attribute) {
         List<ChoiceOption> choiceOptionList = new ArrayList<>();
 
         return choiceOptionList;
     }
     protected Project createProject(JSONObject jsonProject,File ngdFile, Path iconDir, Path projectDir) throws IOException {
         DataObject dataObject = createDataObject(ngdFile);
-        String name = jsonProject.get(KEY_NAME).toString();
-        JSONArray jsonAttributes = jsonProject.getJSONArray(KEY_ATTRIBUTES);
-        JSONObject jsonExportSettings = jsonProject.getJSONObject(KEY_EXPORT_SETTINGS);
+        String name = jsonProject.get(SharedConstants.KEY_NAME).toString();
+        JSONArray jsonAttributes = jsonProject.getJSONArray(SharedConstants.KEY_ATTRIBUTES);
+        JSONObject jsonExportSettings = jsonProject.getJSONObject(SharedConstants.KEY_EXPORT_SETTINGS);
         List<AbstractAttribute> attributes = createAttributes(jsonAttributes);
-        List<ChoiceOption> choiceOptions = createChoiceOptions(attributes);
+        List<ChoiceOption> choiceOptions = createChoiceOptionList(attributes);
         ExportSettings exportSettings = createExportSettings(jsonExportSettings);
         Project project = new Project(name, projectDir, dataObject, attributes, choiceOptions, exportSettings,
                 iconDir, ngdFile);
+        for (int i = 0; i < project.getAttributes().size(); i++) {
+            JSONObject obj = jsonAttributes.getJSONObject(i);
+            if (project.getAttributes().get(i) instanceof Attribute attribute1 && obj.has(SharedConstants.KEY_ATTRIBUTE)) {
+                JSONObject attributeJSON = obj.getJSONObject(SharedConstants.KEY_ATTRIBUTE);
+                int id = attributeJSON.getInt(SharedConstants.KEY_ICON);
+                attribute1.setIcon(project.getIconManager().getIcons().get(id));
+                for (ChoiceOption choiceOption: attribute1.getChoiceOptionMappings().keySet()) {
+                   if (!choiceOptions.contains(choiceOption)){
+                       choiceOptions.add(choiceOption);
+                   }
+                }
+            }
+        }
+
+
+
         return project;
     }
 
 
     protected ExportSettings createExportSettings(JSONObject attribute) {
-        int height = Integer.parseInt(attribute.get(KEY_IMAGE_HEIGHT).toString());
-        int width = Integer.parseInt(attribute.getString(KEY_IMAGE_WIDTH));
-        FileFormat format = FileFormat.fromString(attribute.getString(KEY_FILE_FORMAT));
-        ExportType exportType = ExportType.fromString(attribute.getString(KEY_EXPORT_TYPE));
+        int height = Integer.parseInt(attribute.get(SharedConstants.KEY_IMAGE_HEIGHT).toString());
+        int width = Integer.parseInt(attribute.getString(SharedConstants.KEY_IMAGE_WIDTH));
+        FileFormat format = FileFormat.fromString(attribute.getString(SharedConstants.KEY_FILE_FORMAT));
+        ExportType exportType = ExportType.fromString(attribute.getString(SharedConstants.KEY_EXPORT_TYPE));
         return new ExportSettings(height,width, null,format,exportType);
     }
 

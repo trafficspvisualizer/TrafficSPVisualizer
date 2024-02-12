@@ -12,30 +12,10 @@ import java.util.Objects;
 
 
 public abstract class AbstractSaver {
-    private static final String KEY_IMAGE_HEIGHT = "imageHeight";
-    private static final String KEY_IMAGE_WIDTH = "imageWidth";
-    private static final String KEY_FILE_FORMAT = "fileFormat";
-    private static final String KEY_EXPORT_TYPE = "exportType";
-    private static final String KEY_ICON = "icon";
-    private static final String KEY_CHOICE_DATA_KEY = "choiceDataKey";
-    private static final String KEY_LINE_TYPE = "lineType";
-    private static final String KEY_NAME = "name";
-    private static final String KEY_ICON_PATH = "iconPath";
-    private static final String KEY_PREFIX = "prefix";
-    private static final String KEY_SUFFIX = "suffix";
-    private static final String KEY_PERMANENTLY_VISIBLE = "permanentlyVisible";
-    private static final String KEY_DECIMAL_PLACES = "decimalPlaces";
-    private static final String KEY_CHOICE_OPTION_MAPPINGS = "choiceOptionMappings";
-    private static final String KEY_NAME_CHOICE_OPTION = "name";
-    private static final String KEY_ROUTE_SECTIONS = "routeSections";
-    private static final String KEY_TITLE = "title";
-    private static final String KEY_COLOR = "color";
-    private static final String KEY_ATTRIBUTES = "attributes";
-    private static final String KEY_EXPORT_SETTINGS = "exportSettings";
     public abstract void saveProject(Project project, Path path) throws IOException;
 
     protected JSONObject createJsonProject(String name, List<AbstractAttribute> attributes,
-                                           ExportSettings exportSettings, IconManager iconManager) {
+                                           ExportSettings exportSettings) {
         Objects.requireNonNull(name, "Name cannot be null");
         Objects.requireNonNull(attributes, "Attributes cannot be null");
         Objects.requireNonNull(exportSettings, "Export settings cannot be null");
@@ -47,9 +27,9 @@ public abstract class AbstractSaver {
         }
 
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put(KEY_NAME, name);
-        jsonObject.put(KEY_ATTRIBUTES, attributesJsonArray);
-        jsonObject.put(KEY_EXPORT_SETTINGS, createJsonExportSettings(exportSettings));
+        jsonObject.put(SharedConstants.KEY_NAME, name);
+        jsonObject.put(SharedConstants.KEY_ATTRIBUTES, attributesJsonArray);
+        jsonObject.put(SharedConstants.KEY_EXPORT_SETTINGS, createJsonExportSettings(exportSettings));
 
         return jsonObject;
     }
@@ -57,8 +37,7 @@ public abstract class AbstractSaver {
     private JSONObject createJsonAbstractAttribute(AbstractAttribute attribute) {
         Objects.requireNonNull(attribute, "Attribute cannot be null");
 
-        if (attribute instanceof Attribute) {
-            Attribute attribute1 = (Attribute)attribute;
+        if (attribute instanceof Attribute attribute1) {
             return createJsonAttributes(attribute1.getName(), attribute1.getIcon(), attribute1.getPrefix(),
                     attribute1.getSuffix(), attribute1.isPermanentlyVisible(), attribute1.getDecimalPlaces(),
                     attribute1.getChoiceOptionMappings());
@@ -73,16 +52,17 @@ public abstract class AbstractSaver {
         Objects.requireNonNull(exportSettings, "Export settings cannot be null");
 
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put(KEY_IMAGE_HEIGHT, exportSettings.getImageHeight());
-        jsonObject.put(KEY_IMAGE_WIDTH, exportSettings.getImageWidth());
-        jsonObject.put(KEY_FILE_FORMAT, exportSettings.getFileFormat().toString());
-        jsonObject.put(KEY_EXPORT_TYPE, exportSettings.getExportType().toString());
+
+        jsonObject.put(SharedConstants.KEY_IMAGE_HEIGHT, exportSettings.getImageHeight());
+        jsonObject.put(SharedConstants.KEY_IMAGE_WIDTH, exportSettings.getImageWidth());
+        jsonObject.put(SharedConstants.KEY_FILE_FORMAT, exportSettings.getFileFormat().toString());
+        jsonObject.put(SharedConstants.KEY_EXPORT_TYPE, exportSettings.getExportType().toString());
 
         return jsonObject;
     }
 
     protected JSONObject createJsonLineSeparator(){
-        return new JSONObject().put("LineSeperator", "");
+        return new JSONObject().put(SharedConstants.KEY_LINE_SEPARATOR, "");
     }
 
 
@@ -93,9 +73,9 @@ public abstract class AbstractSaver {
         Objects.requireNonNull(lineType, "Line type cannot be null");
 
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put(KEY_ICON, icon.getIdentifier());
-        jsonObject.put(KEY_CHOICE_DATA_KEY, choiceDataKey);
-        jsonObject.put(KEY_LINE_TYPE, lineType.toString());
+        jsonObject.put(SharedConstants.KEY_ICON, icon.getIdentifier());
+        jsonObject.put(SharedConstants.KEY_CHOICE_DATA_KEY, choiceDataKey);
+        jsonObject.put(SharedConstants.KEY_LINE_TYPE, lineType.toString());
 
         return jsonObject;
     }
@@ -111,26 +91,29 @@ public abstract class AbstractSaver {
         Objects.requireNonNull(choiceOptionMappings, "Choice option mappings cannot be null");
 
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put(KEY_NAME, name);
-        jsonObject.put(KEY_ICON_PATH, icon.getIdentifier());
-        jsonObject.put(KEY_PREFIX, prefix);
-        jsonObject.put(KEY_SUFFIX, suffix);
-        jsonObject.put(KEY_PERMANENTLY_VISIBLE, permanentlyVisible);
-        jsonObject.put(KEY_DECIMAL_PLACES, decimalPlaces);
-        jsonObject.put(KEY_CHOICE_OPTION_MAPPINGS, createChoiceOptionMappingsJson(choiceOptionMappings));
-
-        return jsonObject;
+        jsonObject.put(SharedConstants.KEY_NAME, name);
+        jsonObject.put(SharedConstants.KEY_ICON, icon.getIdentifier());
+        jsonObject.put(SharedConstants.KEY_PREFIX, prefix);
+        jsonObject.put(SharedConstants.KEY_SUFFIX, suffix);
+        jsonObject.put(SharedConstants.KEY_PERMANENTLY_VISIBLE, permanentlyVisible);
+        jsonObject.put(SharedConstants.KEY_DECIMAL_PLACES, decimalPlaces);
+        jsonObject.put(SharedConstants.KEY_CHOICE_OPTION_MAPPINGS, createChoiceOptionMappingsJson(choiceOptionMappings));
+        JSONObject attribute = new JSONObject();
+        return attribute.put(SharedConstants.KEY_ATTRIBUTE,jsonObject);
     }
 
-    private JSONObject createChoiceOptionMappingsJson(Map<ChoiceOption, List<String>> choiceOptionMappings) {
-        JSONObject choiceOptionMappingsJson = new JSONObject();
+    private JSONArray createChoiceOptionMappingsJson(Map<ChoiceOption, List<String>> choiceOptionMappings) {
+        JSONArray choiceOptionMappingsJson = new JSONArray();
         for (Map.Entry<ChoiceOption, List<String>> entry : choiceOptionMappings.entrySet()) {
             ChoiceOption choiceOption = entry.getKey();
             List<String> strings = entry.getValue();
 
             JSONObject choiceOptionJson = createJsonChoiceOption( choiceOption.getName(),
                     choiceOption.getRouteSections(), choiceOption.getTitle(), choiceOption.getColor());
-            choiceOptionMappingsJson.put(choiceOptionJson.toString(), strings);
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("ChoiceOption",choiceOptionJson);
+            jsonObject.put("List",strings);
+            choiceOptionMappingsJson.put(jsonObject);
         }
         return choiceOptionMappingsJson;
     }
@@ -150,10 +133,10 @@ public abstract class AbstractSaver {
         }
 
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put(KEY_NAME_CHOICE_OPTION, name);
-        jsonObject.put(KEY_ROUTE_SECTIONS, routeSectionsJsonArray);
-        jsonObject.put(KEY_TITLE, title);
-        jsonObject.put(KEY_COLOR, color.toString());
+        jsonObject.put(SharedConstants.KEY_NAME_CHOICE_OPTION, name);
+        jsonObject.put(SharedConstants.KEY_ROUTE_SECTIONS, routeSectionsJsonArray);
+        jsonObject.put(SharedConstants.KEY_TITLE, title);
+        jsonObject.put(SharedConstants.KEY_COLOR, color.toString());
 
         return jsonObject;
     }

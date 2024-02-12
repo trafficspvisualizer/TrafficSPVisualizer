@@ -25,7 +25,7 @@ public class StandardProjectSaver extends AbstractSaver {
     public void saveProject(Project project, Path path) throws IOException {
         Path dir = makeDir(project.getName(), path);
         JSONObject jsonObject = createJsonProject(project.getName(), project.getAttributes(),
-                project.getExportSettings(), project.getIconManager());
+                project.getExportSettings());
 
         writeJsonToFile(dir, jsonObject);
         copyCacheDirectory(project, dir);
