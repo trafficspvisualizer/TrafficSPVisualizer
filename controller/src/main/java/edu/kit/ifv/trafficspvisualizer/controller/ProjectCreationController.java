@@ -43,8 +43,11 @@ public class ProjectCreationController {
      * Instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.ProjectCreationStage} to open
      * {@link javafx.stage.DirectoryChooser} and sets returned value as project folder path.
      */
-    public void actionOnProjectFolderButton(){
+    public void actionOnProjectFolderButton() {
         File selectedFile = controllerFacade.getViewFacade().getProjectCreationStage().showDirectoryChooserDialog();
+
+        if (selectedFile == null) return;
+
         controllerFacade.getViewFacade().getProjectCreationStage().setSaveProjectDirectory(selectedFile);
     }
 
@@ -52,9 +55,11 @@ public class ProjectCreationController {
      * Instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.ProjectCreationStage} to open
      * {@link javafx.stage.FileChooser} and sets returned value as input file path.
      */
-    public void actionOnInputFileButton(){
-
+    public void actionOnInputFileButton() {
         File selectedFile = controllerFacade.getViewFacade().getProjectCreationStage().showFileChooserDialog();
+
+        if (selectedFile == null) return;
+
         controllerFacade.getViewFacade().getProjectCreationStage().setInputDataFile(selectedFile);
     }
 
@@ -82,7 +87,7 @@ public class ProjectCreationController {
         }
 
         // check if projectFolder is directory
-        if (!inputFile.isDirectory()) {
+        if (!projectFolder.isDirectory()) {
             controllerFacade.getViewFacade().getProjectCreationStage().showNewProjectErrorAlert();
             return;
         }
@@ -100,7 +105,7 @@ public class ProjectCreationController {
         controllerFacade.setProject(newProject);
 
         // Update/initialize MainApplicationWindow
-        controllerFacade.getViewFacade().getMainApplicationWindow().updateChoiceOptions();
+        controllerFacade.getMainApplicationController().updateChoiceOptions();
         // Update Preview
         controllerFacade.getMainApplicationController().updatePreview();
     }

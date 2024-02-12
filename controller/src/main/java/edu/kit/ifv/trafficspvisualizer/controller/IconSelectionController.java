@@ -72,6 +72,8 @@ public class IconSelectionController {
     public void actionOnNewIconButton(){
         File selectedFile = controllerFacade.getViewFacade().getIconSelectionStage().showDirectoryChooserDialog();
 
+        if (selectedFile == null) return;
+
         try {
             controllerFacade.getProject().getIconManager().createIcon(selectedFile.toPath());
         } catch (IOException e) {

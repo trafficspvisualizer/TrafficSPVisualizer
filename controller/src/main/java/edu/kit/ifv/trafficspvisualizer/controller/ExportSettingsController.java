@@ -45,6 +45,7 @@ public class ExportSettingsController {
      */
     public void actionOnExportFolderButton(){
         File selectedFile = controllerFacade.getViewFacade().getExportSettingsStage().showDirectoryChooserDialog();
+        if (selectedFile == null) return;
         controllerFacade.getViewFacade().getExportSettingsStage().setExportFolderPath(selectedFile);
     }
 

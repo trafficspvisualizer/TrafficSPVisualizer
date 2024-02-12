@@ -60,6 +60,8 @@ public class MainApplicationController {
     public void actionOnLoadProject(){
         File selectedFile = controllerFacade.getViewFacade().getMainApplicationWindow().showDirectoryChooserDialog();
 
+        if (selectedFile == null) return;
+
         Project newProject;
         try {
             newProject = new StandardProjectLoader().loadProject(selectedFile);
@@ -123,7 +125,6 @@ public class MainApplicationController {
      */
     public void actionOnMoveChoiceOptionUpButton(int choiceOptionIndex){
         controllerFacade.getProject().swapChoiceOptionUp(choiceOptionIndex);
-        controllerFacade.getViewFacade().getMainApplicationWindow().updateChoiceOptions();
 
         // Update MainApplicationWindow
         updatePreview();
@@ -140,7 +141,6 @@ public class MainApplicationController {
      */
     public void actionOnMoveChoiceOptionDownButton(int choiceOptionIndex){
         controllerFacade.getProject().swapChoiceOptionDown(choiceOptionIndex);
-        controllerFacade.getViewFacade().getMainApplicationWindow().updateChoiceOptions();
 
         // Update MainApplicationWindow
         updatePreview();
@@ -229,7 +229,7 @@ public class MainApplicationController {
      *
      * @param event the close event that is consumed
      */
-    public void actionOnCloseRequest(Event event){
+    private void actionOnCloseRequest(Event event){
         event.consume();
         controllerFacade.getViewFacade().getMainApplicationWindow()
                 .showCloseProjectConfirmationAlert()
@@ -250,7 +250,7 @@ public class MainApplicationController {
         controllerFacade.getViewFacade().getMainApplicationWindow().updateCurrentPreviewSituation();
     }
 
-    private void updateChoiceOptions() {
+    public void updateChoiceOptions() {
         controllerFacade.getViewFacade().getMainApplicationWindow().updateChoiceOptions();
         setChoiceOptionActionListeners();
     }
