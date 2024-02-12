@@ -108,6 +108,8 @@ public class ProjectCreationController {
         controllerFacade.getMainApplicationController().updateChoiceOptions();
         // Update Preview
         controllerFacade.getMainApplicationController().updatePreview();
+
+        actionOnCancelButton();
     }
 
     /**
