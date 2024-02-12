@@ -202,8 +202,9 @@ public class AttributeStage extends Stage {
         attributeGridPane.setHgap(15);
         attributeGridPane.setVgap(15);
 
+        // TODO: Fix fitToHeight not working
         // attributeScrollPane
-        attributeScrollPane.setFitToHeight(true);
+        // attributeScrollPane.setFitToHeight(true);
 
         // addAttributeButton
         GridPane.setHalignment(addAttributeButton, HPos.LEFT);
