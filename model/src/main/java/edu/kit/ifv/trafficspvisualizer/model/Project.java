@@ -48,7 +48,7 @@ public class Project {
 
     private Path createCache(File ngdFile) throws IOException {
         Path cacheDirectory = Files.createTempDirectory(CACHE_NAME.formatted(name));
-        Files.copy(ngdFile.toPath(), cacheDirectory);
+        Files.copy(ngdFile.toPath(), cacheDirectory.resolve(ngdFile.getName()));
         return cacheDirectory;
     }
 
