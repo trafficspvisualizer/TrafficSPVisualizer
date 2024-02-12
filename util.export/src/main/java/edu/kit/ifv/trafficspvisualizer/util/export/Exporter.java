@@ -1,5 +1,6 @@
 package edu.kit.ifv.trafficspvisualizer.util.export;
 
+import edu.kit.ifv.trafficspvisualizer.model.ExportType;
 import edu.kit.ifv.trafficspvisualizer.util.image.ChoiceOptionImage;
 
 import java.io.File;
@@ -15,6 +16,20 @@ public abstract class  Exporter {
     protected static final String INFO_PREFIX = "#c_";
     protected static final String INFO_SUFFIX = "#";
     protected static final String IMAGE_FORMAT = "png";
+
+    /**
+     * Returns a concrete implementation of {@link Exporter} based on a given {@link ExportType}.
+     *
+     * @param exportType the given export type
+     * @return a concrete implementation of Exporter
+     */
+    public Exporter getExporter(ExportType exportType) {
+        if (exportType == ExportType.HTML) {
+            return new HTMLExporter();
+        }
+        return new ImageExporter();
+    }
+
     public abstract void export(ChoiceOptionImage[] images, File file) throws IOException;
 
     /**
