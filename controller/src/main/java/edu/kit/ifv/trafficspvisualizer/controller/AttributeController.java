@@ -55,7 +55,7 @@ public class AttributeController {
      */
     public void actionOnNewSeparatorLineButton(){
         //TODO: maybe add "addAttribute()" method, no need to give list
-        controllerFacade.getProject().getAttributes().add(new SeparatorLine());
+        controllerFacade.getProject().addAttribute(new SeparatorLine());
         controllerFacade.getViewFacade().getAttributeStage().updateStage();
     }
 
@@ -71,7 +71,7 @@ public class AttributeController {
                 .showRemoveAttributeProjectConfirmationAlert()
                 .ifPresent(response -> {
                     if (response == ButtonType.OK) {
-                        controllerFacade.getProject().getAttributes().remove(attributeIndex);
+                        controllerFacade.getProject().removeAttribute(attributeIndex);
                         controllerFacade.getViewFacade().getAttributeStage().updateStage();
                     }
                 });

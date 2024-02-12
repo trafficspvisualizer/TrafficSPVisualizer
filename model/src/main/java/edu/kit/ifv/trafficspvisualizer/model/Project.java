@@ -110,6 +110,14 @@ public class Project {
         return List.copyOf(attributes);
     }
 
+    public void addAttribute(AbstractAttribute attribute) {
+        attributes.add(attribute);
+    }
+
+    public void removeAttribute(int index) {
+        attributes.remove(index);
+    }
+
     public List<ChoiceOption> getChoiceOptions() {
         return List.copyOf(choiceOptions);
     }

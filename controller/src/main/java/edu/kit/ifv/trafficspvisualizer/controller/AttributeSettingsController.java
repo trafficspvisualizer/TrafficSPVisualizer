@@ -58,7 +58,7 @@ public class AttributeSettingsController implements IconDisplayingController {
      * If working on newly created attribute, a new {@link Attribute} is created with scraped data.
      * Closes the stage/controller afterward and instructs {@link AttributeController} to update.
      */
-    public void actionOnSaveButton(){
+    public void actionOnSaveButton() {
         //scraping data from view
         String name = controllerFacade.getViewFacade().getAttributeSettingsStage().getName();
         int iconId = controllerFacade.getViewFacade().getAttributeSettingsStage().getIconId();
@@ -102,7 +102,7 @@ public class AttributeSettingsController implements IconDisplayingController {
             //create new attribute
             Attribute newAttribute = new Attribute(name, icon, prefix, suffix, isPermanentlyVisible, decimalPlaces);
             //TODO: maybe add "addAttribute()" method, no need to give list
-            controllerFacade.getProject().getAttributes().add(newAttribute);
+            controllerFacade.getProject().addAttribute(newAttribute);
         }
 
         //close stage
