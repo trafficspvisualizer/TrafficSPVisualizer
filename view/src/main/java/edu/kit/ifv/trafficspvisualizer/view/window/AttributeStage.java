@@ -2,15 +2,18 @@ package edu.kit.ifv.trafficspvisualizer.view.window;
 
 import edu.kit.ifv.trafficspvisualizer.model.AbstractAttribute;
 import edu.kit.ifv.trafficspvisualizer.model.Attribute;
+import edu.kit.ifv.trafficspvisualizer.model.Icon;
 import edu.kit.ifv.trafficspvisualizer.model.LineType;
 import edu.kit.ifv.trafficspvisualizer.view.ViewFacade;
 import edu.kit.ifv.trafficspvisualizer.view.data.font.FontLibrary;
 import edu.kit.ifv.trafficspvisualizer.view.data.image.ImageLibrary;
 import edu.kit.ifv.trafficspvisualizer.view.data.language.LanguageStrategy;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -202,9 +205,9 @@ public class AttributeStage extends Stage {
         attributeGridPane.setHgap(15);
         attributeGridPane.setVgap(15);
 
-        // TODO: Fix fitToHeight not working
-        // attributeScrollPane
-        // attributeScrollPane.setFitToHeight(true);
+
+        attributeScrollPane.prefHeightProperty().bind(
+                scene.heightProperty().subtract(closeAndAddGridPane.heightProperty()));
 
         // addAttributeButton
         GridPane.setHalignment(addAttributeButton, HPos.LEFT);
@@ -242,11 +245,13 @@ public class AttributeStage extends Stage {
 
     // update- and add-methods
     public void updateStage() {
-        attributeGridPane.getChildren().removeIf(node -> GridPane.getRowIndex(node) >= 1);
+        attributeActiveCheckBoxList.clear();
         upSwitchAttributeButtonList.clear();
         downSwitchAttributeButtonList.clear();
         attributeSettingsButtonList.clear();
         attributeRemoveButtonList.clear();
+        attributeGridPane.getChildren().removeIf(node -> GridPane.getRowIndex(node) >= 1);
+
 
         int currentRowIndex = 0;
         for (AbstractAttribute abstractAttribute : viewFacade.getProject().getAttributes()) {
@@ -352,10 +357,11 @@ public class AttributeStage extends Stage {
                 attributeSettingsButton.setDisable(true);
             }
 
-            if (!viewFacade.getProject().getAttributes().isEmpty()) {
-                upSwitchAttributeButtonList.getFirst().setDisable(true);
-                downSwitchAttributeButtonList.getLast().setDisable(true);
-            }
+        }
+
+        if (!viewFacade.getProject().getAttributes().isEmpty()) {
+            upSwitchAttributeButtonList.getFirst().setDisable(true);
+            downSwitchAttributeButtonList.getLast().setDisable(true);
         }
 
     }
@@ -371,9 +377,9 @@ public class AttributeStage extends Stage {
         attributeGridPane.add(attributeNameText, 1, rowIndex);
 
 
-
-        // TODO: Convert and add image
-        ImageView attributeIconImageView = new ImageView();
+        Icon attributeIcon = attribute.getIcon();
+        ImageView attributeIconImageView =
+                new ImageView(SwingFXUtils.toFXImage(attributeIcon.toBufferedImage(), null));
 
         GridPane.setHalignment(attributeIconImageView, HPos.CENTER);
         GridPane.setValignment(attributeIconImageView, VPos.CENTER);
