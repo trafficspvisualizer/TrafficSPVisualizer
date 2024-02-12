@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -28,7 +29,7 @@ public class StandardProjectLoader extends AbstractLoader {
      * @throws IOException If an I/O error occurs.
      */
     @Override
-    public Project loadProject(File file) throws IOException {
+    public Project loadProject(File file) throws IOException, ParseException {
         File ngdFile = findFileWithExtensionInDirectory(file, NGD_EXTENSION);
         Path iconDir = findDirectoryInDirectory(file.toPath(), ICON_DIRECTORY_NAME);
         File jsonFile = findFileWithExtensionInDirectory(file, JSON_EXTENSION);

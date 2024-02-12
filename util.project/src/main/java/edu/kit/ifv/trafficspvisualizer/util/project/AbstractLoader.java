@@ -10,6 +10,7 @@ import org.apache.commons.io.FilenameUtils;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.text.ParseException;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -22,7 +23,7 @@ public abstract class AbstractLoader {
      * @return The loaded project.
      * @throws IOException If an I/O error occurs.
      */
-    public abstract Project loadProject(File file) throws IOException;
+    public abstract Project loadProject(File file) throws IOException, ParseException;
 
     /**
      * Creates a DataObject from a file.
@@ -31,7 +32,7 @@ public abstract class AbstractLoader {
      * @return The created DataObject.
      * @throws IOException If an I/O error occurs.
      */
-    protected DataObject createDataObject(File file) throws IOException {
+    protected DataObject createDataObject(File file) throws IOException, ParseException {
         String extension = FilenameUtils.getExtension(file.toString());
         if (!extension.equals("ngd")){
             throw new IllegalArgumentException("The given File is not accepted");
@@ -176,7 +177,7 @@ public abstract class AbstractLoader {
      * @return The created Project.
      * @throws IOException If an I/O error occurs.
      */
-    protected Project createProject(JSONObject jsonProject,File ngdFile, Path iconDir, Path projectDir) throws IOException {
+    protected Project createProject(JSONObject jsonProject,File ngdFile, Path iconDir, Path projectDir) throws IOException, ParseException {
         DataObject dataObject = createDataObject(ngdFile);
         String name = jsonProject.optString(SharedConstants.KEY_NAME);
         JSONArray jsonAttributes = jsonProject.optJSONArray(SharedConstants.KEY_ATTRIBUTES);
