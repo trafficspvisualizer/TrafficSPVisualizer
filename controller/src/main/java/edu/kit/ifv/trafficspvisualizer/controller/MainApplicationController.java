@@ -15,6 +15,7 @@ import javafx.scene.control.ButtonType;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.List;
 
 /**
@@ -65,7 +66,7 @@ public class MainApplicationController {
         Project newProject;
         try {
             newProject = new StandardProjectLoader().loadProject(selectedFile);
-        } catch (IOException e) {
+        } catch (IOException | ParseException e) {
             controllerFacade.getViewFacade().getMainApplicationWindow().showLoadProjectErrorAlert();
             return;
         }
