@@ -239,7 +239,7 @@ public class ExportSettingsStage extends Stage {
 
         heightTextField.setText(String.valueOf(exportSettings.getImageHeight()));
 
-        widthTextField.setText(String.valueOf(exportSettings.getImageHeight()));
+        widthTextField.setText(String.valueOf(exportSettings.getImageWidth()));
 
         exportDirectoryTextField.setText(exportSettings.getExportPath().toFile().getAbsolutePath());
 

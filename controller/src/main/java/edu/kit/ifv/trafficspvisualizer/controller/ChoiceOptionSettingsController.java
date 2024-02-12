@@ -125,7 +125,7 @@ public class ChoiceOptionSettingsController implements IconDisplayingController 
     public void actionOnRouteSectionChoiceDataKeyMenu(int routeSectionIndex){
         //should  be called when option is selected
         String choiceDataKey = controllerFacade.getViewFacade().getChoiceOptionSettingsStage()
-                                                            .getRouteSectionColumnChoiceBoxSelection(routeSectionIndex);
+                                                            .getRouteSectionValueNameSelection(routeSectionIndex);
         controllerFacade.getProject().getChoiceOptions().get(choiceOptionId).getRouteSections()
                                                                 .get(routeSectionIndex).setChoiceDataKey(choiceDataKey);
         controllerFacade.getViewFacade().getChoiceOptionSettingsStage().updateRouteSectionScrollPane();
@@ -141,7 +141,7 @@ public class ChoiceOptionSettingsController implements IconDisplayingController 
     public void actionOnAttributeColumnMenu(int attributeIndex){
         //should  be called when option is selected
         List<String> attributeValueSelection = controllerFacade.getViewFacade().getChoiceOptionSettingsStage()
-                .getAttributeValueSelection(attributeIndex);
+                .getAttributeValueNamesSelection(attributeIndex);
 
         Attribute attribute = (Attribute) controllerFacade.getProject().getAttributes().get(attributeIndex);
         ChoiceOption choiceOption = controllerFacade.getProject().getChoiceOptions().get(choiceOptionId);
