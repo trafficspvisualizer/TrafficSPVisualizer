@@ -129,8 +129,8 @@ public class ControllerFacade {
      *
      * @param attributeIndex the index of the attribute which settings should be adjusted
      */
-    public void createAttributeSettingsController(int attributeIndex) {
-        this.attributeSettingsController = new AttributeSettingsController(this, attributeIndex);
+    public void createAttributeSettingsController(int attributeIndex, boolean workingOnNewAttribute) {
+        this.attributeSettingsController = new AttributeSettingsController(this, attributeIndex, workingOnNewAttribute);
     }
 
     /**
