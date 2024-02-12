@@ -31,7 +31,7 @@ class ExportSettingsTest {
     }
 
     @Test
-    void getAndSetImageHeight() {
+    void testGetAndSetImageHeight() {
         assertEquals(testHeight, exportSettings.getImageHeight());
         int newHeight = 1000;
         exportSettings.setImageHeight(newHeight);
@@ -39,7 +39,7 @@ class ExportSettingsTest {
     }
 
     @Test
-    void getAndSetImageWidth() {
+    void testGetAndSetImageWidth() {
         assertEquals(testWidth, exportSettings.getImageWidth());
         int newWidth = 1203;
         exportSettings.setImageWidth(newWidth);
@@ -47,7 +47,7 @@ class ExportSettingsTest {
     }
 
     @Test
-    void getAndSetExportPath() {
+    void testGetAndSetExportPath() {
         assertEquals(testPath, exportSettings.getExportPath());
         Path path = Path.of("new/path");
         exportSettings.setExportPath(path);
@@ -55,7 +55,7 @@ class ExportSettingsTest {
     }
 
     @Test
-    void getAndSetFileFormat() {
+    void testGetAndSetFileFormat() {
         assertEquals(FileFormat.PNG, exportSettings.getFileFormat());
         FileFormat newFormat = mock();
         exportSettings.setFileFormat(newFormat);
@@ -63,7 +63,7 @@ class ExportSettingsTest {
     }
 
     @Test
-    void getAndSetExportType() {
+    void testGetAndSetExportType() {
         assertEquals(ExportType.HTML, exportSettings.getExportType());
         ExportType newType = ExportType.SITUATION;
         exportSettings.setExportType(newType);
