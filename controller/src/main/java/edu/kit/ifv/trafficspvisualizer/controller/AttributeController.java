@@ -54,7 +54,6 @@ public class AttributeController {
      * {@link edu.kit.ifv.trafficspvisualizer.view.window.AttributeStage} of change.
      */
     public void actionOnNewSeparatorLineButton(){
-        //TODO: maybe add "addAttribute()" method, no need to give list
         controllerFacade.getProject().addAttribute(new SeparatorLine());
         controllerFacade.getViewFacade().getAttributeStage().updateStage();
     }

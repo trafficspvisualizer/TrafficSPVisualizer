@@ -100,7 +100,6 @@ public class AttributeSettingsController implements IconDisplayingController {
         } else {
             //create new attribute
             Attribute newAttribute = new Attribute(name, icon, prefix, suffix, isPermanentlyVisible, decimalPlaces);
-            //TODO: maybe add "addAttribute()" method, no need to give list
             controllerFacade.getProject().addAttribute(newAttribute);
         }
 
