@@ -27,6 +27,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -518,5 +519,71 @@ public class ChoiceOptionSettingsStage extends Stage {
         alert.setContentText(languageStrategy.getRemoveRouteSectionConfirmationAlertContentText());
 
         return alert.showAndWait();
+    }
+
+    // getter-methods
+
+    // components
+    public Button getCloseButton() {
+        return closeButton;
+    }
+
+    public List<Button> getRouteSectionRemoveButtonList() {
+        return routeSectionRemoveButtonList;
+    }
+
+    public Button getAddRouteSectionButton() {
+        return addRouteSectionButton;
+    }
+
+    public List<Button> getRouteSectionIconButtonList() {
+        return routeSectionIconButtonList;
+    }
+
+    public TextField getTitleTextField() {
+        return titleTextField;
+    }
+
+    // Checkbox Lists
+    public List<ChoiceBox<String>> getRouteSectionLineTypeChoiceBoxList() {
+        return routeSectionLineTypeChoiceBoxList;
+    }
+
+    public List<ChoiceBox<String>> getRouteSectionColumnChoiceBoxList() {
+        return routeSectionValueNameChoiceBoxList;
+    }
+
+    public List<List<CheckBox>> getAttributesColumnsCheckBoxList() {
+        return attributesValueNamesCheckBoxList;
+    }
+
+    public ColorPicker getColorPicker() {
+        return colorPicker;
+    }
+
+    // values
+
+    public String getTitleString() {
+        return titleTextField.getText();
+    }
+
+    public Color getSelectedColor() {
+        return colorPicker.getValue();
+    }
+
+    public String getRouteSectionLineTypeChoiceBoxSelection(int routeSectionIndex) {
+        return routeSectionLineTypeChoiceBoxList.get(routeSectionIndex).getSelectionModel().getSelectedItem();
+    }
+
+    public String getRouteSectionColumnChoiceBoxSelection(int routeSectionIndex) {
+        return routeSectionValueNameChoiceBoxList.get(routeSectionIndex).getSelectionModel().getSelectedItem();
+    }
+
+    public List<String> getAttributeValueSelection(int attributeIndex) {
+        List<String> attributeValues = new ArrayList<>();
+        for (CheckBox checkBox : attributesValueNamesCheckBoxList.get(attributeIndex)) {
+            attributeValues.add(checkBox.getText());
+        }
+        return  attributeValues;
     }
 }

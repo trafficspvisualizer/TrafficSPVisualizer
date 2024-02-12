@@ -270,4 +270,37 @@ public class ExportSettingsStage extends Stage {
 
         alert.showAndWait();
     }
+
+    // getter-methods
+
+    // buttons
+    public Button getSaveButton() {
+        return saveButton;
+    }
+
+    public Button getCancelButton() {
+        return cancelButton;
+    }
+
+    public Button getExportDirectoryButton() {
+        return exportDirectoryButton;
+    }
+
+    // values
+
+    public String getHeightString() {
+        return heightTextField.getText();
+    }
+
+    public String getWidthString() {
+        return widthTextField.getText();
+    }
+
+    public String getExportTypeString() {
+        return exportTypeChoiceBox.getValue();
+    }
+
+    public String getExportDirectoryPathString() {
+        return exportDirectoryTextField.getText();
+    }
 }

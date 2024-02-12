@@ -264,4 +264,33 @@ public class ProjectCreationStage extends Stage {
 
         alert.showAndWait();
     }
+
+    public Button getCreateNewProjectButton() {
+        return createNewProjectButton;
+    }
+
+    public Button getCancelButton() {
+        return cancelButton;
+    }
+
+    public Button getInputDataFileButton() {
+        return inputDataFileButton;
+    }
+
+    public Button getSaveProjectDirectoryButton() {
+        return saveProjectDirectoryButton;
+    }
+
+    public File getInputDataFile() {
+        return (File) inputDataFileTextField.getUserData();
+    }
+
+    public File getSaveProjectDirectory() {
+        return (File) saveProjectDirectoryTextField.getUserData();
+    }
+
+    public String getProjectName() {
+        return projectNameTextField.getText();
+    }
+
 }
