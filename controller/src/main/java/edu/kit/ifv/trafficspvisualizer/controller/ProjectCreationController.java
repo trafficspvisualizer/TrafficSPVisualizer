@@ -7,6 +7,7 @@ import edu.kit.ifv.trafficspvisualizer.view.window.ProjectCreationStage;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 
 /**
  * The ProjectCreationController is the logic unit associated with the
@@ -81,7 +82,7 @@ public class ProjectCreationController {
         //try to parse inputFile
         try {
             dataObject = new NGDParser().parse(inputFile);
-        } catch (IOException e) {
+        } catch (IOException | ParseException e) {
             controllerFacade.getViewFacade().getProjectCreationStage().showNewProjectErrorAlert();
             return;
         }
