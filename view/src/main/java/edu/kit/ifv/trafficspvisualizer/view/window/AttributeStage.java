@@ -204,6 +204,7 @@ public class AttributeStage extends Stage {
         attributeGridPane.setPadding(new Insets(15));
         attributeGridPane.setHgap(15);
         attributeGridPane.setVgap(15);
+        attributeGridPane.prefWidthProperty().bind(scene.widthProperty().subtract(17));
 
 
         attributeScrollPane.prefHeightProperty().bind(
