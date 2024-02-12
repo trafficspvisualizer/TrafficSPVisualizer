@@ -43,6 +43,7 @@ public class AttributeController {
      * assure no existing {@link edu.kit.ifv.trafficspvisualizer.model.Attribute} is edited.
      */
     public void actionOnNewAttributeButton(){
+        //TODO: Add attribute first then call attribute settings stage on attribute, delete attribute when canceled
         int sizeOfAttributeList = controllerFacade.getProject().getAttributes().size();
         // setting index at size of attribute list so
         // the AttributeSettingsController knows it has to create a new attribute
