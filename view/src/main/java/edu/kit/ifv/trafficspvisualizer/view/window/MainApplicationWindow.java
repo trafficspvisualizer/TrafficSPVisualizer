@@ -1,6 +1,7 @@
 package edu.kit.ifv.trafficspvisualizer.view.window;
 
 import edu.kit.ifv.trafficspvisualizer.model.ChoiceOption;
+import edu.kit.ifv.trafficspvisualizer.model.Icon;
 import edu.kit.ifv.trafficspvisualizer.model.Project;
 import edu.kit.ifv.trafficspvisualizer.model.RouteSection;
 import edu.kit.ifv.trafficspvisualizer.view.ViewFacade;
@@ -29,7 +30,9 @@ import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -447,8 +450,8 @@ public class MainApplicationWindow {
         Text choiceOptionTitleText = new Text(choiceOption.getTitle());
         choiceOptionTitleText.setFill(choiceOption.getColor());
 
-        choiceOptionTitleText.setFont(FontLibrary.getSmallFont());
         BorderPane.setAlignment(choiceOptionTitleText, Pos.TOP_LEFT);
+        choiceOptionTitleText.setFont(FontLibrary.getMidFont());
 
 
         ImageView choiceOptionSettingsButtonImageView = new ImageView(
@@ -456,9 +459,13 @@ public class MainApplicationWindow {
 
         choiceOptionSettingsButtonImageView.setFitWidth(25);
         choiceOptionSettingsButtonImageView.setFitHeight(25);
+        choiceOptionSettingsButtonImageView.setPreserveRatio(true);
 
         Button choiceOptionSettingsButton = new Button();
         choiceOptionSettingsButton.setGraphic(choiceOptionSettingsButtonImageView);
+
+        GridPane.setHalignment(choiceOptionSettingsButton, HPos.CENTER);
+        GridPane.setValignment(choiceOptionSettingsButton, VPos.CENTER);
 
         choiceOptionSettingsButtonList.add(choiceOptionSettingsButton);
 
@@ -468,9 +475,13 @@ public class MainApplicationWindow {
 
         upSwitchChoiceOptionButtonImageView.setFitWidth(15);
         upSwitchChoiceOptionButtonImageView.setFitHeight(15);
+        upSwitchChoiceOptionButtonImageView.setPreserveRatio(true);
 
         Button upSwitchChoiceOptionButton = new Button();
         upSwitchChoiceOptionButton.setGraphic(upSwitchChoiceOptionButtonImageView);
+
+        GridPane.setHalignment(upSwitchChoiceOptionButton, HPos.CENTER);
+        GridPane.setValignment(upSwitchChoiceOptionButton, VPos.CENTER);
 
         upSwitchChoiceOptionButtonList.add(upSwitchChoiceOptionButton);
 
@@ -480,11 +491,16 @@ public class MainApplicationWindow {
 
         downSwitchChoiceOptionButtonImageView.setFitWidth(15);
         downSwitchChoiceOptionButtonImageView.setFitHeight(15);
+        downSwitchChoiceOptionButtonImageView.setPreserveRatio(true);
 
         Button downSwitchChoiceOptionButton = new Button();
         downSwitchChoiceOptionButton.setGraphic(downSwitchChoiceOptionButtonImageView);
 
+        GridPane.setHalignment(downSwitchChoiceOptionButton, HPos.CENTER);
+        GridPane.setValignment(downSwitchChoiceOptionButton, VPos.CENTER);
+
         downSwitchChoiceOptionButtonList.add(downSwitchChoiceOptionButton);
+
 
 
         GridPane choiceOptionButtonGridPane = new GridPane();
@@ -493,37 +509,41 @@ public class MainApplicationWindow {
         choiceOptionButtonGridPane.add(downSwitchChoiceOptionButton, 0,2);
 
 
-        BorderPane.setAlignment(choiceOptionButtonGridPane, Pos.TOP_RIGHT);
         choiceOptionButtonGridPane.setPadding(new Insets(15));
         choiceOptionButtonGridPane.setHgap(15);
         choiceOptionButtonGridPane.setVgap(15);
 
 
-        GridPane routeSectionGridPane = new GridPane();
-        List<RouteSection> routeSectionList = choiceOption.getRouteSections();
-        for (int i = 0; i < routeSectionList.size(); i++) {
-            //TODO getting (image path)/(image) and converting svg image to javafx image
-
-
-            ImageView routeSelectionImageView = new ImageView();
+        FlowPane routeSectionFlowPane = new FlowPane();
+        for (RouteSection routeSection : choiceOption.getRouteSections()) {
+            Icon routeSectionIcon = routeSection.getIcon();
+            ImageView routeSelectionImageView =
+                    new ImageView(SwingFXUtils.toFXImage(routeSectionIcon.toBufferedImage(), null));
 
             routeSelectionImageView.setFitWidth(25);
             routeSelectionImageView.setFitHeight(25);
+            routeSelectionImageView.setPreserveRatio(true);
 
-            routeSectionGridPane.add(routeSelectionImageView, i,0);
+            routeSectionFlowPane.getChildren().add(routeSelectionImageView);
         }
 
-        BorderPane.setAlignment(routeSectionGridPane, Pos.BOTTOM_LEFT);
-        routeSectionGridPane.setPadding(new Insets(15));
-        routeSectionGridPane.setHgap(15);
-        routeSectionGridPane.setVgap(15);
+
+        routeSectionFlowPane.setPadding(new Insets(15));
+        routeSectionFlowPane.setHgap(15);
+        routeSectionFlowPane.setVgap(15);
+        routeSectionFlowPane.prefWidthProperty().bind(
+                configVbox.widthProperty()
+                        .subtract(17));
 
 
         BorderPane choiceOptionBorderPane = new BorderPane();
         choiceOptionBorderPane.setLeft(choiceOptionTitleText);
         choiceOptionBorderPane.setRight(choiceOptionButtonGridPane);
-        choiceOptionBorderPane.setBottom(routeSectionGridPane);
+        choiceOptionBorderPane.setBottom(routeSectionFlowPane);
 
+        choiceOptionBorderPane.setBorder(new Border(
+                new BorderStroke(Color.LIGHTGRAY, BorderStrokeStyle.SOLID, null,
+                        new BorderWidths(0,0,1,0))));
 
         choiceOptionVBox.getChildren().add(choiceOptionBorderPane);
     }
