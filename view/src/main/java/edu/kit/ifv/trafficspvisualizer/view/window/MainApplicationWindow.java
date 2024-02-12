@@ -444,7 +444,7 @@ public class MainApplicationWindow {
     }
 
     private void addChoiceOption(ChoiceOption choiceOption) {
-        Text choiceOptionTitleText = new Text(choiceOption.getName());
+        Text choiceOptionTitleText = new Text(choiceOption.getTitle());
         choiceOptionTitleText.setFill(choiceOption.getColor());
 
         choiceOptionTitleText.setFont(FontLibrary.getSmallFont());
