@@ -1,13 +1,8 @@
 package edu.kit.ifv.trafficspvisualizer.controller;
 
 import edu.kit.ifv.trafficspvisualizer.model.Attribute;
-import edu.kit.ifv.trafficspvisualizer.model.ChoiceOption;
 import edu.kit.ifv.trafficspvisualizer.model.Icon;
 import edu.kit.ifv.trafficspvisualizer.view.window.AttributeSettingsStage;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * The AttributeSettingsController represents the logic unit associated with the
@@ -105,10 +100,7 @@ public class AttributeSettingsController implements IconDisplayingController {
         // if attributeIndex is out of bounds, index is given by AttributeController
         } else {
             //create new attribute
-            //TODO: Not sure if this works
-            Map<ChoiceOption, List<String>> choiceOptionMappings = new HashMap<>();
-            Attribute newAttribute = new Attribute(name, icon, prefix, suffix, isPermanentlyVisible,
-                                                                                decimalPlaces, choiceOptionMappings);
+            Attribute newAttribute = new Attribute(name, icon, prefix, suffix, isPermanentlyVisible, decimalPlaces);
             //TODO: maybe add "addAttribute()" method, no need to give list
             controllerFacade.getProject().getAttributes().add(newAttribute);
         }

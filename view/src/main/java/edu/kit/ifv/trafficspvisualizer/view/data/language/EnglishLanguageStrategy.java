@@ -1,6 +1,7 @@
 package edu.kit.ifv.trafficspvisualizer.view.data.language;
 
 import edu.kit.ifv.trafficspvisualizer.model.ExportType;
+import edu.kit.ifv.trafficspvisualizer.model.LineType;
 
 public final class EnglishLanguageStrategy extends LanguageStrategy {
 
@@ -104,6 +105,10 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
     private final static String EXPORT_TYPE_CHOICE_OPTION_TEXT = "Choice option";
 
     private final static String EXPORT_TYPE_SITUATION_TEXT = "Situation";
+
+    private final static String LINE_TYPE_SOLID_TEXT = "Solid";
+
+    private final static String LINE_TYPE_DASHED_TEXT = "Dashed";
 
 
 
@@ -226,7 +231,7 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
 
 
     // ChoiceOptionSettingsStage
-    private final static String CHOICE_OPTION_SETTINGS_TITLE_FORMAT = "Edit choice option - %d";
+    private final static String CHOICE_OPTION_SETTINGS_TITLE_FORMAT = "Edit choice option - %s";
 
     private final static String CHOICE_OPTION_SETTINGS_TITLE_TEXT = "Title:";
 
@@ -236,7 +241,9 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
 
     private final static String CHOICE_OPTION_SETTINGS_ATTRIBUTES_NAME_TEXT = "Name";
 
-    private final static String CHOICE_OPTION_SETTINGS_ATTRIBUTES_COLUMNS_TEXT = "Columns";
+    private final static String CHOICE_OPTION_SETTINGS_ATTRIBUTES_VALUE_NAMES_TEXT = "Value names";
+
+    private final static String CHOICE_OPTION_SETTINGS_ATTRIBUTE_VALUE_NAMES_MENU_BUTTON_TEXT = "Select";
 
     private final static String CHOICE_OPTION_SETTINGS_ROUTE_SECTIONS_TEXT = "Route sections:";
 
@@ -246,7 +253,7 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
 
     private final static String CHOICE_OPTION_SETTINGS_ROUTE_SECTIONS_LINE_TYPE_TEXT = "Line type";
 
-    private final static String CHOICE_OPTION_SETTINGS_ROUTE_SECTIONS_COLUMN_TEXT = "Column";
+    private final static String CHOICE_OPTION_SETTINGS_ROUTE_SECTIONS_VALUE_NAME_TEXT = "Value name";
 
     private final static String CHOICE_OPTION_SETTINGS_ADD_ROUTE_SECTION_BUTTON_TEXT = "Add route section";
 
@@ -408,7 +415,19 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
         }
     }
 
-
+    public String getLineTypeText(LineType lineType) {
+        switch (lineType) {
+            case SOLID -> {
+                return LINE_TYPE_SOLID_TEXT;
+            }
+            case DASHED -> {
+                return LINE_TYPE_DASHED_TEXT;
+            }
+            default -> {
+                return null;
+            }
+        }
+    }
 
     // MainApplicationWindow
     public String getMainApplicationNewProjectMenuItemText() {
@@ -650,8 +669,12 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
         return CHOICE_OPTION_SETTINGS_ATTRIBUTES_NAME_TEXT;
     }
 
-    public String getChoiceOptionSettingsAttributesColumnsText() {
-        return CHOICE_OPTION_SETTINGS_ATTRIBUTES_COLUMNS_TEXT;
+    public String getChoiceOptionSettingsAttributesValueNamesText() {
+        return CHOICE_OPTION_SETTINGS_ATTRIBUTES_VALUE_NAMES_TEXT;
+    }
+
+    public String getChoiceOptionSettingsAttributeValueNamesMenuButtonText() {
+        return CHOICE_OPTION_SETTINGS_ATTRIBUTE_VALUE_NAMES_MENU_BUTTON_TEXT;
     }
 
     public String getChoiceOptionSettingsRouteSectionsText() {
@@ -670,8 +693,8 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
         return CHOICE_OPTION_SETTINGS_ROUTE_SECTIONS_LINE_TYPE_TEXT;
     }
 
-    public String getChoiceOptionSettingsRouteSectionsColumnText() {
-        return CHOICE_OPTION_SETTINGS_ROUTE_SECTIONS_COLUMN_TEXT;
+    public String getChoiceOptionSettingsRouteSectionsValueNameText() {
+        return CHOICE_OPTION_SETTINGS_ROUTE_SECTIONS_VALUE_NAME_TEXT;
     }
 
     public String getChoiceOptionSettingsAddRouteSectionButtonText() {

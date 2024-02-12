@@ -9,9 +9,10 @@ import edu.kit.ifv.trafficspvisualizer.util.image.SituationGenerator;
 import edu.kit.ifv.trafficspvisualizer.util.project.StandardProjectLoader;
 import edu.kit.ifv.trafficspvisualizer.util.project.StandardProjectSaver;
 import edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow;
+import javafx.event.Event;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -62,7 +63,7 @@ public class MainApplicationController {
         Project newProject;
         try {
             newProject = new StandardProjectLoader().loadProject(selectedFile);
-        } catch (Exception e) {
+        } catch (IOException e) {
             controllerFacade.getViewFacade().getMainApplicationWindow().showLoadProjectErrorAlert();
             return;
         }
@@ -70,8 +71,8 @@ public class MainApplicationController {
         controllerFacade.setProject(newProject);
         controllerFacade.getViewFacade().setProject(newProject);
 
-        //TODO: Load MainApplicationWindow
-        // Update Preview
+        // update MainApplicationWindow
+        updateChoiceOptions();
         updatePreview();
     }
 
@@ -80,6 +81,12 @@ public class MainApplicationController {
      * Instructs {@link StandardProjectSaver} to save project.
      */
     public void actionOnSaveButton() {
+        // if no project is currently loaded
+        if (controllerFacade.getProject() == null) {
+            controllerFacade.getViewFacade().getMainApplicationWindow().showNoProjectErrorAlert();
+            return;
+        }
+
         try {
             new StandardProjectSaver().saveProject(controllerFacade.getProject(),
                     controllerFacade.getProject().getExportSettings().getExportPath());
@@ -145,6 +152,13 @@ public class MainApplicationController {
      * Then creates subclass {@link Exporter} to export the generated images.
      */
     public void actionOnExportButton(){
+
+        // if no project is currently loaded
+        if (controllerFacade.getProject() == null) {
+            controllerFacade.getViewFacade().getMainApplicationWindow().showNoProjectErrorAlert();
+            return;
+        }
+
         ExportType exportType = controllerFacade.getProject().getExportSettings().getExportType();
         ImageCollectionGenerator imageCollectionGenerator = null;
 
@@ -154,7 +168,8 @@ public class MainApplicationController {
             imageCollectionGenerator = new ChoiceOptionGenerator();
         }
 
-        BufferedImage[] images = imageCollectionGenerator.createImage(controllerFacade.getProject());
+        // TODO: ChoiceOptionImage is already return type on urnyq branch
+        //ChoiceOptionImage[] images = imageCollectionGenerator.createImage(controllerFacade.getProject());
         //TODO: missing method in Exporter class
         //Exporter exporter = Exporter.getExporter(controllerFacade.getProject().getExportSettings().getExportType());
         //exporter.export(images, controllerFacade.getProject().getExportSettings().getExportPath());
@@ -164,6 +179,11 @@ public class MainApplicationController {
      * Instructs creation of {@link ExportSettingsController}.
      */
     public void actionOnExportSettingsButton(){
+        // if no project is currently loaded
+        if (controllerFacade.getProject() == null) {
+            controllerFacade.getViewFacade().getMainApplicationWindow().showNoProjectErrorAlert();
+            return;
+        }
         controllerFacade.createExportSettingsController();
     }
 
@@ -171,6 +191,11 @@ public class MainApplicationController {
      * Instructs creation of {@link AttributeController}.
      */
     public void actionOnAttributeButton(){
+        // if no project is currently loaded
+        if (controllerFacade.getProject() == null) {
+            controllerFacade.getViewFacade().getMainApplicationWindow().showNoProjectErrorAlert();
+            return;
+        }
         controllerFacade.createAttributeController();
     }
 
@@ -179,6 +204,8 @@ public class MainApplicationController {
      * instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow} to update preview.
      */
     public void actionOnNextPreviewButton(){
+        // if no project is currently loaded
+        if (controllerFacade.getProject() == null) return;
         controllerFacade.getProject().incrementPreview();
 
         // Update Preview
@@ -190,16 +217,36 @@ public class MainApplicationController {
      * instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow} to update preview.
      */
     public void actionOnPreviousPreviewButton(){
+        // if no project is currently loaded
+        if (controllerFacade.getProject() == null) return;
         controllerFacade.getProject().decrementPreview();
 
         // Update Preview
         updatePreview();
+    }
+    /**
+     * Asks user for confirmation to close application without saving and closes application if user confirms.
+     *
+     * @param event the close event that is consumed
+     */
+    public void actionOnCloseRequest(Event event){
+        event.consume();
+        controllerFacade.getViewFacade().getMainApplicationWindow()
+                .showCloseProjectConfirmationAlert()
+                .ifPresent(response -> {
+                    if (response == ButtonType.OK) {
+                        controllerFacade.getViewFacade().getMainApplicationWindow().close();
+                    }
+                });
     }
 
     /**
      * Instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow} to update preview.
      */
     public void updatePreview() {
+        SituationGenerator situationGenerator = new SituationGenerator();
+        controllerFacade.getViewFacade().getMainApplicationWindow()
+                                .setPreviewImage(situationGenerator.createPreviewImage(controllerFacade.getProject()));
         controllerFacade.getViewFacade().getMainApplicationWindow().updateCurrentPreviewSituation();
     }
 
@@ -233,13 +280,16 @@ public class MainApplicationController {
 
         MainApplicationWindow mainApplicationWindow = controllerFacade.getViewFacade().getMainApplicationWindow();
 
+        // Close Request
+        mainApplicationWindow.setOnCloseRequest(event -> actionOnCloseRequest(event));
+
         // File Menu
         mainApplicationWindow.getNewProjectMenuItem().setOnAction(e -> actionOnNewProjectButton());
         mainApplicationWindow.getLoadProjectMenuItem().setOnAction(e -> actionOnLoadProject());
         mainApplicationWindow.getSaveProjectMenuItem().setOnAction(e -> actionOnSaveButton());
 
         //Help Menu
-        mainApplicationWindow.getHelpMenu().setOnAction(e -> actionOnHelpButton());
+        mainApplicationWindow.getInstructionMenuItem().setOnAction(e -> actionOnHelpButton());
 
         //Export Buttons
         mainApplicationWindow.getExportButton().setOnAction(e -> actionOnExportButton());

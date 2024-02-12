@@ -1,6 +1,7 @@
 package edu.kit.ifv.trafficspvisualizer.view.data.language;
 
 import edu.kit.ifv.trafficspvisualizer.model.ExportType;
+import edu.kit.ifv.trafficspvisualizer.model.LineType;
 
 public abstract class LanguageStrategy {
     // Application
@@ -88,6 +89,8 @@ public abstract class LanguageStrategy {
 
         // ENUMS
     public abstract String getExportTypeText(ExportType exportType);
+
+    public abstract String getLineTypeText(LineType lineType);
 
 
 
@@ -222,7 +225,9 @@ public abstract class LanguageStrategy {
 
     public abstract String getChoiceOptionSettingsAttributesNameText();
 
-    public abstract String getChoiceOptionSettingsAttributesColumnsText();
+    public abstract String getChoiceOptionSettingsAttributesValueNamesText();
+
+    public abstract String getChoiceOptionSettingsAttributeValueNamesMenuButtonText();
 
     public abstract String getChoiceOptionSettingsRouteSectionsText();
 
@@ -232,7 +237,7 @@ public abstract class LanguageStrategy {
 
     public abstract String getChoiceOptionSettingsRouteSectionsLineTypeText();
 
-    public abstract String getChoiceOptionSettingsRouteSectionsColumnText();
+    public abstract String getChoiceOptionSettingsRouteSectionsValueNameText();
 
     public abstract String getChoiceOptionSettingsAddRouteSectionButtonText();
 

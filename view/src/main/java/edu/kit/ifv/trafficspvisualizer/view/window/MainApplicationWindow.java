@@ -8,6 +8,7 @@ import edu.kit.ifv.trafficspvisualizer.view.data.font.FontLibrary;
 import edu.kit.ifv.trafficspvisualizer.view.data.image.ImageLibrary;
 import edu.kit.ifv.trafficspvisualizer.view.data.language.LanguageStrategy;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -37,6 +38,7 @@ import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -400,7 +402,9 @@ public class MainApplicationWindow {
         previewImageView.setImage(SwingFXUtils.toFXImage(previewImage, null));
     }
 
-
+    public void setOnCloseRequest(EventHandler<WindowEvent> eventHandler) {
+        stage.setOnCloseRequest(eventHandler);
+    }
 
     // update- and add-methods
     public void updateCurrentPreviewSituation() {
@@ -587,6 +591,10 @@ public class MainApplicationWindow {
         alert.showAndWait();
     }
 
+    public void close() {
+        stage.close();
+    }
+
     //Getters
 
     public Button getExportButton() {
@@ -609,9 +617,10 @@ public class MainApplicationWindow {
         return saveProjectMenuItem;
     }
 
-    public Menu getHelpMenu() {
-        return helpMenu;
+    public MenuItem getInstructionMenuItem() {
+        return instructionMenuItem;
     }
+
 
     public Button getLeftSwitchPreviewButton() {
         return leftSwitchPreviewButton;

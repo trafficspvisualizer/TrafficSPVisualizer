@@ -1,11 +1,15 @@
 package edu.kit.ifv.trafficspvisualizer.controller;
 
 import edu.kit.ifv.trafficspvisualizer.model.Attribute;
+import edu.kit.ifv.trafficspvisualizer.model.ChoiceOption;
 import edu.kit.ifv.trafficspvisualizer.model.Icon;
 import edu.kit.ifv.trafficspvisualizer.model.LineType;
 import edu.kit.ifv.trafficspvisualizer.model.RouteSection;
 import edu.kit.ifv.trafficspvisualizer.view.window.ChoiceOptionSettingsStage;
+import javafx.scene.control.ButtonType;
 import javafx.scene.paint.Color;
+
+import java.util.List;
 
 /**
  * The ChoiceOptionSettingsController is the logic unit associated with the
@@ -69,10 +73,8 @@ public class ChoiceOptionSettingsController implements IconDisplayingController 
      * at index {@link ChoiceOptionSettingsController#choiceOptionId} with given color.
      */
     public void actionOnColorButton(){
-        //TODO: Missing ColorPicker
-        //Color newColor = controllerFacade.getViewFacade().getChoiceOptionSettingsStage().showColorPickerDialog();
-        //controllerFacade.getProject().getChoiceOptions().get(choiceOptionId).setColor(newColor);
-        //TODO: update?
+        Color newColor = controllerFacade.getViewFacade().getChoiceOptionSettingsStage().getSelectedColor();
+        controllerFacade.getProject().getChoiceOptions().get(choiceOptionId).setColor(newColor);
     }
 
     /**
@@ -138,17 +140,26 @@ public class ChoiceOptionSettingsController implements IconDisplayingController 
      */
     public void actionOnAttributeColumnMenu(int attributeIndex){
         //should  be called when option is selected
-        //TODO: Missing method to get AttributeColumn value
-        //List<String> columns = controllerFacade.getViewFacade().getChoiceOptionSettingsStage()
-        //        .getAttributeColumnValues(attributeIndex);
-        Attribute attribute = (Attribute)controllerFacade.getProject().getAttributes().get(attributeIndex);
+        List<String> attributeValueSelection = controllerFacade.getViewFacade().getChoiceOptionSettingsStage()
+                .getAttributeValueSelection(attributeIndex);
 
-        //map columns to attribute
-        //TODO: change to accept list so no need to remove mappings, makes it easier
-        //for (String column : columns) {
-        //    attribute.mapToChoiceOption(controllerFacade.getProject().getChoiceOptions()
-        //                                .get(choiceOptionId).getName(), column);
-        //}
+        Attribute attribute = (Attribute) controllerFacade.getProject().getAttributes().get(attributeIndex);
+        ChoiceOption choiceOption = controllerFacade.getProject().getChoiceOptions().get(choiceOptionId);
+
+        //TODO: maybe change to accept list so no need to remove mappings, makes it easier
+
+        // get old mappings - empty list if no mappings
+        List <String> oldMappings = attribute.getMapping(choiceOption);
+
+        // delete old mappings
+        for (String oldMapping: oldMappings) {
+            attribute.removeMapping(choiceOption, oldMapping);
+        }
+
+        // map new values to attribute
+        for (String value : attributeValueSelection) {
+            attribute.mapToChoiceOption(choiceOption, value);
+        }
 
         controllerFacade.getViewFacade().getChoiceOptionSettingsStage().updateAttributeScrollPane();
     }
@@ -165,14 +176,24 @@ public class ChoiceOptionSettingsController implements IconDisplayingController 
     }
 
     /**
-     * Deletes {@link RouteSection} at given index from {@link edu.kit.ifv.trafficspvisualizer.model.ChoiceOption} with
-     * index {@link ChoiceOptionSettingsController#choiceOptionId}.
+     * Asks user to confirm deletion and deletes {@link RouteSection} at given index from
+     * {@link edu.kit.ifv.trafficspvisualizer.model.ChoiceOption} with index
+     * {@link ChoiceOptionSettingsController#choiceOptionId} if user clicked "ok".
      *
      * @param routeSectionIndex index of route section which should be deleted
      */
-    public void actionOnDeleteButton(int routeSectionIndex){
-        controllerFacade.getProject().getChoiceOptions().get(choiceOptionId).removeRouteSection(routeSectionIndex);
-        controllerFacade.getViewFacade().getChoiceOptionSettingsStage().updateRouteSectionScrollPane();
+    public void actionOnDeleteButton(int routeSectionIndex) {
+        // show confirmation and alert and delete route section only if user did click ok
+        controllerFacade.getViewFacade().getChoiceOptionSettingsStage()
+                .showRemoveRouteSectionConfirmationAlert()
+                .ifPresent(response -> {
+                    if (response == ButtonType.OK) {
+                        controllerFacade.getProject().getChoiceOptions()
+                                .get(choiceOptionId).removeRouteSection(routeSectionIndex);
+
+                        controllerFacade.getViewFacade().getChoiceOptionSettingsStage().updateRouteSectionScrollPane();
+                    }
+                });
     }
 
     @Override
@@ -193,9 +214,11 @@ public class ChoiceOptionSettingsController implements IconDisplayingController 
         // Route Section
         updateRouteSectionActionListeners();
 
-        // TODO: ColorPicker button
+        // ColorPicker
+        choiceOptionSettingsStage.getColorPicker().setOnAction(e -> actionOnColorButton());
 
-        // TODO: Attribute Column
+        // Attribute values
+        updateAttributeActionListeners();
 
         // Close
         choiceOptionSettingsStage.getCloseButton().setOnAction(e -> actionOnCompleteButton());
@@ -229,6 +252,21 @@ public class ChoiceOptionSettingsController implements IconDisplayingController 
             choiceOptionSettingsStage.getRouteSectionColumnChoiceBoxList()
                                                 .get(index).getSelectionModel().selectedIndexProperty()
                                                 .addListener(e -> actionOnRouteSectionChoiceDataKeyMenu(index));
+        }
+    }
+
+    private void updateAttributeActionListeners() {
+        ChoiceOptionSettingsStage choiceOptionSettingsStage = controllerFacade.getViewFacade()
+                                                                                        .getChoiceOptionSettingsStage();
+        // iterate over attributes
+        for(int i = 0; i < choiceOptionSettingsStage.getAttributesColumnsCheckBoxList().size(); i++) {
+            // iterate over checkboxes
+            for(int j = 0; j < choiceOptionSettingsStage.getAttributesColumnsCheckBoxList().getFirst().size(); j++) {
+                int index = i;
+                // set listener for when checkbox is clicked
+                choiceOptionSettingsStage.getAttributesColumnsCheckBoxList().get(index).get(j)
+                                            .selectedProperty().addListener(e -> actionOnAttributeColumnMenu(index));
+            }
         }
     }
 }
