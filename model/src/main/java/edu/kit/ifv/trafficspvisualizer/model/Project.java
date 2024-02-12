@@ -107,11 +107,11 @@ public class Project {
     }
 
     public List<AbstractAttribute> getAttributes() {
-        return attributes;
+        return List.copyOf(attributes);
     }
 
     public List<ChoiceOption> getChoiceOptions() {
-        return choiceOptions;
+        return List.copyOf(choiceOptions);
     }
 
     public ExportSettings getExportSettings() {
