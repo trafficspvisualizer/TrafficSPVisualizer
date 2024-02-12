@@ -242,9 +242,10 @@ public class AttributeStage extends Stage {
     // update- and add-methods
     public void updateStage() {
         attributeGridPane.getChildren().removeIf(node -> GridPane.getRowIndex(node) >= 1);
-        attributeSettingsButtonList.clear();
         upSwitchAttributeButtonList.clear();
         downSwitchAttributeButtonList.clear();
+        attributeSettingsButtonList.clear();
+        attributeRemoveButtonList.clear();
 
         int currentRowIndex = 0;
         for (AbstractAttribute abstractAttribute : viewFacade.getProject().getAttributes()) {
@@ -324,7 +325,7 @@ public class AttributeStage extends Stage {
             attributeRemoveButtonImageView.setPreserveRatio(true);
 
             Button attributeRemoveButton = new Button();
-            attributeRemoveButton.setGraphic(attributeSettingsButtonImageView);
+            attributeRemoveButton.setGraphic(attributeRemoveButtonImageView);
 
             GridPane.setHalignment(attributeRemoveButton, HPos.CENTER);
             GridPane.setValignment(attributeRemoveButton, VPos.CENTER);
