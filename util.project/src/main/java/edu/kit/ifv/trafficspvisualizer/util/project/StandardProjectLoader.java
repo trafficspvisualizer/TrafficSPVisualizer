@@ -9,12 +9,13 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.ParseException;
 import java.util.stream.Stream;
 
 
 public class StandardProjectLoader extends AbstractLoader {
     @Override
-    public Project loadProject(File file) throws IOException {
+    public Project loadProject(File file) throws IOException, ParseException {
         String[] extensions = new String[] {".ngd"};
         File[] files = file.listFiles(new FilenameFilter() {
             public boolean accept(File dir, String name) {
