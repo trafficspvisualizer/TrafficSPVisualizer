@@ -132,7 +132,7 @@ public class IconSelectionStage extends Stage {
         setWidth(540);
         setHeight(540);
     }
-    private void updateStage() {
+    public void updateStage() {
         iconListView.getItems().clear();
 
         for (Icon icon : viewFacade.getProject().getIconManager().getIcons().values()) {

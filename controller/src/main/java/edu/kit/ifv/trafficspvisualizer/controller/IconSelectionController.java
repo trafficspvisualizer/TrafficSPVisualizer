@@ -81,8 +81,8 @@ public class IconSelectionController {
             controllerFacade.getViewFacade().getIconSelectionStage().showAddIconErrorAlert();
             return;
         }
-        //TODO: public update method
-        //controllerFacade.getViewFacade().getIconSelectionStage().update();
+
+        controllerFacade.getViewFacade().getIconSelectionStage().updateStage();
     }
 
     /**
