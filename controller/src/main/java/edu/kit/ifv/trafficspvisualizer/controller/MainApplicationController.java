@@ -171,8 +171,7 @@ public class MainApplicationController {
 
         // TODO: ChoiceOptionImage is already return type on urnyq branch
         //ChoiceOptionImage[] images = imageCollectionGenerator.createImage(controllerFacade.getProject());
-        //TODO: missing method in Exporter class
-        //Exporter exporter = Exporter.getExporter(controllerFacade.getProject().getExportSettings().getExportType());
+        Exporter exporter = Exporter.getExporter(controllerFacade.getProject().getExportSettings().getExportType());
         //exporter.export(images, controllerFacade.getProject().getExportSettings().getExportPath());
     }
 

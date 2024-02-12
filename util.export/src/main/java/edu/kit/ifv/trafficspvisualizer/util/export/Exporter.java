@@ -23,7 +23,7 @@ public abstract class  Exporter {
      * @param exportType the given export type
      * @return a concrete implementation of Exporter
      */
-    public Exporter getExporter(ExportType exportType) {
+    public static Exporter getExporter(ExportType exportType) {
         if (exportType == ExportType.HTML) {
             return new HTMLExporter();
         }
