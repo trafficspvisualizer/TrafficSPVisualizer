@@ -20,6 +20,6 @@ public class SituationData {
     }
 
     public Set<String> getNames() {
-        return this.choices.keySet();
+        return Set.copyOf(this.choices.keySet());
     }
 }

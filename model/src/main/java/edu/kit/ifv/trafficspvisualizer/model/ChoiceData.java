@@ -9,11 +9,11 @@ public class ChoiceData {
     public ChoiceData(Map<String, Double> values) {
         this.values = values;
     }
-    public double getValue(String attributeName) {
-        return this.values.get(attributeName);
+    public double getValue(String valueName) {
+        return this.values.get(valueName);
     }
 
     public Set<String> getNames() {
-        return this.values.keySet();
+        return Set.copyOf(this.values.keySet());
     }
 }

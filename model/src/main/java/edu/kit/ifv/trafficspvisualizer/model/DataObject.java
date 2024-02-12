@@ -6,22 +6,22 @@ public class DataObject {
     private final SituationData[] situationData;
 
     public DataObject(SituationData[] situationData) {
-        this.situationData = situationData;
+        this.situationData = situationData.clone();
     }
 
     public int getBlockNumber(int situationIndex) {
         return this.situationData[situationIndex].getBlockNumber();
     }
 
-    public double getAttributeValue(int situationIndex, String choiceName, String attributeName) {
-        return this.situationData[situationIndex].getChoiceData(choiceName).getValue(attributeName);
+    public double getAttributeValue(int situationIndex, String choiceName, String valueName) {
+        return this.situationData[situationIndex].getChoiceData(choiceName).getValue(valueName);
     }
 
     public Set<String> getChoiceNames(int situationIndex) {
         return this.situationData[situationIndex].getNames();
     }
 
-    public Set<String> getAttributeNames(int situationIndex, String choiceName) {
+    public Set<String> getValueNames(int situationIndex, String choiceName) {
         return this.situationData[situationIndex].getChoiceData(choiceName).getNames();
     }
 
