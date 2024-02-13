@@ -15,6 +15,9 @@ public class Attribute extends AbstractAttribute {
     private int decimalPlaces;
     private final Map<ChoiceOption, List<String>> choiceOptionMappings;
 
+    public Attribute(Icon icon) {
+        this("", icon, "", "", false, 0);
+    }
 
     public Attribute(String name, Icon icon, String prefix, String suffix,
                      boolean permanentlyVisible, int decimalPlaces) {
