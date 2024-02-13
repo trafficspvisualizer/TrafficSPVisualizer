@@ -36,7 +36,7 @@ public class StandardProjectLoader extends AbstractLoader {
 
         JSONObject json = new JSONObject(Files.readString(jsonFile.toPath()));
 
-        return createProject(json, ngdFile, iconDir, file.toPath());
+        return createProject(json, ngdFile, iconDir, file.getParentFile().toPath());
     }
 
     /**

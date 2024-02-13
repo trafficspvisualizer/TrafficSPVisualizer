@@ -60,19 +60,24 @@ public class ExportSettingsController {
         String widthString = controllerFacade.getViewFacade().getExportSettingsStage().getWidthString();
         String exportDirectoryPathString = controllerFacade.getViewFacade().getExportSettingsStage().
                                                                                         getExportDirectoryPathString();
-        String exportTypeString = controllerFacade.getViewFacade().getExportSettingsStage().getExportTypeString();
+        ExportType exportType = controllerFacade.getViewFacade().getExportSettingsStage().getExportType();
+
+        // check validity of input
+        if (heightString.isEmpty() || widthString.isEmpty() || exportDirectoryPathString.isEmpty()
+                || exportType == null) {
+            controllerFacade.getViewFacade().getExportSettingsStage().showSaveErrorAlert();
+            return;
+        }
 
         int height;
         int width;
         File exportPath;
-        ExportType exportType;
 
         // checking validity of scrape data
         try {
             height = Integer.parseInt(heightString);
             width = Integer.parseInt(widthString);
             exportPath = new File(exportDirectoryPathString);
-            exportType = ExportType.fromString(exportTypeString);
         } catch (NullPointerException | IllegalArgumentException exception) {
             controllerFacade.getViewFacade().getExportSettingsStage().showSaveErrorAlert();
             return;
@@ -81,7 +86,10 @@ public class ExportSettingsController {
         // setting new export settings in model, png as default because we currently only support png export
         ExportSettings exportSettings = new ExportSettings(height, width, exportPath.toPath(),
                                                                                             FileFormat.PNG, exportType);
+
         controllerFacade.getProject().setExportSettings(exportSettings);
+
+        actionOnCancelButton();
     }
 
     /**

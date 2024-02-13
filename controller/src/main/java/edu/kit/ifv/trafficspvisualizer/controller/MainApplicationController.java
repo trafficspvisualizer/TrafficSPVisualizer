@@ -1,5 +1,6 @@
 package edu.kit.ifv.trafficspvisualizer.controller;
 
+import edu.kit.ifv.trafficspvisualizer.model.ExportSettings;
 import edu.kit.ifv.trafficspvisualizer.model.Project;
 import edu.kit.ifv.trafficspvisualizer.model.ExportType;
 import edu.kit.ifv.trafficspvisualizer.util.export.Exporter;
@@ -92,8 +93,8 @@ public class MainApplicationController {
 
         try {
             new StandardProjectSaver().saveProject(controllerFacade.getProject(),
-                    controllerFacade.getProject().getExportSettings().getExportPath());
-        } catch (IOException e) {
+                    controllerFacade.getProject().getProjectPath());
+        } catch (IOException | IllegalArgumentException e) {
             controllerFacade.getViewFacade().getMainApplicationWindow().showSaveProjectErrorAlert();
         }
     }
@@ -157,6 +158,14 @@ public class MainApplicationController {
         // if no project is currently loaded
         if (controllerFacade.getProject() == null) {
             controllerFacade.getViewFacade().getMainApplicationWindow().showNoProjectErrorAlert();
+            return;
+        }
+
+        // check if exportSettings are fully configured
+        ExportSettings exportSettings = controllerFacade.getProject().getExportSettings();
+        if(exportSettings.getExportPath() == null || exportSettings.getExportType() == null
+                || exportSettings.getFileFormat() == null) {
+            controllerFacade.getViewFacade().getMainApplicationWindow().showExportErrorAlert();
             return;
         }
 

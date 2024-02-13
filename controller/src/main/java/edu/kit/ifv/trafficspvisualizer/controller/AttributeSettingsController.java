@@ -27,6 +27,8 @@ public class AttributeSettingsController implements IconDisplayingController {
      */
     private final int attributeIndex;
 
+    private final boolean workingOnNewAttribute;
+
     /**
      * Constructs the AttributeSettingsController. Creates new {@link AttributeSettingsStage},
      * saves it in ViewFacade and sets its ActionListeners.
@@ -34,9 +36,10 @@ public class AttributeSettingsController implements IconDisplayingController {
      * @param controllerFacade the front-facing interface for the controller package
      * @param attributeIndex the index of the attribute on which the controller is working
      */
-    public AttributeSettingsController(ControllerFacade controllerFacade, int attributeIndex) {
+    public AttributeSettingsController(ControllerFacade controllerFacade, int attributeIndex, boolean workingOnNewAttribute) {
         this.controllerFacade = controllerFacade;
         this.attributeIndex = attributeIndex;
+        this.workingOnNewAttribute = workingOnNewAttribute;
 
         //creates and shows new stage
         controllerFacade.getViewFacade().
@@ -81,32 +84,21 @@ public class AttributeSettingsController implements IconDisplayingController {
         // get icon from iconId
         Icon icon = controllerFacade.getProject().getIconManager().getIcons().get(iconId);
 
-        //check if editing existing Attribute or adding new one
-        // if attributeIndex is index of attribute list
-        if (attributeIndex < controllerFacade.getProject().getAttributes().size()) {
-            //edit existing Attribute
-            // type casting should be no problem cause index is given by AttributeController which ensures
-            // only indexes of non-separator-line Attributes are given
-            Attribute existingAttribute = (Attribute) controllerFacade.getProject().getAttributes().get(attributeIndex);
-            existingAttribute.setName(name);
-            existingAttribute.setIcon(icon);
-            existingAttribute.setPrefix(prefix);
-            existingAttribute.setSuffix(suffix);
-            existingAttribute.setPermanentlyVisible(isPermanentlyVisible);
-            existingAttribute.setDecimalPlaces(decimalPlaces);
-
-
-        // if attributeIndex is out of bounds, index is given by AttributeController
-        } else {
-            //create new attribute
-            Attribute newAttribute = new Attribute(name, icon, prefix, suffix, isPermanentlyVisible, decimalPlaces);
-            controllerFacade.getProject().addAttribute(newAttribute);
-        }
+        // type casting should be no problem cause index is given by AttributeController which ensures
+        // only indexes of non-separator-line Attributes are given
+        Attribute attribute = (Attribute) controllerFacade.getProject().getAttributes().get(attributeIndex);
+        attribute.setName(name);
+        attribute.setIcon(icon);
+        attribute.setPrefix(prefix);
+        attribute.setSuffix(suffix);
+        attribute.setPermanentlyVisible(isPermanentlyVisible);
+        attribute.setDecimalPlaces(decimalPlaces);
 
         //close stage
-        actionOnCancelButton();
         controllerFacade.getAttributeController().update();
-
+        controllerFacade.getViewFacade().getAttributeSettingsStage().close();
+        controllerFacade.getViewFacade().setAttributeSettingsStage(null);
+        controllerFacade.deleteAttributeSettingsController();
     }
 
     /**
@@ -115,6 +107,10 @@ public class AttributeSettingsController implements IconDisplayingController {
      * Deletes AttributeSettingsController from {@link ControllerFacade}.
      */
     public void actionOnCancelButton(){
+        // if user created new attribute and pressed cancel
+        if (workingOnNewAttribute) {
+            controllerFacade.getProject().removeAttribute(attributeIndex);
+        }
         controllerFacade.getViewFacade().getAttributeSettingsStage().close();
         controllerFacade.getViewFacade().setAttributeSettingsStage(null);
         controllerFacade.deleteAttributeSettingsController();

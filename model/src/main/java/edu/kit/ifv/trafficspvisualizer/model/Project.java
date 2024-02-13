@@ -71,18 +71,18 @@ public class Project {
     }
 
     public boolean swapChoiceOptionUp(int choiceOptionIndex) {
-        return swap(choiceOptions, choiceOptionIndex, 1);
+        return swap(choiceOptions, choiceOptionIndex, -1);
     }
 
     public boolean swapChoiceOptionDown(int choiceOptionIndex) {
-        return swap(choiceOptions, choiceOptionIndex, -1);
+        return swap(choiceOptions, choiceOptionIndex, 1);
     }
     public boolean swapAttributeUp(int attributeIndex) {
-        return swap(attributes, attributeIndex, 1);
+        return swap(attributes, attributeIndex, -1);
     }
 
     public boolean swapAttributeDown(int attributeIndex) {
-        return swap(attributes, attributeIndex, -1);
+        return swap(attributes, attributeIndex, 1);
     }
 
 

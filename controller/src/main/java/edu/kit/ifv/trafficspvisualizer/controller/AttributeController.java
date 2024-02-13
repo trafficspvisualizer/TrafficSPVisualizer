@@ -1,6 +1,7 @@
 package edu.kit.ifv.trafficspvisualizer.controller;
 
 import edu.kit.ifv.trafficspvisualizer.model.AbstractAttribute;
+import edu.kit.ifv.trafficspvisualizer.model.Attribute;
 import edu.kit.ifv.trafficspvisualizer.model.SeparatorLine;
 import edu.kit.ifv.trafficspvisualizer.view.window.AttributeStage;
 import javafx.scene.control.ButtonType;
@@ -43,10 +44,14 @@ public class AttributeController {
      * assure no existing {@link edu.kit.ifv.trafficspvisualizer.model.Attribute} is edited.
      */
     public void actionOnNewAttributeButton(){
-        int sizeOfAttributeList = controllerFacade.getProject().getAttributes().size();
-        // setting index at size of attribute list so
-        // the AttributeSettingsController knows it has to create a new attribute
-        controllerFacade.createAttributeSettingsController(sizeOfAttributeList);
+        //TODO: Default constructor for Attribute class
+
+        // Creating and adding new default Attribute and opening AttributeSettingsStage to edit it
+        Attribute newAttribute = new Attribute("test", null,"test", "test", true, 0);
+        controllerFacade.getProject().addAttribute(newAttribute);
+        controllerFacade.createAttributeSettingsController(controllerFacade.getProject().getAttributes().size() - 1,
+                                                                                                true);
+
     }
 
     /**
@@ -55,7 +60,7 @@ public class AttributeController {
      */
     public void actionOnNewSeparatorLineButton(){
         controllerFacade.getProject().addAttribute(new SeparatorLine());
-        controllerFacade.getViewFacade().getAttributeStage().updateStage();
+        update();
     }
 
     /**
@@ -71,9 +76,10 @@ public class AttributeController {
                 .ifPresent(response -> {
                     if (response == ButtonType.OK) {
                         controllerFacade.getProject().removeAttribute(attributeIndex);
-                        controllerFacade.getViewFacade().getAttributeStage().updateStage();
+                        update();
                     }
                 });
+
     }
 
     /**
@@ -83,7 +89,7 @@ public class AttributeController {
      * @param attributeIndex the index of the attribute which should be edited
      */
     public void actionOnSettingsButton(int attributeIndex){
-        controllerFacade.createAttributeSettingsController(attributeIndex);
+        controllerFacade.createAttributeSettingsController(attributeIndex, false);
     }
 
     /**
@@ -94,7 +100,7 @@ public class AttributeController {
     public void actionOnActiveCheck(int attributeIndex){
         AbstractAttribute attribute = controllerFacade.getProject().getAttributes().get(attributeIndex);
         attribute.setActive(!attribute.isActive());
-        controllerFacade.getViewFacade().getAttributeStage().updateStage();
+        update();
     }
 
     /**
@@ -106,7 +112,7 @@ public class AttributeController {
      */
     public void actionOnMoveAttributeUpButton(int attributeIndex) {
         controllerFacade.getProject().swapAttributeUp(attributeIndex);
-        controllerFacade.getViewFacade().getAttributeStage().updateStage();
+        update();
     }
 
     /**
@@ -118,7 +124,7 @@ public class AttributeController {
      */
     public void actionOnMoveAttributeDownButton(int attributeIndex){
         controllerFacade.getProject().swapAttributeDown(attributeIndex);
-        controllerFacade.getViewFacade().getAttributeStage().updateStage();
+        update();
     }
 
     /**
@@ -140,6 +146,7 @@ public class AttributeController {
      */
     public void update() {
         controllerFacade.getViewFacade().getAttributeStage().updateStage();
+        updateActionListeners();
     }
 
     private void updateActionListeners() {
@@ -162,7 +169,8 @@ public class AttributeController {
             attributeStage.getAttributeSettingsButtonList().get(index).setOnAction(e -> actionOnSettingsButton(index));
 
             // Active-Checkbox
-            attributeStage.getAttributeActiveCheckBoxList().get(index).setOnAction(e -> actionOnActiveCheck(index));
+            attributeStage.getAttributeActiveCheckBoxList().get(index)
+                                                    .selectedProperty().addListener(e -> actionOnActiveCheck(index));
 
             // Delete-Button
             attributeStage.getAttributeRemoveButtonList().get(index).setOnAction(e -> actionOnDeleteButton(index));
