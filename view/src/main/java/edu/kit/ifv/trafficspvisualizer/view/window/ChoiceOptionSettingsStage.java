@@ -3,9 +3,9 @@ package edu.kit.ifv.trafficspvisualizer.view.window;
 import edu.kit.ifv.trafficspvisualizer.model.AbstractAttribute;
 import edu.kit.ifv.trafficspvisualizer.model.Attribute;
 import edu.kit.ifv.trafficspvisualizer.model.ChoiceOption;
-import edu.kit.ifv.trafficspvisualizer.model.ExportType;
 import edu.kit.ifv.trafficspvisualizer.model.Icon;
 import edu.kit.ifv.trafficspvisualizer.model.LineType;
+import edu.kit.ifv.trafficspvisualizer.model.Project;
 import edu.kit.ifv.trafficspvisualizer.model.RouteSection;
 import edu.kit.ifv.trafficspvisualizer.view.ViewFacade;
 import edu.kit.ifv.trafficspvisualizer.view.data.font.FontLibrary;
@@ -39,6 +39,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The {@link ChoiceOptionSettingsStage} inherits from {@link Stage} and is a sub-window of the application
+ * which can be opened from the {@link MainApplicationWindow}
+ * and on which the user can edit all possible settings for a choice option.
+ *
+ * @version 1.0
+ */
 public class ChoiceOptionSettingsStage extends Stage {
 
     private ViewFacade viewFacade;
@@ -106,7 +113,12 @@ public class ChoiceOptionSettingsStage extends Stage {
     private Scene scene;
 
 
-
+    /**
+     * Creates the basic structure of the {@link ChoiceOptionSettingsStage}.
+     *
+     * @param viewFacade The {@link ViewFacade} through which this class can access
+     *                   the {@link Project} and the {@link LanguageStrategy}.
+     */
     public ChoiceOptionSettingsStage(ViewFacade viewFacade, int choiceOptionIndex) {
         attributesValueNamesCheckBoxList = new ArrayList<>();
         routeSectionIconButtonList = new ArrayList<>();
@@ -352,6 +364,9 @@ public class ChoiceOptionSettingsStage extends Stage {
         colorPicker.setValue(choiceOption.getColor());
     }
 
+    /**
+     * Updates the displayed attributes.
+     */
     public void updateAttributeScrollPane() {
         attributesGridPane.getChildren().removeIf(node -> GridPane.getRowIndex(node) >= 3);
         attributesValueNamesCheckBoxList.clear();
@@ -368,6 +383,9 @@ public class ChoiceOptionSettingsStage extends Stage {
 
     }
 
+    /**
+     * Updates the displayed route sections.
+     */
     public void updateRouteSectionScrollPane() {
         routeSectionsGridPane.getChildren().removeIf(node -> GridPane.getRowIndex(node) >= 3);
         routeSectionIconButtonList.clear();
@@ -512,6 +530,13 @@ public class ChoiceOptionSettingsStage extends Stage {
 
 
     // show-methods
+
+    /**
+     * Shows a confirmation alert that asks whether the user is aware that the selected route section
+     * will be removed.
+     *
+     * @return Optional button type of the button selected by the user.
+     */
     public Optional<ButtonType> showRemoveRouteSectionConfirmationAlert() {
         LanguageStrategy languageStrategy = viewFacade.getLanguageStrategy();
 
@@ -526,53 +551,115 @@ public class ChoiceOptionSettingsStage extends Stage {
     // getter-methods
 
     // components
+
+    /**
+     * Gets the close button.
+     *
+     * @return The close button.
+     */
     public Button getCloseButton() {
         return closeButton;
     }
 
+    /**
+     * Gets a list of all route section remove buttons.
+     *
+     * @return A list of all route section remove buttons.
+     */
     public List<Button> getRouteSectionRemoveButtonList() {
         return routeSectionRemoveButtonList;
     }
 
+    /**
+     * Gets the add route section button.
+     *
+     * @return The add route section button.
+     */
     public Button getAddRouteSectionButton() {
         return addRouteSectionButton;
     }
 
+    /**
+     * Gets a list of all route section icon buttons.
+     *
+     * @return A list of all route section icon buttons.
+     */
     public List<Button> getRouteSectionIconButtonList() {
         return routeSectionIconButtonList;
     }
 
+    /**
+     * Gets the title text field.
+     *
+     * @return The title text field.
+     */
     public TextField getTitleTextField() {
         return titleTextField;
     }
 
     // Checkbox Lists
+    /**
+     * Gets a list of all route section line type choice box's.
+     *
+     * @return A list of all route section line type choice box's.
+     */
     public List<ChoiceBox<String>> getRouteSectionLineTypeChoiceBoxList() {
         return routeSectionLineTypeChoiceBoxList;
     }
 
-    public List<ChoiceBox<String>> getRouteSectionColumnChoiceBoxList() {
+    /**
+     * Gets a list of all route section value name choice box's.
+     *
+     * @return A list of all route section value name choice box's.
+     */
+    public List<ChoiceBox<String>> getRouteSectionValueNameChoiceBoxList() {
         return routeSectionValueNameChoiceBoxList;
     }
 
+    /**
+     * Gets a list of all attribute value name lists.
+     *
+     * @return A list of all attribute value name lists.
+     */
     public List<List<CheckBox>> getAttributesColumnsCheckBoxList() {
         return attributesValueNamesCheckBoxList;
     }
 
+    /**
+     * Gets the color picker.
+     *
+     * @return The color picker.
+     */
     public ColorPicker getColorPicker() {
         return colorPicker;
     }
 
     // values
 
+    /**
+     * Gets the title {@code Sting}.
+     *
+     * @return The title {@code Sting}.
+     */
     public String getTitleString() {
         return titleTextField.getText();
     }
 
+    /**
+     * Gets the selected color.
+     *
+     * @return The selected color.
+     */
     public Color getSelectedColor() {
         return colorPicker.getValue();
     }
 
+    /**
+     * Gets the selected route section line type.
+     *
+     * @param routeSectionIndex Index of the route section for which the line type is required.
+     * @return The selected line type.
+     */
     public LineType getRouteSectionLineTypeChoiceBoxSelection(int routeSectionIndex) {
         for(LineType lineType : LineType.values()) {
             if (routeSectionLineTypeChoiceBoxList.get(routeSectionIndex).getSelectionModel().getSelectedItem()
@@ -585,10 +672,22 @@ public class ChoiceOptionSettingsStage extends Stage {
         return LineType.SOLID;
     }
 
+    /**
+     * Gets the selected route section value name.
+     *
+     * @param routeSectionIndex Index of the route section for which the value name is required.
+     * @return The selected value name.
+     */
     public String getRouteSectionValueNameSelection(int routeSectionIndex) {
         return routeSectionValueNameChoiceBoxList.get(routeSectionIndex).getSelectionModel().getSelectedItem();
     }
 
+    /**
+     * Gets the selected attribute value names.
+     *
+     * @param attributeIndex Index of the attribute for which the value names are required.
+     * @return List of the selected value names.
+     */
     public List<String> getAttributeValueNamesSelection(int attributeIndex) {
         List<String> attributeValues = new ArrayList<>();
         for (CheckBox checkBox : attributesValueNamesCheckBoxList.get(attributeIndex)) {
