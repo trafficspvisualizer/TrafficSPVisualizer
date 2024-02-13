@@ -13,6 +13,7 @@ import java.util.Objects;
 
 public class IconManager {
     private static final String[] DEFAULT_ICON_NAMES = {
+        "empty.svg",
         "bike.svg",
         "bus.svg",
         "car.svg",
