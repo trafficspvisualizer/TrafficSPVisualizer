@@ -247,6 +247,7 @@ public class AttributeStage extends Stage {
         downSwitchAttributeButtonList.clear();
         attributeSettingsButtonList.clear();
         attributeRemoveButtonList.clear();
+        attributeActiveCheckBoxList.clear();
 
         int currentRowIndex = 0;
         for (AbstractAttribute abstractAttribute : viewFacade.getProject().getAttributes()) {
