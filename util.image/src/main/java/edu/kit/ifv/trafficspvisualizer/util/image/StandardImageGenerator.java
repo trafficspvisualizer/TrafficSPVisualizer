@@ -56,13 +56,14 @@ public class StandardImageGenerator extends ImageGenerator{
         graphics2DChoiceOption = choiceOptionImage.createGraphics();
         fillGraphicWhite(graphics2DChoiceOption, width, height);
 
-        BufferedImage headlineImage = createHeadlineImage();
-        graphics2DChoiceOption.drawImage(headlineImage,0,0,null);
-        BufferedImage attributeImage = createAttributeImage();
-        return null;
+        drawHeadlineImage();
+        drawAttributeImages();
+        drawCentralSeparator();
+        drawTimeline();
+        return choiceOptionImage;
     }
 
-    private BufferedImage createHeadlineImage() {
+    private void drawHeadlineImage() {
         BufferedImage headlineImage = new BufferedImage(width, heightOfHeadline, BufferedImage.TYPE_INT_RGB);
         graphics2DHeadline = headlineImage.createGraphics();
         fillGraphicWhite(graphics2DHeadline, width, heightOfHeadline);
@@ -81,10 +82,10 @@ public class StandardImageGenerator extends ImageGenerator{
         graphics2DHeadline.setColor(color);
         graphics2DHeadline.drawString(headline, distanceToSide, ( 2 * heightOfHeadline) / 3);
         graphics2DHeadline.dispose();
-        return headlineImage;
+        graphics2DChoiceOption.drawImage(headlineImage,0,0,null);
     }
 
-    private BufferedImage createAttributeImage() {
+    private void drawAttributeImages() {
         int numberOfAttributes = calculateNumberOfAttributes();
         int numberOfSeparatorLines = attributes.size() - numberOfAttributes;
 
@@ -124,18 +125,21 @@ public class StandardImageGenerator extends ImageGenerator{
                 }
             }
         }
+    }
 
-        float centralStrokeWidth = (float) (width / 300 + 2); // set central stroke
+    private void drawCentralSeparator() {
+        float centralSeparatorStrokeWidth = (float) (width / 300 + 2);
         int yCoordinateOfCentralSeparatorLine = (int) (height * 0.3);
-        int xCoordinateOfCentralSeparatorLine = (int) leftHandSideWidth + 1;
+        int xCoordinateOfCentralSeparatorLine = currentXCoordinate + 1;
         int lengthOfCentralSeparatorLine = (int) (0.65 * height);
-        BasicStroke centralStroke = new BasicStroke(centralStrokeWidth);
+        BasicStroke centralStroke = new BasicStroke(centralSeparatorStrokeWidth);
         graphics2DChoiceOption.setStroke(centralStroke);
         graphics2DChoiceOption.drawLine(xCoordinateOfCentralSeparatorLine, yCoordinateOfCentralSeparatorLine,
                 xCoordinateOfCentralSeparatorLine, yCoordinateOfCentralSeparatorLine + lengthOfCentralSeparatorLine);
-        BasicStroke separatorLineStrokes = new BasicStroke(separatorLineStrokeWidth);
-        graphics2DChoiceOption.setStroke(separatorLineStrokes);
-        return null;
+    }
+
+    private void drawTimeline() {
+
     }
 
 
@@ -149,6 +153,7 @@ public class StandardImageGenerator extends ImageGenerator{
         int fontImageHeight;
         BufferedImage attributeImage = new BufferedImage(attributeWidth, attributeHeight, BufferedImage.TYPE_INT_RGB);
         Graphics2D g2DAttribute = attributeImage.createGraphics();
+        g2DAttribute.setColor(color);
         BufferedImage iconImage;
         BufferedImage fontImage;
         Font font = new Font("Arial Bold", Font.BOLD, 12);
@@ -156,19 +161,17 @@ public class StandardImageGenerator extends ImageGenerator{
         if (attribute.getPrefix().length() > 2) { // draw font in two lines
             String secondLineString = imageAttributeValue + " " + suffix;
             iconHeight = (int) (height * 0.15);
-            fontImageHeight = attributeHeight - iconHeight;
-            fontImage = new BufferedImage(attributeWidth, fontImageHeight, BufferedImage.TYPE_INT_RGB);
             g2DAttribute.drawString(secondLineString, attributeWidth / 8, (8 * attributeHeight) / 9);
-            g2DAttribute.drawString(prefix, attributeWidth / 8, attributeHeight);
+            g2DAttribute.drawString(prefix, attributeWidth / 8, (5 * attributeHeight) / 9);
         } else {
             iconHeight = (int) (height * 0.25);
-            fontImageHeight = attributeHeight - iconHeight;
             g2DAttribute.drawString(text, attributeWidth / 8, (8 * attributeHeight) / 9);
         }
         iconImage = svgToBufferedImageConverter.convert(attribute.getIcon().getIconPath().toFile(), iconHeight, attributeWidth);
+        changeImageColor(iconImage, Color.BLACK, color);
         g2DAttribute.drawImage(iconImage, 0, 0, null);
-        //BufferedImage
-        return null;
+        g2DAttribute.dispose();
+        return attributeImage;
     }
 
     private BufferedImage createEmptyAttributeImage(Attribute attribute) {
