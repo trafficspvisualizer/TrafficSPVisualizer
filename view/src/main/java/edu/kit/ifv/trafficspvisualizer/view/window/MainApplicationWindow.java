@@ -142,8 +142,8 @@ public class MainApplicationWindow {
     /**
      * Creates the basic structure of the {@link MainApplicationWindow}.
      *
-     * @param viewFacade The {@link ViewFacade} through which this class can access
-     *                   the project and the LanguageStrategy.
+     * @param viewFacade The {@link ViewFacade} through which this class can access the
+     *                   {@link Project} and the {@link LanguageStrategy}.
      * @param stage The primary stage of the application provided by the JavaFX application.
      */
     public MainApplicationWindow(ViewFacade viewFacade, Stage stage) {
@@ -599,7 +599,7 @@ public class MainApplicationWindow {
     }
 
     /**
-     * Displays a confirmation alert that asks whether the user is aware that the current project
+     * Shows a confirmation alert that asks whether the user is aware that the current project
      * will not be saved automatically when loading a new project,
      * when creating a new project and when closing the application.
      *
