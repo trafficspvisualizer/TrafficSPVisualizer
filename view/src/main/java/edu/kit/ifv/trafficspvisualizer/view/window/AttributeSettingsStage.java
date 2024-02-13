@@ -1,10 +1,12 @@
 package edu.kit.ifv.trafficspvisualizer.view.window;
 
 import edu.kit.ifv.trafficspvisualizer.model.Attribute;
+import edu.kit.ifv.trafficspvisualizer.model.Icon;
 import edu.kit.ifv.trafficspvisualizer.view.ViewFacade;
 import edu.kit.ifv.trafficspvisualizer.view.data.font.FontLibrary;
 import edu.kit.ifv.trafficspvisualizer.view.data.image.ImageLibrary;
 import edu.kit.ifv.trafficspvisualizer.view.data.language.LanguageStrategy;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -256,7 +258,8 @@ public class AttributeSettingsStage extends Stage {
 
         nameTextField.setText(attribute.getName());
 
-        //TODO: iconButtonImageView.setImage();
+        Icon attributeIcon = attribute.getIcon();
+        iconButtonImageView.setImage(SwingFXUtils.toFXImage(attributeIcon.toBufferedImage(),null));
 
         prefixTextField.setText(attribute.getPrefix());
 
@@ -273,7 +276,10 @@ public class AttributeSettingsStage extends Stage {
 
     // setter-methods
     public void setIcon(int iconId) {
-        //TODO: iconButtonImageView.setImage(); & iconButtonImageView.userData();
+        Icon attributeIcon = viewFacade.getProject().getIconManager().getIcons().get(iconId);
+        iconButtonImageView.setImage(SwingFXUtils.toFXImage(attributeIcon.toBufferedImage(), null));
+
+        iconButtonImageView.setUserData(iconId);
     }
 
     // show-methods

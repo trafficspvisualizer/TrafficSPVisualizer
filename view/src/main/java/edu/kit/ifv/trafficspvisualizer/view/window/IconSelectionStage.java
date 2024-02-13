@@ -5,6 +5,7 @@ import edu.kit.ifv.trafficspvisualizer.view.ViewFacade;
 import edu.kit.ifv.trafficspvisualizer.view.data.font.FontLibrary;
 import edu.kit.ifv.trafficspvisualizer.view.data.image.ImageLibrary;
 import edu.kit.ifv.trafficspvisualizer.view.data.language.LanguageStrategy;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -136,8 +137,7 @@ public class IconSelectionStage extends Stage {
         iconListView.getItems().clear();
 
         for (Icon icon : viewFacade.getProject().getIconManager().getIcons().values()) {
-            // TODO: Add image
-            ImageView iconImageView = new ImageView();
+            ImageView iconImageView = new ImageView(SwingFXUtils.toFXImage(icon.toBufferedImage(), null));
             iconImageView.setUserData(icon.getIdentifier());
 
             iconListView.getItems().add(iconImageView);
@@ -184,7 +184,6 @@ public class IconSelectionStage extends Stage {
     }
 
     public int getSelectedIconIdentifier() {
-        //TODO: Maybe directly give icon, userData can be icon
         return (int) iconListView.getSelectionModel().getSelectedItem().getUserData();
     }
 }

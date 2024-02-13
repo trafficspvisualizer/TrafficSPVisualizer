@@ -20,7 +20,6 @@ import java.util.Optional;
  * It keeps references to all currently existing windows and can make them available if necessary.
  * The windows can access the project and the current LanguageStrategy via the ViewFacade.
  *
- * @author ujwny
  * @version 1.0
  */
 public class ViewFacade {

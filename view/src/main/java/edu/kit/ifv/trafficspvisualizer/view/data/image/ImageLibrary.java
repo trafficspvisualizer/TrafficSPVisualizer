@@ -5,7 +5,6 @@ import javafx.scene.image.Image;
 /**
  * Library to get all static images used by view.
  *
- * @author ujwny
  * @version 1.0
  */
 public final class ImageLibrary {

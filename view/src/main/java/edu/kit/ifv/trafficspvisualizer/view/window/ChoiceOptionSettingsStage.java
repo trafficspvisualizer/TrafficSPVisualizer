@@ -3,12 +3,14 @@ package edu.kit.ifv.trafficspvisualizer.view.window;
 import edu.kit.ifv.trafficspvisualizer.model.AbstractAttribute;
 import edu.kit.ifv.trafficspvisualizer.model.Attribute;
 import edu.kit.ifv.trafficspvisualizer.model.ChoiceOption;
+import edu.kit.ifv.trafficspvisualizer.model.Icon;
 import edu.kit.ifv.trafficspvisualizer.model.LineType;
 import edu.kit.ifv.trafficspvisualizer.model.RouteSection;
 import edu.kit.ifv.trafficspvisualizer.view.ViewFacade;
 import edu.kit.ifv.trafficspvisualizer.view.data.font.FontLibrary;
 import edu.kit.ifv.trafficspvisualizer.view.data.image.ImageLibrary;
 import edu.kit.ifv.trafficspvisualizer.view.data.language.LanguageStrategy;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
@@ -440,10 +442,9 @@ public class ChoiceOptionSettingsStage extends Stage {
         routeSectionsGridPane.add(routeSectionNumberText,0,rowIndex);
 
 
-
-        // TODO: Convert and add image
+        Icon routeSectionIcon = routeSection.getIcon();
         ImageView routeSectionIconButtonImageView =
-                new ImageView();
+                new ImageView(SwingFXUtils.toFXImage(routeSectionIcon.toBufferedImage(),null));
 
         routeSectionIconButtonImageView.setFitWidth(25);
         routeSectionIconButtonImageView.setFitHeight(25);

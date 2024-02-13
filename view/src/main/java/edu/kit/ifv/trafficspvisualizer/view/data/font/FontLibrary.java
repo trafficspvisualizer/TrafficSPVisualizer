@@ -6,7 +6,6 @@ import javafx.scene.text.FontWeight;
 /**
  * Library to get all fonts used by the view.
  *
- * @author ujwny
  * @version 1.0
  */
 public final class FontLibrary {
