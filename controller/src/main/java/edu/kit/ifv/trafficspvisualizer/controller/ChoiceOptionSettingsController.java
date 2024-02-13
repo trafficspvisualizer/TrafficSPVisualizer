@@ -257,7 +257,7 @@ public class ChoiceOptionSettingsController implements IconDisplayingController 
 
 
             // Column - when checkbox value is picked
-            choiceOptionSettingsStage.getRouteSectionColumnChoiceBoxList()
+            choiceOptionSettingsStage.getRouteSectionValueNameChoiceBoxList()
                                                 .get(index).getSelectionModel().selectedItemProperty()
                                                 .addListener(e -> actionOnRouteSectionChoiceDataKeyMenu(index));
         }
