@@ -4,8 +4,11 @@ import edu.kit.ifv.trafficspvisualizer.model.AbstractAttribute;
 import edu.kit.ifv.trafficspvisualizer.model.Attribute;
 import edu.kit.ifv.trafficspvisualizer.model.ChoiceOption;
 import edu.kit.ifv.trafficspvisualizer.model.DataObject;
+import edu.kit.ifv.trafficspvisualizer.model.SVGToBufferedImageConverter;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -158,9 +161,20 @@ public class StandardImageGenerator extends ImageGenerator{
             attributeValue += dataObject.getAttributeValue(situationIndex, choiceOption.getName(), string);
         }
         int decimalPlaces = attribute.getDecimalPlaces();
-        int integerAttributeValue = (int) attributeValue; //TODO roundValue
-        String text = attribute.getPrefix() + integerAttributeValue + attribute.getSuffix();
+        double imageAttributeValue = round(decimalPlaces, attributeValue);
+        String text = attribute.getPrefix() + imageAttributeValue + attribute.getSuffix();
+        SVGToBufferedImageConverter svgToBufferedImageConverter = new SVGToBufferedImageConverter();
+        BufferedImage iconImage = svgToBufferedImageConverter.convert(attribute.getIcon().getIconPath().toFile(), attributeHeight, attributeWidth);
         return null;
+    }
+    private static double round(int decimalPlaces, double attributeValue) {
+        if (decimalPlaces < 0) {
+            throw new IllegalArgumentException("Decimal places cannot be negative");
+        }
+
+        BigDecimal bd = new BigDecimal(Double.toString(attributeValue));
+        bd = bd.setScale(decimalPlaces, BigDecimal.ROUND_HALF_UP);
+        return bd.doubleValue();
     }
 
 }
