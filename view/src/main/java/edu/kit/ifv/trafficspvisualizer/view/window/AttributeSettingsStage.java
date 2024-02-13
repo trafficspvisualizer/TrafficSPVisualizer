@@ -2,6 +2,7 @@ package edu.kit.ifv.trafficspvisualizer.view.window;
 
 import edu.kit.ifv.trafficspvisualizer.model.Attribute;
 import edu.kit.ifv.trafficspvisualizer.model.Icon;
+import edu.kit.ifv.trafficspvisualizer.model.Project;
 import edu.kit.ifv.trafficspvisualizer.view.ViewFacade;
 import edu.kit.ifv.trafficspvisualizer.view.data.font.FontLibrary;
 import edu.kit.ifv.trafficspvisualizer.view.data.image.ImageLibrary;
@@ -24,6 +25,13 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * The {@link AttributeSettingsStage} inherits from {@link Stage} and is a sub-window of the application
+ * that can be opened from the {@link AttributeStage} and on which the user can edit all possible settings
+ * for an attribute.
+ *
+ * @version 1.0
+ */
 public class AttributeSettingsStage extends Stage {
 
     private ViewFacade viewFacade;
@@ -71,9 +79,12 @@ public class AttributeSettingsStage extends Stage {
 
 
 
-
-
-
+    /**
+     * Creates the basic structure of the {@link AttributeSettingsStage}.
+     *
+     * @param viewFacade The {@link ViewFacade} through which this class can access
+     *                   the {@link Project} and the {@link LanguageStrategy}.
+     */
     public AttributeSettingsStage(ViewFacade viewFacade, int attributeIndex) {
         this.viewFacade = viewFacade;
         this.attributeIndex = attributeIndex;
@@ -275,6 +286,12 @@ public class AttributeSettingsStage extends Stage {
 
 
     // setter-methods
+
+    /**
+     * Sets the new attribute icon.
+     *
+     * @param iconId Icon id from the new attribute icon.
+     */
     public void setIcon(int iconId) {
         Icon attributeIcon = viewFacade.getProject().getIconManager().getIcons().get(iconId);
         iconButtonImageView.setImage(SwingFXUtils.toFXImage(attributeIcon.toBufferedImage(), null));
@@ -283,6 +300,9 @@ public class AttributeSettingsStage extends Stage {
     }
 
     // show-methods
+    /**
+     * Shows an error alert indicating that an error occurred during saving of the attribute.
+     */
     public void showSaveErrorAlert() {
         LanguageStrategy languageStrategy = viewFacade.getLanguageStrategy();
 
@@ -295,41 +315,84 @@ public class AttributeSettingsStage extends Stage {
     }
 
     //getter-methods
-
-
+    /**
+     * Gets the icon button.
+     *
+     * @return The icon button.
+     */
     public Button getIconButton() {
         return iconButton;
     }
 
+    /**
+     * Gets the cancel button.
+     *
+     * @return The cancel button.
+     */
     public Button getCancelButton() {
         return cancelButton;
     }
 
+    /**
+     * Gets the save button.
+     *
+     * @return The save button.
+     */
     public Button getSaveButton() {
         return saveButton;
     }
 
+    /**
+     * Gets if permanently visible is selected.
+     *
+     * @return True if permanently visible is selected.
+     */
     public boolean isPermanentlyVisible() {
         return permanentlyVisibleCheckBox.isSelected();
     }
 
+    /**
+     * Gets the number of decimal places {@code Sting}.
+     *
+     * @return The number of decimal places {@code Sting}.
+     */
     public String getNumberOfDecimalPlaces() {
         // returns String because validity is checked in controller
         return numberOfDecimalPlacesTextField.getText();
     }
 
+    /**
+     * Gets the prefix {@code Sting}.
+     *
+     * @return The prefix {@code Sting}.
+     */
     public String getPrefix() {
         return prefixTextField.getText();
     }
 
+    /**
+     * Gets the suffix {@code Sting}.
+     *
+     * @return The suffix {@code Sting}.
+     */
     public String getSuffix() {
         return suffixTextField.getText();
     }
 
+    /**
+     * Gets the name {@code Sting}.
+     *
+     * @return The name {@code Sting}.
+     */
     public String getName() {
         return nameTextField.getText();
     }
 
+    /**
+     * Gets the icon id of the selected icon.
+     *
+     * @return The icon id of the selected icon
+     */
     public int getIconId() {
         return (int) iconButtonImageView.getUserData();
     }
