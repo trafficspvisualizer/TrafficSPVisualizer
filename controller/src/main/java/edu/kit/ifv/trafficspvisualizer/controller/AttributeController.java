@@ -169,7 +169,8 @@ public class AttributeController {
             attributeStage.getAttributeSettingsButtonList().get(index).setOnAction(e -> actionOnSettingsButton(index));
 
             // Active-Checkbox
-            attributeStage.getAttributeActiveCheckBoxList().get(index).setOnAction(e -> actionOnActiveCheck(index));
+            attributeStage.getAttributeActiveCheckBoxList().get(index)
+                                                    .selectedProperty().addListener(e -> actionOnActiveCheck(index));
 
             // Delete-Button
             attributeStage.getAttributeRemoveButtonList().get(index).setOnAction(e -> actionOnDeleteButton(index));
