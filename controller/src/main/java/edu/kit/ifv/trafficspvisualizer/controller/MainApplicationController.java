@@ -155,18 +155,17 @@ public class MainApplicationController {
      */
     public void actionOnExportButton(){
 
+        // if no project is currently loaded
+        if (controllerFacade.getProject() == null) {
+            controllerFacade.getViewFacade().getMainApplicationWindow().showNoProjectErrorAlert();
+            return;
+        }
+
         // check if exportSettings are fully configured
         ExportSettings exportSettings = controllerFacade.getProject().getExportSettings();
         if(exportSettings.getExportPath() == null || exportSettings.getExportType() == null
                 || exportSettings.getFileFormat() == null) {
             controllerFacade.getViewFacade().getMainApplicationWindow().showExportErrorAlert();
-            return;
-        }
-
-
-        // if no project is currently loaded
-        if (controllerFacade.getProject() == null) {
-            controllerFacade.getViewFacade().getMainApplicationWindow().showNoProjectErrorAlert();
             return;
         }
 
