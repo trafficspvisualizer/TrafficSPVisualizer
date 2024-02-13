@@ -13,7 +13,7 @@ public class DataObject {
         return this.situationData[situationIndex].getBlockNumber();
     }
 
-    public double getAttributeValue(int situationIndex, String choiceName, String valueName) {
+    public double getValue(int situationIndex, String choiceName, String valueName) {
         return this.situationData[situationIndex].getChoiceData(choiceName).getValue(valueName);
     }
 
