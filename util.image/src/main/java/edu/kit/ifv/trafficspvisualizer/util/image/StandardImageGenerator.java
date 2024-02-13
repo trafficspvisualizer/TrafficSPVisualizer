@@ -4,6 +4,7 @@ import edu.kit.ifv.trafficspvisualizer.model.AbstractAttribute;
 import edu.kit.ifv.trafficspvisualizer.model.Attribute;
 import edu.kit.ifv.trafficspvisualizer.model.ChoiceOption;
 import edu.kit.ifv.trafficspvisualizer.model.DataObject;
+import edu.kit.ifv.trafficspvisualizer.model.RouteSection;
 import edu.kit.ifv.trafficspvisualizer.model.SVGToBufferedImageConverter;
 
 import java.awt.*;
@@ -21,6 +22,7 @@ public class StandardImageGenerator extends ImageGenerator{
     private int height;
     private  int attributeWidth;
     private int attributeHeight;
+    private double lengthOfLongestRouteSectionOfSituation;
     private int attributeDrawingHeight;
     private int distanceToSide;
     private DataObject dataObject;
@@ -39,6 +41,7 @@ public class StandardImageGenerator extends ImageGenerator{
         this.heightOfHeadline = height / 4;
         this.height = height;
         this.width = width;
+        this.lengthOfLongestRouteSectionOfSituation = max;
         this.attributeDrawingHeight = (int) (height * ATTRIBUTE_DRAWING_HEIGHT_CONSTANT);
         this.attributeWidth = width / 17;
         this.attributeHeight = (int) (height * 0.47);
@@ -139,7 +142,21 @@ public class StandardImageGenerator extends ImageGenerator{
     }
 
     private void drawTimeline() {
-
+        int lengthOfLongestRouteSection = width - (currentXCoordinate + 2 * distanceToSide);
+        int routeSectionDrawingHeight = (int) (height * 0.625);
+        List<RouteSection> routeSections = choiceOption.getRouteSections();
+        graphics2DChoiceOption.setColor(color);
+        graphics2DChoiceOption.drawLine(currentXCoordinate, routeSectionDrawingHeight + 1, currentXCoordinate, routeSectionDrawingHeight - 1);
+        for (RouteSection routeSection : routeSections) {
+            String key = routeSection.getChoiceDataKey();
+            double lengthOfRouteSection = dataObject.getAttributeValue(situationIndex, choiceOption.getName(), key);
+            int imageLengthOfRouteSection = (int) ((lengthOfLongestRouteSection * lengthOfRouteSection)
+                    / lengthOfLongestRouteSectionOfSituation);
+            graphics2DChoiceOption.drawLine(currentXCoordinate, routeSectionDrawingHeight,
+                    currentXCoordinate + imageLengthOfRouteSection, routeSectionDrawingHeight);
+            currentXCoordinate += imageLengthOfRouteSection;
+            graphics2DChoiceOption.drawLine(currentXCoordinate, routeSectionDrawingHeight + 1, currentXCoordinate, routeSectionDrawingHeight - 1);
+        }
     }
 
 
