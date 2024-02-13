@@ -84,4 +84,8 @@ public class IconManager {
     public Map<Integer, Icon> getIcons() {
         return Map.copyOf(icons);
     }
+
+    public Icon getDefaultIcon() {
+        return icons.get(0);
+    }
 }
