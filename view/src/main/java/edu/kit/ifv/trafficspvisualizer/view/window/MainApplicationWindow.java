@@ -447,11 +447,34 @@ public class MainApplicationWindow {
     }
 
     private void addChoiceOption(ChoiceOption choiceOption) {
-        Text choiceOptionTitleText = new Text(choiceOption.getTitle());
+        Text choiceOptionTitleText = new Text(choiceOption.getName());
         choiceOptionTitleText.setFill(choiceOption.getColor());
 
-        BorderPane.setAlignment(choiceOptionTitleText, Pos.TOP_LEFT);
+        GridPane.setHgrow(choiceOptionTitleText, Priority.ALWAYS);
         choiceOptionTitleText.setFont(FontLibrary.getMidFont());
+
+
+
+        FlowPane routeSectionFlowPane = new FlowPane();
+        for (RouteSection routeSection : choiceOption.getRouteSections()) {
+            Icon routeSectionIcon = routeSection.getIcon();
+            ImageView routeSelectionImageView =
+                    new ImageView(SwingFXUtils.toFXImage(routeSectionIcon.toBufferedImage(), null));
+
+            routeSelectionImageView.setFitWidth(25);
+            routeSelectionImageView.setFitHeight(25);
+            routeSelectionImageView.setPreserveRatio(true);
+
+            routeSectionFlowPane.getChildren().add(routeSelectionImageView);
+        }
+
+        GridPane.setHalignment(routeSectionFlowPane, HPos.LEFT);
+        GridPane.setValignment(routeSectionFlowPane, VPos.BOTTOM);
+        GridPane.setHgrow(routeSectionFlowPane, Priority.ALWAYS);
+        routeSectionFlowPane.setPadding(new Insets(15));
+        routeSectionFlowPane.setHgap(15);
+        routeSectionFlowPane.setVgap(15);
+
 
 
         ImageView choiceOptionSettingsButtonImageView = new ImageView(
@@ -502,50 +525,30 @@ public class MainApplicationWindow {
         downSwitchChoiceOptionButtonList.add(downSwitchChoiceOptionButton);
 
 
-
         GridPane choiceOptionButtonGridPane = new GridPane();
         choiceOptionButtonGridPane.add(choiceOptionSettingsButton, 0, 0);
         choiceOptionButtonGridPane.add(upSwitchChoiceOptionButton, 0, 1);
         choiceOptionButtonGridPane.add(downSwitchChoiceOptionButton, 0,2);
 
-
-        choiceOptionButtonGridPane.setPadding(new Insets(15));
         choiceOptionButtonGridPane.setHgap(15);
         choiceOptionButtonGridPane.setVgap(15);
 
 
-        FlowPane routeSectionFlowPane = new FlowPane();
-        for (RouteSection routeSection : choiceOption.getRouteSections()) {
-            Icon routeSectionIcon = routeSection.getIcon();
-            ImageView routeSelectionImageView =
-                    new ImageView(SwingFXUtils.toFXImage(routeSectionIcon.toBufferedImage(), null));
 
-            routeSelectionImageView.setFitWidth(25);
-            routeSelectionImageView.setFitHeight(25);
-            routeSelectionImageView.setPreserveRatio(true);
+        GridPane choiceOptionGridPane = new GridPane();
+        choiceOptionGridPane.add(choiceOptionTitleText,0,0);
+        choiceOptionGridPane.add(routeSectionFlowPane,0,1);
+        choiceOptionGridPane.add(choiceOptionButtonGridPane,1,0,1,2);
 
-            routeSectionFlowPane.getChildren().add(routeSelectionImageView);
-        }
-
-
-        routeSectionFlowPane.setPadding(new Insets(15));
-        routeSectionFlowPane.setHgap(15);
-        routeSectionFlowPane.setVgap(15);
-        routeSectionFlowPane.prefWidthProperty().bind(
-                configVbox.widthProperty()
-                        .subtract(17));
-
-
-        BorderPane choiceOptionBorderPane = new BorderPane();
-        choiceOptionBorderPane.setLeft(choiceOptionTitleText);
-        choiceOptionBorderPane.setRight(choiceOptionButtonGridPane);
-        choiceOptionBorderPane.setBottom(routeSectionFlowPane);
-
-        choiceOptionBorderPane.setBorder(new Border(
+        choiceOptionGridPane.setPadding(new Insets(15));
+        choiceOptionGridPane.setHgap(15);
+        choiceOptionGridPane.setVgap(15);
+        choiceOptionGridPane.prefWidthProperty().bind(configVbox.widthProperty().subtract(17));
+        choiceOptionGridPane.setBorder(new Border(
                 new BorderStroke(Color.LIGHTGRAY, BorderStrokeStyle.SOLID, null,
                         new BorderWidths(0,0,1,0))));
 
-        choiceOptionVBox.getChildren().add(choiceOptionBorderPane);
+        choiceOptionVBox.getChildren().add(choiceOptionGridPane);
     }
 
 
