@@ -351,11 +351,11 @@ public class AttributeStage extends Stage {
 
                 attributeSettingsButton.setDisable(true);
             }
+        }
 
-            if (!viewFacade.getProject().getAttributes().isEmpty()) {
-                upSwitchAttributeButtonList.getFirst().setDisable(true);
-                downSwitchAttributeButtonList.getLast().setDisable(true);
-            }
+        if (!viewFacade.getProject().getAttributes().isEmpty()) {
+            upSwitchAttributeButtonList.getFirst().setDisable(true);
+            downSwitchAttributeButtonList.getLast().setDisable(true);
         }
 
     }
