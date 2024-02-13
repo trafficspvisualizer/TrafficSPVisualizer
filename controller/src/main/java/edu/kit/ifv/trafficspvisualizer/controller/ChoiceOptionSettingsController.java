@@ -107,8 +107,9 @@ public class ChoiceOptionSettingsController implements IconDisplayingController 
      */
     public void actionOnLineTypeMenu(int routeSectionIndex){
         //should  be called when option is selected
+
         LineType newLineType = controllerFacade.getViewFacade().getChoiceOptionSettingsStage()
-                                                        .getRouteSectionLineTypeChoiceBoxSelection(routeSectionIndex);
+                .getRouteSectionLineTypeChoiceBoxSelection(routeSectionIndex);
         controllerFacade.getProject().getChoiceOptions().get(choiceOptionId).getRouteSections()
                                                                     .get(routeSectionIndex).setLineType(newLineType);
         updateRouteSections();

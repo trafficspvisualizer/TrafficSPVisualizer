@@ -3,6 +3,12 @@ package edu.kit.ifv.trafficspvisualizer.view.data.language;
 import edu.kit.ifv.trafficspvisualizer.model.ExportType;
 import edu.kit.ifv.trafficspvisualizer.model.LineType;
 
+/**
+ * A class that inherits from LanguageStrategy
+ * and in which all language-dependent strings that occur in the view are stored and made accessible.
+ *
+ * @version 1.0
+ */
 public final class EnglishLanguageStrategy extends LanguageStrategy {
 
     // Application
@@ -153,8 +159,6 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
 
     // AttributeSettingsStage
     private final static String ATTRIBUTE_SETTINGS_TITLE = "Edit Attribute";
-
-    private final static String ATTRIBUTE_SETTINGS_ACTIVE_TEXT = "Active:";
 
     private final static String ATTRIBUTE_SETTINGS_NAME_TEXT = "Name:";
 
@@ -502,10 +506,6 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
     // AttributeSettingsStage
     public String getAttributeSettingsTitle() {
         return ATTRIBUTE_SETTINGS_TITLE;
-    }
-
-    public  String getAttributeSettingsActiveText() {
-        return ATTRIBUTE_SETTINGS_ACTIVE_TEXT;
     }
 
     public String getAttributeSettingsNameText() {

@@ -46,7 +46,7 @@ public class ExportSettingsController {
     public void actionOnExportFolderButton(){
         File selectedFile = controllerFacade.getViewFacade().getExportSettingsStage().showDirectoryChooserDialog();
         if (selectedFile == null) return;
-        controllerFacade.getViewFacade().getExportSettingsStage().setExportFolderPath(selectedFile);
+        controllerFacade.getViewFacade().getExportSettingsStage().setExportDirectory(selectedFile);
     }
 
     /**
@@ -58,8 +58,8 @@ public class ExportSettingsController {
         // scraping data from view in String format
         String heightString = controllerFacade.getViewFacade().getExportSettingsStage().getHeightString();
         String widthString = controllerFacade.getViewFacade().getExportSettingsStage().getWidthString();
-        String exportDirectoryPathString = controllerFacade.getViewFacade().getExportSettingsStage().
-                                                                                        getExportDirectoryPathString();
+        File exportPath = controllerFacade.getViewFacade().getExportSettingsStage().
+                getExportDirectory();
         ExportType exportType = controllerFacade.getViewFacade().getExportSettingsStage().getExportType();
 
         // check validity of input
@@ -71,13 +71,11 @@ public class ExportSettingsController {
 
         int height;
         int width;
-        File exportPath;
 
         // checking validity of scrape data
         try {
             height = Integer.parseInt(heightString);
             width = Integer.parseInt(widthString);
-            exportPath = new File(exportDirectoryPathString);
         } catch (NullPointerException | IllegalArgumentException exception) {
             controllerFacade.getViewFacade().getExportSettingsStage().showSaveErrorAlert();
             return;

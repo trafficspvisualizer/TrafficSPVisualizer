@@ -49,6 +49,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The {@link MainApplicationWindow} serves as the main window of the application.
+ * It remains open during the entire execution of the program.
+ * When it is closed by the user, the program also closes automatically.
+ *
+ * @version 1.0
+ */
 public class MainApplicationWindow {
 
     private final ViewFacade viewFacade;
@@ -132,6 +139,13 @@ public class MainApplicationWindow {
 
     private Stage stage;
 
+    /**
+     * Creates the basic structure of the {@link MainApplicationWindow}.
+     *
+     * @param viewFacade The {@link ViewFacade} through which this class can access the
+     *                   {@link Project} and the {@link LanguageStrategy}.
+     * @param stage The primary stage of the application provided by the JavaFX application.
+     */
     public MainApplicationWindow(ViewFacade viewFacade, Stage stage) {
         choiceOptionSettingsButtonList = new ArrayList<>();
         upSwitchChoiceOptionButtonList = new ArrayList<>();
@@ -401,15 +415,30 @@ public class MainApplicationWindow {
 
 
     // setter-methods
+
+    /**
+     * Sets the new displayed preview image.
+     *
+     * @param previewImage The new displayed preview image
+     */
     public void setPreviewImage(BufferedImage previewImage) {
         previewImageView.setImage(SwingFXUtils.toFXImage(previewImage, null));
     }
 
+    /**
+     * Sets the event handler executed when the stage is closed.
+     *
+     * @param eventHandler The event handler executed when the stage is closed.
+     */
     public void setOnCloseRequest(EventHandler<WindowEvent> eventHandler) {
         stage.setOnCloseRequest(eventHandler);
     }
 
     // update- and add-methods
+
+    /**
+     * Updates the current displayed preview-situation-number.
+     */
     public void updateCurrentPreviewSituation() {
         Project project = viewFacade.getProject();
         if (project == null) {
@@ -424,6 +453,9 @@ public class MainApplicationWindow {
 
     }
 
+    /**
+     * Updates the current displayed choice options.
+     */
     public void updateChoiceOptions() {
         choiceOptionVBox.getChildren().clear();
         choiceOptionSettingsButtonList.clear();
@@ -447,11 +479,34 @@ public class MainApplicationWindow {
     }
 
     private void addChoiceOption(ChoiceOption choiceOption) {
-        Text choiceOptionTitleText = new Text(choiceOption.getTitle());
+        Text choiceOptionTitleText = new Text(choiceOption.getName());
         choiceOptionTitleText.setFill(choiceOption.getColor());
 
-        BorderPane.setAlignment(choiceOptionTitleText, Pos.TOP_LEFT);
+        GridPane.setHgrow(choiceOptionTitleText, Priority.ALWAYS);
         choiceOptionTitleText.setFont(FontLibrary.getMidFont());
+
+
+
+        FlowPane routeSectionFlowPane = new FlowPane();
+        for (RouteSection routeSection : choiceOption.getRouteSections()) {
+            Icon routeSectionIcon = routeSection.getIcon();
+            ImageView routeSelectionImageView =
+                    new ImageView(SwingFXUtils.toFXImage(routeSectionIcon.toBufferedImage(), null));
+
+            routeSelectionImageView.setFitWidth(25);
+            routeSelectionImageView.setFitHeight(25);
+            routeSelectionImageView.setPreserveRatio(true);
+
+            routeSectionFlowPane.getChildren().add(routeSelectionImageView);
+        }
+
+        GridPane.setHalignment(routeSectionFlowPane, HPos.LEFT);
+        GridPane.setValignment(routeSectionFlowPane, VPos.BOTTOM);
+        GridPane.setHgrow(routeSectionFlowPane, Priority.ALWAYS);
+        routeSectionFlowPane.setPadding(new Insets(15));
+        routeSectionFlowPane.setHgap(15);
+        routeSectionFlowPane.setVgap(15);
+
 
 
         ImageView choiceOptionSettingsButtonImageView = new ImageView(
@@ -502,61 +557,54 @@ public class MainApplicationWindow {
         downSwitchChoiceOptionButtonList.add(downSwitchChoiceOptionButton);
 
 
-
         GridPane choiceOptionButtonGridPane = new GridPane();
         choiceOptionButtonGridPane.add(choiceOptionSettingsButton, 0, 0);
         choiceOptionButtonGridPane.add(upSwitchChoiceOptionButton, 0, 1);
         choiceOptionButtonGridPane.add(downSwitchChoiceOptionButton, 0,2);
 
-
-        choiceOptionButtonGridPane.setPadding(new Insets(15));
         choiceOptionButtonGridPane.setHgap(15);
         choiceOptionButtonGridPane.setVgap(15);
 
 
-        FlowPane routeSectionFlowPane = new FlowPane();
-        for (RouteSection routeSection : choiceOption.getRouteSections()) {
-            Icon routeSectionIcon = routeSection.getIcon();
-            ImageView routeSelectionImageView =
-                    new ImageView(SwingFXUtils.toFXImage(routeSectionIcon.toBufferedImage(), null));
 
-            routeSelectionImageView.setFitWidth(25);
-            routeSelectionImageView.setFitHeight(25);
-            routeSelectionImageView.setPreserveRatio(true);
+        GridPane choiceOptionGridPane = new GridPane();
+        choiceOptionGridPane.add(choiceOptionTitleText,0,0);
+        choiceOptionGridPane.add(routeSectionFlowPane,0,1);
+        choiceOptionGridPane.add(choiceOptionButtonGridPane,1,0,1,2);
 
-            routeSectionFlowPane.getChildren().add(routeSelectionImageView);
-        }
-
-
-        routeSectionFlowPane.setPadding(new Insets(15));
-        routeSectionFlowPane.setHgap(15);
-        routeSectionFlowPane.setVgap(15);
-        routeSectionFlowPane.prefWidthProperty().bind(
-                configVbox.widthProperty()
-                        .subtract(17));
-
-
-        BorderPane choiceOptionBorderPane = new BorderPane();
-        choiceOptionBorderPane.setLeft(choiceOptionTitleText);
-        choiceOptionBorderPane.setRight(choiceOptionButtonGridPane);
-        choiceOptionBorderPane.setBottom(routeSectionFlowPane);
-
-        choiceOptionBorderPane.setBorder(new Border(
+        choiceOptionGridPane.setPadding(new Insets(15));
+        choiceOptionGridPane.setHgap(15);
+        choiceOptionGridPane.setVgap(15);
+        choiceOptionGridPane.prefWidthProperty().bind(configVbox.widthProperty().subtract(17));
+        choiceOptionGridPane.setBorder(new Border(
                 new BorderStroke(Color.LIGHTGRAY, BorderStrokeStyle.SOLID, null,
                         new BorderWidths(0,0,1,0))));
 
-        choiceOptionVBox.getChildren().add(choiceOptionBorderPane);
+        choiceOptionVBox.getChildren().add(choiceOptionGridPane);
     }
 
 
 
 
     // show-methods
+
+    /**
+     * Shows a directory chooser dialog bounded to this {@link MainApplicationWindow}.
+     *
+     * @return The {@link File} selected by the user.
+     */
     public File showDirectoryChooserDialog() {
         DirectoryChooser directoryChooser = new DirectoryChooser();
         return directoryChooser.showDialog(stage);
     }
 
+    /**
+     * Shows a confirmation alert that asks whether the user is aware that the current project
+     * will not be saved automatically when loading a new project,
+     * when creating a new project and when closing the application.
+     *
+     * @return Optional button type of the button selected by the user.
+     */
     public Optional<ButtonType> showCloseProjectConfirmationAlert() {
         LanguageStrategy languageStrategy = viewFacade.getLanguageStrategy();
 
@@ -568,6 +616,9 @@ public class MainApplicationWindow {
         return alert.showAndWait();
     }
 
+    /**
+     * Shows an error alert indicating that an error occurred during export.
+     */
     public void showExportErrorAlert() {
         LanguageStrategy languageStrategy = viewFacade.getLanguageStrategy();
 
@@ -579,6 +630,10 @@ public class MainApplicationWindow {
         alert.showAndWait();
     }
 
+    /**
+     * Shows an error alert
+     * indicating that a user interaction cannot be executed because no project is loaded in the application.
+     */
     public void showNoProjectErrorAlert() {
         LanguageStrategy languageStrategy = viewFacade.getLanguageStrategy();
 
@@ -590,6 +645,9 @@ public class MainApplicationWindow {
         alert.showAndWait();
     }
 
+    /**
+     * Shows an error alert indicating that a project cannot be loaded.
+     */
     public void showLoadProjectErrorAlert() {
         LanguageStrategy languageStrategy = viewFacade.getLanguageStrategy();
 
@@ -601,6 +659,9 @@ public class MainApplicationWindow {
         alert.showAndWait();
     }
 
+    /**
+     * Shows an error alert indicating that a project cannot be saved.
+     */
     public void showSaveProjectErrorAlert() {
         LanguageStrategy languageStrategy = viewFacade.getLanguageStrategy();
 
@@ -612,57 +673,119 @@ public class MainApplicationWindow {
         alert.showAndWait();
     }
 
+    /**
+     * Closes this {@link MainApplicationWindow} and the whole application.
+     */
     public void close() {
         stage.close();
     }
 
     //Getters
 
+    /**
+     * Gets the export button.
+     *
+     * @return The export button.
+     */
     public Button getExportButton() {
         return exportButton;
     }
 
+    /**
+     * Gets the export settings button.
+     *
+     * @return The export settings button.
+     */
     public Button getExportSettingsButton() {
         return exportSettingsButton;
     }
 
+    /**
+     * Gets the new project menu item.
+     *
+     * @return The new project menu item.
+     */
     public MenuItem getNewProjectMenuItem() {
         return newProjectMenuItem;
     }
 
+    /**
+     * Gets the load project menu item.
+     *
+     * @return The load project menu item.
+     */
     public MenuItem getLoadProjectMenuItem() {
         return loadProjectMenuItem;
     }
 
+    /**
+     * Gets the save project menu item.
+     *
+     * @return The save project menu item.
+     */
     public MenuItem getSaveProjectMenuItem() {
         return saveProjectMenuItem;
     }
 
+    /**
+     * Gets the instruction menu item.
+     *
+     * @return The instruction menu item.
+     */
     public MenuItem getInstructionMenuItem() {
         return instructionMenuItem;
     }
 
-
+    /**
+     * Gets the left switch preview button.
+     *
+     * @return The left switch preview button.
+     */
     public Button getLeftSwitchPreviewButton() {
         return leftSwitchPreviewButton;
     }
 
+    /**
+     * Gets the right switch preview button.
+     *
+     * @return The right switch preview button.
+     */
     public Button getRightSwitchPreviewButton() {
         return rightSwitchPreviewButton;
     }
 
+    /**
+     * Gets the attributes button.
+     *
+     * @return The attributes button.
+     */
     public Button getAttributesButton() {
         return attributesButton;
     }
 
+    /**
+     * Gets a list of all choice option settings buttons.
+     *
+     * @return A list of all choice option settings buttons.
+     */
     public List<Button> getChoiceOptionSettingsButtonList() {
         return choiceOptionSettingsButtonList;
     }
 
+    /**
+     * Gets a list of all up switch choice option buttons.
+     *
+     * @return A list of all up switch choice option buttons.
+     */
     public List<Button> getUpSwitchChoiceOptionButtonList() {
         return upSwitchChoiceOptionButtonList;
     }
 
+    /**
+     * Gets a list of all down switch choice option buttons.
+     *
+     * @return A list of all down switch choice option buttons.
+     */
     public List<Button> getDownSwitchChoiceOptionButtonList() {
         return downSwitchChoiceOptionButtonList;
     }
