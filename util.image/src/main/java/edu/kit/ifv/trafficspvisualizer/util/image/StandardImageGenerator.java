@@ -30,6 +30,8 @@ public class StandardImageGenerator extends ImageGenerator{
     private Graphics2D graphics2DChoiceOption;
     private List<AbstractAttribute> attributes;
     private java.awt.Color color;
+    private int currentXCoordinate;
+    SVGToBufferedImageConverter svgToBufferedImageConverter;
     @Override
     public BufferedImage createChoiceOption(ChoiceOption choiceOption, DataObject dataObject,
                                             List<AbstractAttribute> attributes, int height, int width, double min, double max, int situationIndex) {
@@ -50,6 +52,7 @@ public class StandardImageGenerator extends ImageGenerator{
                 (float) fxColor.getGreen(),
                 (float) fxColor.getBlue(),
                 (float) fxColor.getOpacity());
+        svgToBufferedImageConverter = new SVGToBufferedImageConverter();
         graphics2DChoiceOption = choiceOptionImage.createGraphics();
         fillGraphicWhite(graphics2DChoiceOption, width, height);
 
@@ -91,26 +94,34 @@ public class StandardImageGenerator extends ImageGenerator{
                 separatorLineStrokeWidth * numberOfSeparatorLines;
 
 
-        if (leftHandSideWidth > 0.5 * width) {
+        if (leftHandSideWidth > 0.5 * width) { // resizes attributeWidth
             int widthForAttributesOnly = (int) (0.5 * width - distanceToSide -
                     separatorLineStrokeWidth * numberOfSeparatorLines);
             attributeWidth = widthForAttributesOnly / numberOfAttributes;
             leftHandSideWidth = distanceToSide + attributeWidth * numberOfAttributes +
                     separatorLineStrokeWidth * numberOfSeparatorLines;
         }
-        int currentXCoordinate = distanceToSide;
-        for (AbstractAttribute attribute : attributes) {
-            if (attribute instanceof Attribute) {
-                BufferedImage attributeImage = createOneAttributeImage((Attribute) attribute);
-                graphics2DChoiceOption.drawImage(attributeImage, currentXCoordinate, attributeDrawingHeight, null);
-                currentXCoordinate += attributeWidth;
 
-            } else {
-                currentXCoordinate += (int) separatorLineStrokeWidth / 2;
-                BasicStroke separatorLineStroke = new BasicStroke(separatorLineStrokeWidth);
-                graphics2DChoiceOption.setStroke(separatorLineStroke);
-                graphics2DChoiceOption.drawLine(currentXCoordinate, attributeDrawingHeight, currentXCoordinate, attributeDrawingHeight + attributeHeight);
-                currentXCoordinate += (int) separatorLineStrokeWidth / 2 + 1;
+        currentXCoordinate = distanceToSide;
+        for (AbstractAttribute attribute : attributes) {
+            if (attribute.isActive()) {
+                if (attribute instanceof Attribute) {
+                    BufferedImage attributeImage;
+                    double attributeValue = calculateValueOfAttribute((Attribute) attribute);
+                    if (!((Attribute) attribute).isPermanentlyVisible() && attributeValue == 0) {
+                        attributeImage = createEmptyAttributeImage((Attribute) attribute);
+                    } else {
+                        attributeImage = createOneAttributeImage((Attribute) attribute);
+                    }
+                    graphics2DChoiceOption.drawImage(attributeImage, currentXCoordinate, attributeDrawingHeight, null);
+                    currentXCoordinate += attributeWidth;
+                } else {
+                    currentXCoordinate += (int) separatorLineStrokeWidth / 2;
+                    BasicStroke separatorLineStroke = new BasicStroke(separatorLineStrokeWidth);
+                    graphics2DChoiceOption.setStroke(separatorLineStroke);
+                    graphics2DChoiceOption.drawLine(currentXCoordinate, attributeDrawingHeight, currentXCoordinate, attributeDrawingHeight + attributeHeight);
+                    currentXCoordinate += (int) separatorLineStrokeWidth / 2 + 1;
+                }
             }
         }
 
@@ -127,6 +138,61 @@ public class StandardImageGenerator extends ImageGenerator{
         return null;
     }
 
+
+
+    private BufferedImage createOneAttributeImage(Attribute attribute) {
+        double imageAttributeValue = calculateValueOfAttribute(attribute);
+        String prefix = attribute.getPrefix();
+        String suffix = attribute.getSuffix();
+        String text = attribute.getPrefix() + imageAttributeValue + attribute.getSuffix();
+        int iconHeight;
+        int fontImageHeight;
+        BufferedImage attributeImage = new BufferedImage(attributeWidth, attributeHeight, BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2DAttribute = attributeImage.createGraphics();
+        BufferedImage iconImage;
+        BufferedImage fontImage;
+        Font font = new Font("Arial Bold", Font.BOLD, 12);
+        g2DAttribute.setFont(font);
+        if (attribute.getPrefix().length() > 2) { // draw font in two lines
+            String secondLineString = imageAttributeValue + " " + suffix;
+            iconHeight = (int) (height * 0.15);
+            fontImageHeight = attributeHeight - iconHeight;
+            fontImage = new BufferedImage(attributeWidth, fontImageHeight, BufferedImage.TYPE_INT_RGB);
+            g2DAttribute.drawString(secondLineString, attributeWidth / 8, (8 * attributeHeight) / 9);
+            g2DAttribute.drawString(prefix, attributeWidth / 8, attributeHeight);
+        } else {
+            iconHeight = (int) (height * 0.25);
+            fontImageHeight = attributeHeight - iconHeight;
+            g2DAttribute.drawString(text, attributeWidth / 8, (8 * attributeHeight) / 9);
+        }
+        iconImage = svgToBufferedImageConverter.convert(attribute.getIcon().getIconPath().toFile(), iconHeight, attributeWidth);
+        g2DAttribute.drawImage(iconImage, 0, 0, null);
+        //BufferedImage
+        return null;
+    }
+
+    private BufferedImage createEmptyAttributeImage(Attribute attribute) {
+        BufferedImage emptyAttributeImage = new BufferedImage(attributeWidth, attributeHeight, BufferedImage.TYPE_INT_RGB);
+        Graphics2D graphics2D = emptyAttributeImage.createGraphics();
+        fillGraphicWhite(graphics2D, attributeWidth, attributeHeight);
+        graphics2D.dispose();
+        return emptyAttributeImage;
+    }
+
+    private void fillGraphicWhite(Graphics2D graphics2D,int width, int height) {
+        graphics2D.setColor(Color.WHITE);
+        graphics2D.fillRect(0,0, width, height);
+    }
+
+    private double calculateValueOfAttribute (Attribute attribute) {
+        List<String> choiceOptionMappings = attribute.getMapping(choiceOption);
+        double attributeValue = 0;
+        for (String string : choiceOptionMappings) {
+            attributeValue += dataObject.getAttributeValue(situationIndex, choiceOption.getName(), string);
+        }
+        int decimalPlaces = attribute.getDecimalPlaces();
+        return round(decimalPlaces, attributeValue);
+    }
     private int calculateNumberOfAttributes() {
         int numberOfAttributes = 0;
         for(AbstractAttribute attribute : attributes) {
@@ -137,38 +203,6 @@ public class StandardImageGenerator extends ImageGenerator{
         return numberOfAttributes;
     }
 
-    private void fillGraphicWhite(Graphics2D graphics2D,int width, int height) {
-        graphics2D.setColor(Color.WHITE);
-        graphics2D.fillRect(0,0, width, height);
-    }
-
-    private static void changeImageColor(BufferedImage image, Color oldColor, Color newColor) {
-        int width = image.getWidth();
-        int height = image.getHeight();
-
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                Color pixelColor = new Color(image.getRGB(x, y), true);
-                if (pixelColor.equals(oldColor)) {
-                    image.setRGB(x, y, newColor.getRGB());
-                }
-            }
-        }
-    }
-
-    private BufferedImage createOneAttributeImage(Attribute attribute) {
-        List<String> choiceOptionMappings = attribute.getMapping(choiceOption);
-        double attributeValue = 0;
-        for (String string : choiceOptionMappings) {
-            attributeValue += dataObject.getAttributeValue(situationIndex, choiceOption.getName(), string);
-        }
-        int decimalPlaces = attribute.getDecimalPlaces();
-        double imageAttributeValue = round(decimalPlaces, attributeValue);
-        String text = attribute.getPrefix() + imageAttributeValue + attribute.getSuffix();
-        SVGToBufferedImageConverter svgToBufferedImageConverter = new SVGToBufferedImageConverter();
-        BufferedImage iconImage = svgToBufferedImageConverter.convert(attribute.getIcon().getIconPath().toFile(), attributeHeight, attributeWidth);
-        return null;
-    }
     public static double round(int decimalPlaces, double value) {
         if (decimalPlaces < 0) {
             throw new IllegalArgumentException("Decimal places cannot be negative");
@@ -184,6 +218,20 @@ public class StandardImageGenerator extends ImageGenerator{
         DecimalFormat decimalFormat = new DecimalFormat(pattern.toString(), symbols);
         String formattedString = decimalFormat.format(value);
         return Double.parseDouble(formattedString);
+    }
+
+    private static void changeImageColor(BufferedImage image, Color oldColor, Color newColor) {
+        int width = image.getWidth();
+        int height = image.getHeight();
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                Color pixelColor = new Color(image.getRGB(x, y), true);
+                if (pixelColor.equals(oldColor)) {
+                    image.setRGB(x, y, newColor.getRGB());
+                }
+            }
+        }
     }
 
 }
