@@ -25,10 +25,11 @@ public interface SharedConstants {
     String KEY_ATTRIBUTES = "attributes";
     String KEY_ATTRIBUTE= "Attribute";
 
-    // Other keys
+    // Choice Options
     String KEY_TITLE = "title";
     String KEY_COLOR = "color";
     String KEY_EXPORT_SETTINGS = "exportSettings";
     String KEY_LINE_SEPARATOR = "LineSeparator";
+    String KEY_CHOICE_OPTIONS = "ChoiceOptions";
 }
 
