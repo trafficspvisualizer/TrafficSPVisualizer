@@ -4,6 +4,7 @@ import edu.kit.ifv.trafficspvisualizer.model.AbstractAttribute;
 import edu.kit.ifv.trafficspvisualizer.model.Attribute;
 import edu.kit.ifv.trafficspvisualizer.model.Icon;
 import edu.kit.ifv.trafficspvisualizer.model.LineType;
+import edu.kit.ifv.trafficspvisualizer.model.Project;
 import edu.kit.ifv.trafficspvisualizer.view.ViewFacade;
 import edu.kit.ifv.trafficspvisualizer.view.data.font.FontLibrary;
 import edu.kit.ifv.trafficspvisualizer.view.data.image.ImageLibrary;
@@ -36,6 +37,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The {@link AttributeStage} inherits from {@link Stage} and is a sub-window of the application
+ * which can be opened from the {@link MainApplicationWindow}
+ * and on which the user can see all separator lines and attributes.
+ *
+ * @version 1.0
+ */
 public class AttributeStage extends Stage {
 
     private ViewFacade viewFacade;
@@ -85,7 +93,12 @@ public class AttributeStage extends Stage {
     private Scene scene;
 
 
-
+    /**
+     * Creates the basic structure of the {@link AttributeStage}.
+     *
+     * @param viewFacade The {@link ViewFacade} through which this class can access
+     *                   the {@link Project} and the {@link LanguageStrategy}.
+     */
     public AttributeStage(ViewFacade viewFacade) {
         attributeActiveCheckBoxList = new ArrayList<>();
         attributeSettingsButtonList = new ArrayList<>();
@@ -245,6 +258,9 @@ public class AttributeStage extends Stage {
 
 
     // update- and add-methods
+    /**
+     * Updates the displayed attributes/separator lines.
+     */
     public void updateStage() {
         attributeActiveCheckBoxList.clear();
         upSwitchAttributeButtonList.clear();
@@ -434,6 +450,12 @@ public class AttributeStage extends Stage {
 
 
     // show-methods
+    /**
+     * Shows a confirmation alert that asks whether the user is aware that the selected attribute
+     * will be removed.
+     *
+     * @return Optional button type of the button selected by the user.
+     */
     public Optional<ButtonType> showRemoveAttributeProjectConfirmationAlert() {
         LanguageStrategy languageStrategy = viewFacade.getLanguageStrategy();
 
@@ -447,35 +469,74 @@ public class AttributeStage extends Stage {
 
     // getters-method
 
-
+    /**
+     * Gets the close button.
+     *
+     * @return The close button.
+     */
     public Button getCloseButton() {
         return closeButton;
     }
 
+    /**
+     * Gets the add attribute button.
+     *
+     * @return The add attribute button.
+     */
     public Button getAddAttributeButton() {
         return addAttributeButton;
     }
 
+    /**
+     * Gets the add separator line button.
+     *
+     * @return The add separator line button.
+     */
     public Button getAddSeparatorLineButton() {
         return addSeparatorLineButton;
     }
 
+    /**
+     * Gets a list of all attribute settings buttons.
+     *
+     * @return A list of all attribute settings buttons.
+     */
     public List<Button> getAttributeSettingsButtonList() {
         return List.copyOf(attributeSettingsButtonList);
     }
 
+    /**
+     * Gets a list of all down switch attribute buttons.
+     *
+     * @return A list of all down switch attribute buttons.
+     */
     public List<Button> getDownSwitchAttributeButtonList() {
         return List.copyOf(downSwitchAttributeButtonList);
     }
 
+    /**
+     * Gets a list of all up switch attribute buttons.
+     *
+     * @return A list of all up switch attribute buttons.
+     */
     public List<Button> getUpSwitchAttributeButtonList() {
         return List.copyOf(upSwitchAttributeButtonList);
     }
 
+    /**
+     * Gets a list of all attribute remove buttons.
+     *
+     * @return A list of all attribute remove buttons.
+     */
     public List<Button> getAttributeRemoveButtonList() {
         return List.copyOf(attributeRemoveButtonList);
     }
 
+    /**
+     * Gets a list of all attribute active check box's.
+     *
+     * @return A list of all attribute active check box's.
+     */
     public List<CheckBox> getAttributeActiveCheckBoxList() {
         return List.copyOf(attributeActiveCheckBoxList);
     }
