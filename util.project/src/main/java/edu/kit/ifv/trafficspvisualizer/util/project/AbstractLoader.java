@@ -2,7 +2,6 @@ package edu.kit.ifv.trafficspvisualizer.util.project;
 
 import edu.kit.ifv.trafficspvisualizer.model.*;
 import edu.kit.ifv.trafficspvisualizer.util.parse.NGDParser;
-import edu.kit.ifv.trafficspvisualizer.util.parse.Parser;
 import javafx.scene.paint.Color;
 import org.json.JSONArray;
 import org.json.JSONObject;

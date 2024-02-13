@@ -39,7 +39,7 @@ public class StandardProjectSaver extends AbstractSaver {
      * @throws IOException If an I/O error occurs.
      */
     private void writeJsonToFile(Path dir, JSONObject jsonObject) throws IOException {
-        Files.writeString(dir.resolve(PROJECT_JSON), jsonObject.toString());
+        Files.writeString(dir.resolve(PROJECT_JSON), jsonObject.toString(4));
     }
 
     /**
