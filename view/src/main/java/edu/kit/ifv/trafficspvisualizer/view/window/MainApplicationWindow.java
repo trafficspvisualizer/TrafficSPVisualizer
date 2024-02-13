@@ -599,7 +599,7 @@ public class MainApplicationWindow {
     }
 
     /**
-     * Displays a confirmation dialog that asks whether the user is aware that the current project
+     * Displays a confirmation alert that asks whether the user is aware that the current project
      * will not be saved automatically when loading a new project,
      * when creating a new project and when closing the application.
      *
@@ -617,7 +617,7 @@ public class MainApplicationWindow {
     }
 
     /**
-     * Shows an error message indicating that an error occurred during export.
+     * Shows an error alert indicating that an error occurred during export.
      */
     public void showExportErrorAlert() {
         LanguageStrategy languageStrategy = viewFacade.getLanguageStrategy();
@@ -631,7 +631,7 @@ public class MainApplicationWindow {
     }
 
     /**
-     * Shows an error message
+     * Shows an error alert
      * indicating that a user interaction cannot be executed because no project is loaded in the application.
      */
     public void showNoProjectErrorAlert() {
@@ -646,7 +646,7 @@ public class MainApplicationWindow {
     }
 
     /**
-     * Shows an error message indicating that a project cannot be loaded.
+     * Shows an error alert indicating that a project cannot be loaded.
      */
     public void showLoadProjectErrorAlert() {
         LanguageStrategy languageStrategy = viewFacade.getLanguageStrategy();
@@ -660,7 +660,7 @@ public class MainApplicationWindow {
     }
 
     /**
-     * Shows an error message indicating that a project cannot be saved.
+     * Shows an error alert indicating that a project cannot be saved.
      */
     public void showSaveProjectErrorAlert() {
         LanguageStrategy languageStrategy = viewFacade.getLanguageStrategy();
@@ -683,108 +683,108 @@ public class MainApplicationWindow {
     //Getters
 
     /**
-     * Gets the export-button.
+     * Gets the export button.
      *
-     * @return The export-button.
+     * @return The export button.
      */
     public Button getExportButton() {
         return exportButton;
     }
 
     /**
-     * Gets the export-settings-button.
+     * Gets the export settings button.
      *
-     * @return The export-settings-button.
+     * @return The export settings button.
      */
     public Button getExportSettingsButton() {
         return exportSettingsButton;
     }
 
     /**
-     * Gets the new-project-menu-item.
+     * Gets the new project menu item.
      *
-     * @return The new-project-menu-item.
+     * @return The new project menu item.
      */
     public MenuItem getNewProjectMenuItem() {
         return newProjectMenuItem;
     }
 
     /**
-     * Gets the load-project-menu-item.
+     * Gets the load project menu item.
      *
-     * @return The load-project-menu-item.
+     * @return The load project menu item.
      */
     public MenuItem getLoadProjectMenuItem() {
         return loadProjectMenuItem;
     }
 
     /**
-     * Gets the save-project-menu-item.
+     * Gets the save project menu item.
      *
-     * @return The save-project-menu-item.
+     * @return The save project menu item.
      */
     public MenuItem getSaveProjectMenuItem() {
         return saveProjectMenuItem;
     }
 
     /**
-     * Gets the instruction-menu-item.
+     * Gets the instruction menu item.
      *
-     * @return The instruction-menu-item.
+     * @return The instruction menu item.
      */
     public MenuItem getInstructionMenuItem() {
         return instructionMenuItem;
     }
 
     /**
-     * Gets the left-switch-preview-button.
+     * Gets the left switch preview button.
      *
-     * @return The left-switch-preview-button.
+     * @return The left switch preview button.
      */
     public Button getLeftSwitchPreviewButton() {
         return leftSwitchPreviewButton;
     }
 
     /**
-     * Gets the right-switch-preview-button.
+     * Gets the right switch preview button.
      *
-     * @return The right-switch-preview-button.
+     * @return The right switch preview button.
      */
     public Button getRightSwitchPreviewButton() {
         return rightSwitchPreviewButton;
     }
 
     /**
-     * Gets the attributes-button.
+     * Gets the attributes button.
      *
-     * @return The attributes-button.
+     * @return The attributes button.
      */
     public Button getAttributesButton() {
         return attributesButton;
     }
 
     /**
-     * Gets a list of all choice-option-settings-buttons.
+     * Gets a list of all choice option settings buttons.
      *
-     * @return A list of all choice-option-settings-buttons.
+     * @return A list of all choice option settings buttons.
      */
     public List<Button> getChoiceOptionSettingsButtonList() {
         return choiceOptionSettingsButtonList;
     }
 
     /**
-     * Gets a list of all up-switch-choice-option-buttons.
+     * Gets a list of all up switch choice option buttons.
      *
-     * @return A list of all up-switch-choice-option-buttons.
+     * @return A list of all up switch choice option buttons.
      */
     public List<Button> getUpSwitchChoiceOptionButtonList() {
         return upSwitchChoiceOptionButtonList;
     }
 
     /**
-     * Gets a list of all down-switch-choice-option-buttons.
+     * Gets a list of all down switch choice option buttons.
      *
-     * @return A list of all down-switch-choice-option-buttons.
+     * @return A list of all down switch choice option buttons.
      */
     public List<Button> getDownSwitchChoiceOptionButtonList() {
         return downSwitchChoiceOptionButtonList;
