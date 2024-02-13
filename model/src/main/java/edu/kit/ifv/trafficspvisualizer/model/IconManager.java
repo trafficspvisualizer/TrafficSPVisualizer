@@ -1,7 +1,6 @@
 package edu.kit.ifv.trafficspvisualizer.model;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -39,10 +38,12 @@ public class IconManager {
         this.icons = new HashMap<>();
         if (iconDirectory != null) {
             initIcons(iconDirectory);
+        } else {
+            initDefaultIcons();
         }
     }
 
-    public void initDefaultIcons() throws IOException {
+    private void initDefaultIcons() throws IOException {
         for (String iconName : DEFAULT_ICON_NAMES) {
             try (InputStream iconStream = IconManager.class.getResourceAsStream("/defaultIcons/" + iconName)) {
                 createIcon(Objects.requireNonNull(iconStream));
