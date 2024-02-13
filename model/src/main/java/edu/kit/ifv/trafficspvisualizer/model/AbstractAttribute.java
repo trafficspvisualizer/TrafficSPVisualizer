@@ -1,7 +1,11 @@
 package edu.kit.ifv.trafficspvisualizer.model;
 
-public class AbstractAttribute {
+public abstract class AbstractAttribute {
     private boolean active;
+
+    public AbstractAttribute() {
+        this.active = true;
+    }
 
     public boolean isActive() {
         return active;
