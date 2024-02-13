@@ -43,7 +43,6 @@ public class NGDParser extends Parser {
 
     private DataObject createDataObject(String[][] data) throws ParseException {
         SituationData[] situations = new SituationData[data.length - 1]; //First row is not filled with data
-        DataObject dataObject = new DataObject(situations);
 
         String[] nameOfColumns = getNameOfColumns(data);
         String[] nameOfChoiceOptions = getNameOfChoiceOptions(nameOfColumns);
@@ -90,7 +89,7 @@ public class NGDParser extends Parser {
             }
             situations[i - 1] = situationData; //First row is not filled with data
         }
-        return dataObject;
+        return new DataObject(situations);
     }
 
     private String[] getNameOfColumns(String[][] data) {
