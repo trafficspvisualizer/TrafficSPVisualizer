@@ -63,7 +63,7 @@ public class ExportSettingsController {
         ExportType exportType = controllerFacade.getViewFacade().getExportSettingsStage().getExportType();
 
         // check validity of input
-        if (heightString.isEmpty() || widthString.isEmpty() || exportDirectoryPathString.isEmpty()
+        if (heightString.isEmpty() || widthString.isEmpty() || exportPath == null
                 || exportType == null) {
             controllerFacade.getViewFacade().getExportSettingsStage().showSaveErrorAlert();
             return;

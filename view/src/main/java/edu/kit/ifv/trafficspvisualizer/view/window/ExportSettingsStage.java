@@ -26,6 +26,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.util.Objects;
 
 /**
  * The {@link ExportSettingsStage} inherits from {@link Stage} and is a sub-window of the application
@@ -253,7 +254,7 @@ public class ExportSettingsStage extends Stage {
         widthTextField.setText(String.valueOf(exportSettings.getImageWidth()));
 
         if (exportSettings.getExportPath() != null) {
-            exportDirectoryTextField.setText(exportSettings.getExportPath().toFile().getAbsolutePath());
+            setExportDirectory(exportSettings.getExportPath().toFile());
         }
 
         exportTypeChoiceBox.setValue(viewFacade.getLanguageStrategy()
@@ -373,6 +374,8 @@ public class ExportSettingsStage extends Stage {
      * @return The export directory.
      */
     public File getExportDirectory() {
+        if (exportDirectoryTextField.getUserData().getClass() != File.class) return null;
         return (File) exportDirectoryTextField.getUserData();
     }
+
 }
