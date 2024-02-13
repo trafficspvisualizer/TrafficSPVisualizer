@@ -2,6 +2,7 @@ package edu.kit.ifv.trafficspvisualizer.view;
 
 
 import edu.kit.ifv.trafficspvisualizer.model.Project;
+import edu.kit.ifv.trafficspvisualizer.view.data.language.EnglishLanguageStrategy;
 import edu.kit.ifv.trafficspvisualizer.view.data.language.LanguageStrategy;
 import edu.kit.ifv.trafficspvisualizer.view.window.AttributeSettingsStage;
 import edu.kit.ifv.trafficspvisualizer.view.window.AttributeStage;
@@ -40,6 +41,8 @@ public class ViewFacade {
 
 
     public ViewFacade(Stage primaryStage, Project project) {
+        this.project = project;
+        languageStrategy = new EnglishLanguageStrategy();
         mainApplicationWindow = new MainApplicationWindow(this, primaryStage);
     }
 
@@ -48,6 +51,10 @@ public class ViewFacade {
 
     public Project getProject() {
         return project;
+    }
+
+    public LanguageStrategy getLanguageStrategy() {
+        return languageStrategy;
     }
 
     public MainApplicationWindow getMainApplicationWindow() {

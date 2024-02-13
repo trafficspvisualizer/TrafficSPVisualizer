@@ -71,18 +71,18 @@ public class Project {
     }
 
     public boolean swapChoiceOptionUp(int choiceOptionIndex) {
-        return swap(choiceOptions, choiceOptionIndex, 1);
+        return swap(choiceOptions, choiceOptionIndex, -1);
     }
 
     public boolean swapChoiceOptionDown(int choiceOptionIndex) {
-        return swap(choiceOptions, choiceOptionIndex, -1);
+        return swap(choiceOptions, choiceOptionIndex, 1);
     }
     public boolean swapAttributeUp(int attributeIndex) {
-        return swap(attributes, attributeIndex, 1);
+        return swap(attributes, attributeIndex, -1);
     }
 
     public boolean swapAttributeDown(int attributeIndex) {
-        return swap(attributes, attributeIndex, -1);
+        return swap(attributes, attributeIndex, 1);
     }
 
 
@@ -110,6 +110,14 @@ public class Project {
         return List.copyOf(attributes);
     }
 
+    public void addAttribute(AbstractAttribute attribute) {
+        attributes.add(attribute);
+    }
+
+    public void removeAttribute(int index) {
+        attributes.remove(index);
+    }
+
     public List<ChoiceOption> getChoiceOptions() {
         return List.copyOf(choiceOptions);
     }
@@ -125,6 +133,8 @@ public class Project {
     public String getName() {
         return name;
     }
+
+
 
     public void setExportSettings(ExportSettings exportSettings) {
         this.exportSettings = exportSettings;

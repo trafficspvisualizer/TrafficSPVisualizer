@@ -7,17 +7,13 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.stream.Collectors;
+
 
 /**
  * Exporter class for exporting images.
  */
 public class ImageExporter extends Exporter {
-
-    private static final String IMAGE_FORMAT = "png";
-    private static final String INFO_PREFIX = "#c_";
-    private static final String INFO_SUFFIX = "#";
-    private static final String DIRECTORY_NAME = "trafficSPVisulizer";
+        private static final String DIRECTORY_NAME = "trafficSPVisulizer";
 
     /**
      * Exports an array of images to a specified file.
@@ -30,7 +26,7 @@ public class ImageExporter extends Exporter {
     public void export(ChoiceOptionImage[] images, File file) throws IOException {
         File newDirectory = createDirectory(file);
         for (ChoiceOptionImage image : images) {
-            Path imagePath = constructImagePath(newDirectory, image);
+            Path imagePath = Paths.get(newDirectory.getPath() + File.separator + constructImagePath(image));
             Files.createDirectories(imagePath.getParent());
             try {
                 ImageIO.write(image.getImage(), IMAGE_FORMAT, imagePath.toFile());
@@ -60,18 +56,9 @@ public class ImageExporter extends Exporter {
         return newDirectory;
     }
 
-    /**
-     * Constructs the image path.
-     *
-     * @param file The file in which the image will be stored.
-     * @param image The image for which the path will be constructed.
-     * @return The constructed image path.
-     */
-    private Path constructImagePath(File file, ChoiceOptionImage image) {
-        String path = file.getPath() + File.separator +
-                image.getInfos().stream()
-                        .map(info -> INFO_PREFIX + info + INFO_SUFFIX)
-                        .collect(Collectors.joining()) + "." + IMAGE_FORMAT;
-        return Paths.get(path);
-    }
+
+
+
+
+
 }

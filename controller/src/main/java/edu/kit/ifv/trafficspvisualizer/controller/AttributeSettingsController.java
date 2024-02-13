@@ -2,64 +2,115 @@ package edu.kit.ifv.trafficspvisualizer.controller;
 
 import edu.kit.ifv.trafficspvisualizer.model.Attribute;
 import edu.kit.ifv.trafficspvisualizer.model.Icon;
-import javafx.scene.image.Image;
+import edu.kit.ifv.trafficspvisualizer.view.window.AttributeSettingsStage;
 
+/**
+ * The AttributeSettingsController represents the logic unit associated with the
+ * {@link edu.kit.ifv.trafficspvisualizer.view.window.AttributeSettingsStage}.
+ * It provides all the methods that are executed when a button is pressed in the AttributeSettingsStage.
+ * The controller has direct access to the window to keep the icon preview up to date.
+ * This controller implements the 'IconDisplayingController' interface, ensuring that the icon
+ * preview is always up-to-date.
+ *
+ * @author ughhz
+ * @version 1.0
+ */
 public class AttributeSettingsController implements IconDisplayingController {
+
+    /**
+     * Front-facing interface for the controller package.
+     */
     private final ControllerFacade controllerFacade;
+
+    /**
+     * Index of the {@link Attribute} on which the controller is working.
+     */
     private final int attributeIndex;
 
-    public AttributeSettingsController(ControllerFacade controllerFacade, int attributeIndex) {
+    private final boolean workingOnNewAttribute;
+
+    /**
+     * Constructs the AttributeSettingsController. Creates new {@link AttributeSettingsStage},
+     * saves it in ViewFacade and sets its ActionListeners.
+     *
+     * @param controllerFacade the front-facing interface for the controller package
+     * @param attributeIndex the index of the attribute on which the controller is working
+     */
+    public AttributeSettingsController(ControllerFacade controllerFacade, int attributeIndex, boolean workingOnNewAttribute) {
         this.controllerFacade = controllerFacade;
         this.attributeIndex = attributeIndex;
+        this.workingOnNewAttribute = workingOnNewAttribute;
+
+        //creates and shows new stage
+        controllerFacade.getViewFacade().
+                setAttributeSettingsStage(new AttributeSettingsStage(controllerFacade.getViewFacade(), attributeIndex));
+        setActionListeners();
     }
 
+    /**
+     * Creates new {@link IconSelectionController}.
+     * Sets AttributeSettingsController as parentController of IconSelectionController and attributeIndex as index.
+     */
     public void actionOnIconButton(){
         controllerFacade.createIconSelectionController(this, attributeIndex);
     }
 
-    public void actionOnSaveButton(){
+    /**
+     * Scrapes necessary data from {@link edu.kit.ifv.trafficspvisualizer.view.window.AttributeSettingsStage}.
+     * If working on existent attribute updates its values to scraped values.
+     * If working on newly created attribute, a new {@link Attribute} is created with scraped data.
+     * Closes the stage/controller afterward and instructs {@link AttributeController} to update.
+     */
+    public void actionOnSaveButton() {
         //scraping data from view
-        //TODO: placeholder methods
-        //String name = controllerFacade.getViewFacade().getAttributeSettingsStage().getName();
-        //Icon icon = controllerFacade.getViewFacade().getAttributeSettingsStage().getIcon();
-        //String prefix = controllerFacade.getViewFacade().getAttributeSettingsStage().getPrefix();
-        //String suffix = controllerFacade.getViewFacade().getAttributeSettingsStage().getSuffix();
-        //boolean isPermanentlyVisible = controllerFacade.getViewFacade().
-        //                                    getAttributeSettingsStage().getPermanentlyVisible();
-        //int decimalPlaces = controllerFacade.getViewFacade().getAttributeSettingsStage().getDecimalPlaces();
+        String name = controllerFacade.getViewFacade().getAttributeSettingsStage().getName();
+        int iconId = controllerFacade.getViewFacade().getAttributeSettingsStage().getIconId();
+        String prefix = controllerFacade.getViewFacade().getAttributeSettingsStage().getPrefix();
+        String suffix = controllerFacade.getViewFacade().getAttributeSettingsStage().getSuffix();
+        boolean isPermanentlyVisible = controllerFacade.getViewFacade().getAttributeSettingsStage()
+                                                                                                .isPermanentlyVisible();
+        String decimalPlacesString = controllerFacade.getViewFacade().
+                                            getAttributeSettingsStage().getNumberOfDecimalPlaces();
 
-
-        //check if editing existing Attribute or adding new one
-        // if attributeIndex is index of attribute list
-        if (attributeIndex < controllerFacade.getProject().getAttributes().size()) {
-            //edit existing Attribute
-            // type casting should be no problem cause index is given by AttributeController which ensures
-            // only indexes of non-separator-line Attributes are given
-            Attribute existingAttribute = (Attribute) controllerFacade.getProject().getAttributes().get(attributeIndex);
-            //existingAttribute.setName(name);
-            //TODO: icon should be changed to type Icon instead of Image
-            //existingAttribute.setIcon(icon);
-            //existingAttribute.setPrefix(prefix);
-            //existingAttribute.setSuffix(suffix);
-            //existingAttribute.setPermanentlyVisible(isPermanentlyVisible);
-            //existingAttribute.setDecimalPlaces(decimalPlaces);
-
-
-        // if attributeIndex is out of bounds, index is given by AttributeController
-        } else {
-            //create new attribute
-            //TODO: Attribute constructor missing
-            //Attribute newAttribute = new Attribute(name, icon, prefix, suffix, isPermanentlyVisible, decimalPlaces);
-            //TODO: maybe add "addAttribute()" method, no need to give list
-            //controllerFacade.getProject().getAttributes().add(newAttribute);
+        // converting decimal places to integer
+        int decimalPlaces;
+        try {
+            decimalPlaces = Integer.parseInt(decimalPlacesString);
+        } catch (NumberFormatException e) {
+            controllerFacade.getViewFacade().getAttributeSettingsStage().showSaveErrorAlert();
+            return;
         }
 
-        //close stage
-        actionOnCancelButton();
+        // get icon from iconId
+        Icon icon = controllerFacade.getProject().getIconManager().getIcons().get(iconId);
 
+        // type casting should be no problem cause index is given by AttributeController which ensures
+        // only indexes of non-separator-line Attributes are given
+        Attribute attribute = (Attribute) controllerFacade.getProject().getAttributes().get(attributeIndex);
+        attribute.setName(name);
+        attribute.setIcon(icon);
+        attribute.setPrefix(prefix);
+        attribute.setSuffix(suffix);
+        attribute.setPermanentlyVisible(isPermanentlyVisible);
+        attribute.setDecimalPlaces(decimalPlaces);
+
+        //close stage
+        controllerFacade.getAttributeController().update();
+        controllerFacade.getViewFacade().getAttributeSettingsStage().close();
+        controllerFacade.getViewFacade().setAttributeSettingsStage(null);
+        controllerFacade.deleteAttributeSettingsController();
     }
 
+    /**
+     * Closes the {@link edu.kit.ifv.trafficspvisualizer.view.window.AttributeSettingsStage} and
+     * deletes its reference in the {@link edu.kit.ifv.trafficspvisualizer.view.ViewFacade}.
+     * Deletes AttributeSettingsController from {@link ControllerFacade}.
+     */
     public void actionOnCancelButton(){
+        // if user created new attribute and pressed cancel
+        if (workingOnNewAttribute) {
+            controllerFacade.getProject().removeAttribute(attributeIndex);
+        }
         controllerFacade.getViewFacade().getAttributeSettingsStage().close();
         controllerFacade.getViewFacade().setAttributeSettingsStage(null);
         controllerFacade.deleteAttributeSettingsController();
@@ -67,15 +118,19 @@ public class AttributeSettingsController implements IconDisplayingController {
 
     @Override
     public void updateIcon(Icon icon, int index){
-        //TODO: setIconPreview should accept Type Icon
-        //controllerFacade.getViewFacade().getAttributeSettingsStage().setIconPreview(icon);
-    }
-
-    public int getAttributeIndex() {
-        return attributeIndex;
+        controllerFacade.getViewFacade().getAttributeSettingsStage().setIcon(icon.getIdentifier());
     }
 
     private void setActionListeners(){
+        AttributeSettingsStage attributeSettingsStage = controllerFacade.getViewFacade().getAttributeSettingsStage();
 
+        // Icon Button
+        attributeSettingsStage.getIconButton().setOnAction(e -> actionOnIconButton());
+
+        // Save Button
+        attributeSettingsStage.getSaveButton().setOnAction(e -> actionOnSaveButton());
+
+        // Cancel Button
+        attributeSettingsStage.getCancelButton().setOnAction(e -> actionOnCancelButton());
     }
 }

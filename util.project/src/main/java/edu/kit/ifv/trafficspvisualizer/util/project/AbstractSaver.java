@@ -8,62 +8,61 @@ import java.nio.file.Path;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 import java.util.Objects;
 
-import static java.util.stream.Collectors.*;
-
-
+/**
+ * This abstract class represents a saver that can save a project and create a JSON representation of a project.
+ */
 public abstract class AbstractSaver {
-    private static final String KEY_IMAGE_HEIGHT = "imageHeight";
-    private static final String KEY_IMAGE_WIDTH = "imageWidth";
-    private static final String KEY_FILE_FORMAT = "fileFormat";
-    private static final String KEY_EXPORT_TYPE = "exportType";
-    private static final String KEY_ICON = "icon";
-    private static final String KEY_CHOICE_DATA_KEY = "choiceDataKey";
-    private static final String KEY_LINE_TYPE = "lineType";
-    private static final String KEY_NAME = "name";
-    private static final String KEY_ICON_PATH = "iconPath";
-    private static final String KEY_PREFIX = "prefix";
-    private static final String KEY_SUFFIX = "suffix";
-    private static final String KEY_PERMANENTLY_VISIBLE = "permanentlyVisible";
-    private static final String KEY_DECIMAL_PLACES = "decimalPlaces";
-    private static final String KEY_CHOICE_OPTION_MAPPINGS = "choiceOptionMappings";
-    private static final String KEY_NAME_CHOICE_OPTION = "name";
-    private static final String KEY_ROUTE_SECTIONS = "routeSections";
-    private static final String KEY_TITLE = "title";
-    private static final String KEY_COLOR = "color";
-    private static final String KEY_ATTRIBUTES = "attributes";
-    private static final String KEY_EXPORT_SETTINGS = "exportSettings";
-    private static final String KEY_ICONS = "Icons";
-    private static final String KEY_ICONMANAGER = "IconManager";
+
+    /**
+     * Save a project to a specified path.
+     *
+     * @param project The project to be saved.
+     * @param path The path where the project will be saved.
+     * @throws IOException If an I/O error occurs.
+     */
     public abstract void saveProject(Project project, Path path) throws IOException;
 
+    /**
+     * Create a JSON object representing a project.
+     *
+     * @param name The name of the project.
+     * @param attributes The attributes of the project.
+     * @param exportSettings The export settings of the project.
+     * @return A JSONObject representing the project.
+     */
     protected JSONObject createJsonProject(String name, List<AbstractAttribute> attributes,
-                                           ExportSettings exportSettings, IconManager iconManager) {
+                                           ExportSettings exportSettings) {
         Objects.requireNonNull(name, "Name cannot be null");
         Objects.requireNonNull(attributes, "Attributes cannot be null");
         Objects.requireNonNull(exportSettings, "Export settings cannot be null");
 
         JSONArray attributesJsonArray = new JSONArray();
         for (AbstractAttribute attribute : attributes) {
-            JSONObject jsonAttribute = createJsonAttribute(attribute);
+            JSONObject jsonAttribute = createJsonAbstractAttribute(attribute);
             attributesJsonArray.put(jsonAttribute);
         }
 
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put(KEY_NAME, name);
-        jsonObject.put(KEY_ATTRIBUTES, attributesJsonArray);
-        jsonObject.put(KEY_EXPORT_SETTINGS, createJsonExportSettings(exportSettings));
+        jsonObject.put(SharedConstants.KEY_NAME, name);
+        jsonObject.put(SharedConstants.KEY_ATTRIBUTES, attributesJsonArray);
+        jsonObject.put(SharedConstants.KEY_EXPORT_SETTINGS, createJsonExportSettings(exportSettings));
 
         return jsonObject;
     }
 
-    private JSONObject createJsonAttribute(AbstractAttribute attribute) {
+    /**
+     * Create a JSON object representing an abstract attribute.
+     *
+     * @param attribute The abstract attribute to be represented.
+     * @return A JSONObject representing the abstract attribute.
+     * @throws IllegalArgumentException If the attribute type is unknown.
+     */
+    protected JSONObject createJsonAbstractAttribute(AbstractAttribute attribute) {
         Objects.requireNonNull(attribute, "Attribute cannot be null");
 
-        if (attribute instanceof Attribute) {
-            Attribute attribute1 = (Attribute)attribute;
+        if (attribute instanceof Attribute attribute1) {
             return createJsonAttributes(attribute1.getName(), attribute1.getIcon(), attribute1.getPrefix(),
                     attribute1.getSuffix(), attribute1.isPermanentlyVisible(), attribute1.getDecimalPlaces(),
                     attribute1.getChoiceOptionMappings());
@@ -74,38 +73,67 @@ public abstract class AbstractSaver {
         }
     }
 
+    /**
+     * Create a JSON object representing export settings.
+     *
+     * @param exportSettings The export settings to be represented.
+     * @return A JSONObject representing the export settings.
+     */
     protected JSONObject createJsonExportSettings(ExportSettings exportSettings) {
         Objects.requireNonNull(exportSettings, "Export settings cannot be null");
 
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put(KEY_IMAGE_HEIGHT, exportSettings.getImageHeight());
-        jsonObject.put(KEY_IMAGE_WIDTH, exportSettings.getImageWidth());
-        jsonObject.put(KEY_FILE_FORMAT, exportSettings.getFileFormat().toString());
-        jsonObject.put(KEY_EXPORT_TYPE, exportSettings.getExportType().toString());
+
+        jsonObject.put(SharedConstants.KEY_IMAGE_HEIGHT, exportSettings.getImageHeight());
+        jsonObject.put(SharedConstants.KEY_IMAGE_WIDTH, exportSettings.getImageWidth());
+        jsonObject.put(SharedConstants.KEY_FILE_FORMAT, exportSettings.getFileFormat().toString());
+        jsonObject.put(SharedConstants.KEY_EXPORT_TYPE, exportSettings.getExportType().toString());
 
         return jsonObject;
     }
 
+    /**
+     * Create a JSON object representing a line separator.
+     *
+     * @return A JSONObject representing a line separator.
+     */
     protected JSONObject createJsonLineSeparator(){
-        return new JSONObject().put("LineSeperator", "");
+        return new JSONObject().put(SharedConstants.KEY_LINE_SEPARATOR, "");
     }
 
-
-
+    /**
+     * Create a JSON object representing a route section.
+     *
+     * @param icon The icon of the route section.
+     * @param choiceDataKey The choice data key of the route section.
+     * @param lineType The line type of the route section.
+     * @return A JSONObject representing the route section.
+     */
     protected JSONObject createJsonRouteSection(Icon icon, String choiceDataKey, LineType lineType) {
         Objects.requireNonNull(icon, "Icon cannot be null");
         Objects.requireNonNull(choiceDataKey, "Choice data key cannot be null");
         Objects.requireNonNull(lineType, "Line type cannot be null");
 
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put(KEY_ICON, icon.getIdentifier());
-        jsonObject.put(KEY_CHOICE_DATA_KEY, choiceDataKey);
-        jsonObject.put(KEY_LINE_TYPE, lineType.toString());
+        jsonObject.put(SharedConstants.KEY_ICON, icon.getIdentifier());
+        jsonObject.put(SharedConstants.KEY_CHOICE_DATA_KEY, choiceDataKey);
+        jsonObject.put(SharedConstants.KEY_LINE_TYPE, lineType.toString());
 
         return jsonObject;
     }
 
-
+    /**
+     * Create a JSON object representing attributes.
+     *
+     * @param name The name of the attribute.
+     * @param icon The icon of the attribute.
+     * @param prefix The prefix of the attribute.
+     * @param suffix The suffix of the attribute.
+     * @param permanentlyVisible The visibility status of the attribute.
+     * @param decimalPlaces The number of decimal places for the attribute value.
+     * @param choiceOptionMappings The mappings of choice options for the attribute.
+     * @return A JSONObject representing the attribute.
+     */
     protected JSONObject createJsonAttributes(String name, Icon icon, String prefix, String suffix,
                                               boolean permanentlyVisible, int decimalPlaces, Map<ChoiceOption,
             List<String>> choiceOptionMappings) {
@@ -116,30 +144,48 @@ public abstract class AbstractSaver {
         Objects.requireNonNull(choiceOptionMappings, "Choice option mappings cannot be null");
 
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put(KEY_NAME, name);
-        jsonObject.put(KEY_ICON_PATH, icon.getIdentifier());
-        jsonObject.put(KEY_PREFIX, prefix);
-        jsonObject.put(KEY_SUFFIX, suffix);
-        jsonObject.put(KEY_PERMANENTLY_VISIBLE, permanentlyVisible);
-        jsonObject.put(KEY_DECIMAL_PLACES, decimalPlaces);
-        jsonObject.put(KEY_CHOICE_OPTION_MAPPINGS, createChoiceOptionMappingsJson(choiceOptionMappings));
-
-        return jsonObject;
+        jsonObject.put(SharedConstants.KEY_NAME, name);
+        jsonObject.put(SharedConstants.KEY_ICON, icon.getIdentifier());
+        jsonObject.put(SharedConstants.KEY_PREFIX, prefix);
+        jsonObject.put(SharedConstants.KEY_SUFFIX, suffix);
+        jsonObject.put(SharedConstants.KEY_PERMANENTLY_VISIBLE, permanentlyVisible);
+        jsonObject.put(SharedConstants.KEY_DECIMAL_PLACES, decimalPlaces);
+        jsonObject.put(SharedConstants.KEY_CHOICE_OPTION_MAPPINGS, createChoiceOptionMappingsJson(choiceOptionMappings));
+        JSONObject attribute = new JSONObject();
+        return attribute.put(SharedConstants.KEY_ATTRIBUTE,jsonObject);
     }
 
-    private JSONObject createChoiceOptionMappingsJson(Map<ChoiceOption, List<String>> choiceOptionMappings) {
-        JSONObject choiceOptionMappingsJson = new JSONObject();
+    /**
+     * Create a JSON array representing the mappings of choice options.
+     *
+     * @param choiceOptionMappings The mappings of choice options.
+     * @return A JSONArray representing the choice option mappings.
+     */
+    protected JSONArray createChoiceOptionMappingsJson(Map<ChoiceOption, List<String>> choiceOptionMappings) {
+        JSONArray choiceOptionMappingsJson = new JSONArray();
         for (Map.Entry<ChoiceOption, List<String>> entry : choiceOptionMappings.entrySet()) {
             ChoiceOption choiceOption = entry.getKey();
             List<String> strings = entry.getValue();
 
             JSONObject choiceOptionJson = createJsonChoiceOption( choiceOption.getName(),
                     choiceOption.getRouteSections(), choiceOption.getTitle(), choiceOption.getColor());
-            choiceOptionMappingsJson.put(choiceOptionJson.toString(), strings);
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("ChoiceOption",choiceOptionJson);
+            jsonObject.put("List",strings);
+            choiceOptionMappingsJson.put(jsonObject);
         }
         return choiceOptionMappingsJson;
     }
 
+    /**
+     * Create a JSON object representing a choice option.
+     *
+     * @param name The name of the choice option.
+     * @param routeSections The route sections of the choice option.
+     * @param title The title of the choice option.
+     * @param color The color of the choice option.
+     * @return A JSONObject representing the choice option.
+     */
     protected JSONObject createJsonChoiceOption(String name, List<RouteSection> routeSections,
                                                 String title, Color color) {
         Objects.requireNonNull(name, "Name cannot be null");
@@ -155,10 +201,10 @@ public abstract class AbstractSaver {
         }
 
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put(KEY_NAME_CHOICE_OPTION, name);
-        jsonObject.put(KEY_ROUTE_SECTIONS, routeSectionsJsonArray);
-        jsonObject.put(KEY_TITLE, title);
-        jsonObject.put(KEY_COLOR, color.toString());
+        jsonObject.put(SharedConstants.KEY_NAME_CHOICE_OPTION, name);
+        jsonObject.put(SharedConstants.KEY_ROUTE_SECTIONS, routeSectionsJsonArray);
+        jsonObject.put(SharedConstants.KEY_TITLE, title);
+        jsonObject.put(SharedConstants.KEY_COLOR, color.toString());
 
         return jsonObject;
     }

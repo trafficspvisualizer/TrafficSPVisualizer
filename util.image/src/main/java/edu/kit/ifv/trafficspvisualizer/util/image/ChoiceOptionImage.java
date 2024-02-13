@@ -9,9 +9,9 @@ public class ChoiceOptionImage {
     private final List<String> infos = new ArrayList<>();
 
     public ChoiceOptionImage() {
-        infos.add("0");
-        infos.add("0");
-        infos.add("0");
+        infos.add("-1");    //Scenario Number
+        infos.add("-1");    //Block Number
+        infos.add("-1");    //Choice Option Number
     }
     public void setImage(BufferedImage image) {
         this.image = image;
@@ -39,7 +39,7 @@ public class ChoiceOptionImage {
     }
 
     public String getScenarioNumber() {
-        return infos.get(0);
+        return infos.getFirst();
     }
 
     public void setBlockNumber(int blockNumber) {
@@ -53,13 +53,13 @@ public class ChoiceOptionImage {
         if (choiceOptionNumber < 0) {
             throw new IllegalArgumentException("Scenario Number must be greater than 0");
         }
-        infos.set(1,String.valueOf(choiceOptionNumber));
+        infos.set(2,String.valueOf(choiceOptionNumber));
     }
 
     public void setScenarioNumber(int scenarioNumber) {
         if (scenarioNumber < 0) {
             throw new IllegalArgumentException("Scenario Number must be greater than 0");
         }
-        infos.set(1,String.valueOf(scenarioNumber));
+        infos.set(0,String.valueOf(scenarioNumber));
     }
 }

@@ -4,53 +4,69 @@ import edu.kit.ifv.trafficspvisualizer.model.Project;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.text.ParseException;
-import java.util.stream.Stream;
+import java.util.Arrays;
+import java.util.Objects;
 
 
+/**
+ * StandardProjectLoader is a class that extends AbstractLoader to load a project.
+ */
 public class StandardProjectLoader extends AbstractLoader {
+
+    private static final String NGD_EXTENSION = ".ngd";
+    private static final String JSON_EXTENSION = ".json";
+    private static final String ICON_DIRECTORY_NAME = "icon";
+
+    /**
+     * Loads a project from a file.
+     *
+     * @param file The directory containing the project files.
+     * @return The loaded project.
+     * @throws IOException If an I/O error occurs.
+     */
     @Override
     public Project loadProject(File file) throws IOException, ParseException {
-        String[] extensions = new String[] {".ngd"};
-        File[] files = file.listFiles(new FilenameFilter() {
-            public boolean accept(File dir, String name) {
-                for (String ext : extensions) {
-                    if (name.toLowerCase().endsWith(ext)) {
-                        return true;
-                    }
-                }
-                return false;
-            }
-        });
+        File ngdFile = findFileWithExtensionInDirectory(file, NGD_EXTENSION);
+        Path iconDir = findDirectoryInDirectory(file.toPath(), ICON_DIRECTORY_NAME);
+        File jsonFile = findFileWithExtensionInDirectory(file, JSON_EXTENSION);
 
-        Path iconDir;
-        try (Stream<Path> paths = Files.walk(file.toPath())) {
-            iconDir = paths
-                    .filter(path -> path.toFile().isDirectory() && path.getFileName().toString().equals("icon"))
-                    .findFirst()
-                    .orElse(null);
-            if (iconDir == null) {
-                throw new IOException();
-            }
-        } catch (IOException e) {
-            throw e;
-        }
-        File[] jsonFile = file.listFiles(new FilenameFilter() {
-            public boolean accept(File dir, String name) {
-                return name.toLowerCase().endsWith(".json");
-            }
-        });
-        if (files.length > 0 && jsonFile.length > 0) {
-            String content = new String(Files.readAllBytes(Paths.get(jsonFile[0].getPath())));
-            JSONObject json = new JSONObject(content);
-            createProject(json,files[0],iconDir);
-        }
-        return null;
+        JSONObject json = new JSONObject(Files.readString(jsonFile.toPath()));
+
+        return createProject(json, ngdFile, iconDir, file.getParentFile().toPath());
     }
 
+    /**
+     * Finds a file with a specific extension in a directory.
+     *
+     * @param directory The directory to search in.
+     * @param extension The extension of the file to find.
+     * @return The found file.
+     * @throws IOException If no file with the specified extension is found.
+     */
+    private File findFileWithExtensionInDirectory(File directory, String extension) throws IOException {
+        return Arrays.stream(Objects.requireNonNull(directory.listFiles()))
+                .filter(f -> f.getName().toLowerCase().endsWith(extension))
+                .findFirst()
+                .orElseThrow(() -> new IOException("No file with extension " + extension + " found in directory"));
+    }
+
+    /**
+     * Finds a directory with a specific name in a directory.
+     *
+     * @param directory The directory to search in.
+     * @param directoryName The name of the directory to find.
+     * @return The found directory.
+     * @throws IOException If no directory with the specified name is found.
+     */
+    private Path findDirectoryInDirectory(Path directory, String directoryName) throws IOException {
+        return Files.walk(directory)
+                .filter(path -> Files.isDirectory(path) && path.getFileName().toString().equals(directoryName))
+                .findFirst()
+                .orElseThrow(() -> new IOException("No directory named " + directoryName + " found in directory"));
+    }
 }
+
