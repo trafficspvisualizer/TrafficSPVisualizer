@@ -3,6 +3,7 @@ package edu.kit.ifv.trafficspvisualizer.view.window;
 import edu.kit.ifv.trafficspvisualizer.model.AbstractAttribute;
 import edu.kit.ifv.trafficspvisualizer.model.Attribute;
 import edu.kit.ifv.trafficspvisualizer.model.ChoiceOption;
+import edu.kit.ifv.trafficspvisualizer.model.ExportType;
 import edu.kit.ifv.trafficspvisualizer.model.Icon;
 import edu.kit.ifv.trafficspvisualizer.model.LineType;
 import edu.kit.ifv.trafficspvisualizer.model.RouteSection;
@@ -572,8 +573,16 @@ public class ChoiceOptionSettingsStage extends Stage {
         return colorPicker.getValue();
     }
 
-    public String getRouteSectionLineTypeChoiceBoxSelection(int routeSectionIndex) {
-        return routeSectionLineTypeChoiceBoxList.get(routeSectionIndex).getSelectionModel().getSelectedItem();
+    public LineType getRouteSectionLineTypeChoiceBoxSelection(int routeSectionIndex) {
+        for(LineType lineType : LineType.values()) {
+            if (routeSectionLineTypeChoiceBoxList.get(routeSectionIndex).getSelectionModel().getSelectedItem()
+                    .equals(viewFacade.getLanguageStrategy().getLineTypeText(lineType))) {
+                return lineType;
+            }
+        }
+
+        // default value, method should never reach this point
+        return LineType.SOLID;
     }
 
     public String getRouteSectionValueNameSelection(int routeSectionIndex) {
