@@ -9,6 +9,8 @@ import edu.kit.ifv.trafficspvisualizer.model.SVGToBufferedImageConverter;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.List;
 import java.util.Map;
 
@@ -167,14 +169,21 @@ public class StandardImageGenerator extends ImageGenerator{
         BufferedImage iconImage = svgToBufferedImageConverter.convert(attribute.getIcon().getIconPath().toFile(), attributeHeight, attributeWidth);
         return null;
     }
-    private static double round(int decimalPlaces, double attributeValue) {
+    public static double round(int decimalPlaces, double value) {
         if (decimalPlaces < 0) {
             throw new IllegalArgumentException("Decimal places cannot be negative");
         }
 
-        BigDecimal bd = new BigDecimal(Double.toString(attributeValue));
-        bd = bd.setScale(decimalPlaces, BigDecimal.ROUND_HALF_UP);
-        return bd.doubleValue();
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+        symbols.setDecimalSeparator('.');
+        StringBuilder pattern = new StringBuilder("0.");
+        for (int i = 0; i < decimalPlaces; i++) {
+            pattern.append("0");
+        }
+
+        DecimalFormat decimalFormat = new DecimalFormat(pattern.toString(), symbols);
+        String formattedString = decimalFormat.format(value);
+        return Double.parseDouble(formattedString);
     }
 
 }
