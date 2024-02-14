@@ -136,15 +136,14 @@ public class HTMLExporter extends Exporter {
             var image = imageGroup.get(i);
             var imagePath = constructImagePath(image);
             var encodedPath = java.net.URLEncoder.encode(imagePath, StandardCharsets.UTF_8);
-            //todo add title
             writer.write(String.format("""
                 <li>
                 <input  id="v_42x%d" type="radio" name="v_42" value="%d" class="input-hidden" onclick="change('%s')">
                     <label for="v_42x%d" id="v_42x%d-label">
-                            <img src="%s" alt="Alternative: travel by car" />
+                            <img src="%s" alt="%s" />
                           </label>
                 </li>
-                """, i + 1, i + 1, image.getTitle(),i + 1,i + 1,encodedPath));
+                """, i + 1, i + 1, image.getTitle(),i + 1,i + 1,encodedPath, image.getTitle()));
         }
         writer.write("""
                 </ul>
