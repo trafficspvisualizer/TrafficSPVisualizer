@@ -55,10 +55,10 @@ public abstract class AbstractSaver {
         }
 
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put(SharedConstants.KEY_NAME, name);
-        jsonObject.put(SharedConstants.KEY_ATTRIBUTES, attributesJsonArray);
-        jsonObject.put(SharedConstants.KEY_EXPORT_SETTINGS, createJsonExportSettings(exportSettings));
-        jsonObject.put(SharedConstants.KEY_CHOICE_OPTIONS, choiceOptionJsonArray);
+        jsonObject.put(JsonKeys.KEY_NAME.getKey(), name);
+        jsonObject.put(JsonKeys.KEY_ATTRIBUTES.getKey(), attributesJsonArray);
+        jsonObject.put(JsonKeys.KEY_EXPORT_SETTINGS.getKey(), createJsonExportSettings(exportSettings));
+        jsonObject.put(JsonKeys.KEY_CHOICE_OPTIONS.getKey(), choiceOptionJsonArray);
         return jsonObject;
     }
 
@@ -94,10 +94,10 @@ public abstract class AbstractSaver {
 
         JSONObject jsonObject = new JSONObject();
 
-        jsonObject.put(SharedConstants.KEY_IMAGE_HEIGHT, exportSettings.getImageHeight());
-        jsonObject.put(SharedConstants.KEY_IMAGE_WIDTH, exportSettings.getImageWidth());
-        jsonObject.put(SharedConstants.KEY_FILE_FORMAT, exportSettings.getFileFormat().toString());
-        jsonObject.put(SharedConstants.KEY_EXPORT_TYPE, exportSettings.getExportType().toString());
+        jsonObject.put(JsonKeys.KEY_IMAGE_HEIGHT.getKey(), exportSettings.getImageHeight());
+        jsonObject.put(JsonKeys.KEY_IMAGE_WIDTH.getKey(), exportSettings.getImageWidth());
+        jsonObject.put(JsonKeys.KEY_FILE_FORMAT.getKey(), exportSettings.getFileFormat().toString());
+        jsonObject.put(JsonKeys.KEY_EXPORT_TYPE.getKey(), exportSettings.getExportType().toString());
 
         return jsonObject;
     }
@@ -108,7 +108,7 @@ public abstract class AbstractSaver {
      * @return A JSONObject representing a line separator.
      */
     protected JSONObject createJsonLineSeparator(){
-        return new JSONObject().put(SharedConstants.KEY_LINE_SEPARATOR, "");
+        return new JSONObject().put(JsonKeys.KEY_LINE_SEPARATOR.getKey(), "");
     }
 
     /**
@@ -125,9 +125,9 @@ public abstract class AbstractSaver {
         Objects.requireNonNull(lineType, "Line type cannot be null");
 
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put(SharedConstants.KEY_ICON, icon.getIdentifier());
-        jsonObject.put(SharedConstants.KEY_CHOICE_DATA_KEY, choiceDataKey);
-        jsonObject.put(SharedConstants.KEY_LINE_TYPE, lineType.toString());
+        jsonObject.put(JsonKeys.KEY_ICON.getKey(), icon.getIdentifier());
+        jsonObject.put(JsonKeys.KEY_CHOICE_DATA_KEY.getKey(), choiceDataKey);
+        jsonObject.put(JsonKeys.KEY_LINE_TYPE.getKey(), lineType.toString());
 
         return jsonObject;
     }
@@ -154,15 +154,15 @@ public abstract class AbstractSaver {
         Objects.requireNonNull(choiceOptionMappings, "Choice option mappings cannot be null");
 
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put(SharedConstants.KEY_NAME, name);
-        jsonObject.put(SharedConstants.KEY_ICON, icon.getIdentifier());
-        jsonObject.put(SharedConstants.KEY_PREFIX, prefix);
-        jsonObject.put(SharedConstants.KEY_SUFFIX, suffix);
-        jsonObject.put(SharedConstants.KEY_PERMANENTLY_VISIBLE, permanentlyVisible);
-        jsonObject.put(SharedConstants.KEY_DECIMAL_PLACES, decimalPlaces);
-        jsonObject.put(SharedConstants.KEY_CHOICE_OPTION_MAPPINGS, createChoiceOptionMappingsJson(choiceOptionMappings));
+        jsonObject.put(JsonKeys.KEY_NAME.getKey(), name);
+        jsonObject.put(JsonKeys.KEY_ICON.getKey(), icon.getIdentifier());
+        jsonObject.put(JsonKeys.KEY_PREFIX.getKey(), prefix);
+        jsonObject.put(JsonKeys.KEY_SUFFIX.getKey(), suffix);
+        jsonObject.put(JsonKeys.KEY_PERMANENTLY_VISIBLE.getKey(), permanentlyVisible);
+        jsonObject.put(JsonKeys.KEY_DECIMAL_PLACES.getKey(), decimalPlaces);
+        jsonObject.put(JsonKeys.KEY_CHOICE_OPTION_MAPPINGS.getKey(), createChoiceOptionMappingsJson(choiceOptionMappings));
         JSONObject attribute = new JSONObject();
-        return attribute.put(SharedConstants.KEY_ATTRIBUTE,jsonObject);
+        return attribute.put(JsonKeys.KEY_ATTRIBUTE.getKey(),jsonObject);
     }
 
     /**
@@ -211,10 +211,10 @@ public abstract class AbstractSaver {
         }
 
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put(SharedConstants.KEY_NAME_CHOICE_OPTION, name);
-        jsonObject.put(SharedConstants.KEY_ROUTE_SECTIONS, routeSectionsJsonArray);
-        jsonObject.put(SharedConstants.KEY_TITLE, title);
-        jsonObject.put(SharedConstants.KEY_COLOR, color.toString());
+        jsonObject.put(JsonKeys.KEY_NAME_CHOICE_OPTION.getKey(), name);
+        jsonObject.put(JsonKeys.KEY_ROUTE_SECTIONS.getKey(), routeSectionsJsonArray);
+        jsonObject.put(JsonKeys.KEY_TITLE.getKey(), title);
+        jsonObject.put(JsonKeys.KEY_COLOR.getKey(), color.toString());
 
         return jsonObject;
     }
