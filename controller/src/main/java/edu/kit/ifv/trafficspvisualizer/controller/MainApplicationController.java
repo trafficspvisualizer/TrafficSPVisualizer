@@ -1,6 +1,7 @@
 package edu.kit.ifv.trafficspvisualizer.controller;
 
 import edu.kit.ifv.trafficspvisualizer.model.ExportSettings;
+import edu.kit.ifv.trafficspvisualizer.model.InvalidDataKeyException;
 import edu.kit.ifv.trafficspvisualizer.model.Project;
 import edu.kit.ifv.trafficspvisualizer.model.ExportType;
 import edu.kit.ifv.trafficspvisualizer.util.export.Exporter;
@@ -183,7 +184,7 @@ public class MainApplicationController {
             ChoiceOptionImage[] images = imageCollectionGenerator.createImage(controllerFacade.getProject());
             Exporter exporter = Exporter.getExporter(controllerFacade.getProject().getExportSettings().getExportType());
             exporter.export(images, controllerFacade.getProject().getExportSettings().getExportPath().toFile());
-        } catch (NullPointerException | IOException e) {
+        } catch (NullPointerException | IOException | InvalidDataKeyException e) {
             controllerFacade.getViewFacade().getMainApplicationWindow().showExportErrorAlert();
         }
     }
@@ -258,8 +259,14 @@ public class MainApplicationController {
      */
     public void updatePreview() {
         SituationGenerator situationGenerator = new SituationGenerator();
-        controllerFacade.getViewFacade().getMainApplicationWindow()
-                                .setPreviewImage(situationGenerator.createPreviewImage(controllerFacade.getProject()));
+        try {
+            controllerFacade.getViewFacade().getMainApplicationWindow()
+                    .setPreviewImage(situationGenerator.createPreviewImage(controllerFacade.getProject()));
+        } catch (InvalidDataKeyException e) {
+            //TODO: placeholder
+            e.printStackTrace();
+        }
+
         controllerFacade.getViewFacade().getMainApplicationWindow().updateCurrentPreviewSituation();
     }
 
