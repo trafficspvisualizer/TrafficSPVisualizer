@@ -21,11 +21,12 @@ public class Attribute extends AbstractAttribute {
 
     public Attribute(String name, Icon icon, String prefix, String suffix,
                      boolean permanentlyVisible, int decimalPlaces) {
-        this(name, icon, prefix, suffix, permanentlyVisible, decimalPlaces, Collections.emptyMap());
+        this(name, icon, prefix, suffix, permanentlyVisible, decimalPlaces, Collections.emptyMap(), true);
     }
 
     public Attribute(String name, Icon icon, String prefix, String suffix, boolean permanentlyVisible,
-                     int decimalPlaces, Map<ChoiceOption, List<String>> choiceOptionMappings) {
+                     int decimalPlaces, Map<ChoiceOption, List<String>> choiceOptionMappings, boolean active) {
+        super(active);
         this.name = name;
         this.icon = icon;
         this.prefix = prefix;
