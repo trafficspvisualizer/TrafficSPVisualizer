@@ -271,7 +271,7 @@ public class AttributeStage extends Stage {
 
 
         int currentRowIndex = 0;
-        for (AbstractAttribute abstractAttribute : viewFacade.getProject().getAttributes()) {
+        for (AbstractAttribute abstractAttribute : viewFacade.getProject().getAbstractAttributes()) {
             currentRowIndex += 2;
 
             CheckBox attributeActiveCheckBox = new CheckBox();
@@ -358,8 +358,8 @@ public class AttributeStage extends Stage {
 
 
 
-            if (abstractAttribute instanceof Attribute attribute) {
-                addAttribute(attribute, currentRowIndex);
+            if (abstractAttribute.hasValues()) {
+                addAttribute((Attribute) abstractAttribute, currentRowIndex);
             } else {
                 Text separatorLineText = new Text(viewFacade.getLanguageStrategy().getAttributeSeparatorLineText());
 

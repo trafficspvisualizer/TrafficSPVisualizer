@@ -34,6 +34,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.w3c.dom.Attr;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -367,18 +368,16 @@ public class ChoiceOptionSettingsStage extends Stage {
     /**
      * Updates the displayed attributes.
      */
-    public void updateAttributeScrollPane() {
+    private void updateAttributeScrollPane() {
         attributesGridPane.getChildren().removeIf(node -> GridPane.getRowIndex(node) >= 3);
         attributesValueNamesCheckBoxList.clear();
 
 
         int currentRowIndex = 2;
-        for (AbstractAttribute abstractAttribute : viewFacade.getProject().getAttributes()) {
-            if (abstractAttribute instanceof Attribute attribute) {
-                currentRowIndex += 2;
+        for (Attribute attribute : viewFacade.getProject().getAttributes()) {
+            currentRowIndex += 2;
 
-                addAttribute(attribute, currentRowIndex);
-            }
+            addAttribute(attribute, currentRowIndex);
         }
 
     }
