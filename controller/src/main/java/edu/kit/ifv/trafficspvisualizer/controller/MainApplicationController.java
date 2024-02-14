@@ -5,7 +5,6 @@ import edu.kit.ifv.trafficspvisualizer.model.InvalidDataKeyException;
 import edu.kit.ifv.trafficspvisualizer.model.Project;
 import edu.kit.ifv.trafficspvisualizer.model.ExportType;
 import edu.kit.ifv.trafficspvisualizer.util.export.Exporter;
-import edu.kit.ifv.trafficspvisualizer.util.image.ChoiceOptionGenerator;
 import edu.kit.ifv.trafficspvisualizer.util.image.ChoiceOptionImage;
 import edu.kit.ifv.trafficspvisualizer.util.image.ImageCollectionGenerator;
 import edu.kit.ifv.trafficspvisualizer.util.image.SituationGenerator;
@@ -175,7 +174,7 @@ public class MainApplicationController {
 
         ImageCollectionGenerator imageCollectionGenerator = ImageCollectionGenerator
                                                                             .getImageCollectionGenerator(exportType);
-        Exporter exporter = Exporter.getExporter(controllerFacade.getProject().getExportSettings().getExportType());
+        Exporter exporter = Exporter.getExporter(exportType);
 
         try {
             ChoiceOptionImage[] images = imageCollectionGenerator.createImage(controllerFacade.getProject());
@@ -220,6 +219,7 @@ public class MainApplicationController {
 
         // Update Preview
         updatePreview();
+
     }
 
     /**

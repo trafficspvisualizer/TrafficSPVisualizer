@@ -7,8 +7,6 @@ import edu.kit.ifv.trafficspvisualizer.view.window.ProjectCreationStage;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.text.ParseException;
 
 /**
