@@ -106,8 +106,15 @@ public class Project {
         return currentPreviewSituation;
     }
 
-    public List<AbstractAttribute> getAttributes() {
+    public List<AbstractAttribute> getAbstractAttributes() {
         return List.copyOf(attributes);
+    }
+
+    public List<Attribute> getAttributes() {
+        return attributes.stream()
+                .filter(AbstractAttribute::hasValues)
+                .map(Attribute.class::cast)
+                .collect(Collectors.toList());
     }
 
     public void addAttribute(AbstractAttribute attribute) {

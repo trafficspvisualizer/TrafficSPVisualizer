@@ -14,4 +14,6 @@ public abstract class AbstractAttribute {
     public void setActive(boolean active) {
         this.active = active;
     }
+
+    public abstract boolean hasValues();
 }

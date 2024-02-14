@@ -231,7 +231,8 @@ public abstract class AbstractLoader {
     protected void updateProjectAttributes(Project project, JSONArray jsonAttributes) {
         for (int i = 0; i < project.getAttributes().size(); i++) {
             JSONObject obj = jsonAttributes.optJSONObject(i);
-            if (project.getAttributes().get(i) instanceof Attribute attribute1 && obj.has(JsonKeys.KEY_ATTRIBUTE.getKey())) {
+            if (obj.has(JsonKeys.KEY_ATTRIBUTE.getKey())) {
+                Attribute attribute1 = project.getAttributes().get(i);
                 JSONObject attributeJSON = obj.optJSONObject(JsonKeys.KEY_ATTRIBUTE.getKey());
                 int id = attributeJSON.optInt(JsonKeys.KEY_ICON.getKey());
                 attribute1.setIcon(project.getIconManager().getIcons().get(id));

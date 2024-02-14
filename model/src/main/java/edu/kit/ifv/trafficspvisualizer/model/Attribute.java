@@ -96,4 +96,9 @@ public class Attribute extends AbstractAttribute {
     public Map<ChoiceOption, List<String>> getChoiceOptionMappings() {
         return Map.copyOf(choiceOptionMappings);
     }
+
+    @Override
+    public boolean hasValues() {
+        return true;
+    }
 }
