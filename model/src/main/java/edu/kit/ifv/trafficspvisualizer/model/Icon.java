@@ -22,7 +22,6 @@ public abstract class Icon implements BufferedImageConvertible {
         this.iconPath = iconPath.resolve(fileNameFormat.formatted(identifier));
         this.cachedImages = new HashMap<>();
         this.converter = converter;
-        toBufferedImage();
     }
 
     public int getIdentifier() {

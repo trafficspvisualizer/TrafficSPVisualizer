@@ -79,6 +79,8 @@ public class IconManager {
         try (OutputStream out = Files.newOutputStream(newIcon.getIconPath())) {
             out.write(iconStream.readAllBytes());
         }
+
+        newIcon.toBufferedImage();
         icons.put(newIcon.getIdentifier(), newIcon);
     }
 
