@@ -172,8 +172,8 @@ public class ChoiceOptionSettingsController implements IconDisplayingController 
      * index {@link ChoiceOptionSettingsController#choiceOptionId}.
      */
     public void actionOnNewRouteSectionButton(){
-        // TODO: needs a standard constructor with default values
-        controllerFacade.getProject().getChoiceOptions().get(choiceOptionId).addRouteSection(new RouteSection(null, "", LineType.SOLID));
+        controllerFacade.getProject().getChoiceOptions().get(choiceOptionId)
+                .addRouteSection(new RouteSection(controllerFacade.getProject().getIconManager().getDefaultIcon()));
         updateRouteSections();
     }
 
