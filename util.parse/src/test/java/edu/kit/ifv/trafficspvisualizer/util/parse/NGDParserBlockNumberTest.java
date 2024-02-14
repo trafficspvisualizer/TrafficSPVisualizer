@@ -23,7 +23,7 @@ class NGDParserBlockNumberTest {
             return;
         }
 
-        assertEquals(15, dataObject.getValue(0, "fuss", "fuss.fz_fuss"));
+        assertEquals(15, dataObject.getValue(0, "fuss", "fz_fuss"));
         assertEquals(16, dataObject.getSituationCount());
         assertEquals(1, dataObject.getBlockNumber(15));
     }
