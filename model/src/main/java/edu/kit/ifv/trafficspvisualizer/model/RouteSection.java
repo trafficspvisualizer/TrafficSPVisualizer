@@ -17,10 +17,6 @@ public class RouteSection {
         this.lineType = lineType;
     }
 
-    public RouteSection(Icon icon) {
-        this(icon, "", LineType.SOLID);
-    }
-
     public Icon getIcon() {
         return icon;
     }

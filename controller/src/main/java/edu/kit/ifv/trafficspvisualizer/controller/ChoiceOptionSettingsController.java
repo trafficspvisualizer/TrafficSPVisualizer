@@ -160,7 +160,7 @@ public class ChoiceOptionSettingsController implements IconDisplayingController 
 
         // map new values to attribute
         for (String value : attributeValueSelection) {
-            attribute.mapToChoiceOption(choiceOption, value);
+            attribute.setMapping(choiceOption, value);
         }
 
         controllerFacade.getViewFacade().getChoiceOptionSettingsStage().updateAttributeScrollPane();

@@ -37,18 +37,12 @@ public class Attribute extends AbstractAttribute {
     }
 
     public List<String> getMapping(ChoiceOption choiceOption) {
-        return choiceOptionMappings.getOrDefault(choiceOption, new ArrayList<>());
+        return List.copyOf(choiceOptionMappings.getOrDefault(choiceOption, new ArrayList<>()));
     }
 
-    public void mapToChoiceOption(ChoiceOption choiceOption, String dataName) {
-        List<String> mapping = getMapping(choiceOption);
-        mapping.add(dataName);
-        choiceOptionMappings.put(choiceOption, mapping);
+    public void setMapping(ChoiceOption choiceOption, List<String> dataNames) {
+        choiceOptionMappings.put(choiceOption, List.copyOf(dataNames));
 
-    }
-
-    public boolean removeMapping(ChoiceOption choiceOption, String dataName) {
-        return getMapping(choiceOption).remove(dataName);
     }
 
     public String getName() {
