@@ -39,9 +39,9 @@ class HTMLExporterTest {
         choiceOptionImages[0] = choiceOptionImage;
 
         //try {
-            //imageExporter.export(choiceOptionImages,new File("C:\\Users\\Admin\\Documents\\Test"));
+        //imageExporter.export(choiceOptionImages,new File("C:\\Users\\Admin\\Documents\\Test"));
         //} catch (IOException e) {
-            //throw new RuntimeException(e);
+        //throw new RuntimeException(e);
         //}
     }
 }
