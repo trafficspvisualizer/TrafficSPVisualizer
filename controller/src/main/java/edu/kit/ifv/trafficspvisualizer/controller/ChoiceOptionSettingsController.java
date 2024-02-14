@@ -148,20 +148,7 @@ public class ChoiceOptionSettingsController implements IconDisplayingController 
         Attribute attribute = (Attribute) controllerFacade.getProject().getAttributes().get(attributeIndex);
         ChoiceOption choiceOption = controllerFacade.getProject().getChoiceOptions().get(choiceOptionId);
 
-        //TODO: maybe change to accept list so no need to remove mappings, makes it easier
-
-        // get old mappings - empty list if no mappings
-        List <String> oldMappings = attribute.getMapping(choiceOption);
-
-        // delete old mappings
-        for (String oldMapping: oldMappings) {
-            attribute.removeMapping(choiceOption, oldMapping);
-        }
-
-        // map new values to attribute
-        for (String value : attributeValueSelection) {
-            attribute.setMapping(choiceOption, value);
-        }
+        attribute.setMapping(choiceOption, attributeValueSelection);
 
         controllerFacade.getViewFacade().getChoiceOptionSettingsStage().updateAttributeScrollPane();
     }
