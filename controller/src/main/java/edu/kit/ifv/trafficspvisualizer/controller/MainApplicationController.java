@@ -5,6 +5,7 @@ import edu.kit.ifv.trafficspvisualizer.model.Project;
 import edu.kit.ifv.trafficspvisualizer.model.ExportType;
 import edu.kit.ifv.trafficspvisualizer.util.export.Exporter;
 import edu.kit.ifv.trafficspvisualizer.util.image.ChoiceOptionGenerator;
+import edu.kit.ifv.trafficspvisualizer.util.image.ChoiceOptionImage;
 import edu.kit.ifv.trafficspvisualizer.util.image.ImageCollectionGenerator;
 import edu.kit.ifv.trafficspvisualizer.util.image.SituationGenerator;
 import edu.kit.ifv.trafficspvisualizer.util.project.StandardProjectLoader;
@@ -178,10 +179,13 @@ public class MainApplicationController {
             imageCollectionGenerator = new ChoiceOptionGenerator();
         }
 
-        // TODO: ChoiceOptionImage is already return type on urnyq branch
-        //ChoiceOptionImage[] images = imageCollectionGenerator.createImage(controllerFacade.getProject());
-        Exporter exporter = Exporter.getExporter(controllerFacade.getProject().getExportSettings().getExportType());
-        //exporter.export(images, controllerFacade.getProject().getExportSettings().getExportPath());
+        try {
+            ChoiceOptionImage[] images = imageCollectionGenerator.createImage(controllerFacade.getProject());
+            Exporter exporter = Exporter.getExporter(controllerFacade.getProject().getExportSettings().getExportType());
+            exporter.export(images, controllerFacade.getProject().getExportSettings().getExportPath().toFile());
+        } catch (NullPointerException | IOException e) {
+            controllerFacade.getViewFacade().getMainApplicationWindow().showExportErrorAlert();
+        }
     }
 
     /**
@@ -253,11 +257,10 @@ public class MainApplicationController {
      * Instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow} to update preview.
      */
     public void updatePreview() {
-        // TODO: Remove comments when fixed
-        //SituationGenerator situationGenerator = new SituationGenerator();
-        //controllerFacade.getViewFacade().getMainApplicationWindow()
-        //                        .setPreviewImage(situationGenerator.createPreviewImage(controllerFacade.getProject()));
-        //controllerFacade.getViewFacade().getMainApplicationWindow().updateCurrentPreviewSituation();
+        SituationGenerator situationGenerator = new SituationGenerator();
+        controllerFacade.getViewFacade().getMainApplicationWindow()
+                                .setPreviewImage(situationGenerator.createPreviewImage(controllerFacade.getProject()));
+        controllerFacade.getViewFacade().getMainApplicationWindow().updateCurrentPreviewSituation();
     }
 
     /**
