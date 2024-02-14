@@ -37,7 +37,7 @@ public abstract class ImageCollectionGenerator {
         this.numberOfSituations = dataObject.getSituationCount();
         this.numberOfChoiceOptions = project.getChoiceOptions().size();
         this.numberOfChoiceOptionsPerSituation = numberOfChoiceOptions / numberOfSituations;
-        this.attributeList = project.getAttributes();
+        this.attributeList = project.getAbstractAttributes();
         this.project = project;
         this.standardImageGenerator = new StandardImageGenerator();
     }

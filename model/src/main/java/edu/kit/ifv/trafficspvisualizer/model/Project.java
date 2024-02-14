@@ -110,7 +110,7 @@ public class Project {
         return List.copyOf(attributes);
     }
 
-    public List<Attribute> getAttribute() {
+    public List<Attribute> getAttributes() {
         return attributes.stream()
                 .filter(AbstractAttribute::hasValues)
                 .map(Attribute.class::cast)
