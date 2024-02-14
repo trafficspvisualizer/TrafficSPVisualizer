@@ -423,7 +423,7 @@ public class ChoiceOptionSettingsStage extends Stage {
         );
         List<CheckBox> valueNameCheckBoxList = new ArrayList<>();
         for (String valueName :
-                viewFacade.getProject().getDataObject().getAttributeNames(0,choiceOption.getName())) {
+                viewFacade.getProject().getDataObject().getValueNames(0,choiceOption.getName())) {
             CheckBox valueNameCheckBox = new CheckBox(valueName);
             valueNameCheckBox.setSelected(attribute.getMapping(choiceOption).contains(valueName));
 
@@ -496,7 +496,7 @@ public class ChoiceOptionSettingsStage extends Stage {
 
         ChoiceBox<String> routeSectionValueNameChoiceBox = new ChoiceBox<>();
         for (String valueName :
-                viewFacade.getProject().getDataObject().getAttributeNames(0,choiceOption.getName())) {
+                viewFacade.getProject().getDataObject().getValueNames(0,choiceOption.getName())) {
             routeSectionValueNameChoiceBox.getItems().add(valueName);
         }
         routeSectionValueNameChoiceBox.setValue(routeSection.getChoiceDataKey());
