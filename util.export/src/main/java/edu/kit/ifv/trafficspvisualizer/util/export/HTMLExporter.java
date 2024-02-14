@@ -91,12 +91,31 @@ public class HTMLExporter extends Exporter {
                 <link rel="stylesheet" href="https://something.online.com/example.css" />
                 <script src="https://test.com/example-lib.js" ></script>
                 <script type='text/javascript' src='images/local_script.js'></script>
-                <style type="text/css">
-                    #test{
-                        height:50vh;
-                        width: 90wh;
-                    }
-                </style>
+                
+                <script>
+                      function change(value){
+                        document.getElementById("v_42").value= value;
+                      }
+                    </script>
+                    
+                    <style type="text/css">
+                      .radio-toolbar input[type="radio"] {
+                        display: none;
+                      }
+                    
+                      .radio-toolbar label {
+                        display: inline-block;
+                        background-color: #ddd;
+                        padding: 4px 11px;
+                        font-family: Arial;
+                        font-size: 16px;
+                        cursor: pointer;
+                      }
+                    
+                      .radio-toolbar input[type="radio"]:checked+label {
+                        background-color: #bbb;
+                      }
+                    </style>
             </head>
             """);
     }
@@ -109,19 +128,27 @@ public class HTMLExporter extends Exporter {
      * @throws IOException If an error occurs while writing to the file.
      */
     private void writeImageForm(List<ChoiceOptionImage> imageGroup, BufferedWriter writer) throws IOException {
-        writer.write("<form>\n");
+        writer.write("""
+                <div class="radio-toolbar">
+                  <ul>
+                """);
         for (int i = 0; i < imageGroup.size(); i++) {
             var image = imageGroup.get(i);
             var imagePath = constructImagePath(image);
             var encodedPath = java.net.URLEncoder.encode(imagePath, StandardCharsets.UTF_8);
             writer.write(String.format("""
-                <label>
-                    <input type="radio" name="option" value="%d">
-                    <img src="%s" alt="Bild %d">
-                </label>
-                """, i + 1, encodedPath, i + 1));
+                <li>
+                <input  id="v_42x%d" type="radio" name="v_42" value="%d" class="input-hidden" onclick="change('%s')">
+                    <label for="v_42x%d" id="v_42x%d-label">
+                            <img src="%s" alt="%s" />
+                          </label>
+                </li>
+                """, i + 1, i + 1, image.getTitle(),i + 1,i + 1,encodedPath, image.getTitle()));
         }
-        writer.write("</form>\n");
+        writer.write("""
+                </ul>
+                </div>
+                """);
     }
 
     /**
@@ -132,11 +159,11 @@ public class HTMLExporter extends Exporter {
      */
     private void writeHiddenForm(BufferedWriter writer) throws IOException {
         writer.write("""
-            <form>
+                <form>
                 <div>
-                    <input type="hidden" id="v_10" name="v_10" value="#v_10#" readonly />
+                    <input id="v_42" name="v_42" value="#v_42#" readonly />
                 </div>
-            </form>
+                </form>
             """);
     }
 }

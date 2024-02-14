@@ -37,28 +37,23 @@ public class ImageExporter extends Exporter {
     }
 
     /**
-     * Creates a new directory for the images.
+     * Creates a new directory for the images. If the directory already exists, a number is appended to the name.
      *
      * @param file The file in which the new directory will be created.
      * @return The new directory.
-     * @throws IOException If the directory already exists or cannot be created.
+     * @throws IOException If the directory cannot be created.
      */
     private File createDirectory(File file) throws IOException {
+        int count = 0;
         File newDirectory = new File(file.getPath() + File.separator + DIRECTORY_NAME);
-        if (newDirectory.exists()) {
-            throw new IOException("Directory already exists: " + newDirectory.getPath());
-        } else {
-            boolean isCreated = newDirectory.mkdir();
-            if (!isCreated) {
-                throw new IOException("Failed to create directory: " + newDirectory.getPath());
-            }
+        while (newDirectory.exists()) {
+            count++;
+            newDirectory = new File(file.getPath() + File.separator + DIRECTORY_NAME + count);
+        }
+        boolean isCreated = newDirectory.mkdir();
+        if (!isCreated) {
+            throw new IOException("Failed to create directory: " + newDirectory.getPath());
         }
         return newDirectory;
     }
-
-
-
-
-
-
 }

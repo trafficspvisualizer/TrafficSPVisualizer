@@ -271,6 +271,7 @@ public class AttributeSettingsStage extends Stage {
 
         Icon attributeIcon = attribute.getIcon();
         iconButtonImageView.setImage(SwingFXUtils.toFXImage(attributeIcon.toBufferedImage(),null));
+        iconButtonImageView.setUserData(attributeIcon.getIdentifier());
 
         prefixTextField.setText(attribute.getPrefix());
 

@@ -171,9 +171,9 @@ public class ChoiceOptionSettingsController implements IconDisplayingController 
      * {@link edu.kit.ifv.trafficspvisualizer.model.ChoiceOption} with
      * index {@link ChoiceOptionSettingsController#choiceOptionId}.
      */
-    private void actionOnNewRouteSectionButton(){
-        // TODO: needs a standard constructor with default values
-        controllerFacade.getProject().getChoiceOptions().get(choiceOptionId).addRouteSection(new RouteSection(null, "", LineType.SOLID));
+    public void actionOnNewRouteSectionButton(){
+        controllerFacade.getProject().getChoiceOptions().get(choiceOptionId)
+                .addRouteSection(new RouteSection(controllerFacade.getProject().getIconManager().getDefaultIcon()));
         updateRouteSections();
     }
 

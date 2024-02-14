@@ -60,9 +60,9 @@ public abstract class AbstractLoader {
      * @return The created AbstractAttribute, or null if the JSONObject does not represent an attribute.
      */
     protected AbstractAttribute createAttribute(JSONObject jsonObject) {
-        if (jsonObject.has(SharedConstants.KEY_ATTRIBUTE)) {
-            return createAttributeFromJson(jsonObject.getJSONObject(SharedConstants.KEY_ATTRIBUTE));
-        } else if (jsonObject.has(SharedConstants.KEY_LINE_SEPARATOR)) {
+        if (jsonObject.has(JsonKeys.KEY_ATTRIBUTE.getKey())) {
+            return createAttributeFromJson(jsonObject.getJSONObject(JsonKeys.KEY_ATTRIBUTE.getKey()));
+        } else if (jsonObject.has(JsonKeys.KEY_LINE_SEPARATOR.getKey())) {
             return new SeparatorLine();
         }
         return null;
@@ -75,13 +75,14 @@ public abstract class AbstractLoader {
      * @return The created Attribute.
      */
     protected Attribute createAttributeFromJson(JSONObject attributeJSON) {
-        String prefix = attributeJSON.optString(SharedConstants.KEY_PREFIX);
-        String name = attributeJSON.optString(SharedConstants.KEY_NAME);
-        String suffix = attributeJSON.optString(SharedConstants.KEY_SUFFIX);
-        boolean vis = attributeJSON.optBoolean(SharedConstants.KEY_PERMANENTLY_VISIBLE);
-        int dec = attributeJSON.optInt(SharedConstants.KEY_DECIMAL_PLACES);
-        Map<ChoiceOption,List<String>> choiceOptionMap = createChoiceOptions(attributeJSON.optJSONArray(SharedConstants.KEY_CHOICE_OPTION_MAPPINGS));
-        return new Attribute(name,null, prefix, suffix, vis,dec,choiceOptionMap);
+        String prefix = attributeJSON.optString(JsonKeys.KEY_PREFIX.getKey());
+        String name = attributeJSON.optString(JsonKeys.KEY_NAME.getKey());
+        String suffix = attributeJSON.optString(JsonKeys.KEY_SUFFIX.getKey());
+        boolean vis = attributeJSON.optBoolean(JsonKeys.KEY_PERMANENTLY_VISIBLE.getKey());
+        int dec = attributeJSON.optInt(JsonKeys.KEY_DECIMAL_PLACES.getKey());
+        Map<ChoiceOption,List<String>> choiceOptionMap = createChoiceOptions(attributeJSON.optJSONArray
+                (JsonKeys.KEY_CHOICE_OPTION_MAPPINGS.getKey()));
+        return new Attribute(name,null, prefix, suffix, vis, dec, choiceOptionMap, true);
     }
 
     /**
@@ -117,10 +118,10 @@ public abstract class AbstractLoader {
      */
     protected ChoiceOption createOneChoiceOption(JSONObject jsonObject) {
         JSONObject choiceOption = jsonObject.getJSONObject("ChoiceOption");
-        String name = choiceOption.optString(SharedConstants.KEY_NAME_CHOICE_OPTION);
-        String title = choiceOption.optString(SharedConstants.KEY_TITLE);
-        String colour = choiceOption.optString(SharedConstants.KEY_COLOR);
-        JSONArray routeSection = choiceOption.optJSONArray(SharedConstants.KEY_ROUTE_SECTIONS);
+        String name = choiceOption.optString(JsonKeys.KEY_NAME_CHOICE_OPTION.getKey());
+        String title = choiceOption.optString(JsonKeys.KEY_TITLE.getKey());
+        String colour = choiceOption.optString(JsonKeys.KEY_COLOR.getKey());
+        JSONArray routeSection = choiceOption.optJSONArray(JsonKeys.KEY_ROUTE_SECTIONS.getKey());
 
         return new ChoiceOption(name,title,createRouteSectionList(routeSection) ,Color.valueOf(colour));
     }
@@ -146,8 +147,8 @@ public abstract class AbstractLoader {
      * @return The created RouteSection.
      */
     protected RouteSection createRouteSection(JSONObject routeSection) {
-        String choiceDataKey  = routeSection.optString(SharedConstants.KEY_CHOICE_DATA_KEY);
-        String lineType = routeSection.optString(SharedConstants.KEY_LINE_TYPE);
+        String choiceDataKey  = routeSection.optString(JsonKeys.KEY_CHOICE_DATA_KEY.getKey());
+        String lineType = routeSection.optString(JsonKeys.KEY_LINE_TYPE.getKey());
         return new RouteSection(null,choiceDataKey,LineType.fromString(lineType));
     }
 
@@ -178,10 +179,10 @@ public abstract class AbstractLoader {
      */
     protected Project createProject(JSONObject jsonProject,File ngdFile, Path iconDir, Path projectDir) throws IOException, ParseException {
         DataObject dataObject = createDataObject(ngdFile);
-        String name = jsonProject.optString(SharedConstants.KEY_NAME);
-        JSONArray jsonAttributes = jsonProject.optJSONArray(SharedConstants.KEY_ATTRIBUTES);
-        JSONArray jsonChoiceOptions = jsonProject.optJSONArray(SharedConstants.KEY_CHOICE_OPTIONS);
-        JSONObject jsonExportSettings = jsonProject.optJSONObject(SharedConstants.KEY_EXPORT_SETTINGS);
+        String name = jsonProject.optString(JsonKeys.KEY_NAME.getKey());
+        JSONArray jsonAttributes = jsonProject.optJSONArray(JsonKeys.KEY_ATTRIBUTES.getKey());
+        JSONArray jsonChoiceOptions = jsonProject.optJSONArray(JsonKeys.KEY_CHOICE_OPTIONS.getKey());
+        JSONObject jsonExportSettings = jsonProject.optJSONObject(JsonKeys.KEY_EXPORT_SETTINGS.getKey());
         List<AbstractAttribute> attributes = createAttributes(jsonAttributes);
         List<ChoiceOption> choiceOptions = createChoiceOptionList(attributes);
         choiceOptions = allChoiceOptions(choiceOptions,jsonChoiceOptions);
@@ -189,8 +190,22 @@ public abstract class AbstractLoader {
         Project project = new Project(name, projectDir, dataObject, attributes, choiceOptions, exportSettings,
                 iconDir, ngdFile);
         updateProjectAttributes(project, jsonAttributes);
-
+        updateProjectRouteSection(project, jsonChoiceOptions);
         return project;
+    }
+
+    protected void updateProjectRouteSection(Project project, JSONArray jsonChoiceOptions) {
+        for (int i = 0; i < project.getChoiceOptions().size(); i++) {
+            JSONObject obj = jsonChoiceOptions.optJSONObject(i);
+            JSONArray routeSectionJSON = obj.optJSONArray(JsonKeys.KEY_ROUTE_SECTIONS.getKey());
+            ChoiceOption choiceOption = project.getChoiceOptions().get(i);
+            for (int j = 0; j < choiceOption.getRouteSections().size(); j++) {
+                JSONObject route = routeSectionJSON.getJSONObject(j);
+                choiceOption.getRouteSections().get(j).setIcon(project.getIconManager().getIcons().get(route.optInt(JsonKeys.KEY_ICON.getKey())));
+            }
+
+
+        }
     }
 
     protected List<ChoiceOption> allChoiceOptions(List<ChoiceOption> choiceOptionsList, JSONArray jsonChoiceOptions) {
@@ -207,8 +222,6 @@ public abstract class AbstractLoader {
         return choiceOptionsList;
     }
 
-
-
     /**
      * Updates the attributes of a Project.
      *
@@ -218,9 +231,9 @@ public abstract class AbstractLoader {
     protected void updateProjectAttributes(Project project, JSONArray jsonAttributes) {
         for (int i = 0; i < project.getAttributes().size(); i++) {
             JSONObject obj = jsonAttributes.optJSONObject(i);
-            if (project.getAttributes().get(i) instanceof Attribute attribute1 && obj.has(SharedConstants.KEY_ATTRIBUTE)) {
-                JSONObject attributeJSON = obj.optJSONObject(SharedConstants.KEY_ATTRIBUTE);
-                int id = attributeJSON.optInt(SharedConstants.KEY_ICON);
+            if (project.getAttributes().get(i) instanceof Attribute attribute1 && obj.has(JsonKeys.KEY_ATTRIBUTE.getKey())) {
+                JSONObject attributeJSON = obj.optJSONObject(JsonKeys.KEY_ATTRIBUTE.getKey());
+                int id = attributeJSON.optInt(JsonKeys.KEY_ICON.getKey());
                 attribute1.setIcon(project.getIconManager().getIcons().get(id));
             }
         }
@@ -234,10 +247,10 @@ public abstract class AbstractLoader {
      * @return The created ExportSettings.
      */
     protected ExportSettings createExportSettings(JSONObject attribute) {
-        int height = attribute.optInt(SharedConstants.KEY_IMAGE_HEIGHT);
-        int width = attribute.optInt(SharedConstants.KEY_IMAGE_WIDTH);
-        FileFormat format = FileFormat.fromString(attribute.optString(SharedConstants.KEY_FILE_FORMAT));
-        ExportType exportType = ExportType.fromString(attribute.optString(SharedConstants.KEY_EXPORT_TYPE));
+        int height = attribute.optInt(JsonKeys.KEY_IMAGE_HEIGHT.getKey());
+        int width = attribute.optInt(JsonKeys.KEY_IMAGE_WIDTH.getKey());
+        FileFormat format = FileFormat.fromString(attribute.optString(JsonKeys.KEY_FILE_FORMAT.getKey()));
+        ExportType exportType = ExportType.fromString(attribute.optString(JsonKeys.KEY_EXPORT_TYPE.getKey()));
         return new ExportSettings(height,width, null,format,exportType);
     }
 }

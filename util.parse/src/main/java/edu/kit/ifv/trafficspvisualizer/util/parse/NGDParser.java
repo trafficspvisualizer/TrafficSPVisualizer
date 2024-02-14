@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -19,97 +20,97 @@ public class NGDParser extends Parser {
     private static final String DATA_END_MARKER = "|";
     private static final String DATA_SEPARATOR = "\t";
 
+    private record ChoiceTitle(String choiceOptionName, String valueName) {}
+    private record ParsedData(String[] columnNames, double[][] values, int[] blockNumbers) {}
+
     @Override
     public DataObject parse(File file) throws IOException, ParseException {
         List<String[]> data = new ArrayList<>();
 
         try (BufferedReader reader = Files.newBufferedReader(file.toPath())) {
-        Iterator<String> lines = reader.lines().iterator();
+            Iterator<String> lines = reader.lines().iterator();
 
-        while (lines.hasNext()) {
-            String line = lines.next();
-            if (line.contains(DATA_END_MARKER)) {
-                break;
+            while (lines.hasNext()) {
+                String line = lines.next();
+                if (line.contains(DATA_END_MARKER)) {
+                    break;
+                }
+                String[] values = line.split(DATA_SEPARATOR);
+                data.add(values);
             }
-            String[] values = line.split(DATA_SEPARATOR);
-            data.add(values);
         }
+
+        ParsedData parsedData = parseData(data.toArray(String[][]::new));
+        return createDataObject(parsedData);
     }
 
-        return createDataObject(data.toArray(String[][]::new));
-}
+    private ParsedData parseData(String[][] data) throws ParseException {
+        // First 2 columns are filled with design and situation number
+        String[] columnNames = Arrays.copyOfRange(data[0], 2, data[0].length - 1);
+        String[][] trimmedData = Arrays.copyOfRange(data, 1, data.length); //TODO check if files match regex
 
+        int[] blockNumbers = new int[trimmedData.length];
+        double[][] parsedData = new double[trimmedData.length][];
+        for (int i = 0; i < trimmedData.length; i++) {
+            try {
+                // Last column is filled with block number
+                blockNumbers[i] = Integer.parseInt(trimmedData[i][trimmedData[i].length - 1]);
+            } catch (NumberFormatException e) {
+                throw new ParseException("Invalid block number", i);
+            }
 
+            // First 2 columns are filled with design and situation number
+            parsedData[i] = Arrays.stream(trimmedData[i], 2, trimmedData[i].length - 1)
+                .mapToDouble(Double::parseDouble)
+                .toArray();
+        }
 
-    private DataObject createDataObject(String[][] data) throws ParseException {
-        SituationData[] situations = new SituationData[data.length - 1]; //First row is not filled with data
-        DataObject dataObject = new DataObject(situations);
+        return new ParsedData(columnNames, parsedData, blockNumbers);
+    }
 
-        String[] nameOfColumns = getNameOfColumns(data);
-        String[] nameOfChoiceOptions = getNameOfChoiceOptions(nameOfColumns);
+    private DataObject createDataObject(ParsedData data) {
+        double[][] dataValues = data.values();
+        SituationData[] situations = new SituationData[dataValues.length];
+
+        String[] columnNames = data.columnNames();
+        ChoiceTitle[] choiceTitles = getTitles(columnNames);
         String nameOfPreviousChoiceOption = "";
 
-        for (int i = 1; i < data.length; i++) {
-
+        for (int i = 0; i < dataValues.length; i++) {
             Map<String, ChoiceData> choices = new HashMap<>();
-            int blockNumber;
-            try {
-                blockNumber = Integer.parseInt(data[i][data[0].length - 1]);
-            } catch (NumberFormatException e) {
-                //TODO
-                throw new ParseException("NGD File is not valid", i);
-
-            }
-
-            SituationData situationData = new SituationData(blockNumber, choices);
-
             Map<String, Double> values = new HashMap<>();
             ChoiceData choiceData = new ChoiceData(values);
-            choices.put(nameOfChoiceOptions[2], choiceData);
-            //First 2 columns are filled with design and situation number
+            choices.put(choiceTitles[0].choiceOptionName(), choiceData);
 
-            for (int j = 2; j < data[0].length - 1; j++) {
-                //Last Column is filled with the block number
-
-                if (!nameOfPreviousChoiceOption.equals(nameOfChoiceOptions[j])) { //New choice option is found
-
+            for (int j = 0; j < dataValues[0].length; j++) {
+                if (!choiceTitles[j].choiceOptionName().equals(nameOfPreviousChoiceOption)) {
+                    // New choice option is found
                     values = new HashMap<>();
                     choiceData = new ChoiceData(values);
-                    choices.put(nameOfChoiceOptions[j], choiceData);
+                    choices.put(choiceTitles[j].choiceOptionName(), choiceData);
                 }
 
-                try {
-                    values.put(nameOfColumns[j], Double.parseDouble(data[i][j]));
-                } catch (NumberFormatException e) {
-                    //TODO
-                    throw new ParseException("NGD File is not valid", j);
-                }
-
-                nameOfPreviousChoiceOption = nameOfChoiceOptions[j];
+                values.put(choiceTitles[j].valueName(), dataValues[i][j]);
+                nameOfPreviousChoiceOption = choiceTitles[j].choiceOptionName();
 
             }
-            situations[i - 1] = situationData; //First row is not filled with data
+
+            situations[i] = new SituationData(data.blockNumbers()[i], choices);
         }
-        return dataObject;
+
+        return new DataObject(situations);
     }
 
-    private String[] getNameOfColumns(String[][] data) {
-        String[] nameOfColumns = new String[data[0].length];
-        System.arraycopy(data[0], 0, nameOfColumns, 0, data[0].length);
-        return nameOfColumns;
-    }
-
-    private String[] getNameOfChoiceOptions (String[] nameOfColumns) {
-        String[] nameOfChoiceOptions = new String[nameOfColumns.length];
-        for (int i = 0; i < nameOfColumns.length; i++) {
-            int dotIndex = nameOfColumns[i].indexOf('.');
-            if (dotIndex != -1) {
-                nameOfChoiceOptions[i] = nameOfColumns[i].substring(0, dotIndex);
-            } else {
-                nameOfChoiceOptions[i] = nameOfColumns[i];
-            }
+    private ChoiceTitle[] getTitles (String[] columnNames) {
+        ChoiceTitle[] titles = new ChoiceTitle[columnNames.length];
+        for (int i = 0; i < columnNames.length; i++) {
+            String[] splitName = columnNames[i].split("\\.");
+            titles[i] = new ChoiceTitle(splitName[0], splitName[1]);
         }
-        return nameOfChoiceOptions;
+
+        return titles;
     }
 }
+
+
 
