@@ -43,7 +43,7 @@ public class ExportSettingsController {
      * Instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.ExportSettingsStage} to open
      * {@link javafx.stage.FileChooser} and sets returned value as export folder path.
      */
-    public void actionOnExportFolderButton(){
+    private void actionOnExportFolderButton(){
         File selectedFile = controllerFacade.getViewFacade().getExportSettingsStage().showDirectoryChooserDialog();
         if (selectedFile == null) return;
         controllerFacade.getViewFacade().getExportSettingsStage().setExportDirectory(selectedFile);
@@ -53,7 +53,7 @@ public class ExportSettingsController {
      * Scrapes data from {@link edu.kit.ifv.trafficspvisualizer.view.window.ExportSettingsStage}
      * and checks validity of it. If valid, the {@link ExportSettings} are updated.
      */
-    public void actionOnSaveButton(){
+    private void actionOnSaveButton(){
 
         // scraping data from view in String format
         String heightString = controllerFacade.getViewFacade().getExportSettingsStage().getHeightString();
@@ -95,7 +95,7 @@ public class ExportSettingsController {
      * in the {@link edu.kit.ifv.trafficspvisualizer.view.ViewFacade}. Deletes ExportSettingsController
      * from {@link ControllerFacade}.
      */
-    public void actionOnCancelButton(){
+    private void actionOnCancelButton(){
         controllerFacade.getViewFacade().getExportSettingsStage().close();
         controllerFacade.getViewFacade().setExportSettingsStage(null);
         controllerFacade.deleteExportSettingsController();

@@ -5,6 +5,7 @@ import edu.kit.ifv.trafficspvisualizer.model.Project;
 import edu.kit.ifv.trafficspvisualizer.model.ExportType;
 import edu.kit.ifv.trafficspvisualizer.util.export.Exporter;
 import edu.kit.ifv.trafficspvisualizer.util.image.ChoiceOptionGenerator;
+import edu.kit.ifv.trafficspvisualizer.util.image.ChoiceOptionImage;
 import edu.kit.ifv.trafficspvisualizer.util.image.ImageCollectionGenerator;
 import edu.kit.ifv.trafficspvisualizer.util.image.SituationGenerator;
 import edu.kit.ifv.trafficspvisualizer.util.project.StandardProjectLoader;
@@ -50,7 +51,7 @@ public class MainApplicationController {
     /**
      * Creates a new {@link ProjectCreationController}.
      */
-    public void actionOnNewProjectButton(){
+    private void actionOnNewProjectButton(){
         controllerFacade.createProjectCreationController();
     }
 
@@ -59,7 +60,7 @@ public class MainApplicationController {
      * {@link javafx.stage.FileChooser} and if possible loads project from selected file.
      * Updates {@link edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow}.
      */
-    public void actionOnLoadProject(){
+    private void actionOnLoadProject(){
         File selectedFile = controllerFacade.getViewFacade().getMainApplicationWindow().showDirectoryChooserDialog();
 
         if (selectedFile == null) return;
@@ -84,7 +85,7 @@ public class MainApplicationController {
     /**
      * Instructs {@link StandardProjectSaver} to save project.
      */
-    public void actionOnSaveButton() {
+    private void actionOnSaveButton() {
         // if no project is currently loaded
         if (controllerFacade.getProject() == null) {
             controllerFacade.getViewFacade().getMainApplicationWindow().showNoProjectErrorAlert();
@@ -102,7 +103,7 @@ public class MainApplicationController {
     /**
      * Instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow} to show help dialog.
      */
-    public void actionOnHelpButton(){
+    private void actionOnHelpButton(){
         //TODO: missing help dialog
         //controllerFacade.getViewFacade().getMainApplicationWindow().showHelpDialog();
 
@@ -113,7 +114,7 @@ public class MainApplicationController {
      *
      * @param choiceOptionIndex index of choice option which should be edited
      */
-    public void actionOnChoiceOptionSettingsButton(int choiceOptionIndex){
+    private void actionOnChoiceOptionSettingsButton(int choiceOptionIndex){
         controllerFacade.createChoiceOptionSettingsController(choiceOptionIndex);
     }
 
@@ -125,7 +126,7 @@ public class MainApplicationController {
      *
      * @param choiceOptionIndex index of choice option which should be moved up
      */
-    public void actionOnMoveChoiceOptionUpButton(int choiceOptionIndex){
+    private void actionOnMoveChoiceOptionUpButton(int choiceOptionIndex){
         controllerFacade.getProject().swapChoiceOptionUp(choiceOptionIndex);
 
         // Update MainApplicationWindow
@@ -141,7 +142,7 @@ public class MainApplicationController {
      *
      * @param choiceOptionIndex index of choice option which should be moved down
      */
-    public void actionOnMoveChoiceOptionDownButton(int choiceOptionIndex){
+    private void actionOnMoveChoiceOptionDownButton(int choiceOptionIndex){
         controllerFacade.getProject().swapChoiceOptionDown(choiceOptionIndex);
 
         // Update MainApplicationWindow
@@ -153,7 +154,7 @@ public class MainApplicationController {
      * Creates subclass of {@link ImageCollectionGenerator} and instructs it to create images.
      * Then creates subclass {@link Exporter} to export the generated images.
      */
-    public void actionOnExportButton(){
+    private void actionOnExportButton(){
 
         // if no project is currently loaded
         if (controllerFacade.getProject() == null) {
@@ -178,16 +179,19 @@ public class MainApplicationController {
             imageCollectionGenerator = new ChoiceOptionGenerator();
         }
 
-        // TODO: ChoiceOptionImage is already return type on urnyq branch
-        //ChoiceOptionImage[] images = imageCollectionGenerator.createImage(controllerFacade.getProject());
-        Exporter exporter = Exporter.getExporter(controllerFacade.getProject().getExportSettings().getExportType());
-        //exporter.export(images, controllerFacade.getProject().getExportSettings().getExportPath());
+        try {
+            ChoiceOptionImage[] images = imageCollectionGenerator.createImage(controllerFacade.getProject());
+            Exporter exporter = Exporter.getExporter(controllerFacade.getProject().getExportSettings().getExportType());
+            exporter.export(images, controllerFacade.getProject().getExportSettings().getExportPath().toFile());
+        } catch (NullPointerException | IOException e) {
+            controllerFacade.getViewFacade().getMainApplicationWindow().showExportErrorAlert();
+        }
     }
 
     /**
      * Instructs creation of {@link ExportSettingsController}.
      */
-    public void actionOnExportSettingsButton(){
+    private void actionOnExportSettingsButton(){
         // if no project is currently loaded
         if (controllerFacade.getProject() == null) {
             controllerFacade.getViewFacade().getMainApplicationWindow().showNoProjectErrorAlert();
@@ -199,7 +203,7 @@ public class MainApplicationController {
     /**
      * Instructs creation of {@link AttributeController}.
      */
-    public void actionOnAttributeButton(){
+    private void actionOnAttributeButton(){
         // if no project is currently loaded
         if (controllerFacade.getProject() == null) {
             controllerFacade.getViewFacade().getMainApplicationWindow().showNoProjectErrorAlert();
@@ -212,7 +216,7 @@ public class MainApplicationController {
      * Instructs {@link Project} to increment preview counter and
      * instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow} to update preview.
      */
-    public void actionOnNextPreviewButton(){
+    private void actionOnNextPreviewButton(){
         // if no project is currently loaded
         if (controllerFacade.getProject() == null) return;
         controllerFacade.getProject().incrementPreview();
@@ -225,7 +229,7 @@ public class MainApplicationController {
      * Instructs {@link Project} to decrement preview counter and
      * instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow} to update preview.
      */
-    public void actionOnPreviousPreviewButton(){
+    private void actionOnPreviousPreviewButton(){
         // if no project is currently loaded
         if (controllerFacade.getProject() == null) return;
         controllerFacade.getProject().decrementPreview();
@@ -253,13 +257,15 @@ public class MainApplicationController {
      * Instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow} to update preview.
      */
     public void updatePreview() {
-        // TODO: Remove comments when fixed
-        //SituationGenerator situationGenerator = new SituationGenerator();
-        //controllerFacade.getViewFacade().getMainApplicationWindow()
-        //                        .setPreviewImage(situationGenerator.createPreviewImage(controllerFacade.getProject()));
-        //controllerFacade.getViewFacade().getMainApplicationWindow().updateCurrentPreviewSituation();
+        SituationGenerator situationGenerator = new SituationGenerator();
+        controllerFacade.getViewFacade().getMainApplicationWindow()
+                                .setPreviewImage(situationGenerator.createPreviewImage(controllerFacade.getProject()));
+        controllerFacade.getViewFacade().getMainApplicationWindow().updateCurrentPreviewSituation();
     }
 
+    /**
+     * Instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow} to update choice options.
+     */
     public void updateChoiceOptions() {
         controllerFacade.getViewFacade().getMainApplicationWindow().updateChoiceOptions();
         setChoiceOptionActionListeners();

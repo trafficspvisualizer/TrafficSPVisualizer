@@ -51,7 +51,7 @@ public class AttributeSettingsController implements IconDisplayingController {
      * Creates new {@link IconSelectionController}.
      * Sets AttributeSettingsController as parentController of IconSelectionController and attributeIndex as index.
      */
-    public void actionOnIconButton(){
+    private void actionOnIconButton(){
         controllerFacade.createIconSelectionController(this, attributeIndex);
     }
 
@@ -61,7 +61,7 @@ public class AttributeSettingsController implements IconDisplayingController {
      * If working on newly created attribute, a new {@link Attribute} is created with scraped data.
      * Closes the stage/controller afterward and instructs {@link AttributeController} to update.
      */
-    public void actionOnSaveButton() {
+    private void actionOnSaveButton() {
         //scraping data from view
         String name = controllerFacade.getViewFacade().getAttributeSettingsStage().getName();
         int iconId = controllerFacade.getViewFacade().getAttributeSettingsStage().getIconId();
@@ -106,7 +106,7 @@ public class AttributeSettingsController implements IconDisplayingController {
      * deletes its reference in the {@link edu.kit.ifv.trafficspvisualizer.view.ViewFacade}.
      * Deletes AttributeSettingsController from {@link ControllerFacade}.
      */
-    public void actionOnCancelButton(){
+    private void actionOnCancelButton(){
         // if user created new attribute and pressed cancel
         if (workingOnNewAttribute) {
             controllerFacade.getProject().removeAttribute(attributeIndex);

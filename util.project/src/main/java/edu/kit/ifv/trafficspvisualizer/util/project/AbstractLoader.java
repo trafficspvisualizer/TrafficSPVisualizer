@@ -190,8 +190,22 @@ public abstract class AbstractLoader {
         Project project = new Project(name, projectDir, dataObject, attributes, choiceOptions, exportSettings,
                 iconDir, ngdFile);
         updateProjectAttributes(project, jsonAttributes);
-
+        updateProjectRouteSection(project, jsonChoiceOptions);
         return project;
+    }
+
+    protected void updateProjectRouteSection(Project project, JSONArray jsonChoiceOptions) {
+        for (int i = 0; i < project.getChoiceOptions().size(); i++) {
+            JSONObject obj = jsonChoiceOptions.optJSONObject(i);
+            JSONArray routeSectionJSON = obj.optJSONArray(JsonKeys.KEY_ROUTE_SECTIONS.getKey());
+            ChoiceOption choiceOption = project.getChoiceOptions().get(i);
+            for (int j = 0; j < choiceOption.getRouteSections().size(); j++) {
+                JSONObject route = routeSectionJSON.getJSONObject(j);
+                choiceOption.getRouteSections().get(j).setIcon(project.getIconManager().getIcons().get(route.optInt(JsonKeys.KEY_ICON.getKey())));
+            }
+
+
+        }
     }
 
     protected List<ChoiceOption> allChoiceOptions(List<ChoiceOption> choiceOptionsList, JSONArray jsonChoiceOptions) {
@@ -207,8 +221,6 @@ public abstract class AbstractLoader {
         }
         return choiceOptionsList;
     }
-
-
 
     /**
      * Updates the attributes of a Project.

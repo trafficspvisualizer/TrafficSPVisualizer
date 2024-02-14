@@ -58,7 +58,7 @@ public class ChoiceOptionSettingsController implements IconDisplayingController 
      * Deletes ChoiceOptionSettingsController from {@link ControllerFacade}.
      * Instructs {@link MainApplicationController} to update the preview.
      */
-    public void actionOnCompleteButton(){
+    private void actionOnCompleteButton(){
         controllerFacade.getViewFacade().getChoiceOptionSettingsStage().close();
         controllerFacade.getViewFacade().setChoiceOptionSettingsStage(null);
         controllerFacade.deleteChoiceOptionSettingsController();
@@ -73,7 +73,7 @@ public class ChoiceOptionSettingsController implements IconDisplayingController 
      * {@link javafx.scene.control.ColorPicker} and updates {@link edu.kit.ifv.trafficspvisualizer.model.ChoiceOption}
      * at index {@link ChoiceOptionSettingsController#choiceOptionId} with given color.
      */
-    public void actionOnColorButton(){
+    private void actionOnColorButton(){
         Color newColor = controllerFacade.getViewFacade().getChoiceOptionSettingsStage().getSelectedColor();
         controllerFacade.getProject().getChoiceOptions().get(choiceOptionId).setColor(newColor);
     }
@@ -82,7 +82,7 @@ public class ChoiceOptionSettingsController implements IconDisplayingController 
      * Scrapes title from text field and updates {@link edu.kit.ifv.trafficspvisualizer.model.ChoiceOption}
      * at index {@link ChoiceOptionSettingsController#choiceOptionId} with given color.
      */
-    public void actionOnTitleTextField(){
+    private void actionOnTitleTextField(){
         String newTitle = controllerFacade.getViewFacade().getChoiceOptionSettingsStage().getTitleString();
         controllerFacade.getProject().getChoiceOptions().get(choiceOptionId).setTitle(newTitle);
     }
@@ -94,7 +94,7 @@ public class ChoiceOptionSettingsController implements IconDisplayingController 
      *
      * @param routeSectionIndex the index of the route section for which an icon is selected
      */
-    public void actionOnIconButton(int routeSectionIndex){
+    private void actionOnIconButton(int routeSectionIndex){
         controllerFacade.createIconSelectionController(this, routeSectionIndex);
     }
 
@@ -105,7 +105,7 @@ public class ChoiceOptionSettingsController implements IconDisplayingController 
      *
      * @param routeSectionIndex the index of the route section which LineType is updated
      */
-    public void actionOnLineTypeMenu(int routeSectionIndex){
+    private void actionOnLineTypeMenu(int routeSectionIndex){
         //should  be called when option is selected
 
         LineType newLineType = controllerFacade.getViewFacade().getChoiceOptionSettingsStage()
@@ -122,7 +122,7 @@ public class ChoiceOptionSettingsController implements IconDisplayingController 
      *
      * @param routeSectionIndex the index of the route section which choiceDataKey is updated
      */
-    public void actionOnRouteSectionChoiceDataKeyMenu(int routeSectionIndex){
+    private void actionOnRouteSectionChoiceDataKeyMenu(int routeSectionIndex){
         //should  be called when option is selected
 
         String choiceDataKey = controllerFacade.getViewFacade().getChoiceOptionSettingsStage()
@@ -140,7 +140,7 @@ public class ChoiceOptionSettingsController implements IconDisplayingController 
      *
      * @param attributeIndex the index of the attribute which column mappings are updated
      */
-    public void actionOnAttributeColumnMenu(int attributeIndex){
+    private void actionOnAttributeColumnMenu(int attributeIndex){
         //should  be called when option is selected
         List<String> attributeValueSelection = controllerFacade.getViewFacade().getChoiceOptionSettingsStage()
                 .getAttributeValueNamesSelection(attributeIndex);
@@ -184,7 +184,7 @@ public class ChoiceOptionSettingsController implements IconDisplayingController 
      *
      * @param routeSectionIndex index of route section which should be deleted
      */
-    public void actionOnDeleteButton(int routeSectionIndex) {
+    private void actionOnDeleteButton(int routeSectionIndex) {
         // show confirmation and alert and delete route section only if user did click ok
         controllerFacade.getViewFacade().getChoiceOptionSettingsStage()
                 .showRemoveRouteSectionConfirmationAlert()

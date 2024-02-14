@@ -56,10 +56,4 @@ public class ImageExporter extends Exporter {
         }
         return newDirectory;
     }
-
-
-
-
-
-
 }

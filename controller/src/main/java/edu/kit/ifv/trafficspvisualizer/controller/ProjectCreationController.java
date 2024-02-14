@@ -46,7 +46,7 @@ public class ProjectCreationController {
      * Instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.ProjectCreationStage} to open
      * {@link javafx.stage.DirectoryChooser} and sets returned value as project folder path.
      */
-    public void actionOnProjectFolderButton() {
+    private void actionOnProjectFolderButton() {
         File selectedFile = controllerFacade.getViewFacade().getProjectCreationStage().showDirectoryChooserDialog();
 
         if (selectedFile == null) return;
@@ -58,7 +58,7 @@ public class ProjectCreationController {
      * Instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.ProjectCreationStage} to open
      * {@link javafx.stage.FileChooser} and sets returned value as input file path.
      */
-    public void actionOnInputFileButton() {
+    private void actionOnInputFileButton() {
         File selectedFile = controllerFacade.getViewFacade().getProjectCreationStage().showFileChooserDialog();
 
         if (selectedFile == null) return;
@@ -73,7 +73,7 @@ public class ProjectCreationController {
      * {@link edu.kit.ifv.trafficspvisualizer.view.ViewFacade} and {@link ControllerFacade};
      *
      */
-    public void actionOnSaveButton(){
+    private void actionOnSaveButton(){
         DataObject dataObject;
 
         //Scrape data
@@ -119,7 +119,7 @@ public class ProjectCreationController {
      * deletes its reference in the {@link edu.kit.ifv.trafficspvisualizer.view.ViewFacade}.
      * Deletes ProjectCreationController from {@link ControllerFacade}.
      */
-    public void actionOnCancelButton(){
+    private void actionOnCancelButton(){
         controllerFacade.getViewFacade().getProjectCreationStage().close();
         controllerFacade.getViewFacade().setProjectCreationStage(null);
         controllerFacade.deleteProjectCreationController();
