@@ -4,6 +4,7 @@ import edu.kit.ifv.trafficspvisualizer.model.AbstractAttribute;
 import edu.kit.ifv.trafficspvisualizer.model.ChoiceOption;
 import edu.kit.ifv.trafficspvisualizer.model.DataObject;
 import edu.kit.ifv.trafficspvisualizer.model.ExportSettings;
+import edu.kit.ifv.trafficspvisualizer.model.InvalidDataKeyException;
 import edu.kit.ifv.trafficspvisualizer.model.Project;
 import edu.kit.ifv.trafficspvisualizer.model.RouteSection;
 
@@ -24,7 +25,7 @@ public abstract class ImageCollectionGenerator {
     protected Project project;
     protected StandardImageGenerator standardImageGenerator;
 
-    public abstract ChoiceOptionImage[] createImage(Project project);
+    public abstract ChoiceOptionImage[] createImage(Project project) throws InvalidDataKeyException;
 
     protected void setUpImageCreation(Project project) {
         this.exportSettings = project.getExportSettings();
@@ -41,7 +42,7 @@ public abstract class ImageCollectionGenerator {
         this.standardImageGenerator = new StandardImageGenerator();
     }
 
-    protected double calculateLengthOfRouteSection(ChoiceOption choiceOption, int situationNumber) {
+    protected double calculateLengthOfRouteSection(ChoiceOption choiceOption, int situationNumber) throws InvalidDataKeyException {
         double lengthOfRouteSections = 0;
         double lengthOfCurrentRouteSection;
         for (RouteSection routeSection : choiceOption.getRouteSections()) {
@@ -51,7 +52,7 @@ public abstract class ImageCollectionGenerator {
         return lengthOfRouteSections;
     }
 
-    protected double calculateLongestRouteSection(int situationIndex) {
+    protected double calculateLongestRouteSection(int situationIndex) throws InvalidDataKeyException {
         double lengthOfLongestRouteSection = 0;
         double lengthOfCurrentRouteSection;
         ChoiceOption currentChoiceOption;

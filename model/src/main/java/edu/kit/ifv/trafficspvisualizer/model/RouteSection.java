@@ -7,6 +7,10 @@ public class RouteSection {
     private String choiceDataKey;
     private LineType lineType;
 
+    public RouteSection(Icon icon) {
+        this(icon, "", LineType.SOLID);
+    }
+
     public RouteSection(Icon icon, String choiceDataKey, LineType lineType) {
         this.icon = icon;
         this.choiceDataKey = choiceDataKey;

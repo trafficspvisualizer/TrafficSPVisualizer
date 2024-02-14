@@ -70,6 +70,7 @@ public class IconManager {
         Icon newIcon = new SVGIcon(iconDir, nextIdentifier);
         nextIdentifier++;
         Files.copy(icon, newIcon.getIconPath());
+        newIcon.toBufferedImage();
         icons.put(newIcon.getIdentifier(), newIcon);
     }
 

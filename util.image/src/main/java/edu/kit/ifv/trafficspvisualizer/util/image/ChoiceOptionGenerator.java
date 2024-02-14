@@ -1,6 +1,7 @@
 package edu.kit.ifv.trafficspvisualizer.util.image;
 
 import edu.kit.ifv.trafficspvisualizer.model.ChoiceOption;
+import edu.kit.ifv.trafficspvisualizer.model.InvalidDataKeyException;
 import edu.kit.ifv.trafficspvisualizer.model.Project;
 import java.awt.image.BufferedImage;
 import java.util.Map;
@@ -8,7 +9,7 @@ import java.util.Map;
 public class ChoiceOptionGenerator extends ImageCollectionGenerator {
     private Map<ChoiceOption, java.util.List<String>> choiceOptionMappings;
     @Override
-    public ChoiceOptionImage[] createImage(Project project) {
+    public ChoiceOptionImage[] createImage(Project project) throws InvalidDataKeyException {
         setUpImageCreation(project);
         ChoiceOption currentChoiceOption;
         ChoiceOptionImage[] images = new ChoiceOptionImage[numberOfChoiceOptions];
