@@ -23,6 +23,7 @@ public class ChoiceOptionGenerator extends ImageCollectionGenerator {
                 BufferedImage bufferedImage = standardImageGenerator.createChoiceOption(currentChoiceOption,
                         dataObject, attributeList, choiceOptionHeight, choiceOptionWidth, 0, lengthOfLongestRouteSectionsOfSituation, i);
                 currentChoiceOptionImage.setImage(bufferedImage);
+                currentChoiceOptionImage.setTitle(currentChoiceOption.getTitle());
                 images[j + i * numberOfChoiceOptionsPerSituation] = currentChoiceOptionImage;
             }
         }
