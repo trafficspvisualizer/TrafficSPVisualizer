@@ -50,7 +50,7 @@ public class MainApplicationController {
     /**
      * Creates a new {@link ProjectCreationController}.
      */
-    public void actionOnNewProjectButton(){
+    private void actionOnNewProjectButton(){
         controllerFacade.createProjectCreationController();
     }
 
@@ -59,7 +59,7 @@ public class MainApplicationController {
      * {@link javafx.stage.FileChooser} and if possible loads project from selected file.
      * Updates {@link edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow}.
      */
-    public void actionOnLoadProject(){
+    private void actionOnLoadProject(){
         File selectedFile = controllerFacade.getViewFacade().getMainApplicationWindow().showDirectoryChooserDialog();
 
         if (selectedFile == null) return;
@@ -84,7 +84,7 @@ public class MainApplicationController {
     /**
      * Instructs {@link StandardProjectSaver} to save project.
      */
-    public void actionOnSaveButton() {
+    private void actionOnSaveButton() {
         // if no project is currently loaded
         if (controllerFacade.getProject() == null) {
             controllerFacade.getViewFacade().getMainApplicationWindow().showNoProjectErrorAlert();
@@ -102,7 +102,7 @@ public class MainApplicationController {
     /**
      * Instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow} to show help dialog.
      */
-    public void actionOnHelpButton(){
+    private void actionOnHelpButton(){
         //TODO: missing help dialog
         //controllerFacade.getViewFacade().getMainApplicationWindow().showHelpDialog();
 
@@ -113,7 +113,7 @@ public class MainApplicationController {
      *
      * @param choiceOptionIndex index of choice option which should be edited
      */
-    public void actionOnChoiceOptionSettingsButton(int choiceOptionIndex){
+    private void actionOnChoiceOptionSettingsButton(int choiceOptionIndex){
         controllerFacade.createChoiceOptionSettingsController(choiceOptionIndex);
     }
 
@@ -125,7 +125,7 @@ public class MainApplicationController {
      *
      * @param choiceOptionIndex index of choice option which should be moved up
      */
-    public void actionOnMoveChoiceOptionUpButton(int choiceOptionIndex){
+    private void actionOnMoveChoiceOptionUpButton(int choiceOptionIndex){
         controllerFacade.getProject().swapChoiceOptionUp(choiceOptionIndex);
 
         // Update MainApplicationWindow
@@ -141,7 +141,7 @@ public class MainApplicationController {
      *
      * @param choiceOptionIndex index of choice option which should be moved down
      */
-    public void actionOnMoveChoiceOptionDownButton(int choiceOptionIndex){
+    private void actionOnMoveChoiceOptionDownButton(int choiceOptionIndex){
         controllerFacade.getProject().swapChoiceOptionDown(choiceOptionIndex);
 
         // Update MainApplicationWindow
@@ -153,7 +153,7 @@ public class MainApplicationController {
      * Creates subclass of {@link ImageCollectionGenerator} and instructs it to create images.
      * Then creates subclass {@link Exporter} to export the generated images.
      */
-    public void actionOnExportButton(){
+    private void actionOnExportButton(){
 
         // if no project is currently loaded
         if (controllerFacade.getProject() == null) {
@@ -187,7 +187,7 @@ public class MainApplicationController {
     /**
      * Instructs creation of {@link ExportSettingsController}.
      */
-    public void actionOnExportSettingsButton(){
+    private void actionOnExportSettingsButton(){
         // if no project is currently loaded
         if (controllerFacade.getProject() == null) {
             controllerFacade.getViewFacade().getMainApplicationWindow().showNoProjectErrorAlert();
@@ -199,7 +199,7 @@ public class MainApplicationController {
     /**
      * Instructs creation of {@link AttributeController}.
      */
-    public void actionOnAttributeButton(){
+    private void actionOnAttributeButton(){
         // if no project is currently loaded
         if (controllerFacade.getProject() == null) {
             controllerFacade.getViewFacade().getMainApplicationWindow().showNoProjectErrorAlert();
@@ -212,7 +212,7 @@ public class MainApplicationController {
      * Instructs {@link Project} to increment preview counter and
      * instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow} to update preview.
      */
-    public void actionOnNextPreviewButton(){
+    private void actionOnNextPreviewButton(){
         // if no project is currently loaded
         if (controllerFacade.getProject() == null) return;
         controllerFacade.getProject().incrementPreview();
@@ -225,7 +225,7 @@ public class MainApplicationController {
      * Instructs {@link Project} to decrement preview counter and
      * instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow} to update preview.
      */
-    public void actionOnPreviousPreviewButton(){
+    private void actionOnPreviousPreviewButton(){
         // if no project is currently loaded
         if (controllerFacade.getProject() == null) return;
         controllerFacade.getProject().decrementPreview();
@@ -260,6 +260,9 @@ public class MainApplicationController {
         //controllerFacade.getViewFacade().getMainApplicationWindow().updateCurrentPreviewSituation();
     }
 
+    /**
+     * Instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow} to update choice options.
+     */
     public void updateChoiceOptions() {
         controllerFacade.getViewFacade().getMainApplicationWindow().updateChoiceOptions();
         setChoiceOptionActionListeners();

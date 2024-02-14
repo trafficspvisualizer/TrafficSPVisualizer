@@ -43,7 +43,7 @@ public class AttributeController {
      * Sets its attributeIndex to the length of the list of attributes in the model to
      * assure no existing {@link edu.kit.ifv.trafficspvisualizer.model.Attribute} is edited.
      */
-    public void actionOnNewAttributeButton(){
+    private void actionOnNewAttributeButton(){
         //TODO: Default constructor for Attribute class
 
         // Creating and adding new default Attribute and opening AttributeSettingsStage to edit it
@@ -58,7 +58,7 @@ public class AttributeController {
      * Instructs model to add new separator line and notifies
      * {@link edu.kit.ifv.trafficspvisualizer.view.window.AttributeStage} of change.
      */
-    public void actionOnNewSeparatorLineButton(){
+    private void actionOnNewSeparatorLineButton(){
         controllerFacade.getProject().addAttribute(new SeparatorLine());
         update();
     }
@@ -69,7 +69,7 @@ public class AttributeController {
      *
      * @param attributeIndex the index of the attribute which should be deleted
      */
-    public void actionOnDeleteButton(int attributeIndex){
+    private void actionOnDeleteButton(int attributeIndex){
 
         controllerFacade.getViewFacade().getAttributeStage()
                 .showRemoveAttributeProjectConfirmationAlert()
@@ -88,7 +88,7 @@ public class AttributeController {
      *
      * @param attributeIndex the index of the attribute which should be edited
      */
-    public void actionOnSettingsButton(int attributeIndex){
+    private void actionOnSettingsButton(int attributeIndex){
         controllerFacade.createAttributeSettingsController(attributeIndex, false);
     }
 
@@ -97,7 +97,7 @@ public class AttributeController {
      *
      * @param attributeIndex the index of the attribute for which the active status should be inverted
      */
-    public void actionOnActiveCheck(int attributeIndex){
+    private void actionOnActiveCheck(int attributeIndex){
         AbstractAttribute attribute = controllerFacade.getProject().getAttributes().get(attributeIndex);
         attribute.setActive(!attribute.isActive());
         update();
@@ -110,7 +110,7 @@ public class AttributeController {
      *
      * @param attributeIndex the index of the attribute which should be moved up
      */
-    public void actionOnMoveAttributeUpButton(int attributeIndex) {
+    private void actionOnMoveAttributeUpButton(int attributeIndex) {
         controllerFacade.getProject().swapAttributeUp(attributeIndex);
         update();
     }
@@ -122,7 +122,7 @@ public class AttributeController {
      *
      * @param attributeIndex the index of the attribute which should be moved down
      */
-    public void actionOnMoveAttributeDownButton(int attributeIndex){
+    private void actionOnMoveAttributeDownButton(int attributeIndex){
         controllerFacade.getProject().swapAttributeDown(attributeIndex);
         update();
     }
@@ -132,7 +132,7 @@ public class AttributeController {
      * {@link edu.kit.ifv.trafficspvisualizer.view.ViewFacade}. Deletes AttributeController from
      * {@link ControllerFacade}. Instructs {@link MainApplicationController} to update the preview.
      */
-    public void actionOnCompleteButton(){
+    private void actionOnCompleteButton(){
         controllerFacade.getViewFacade().getAttributeStage().close();
         controllerFacade.getViewFacade().setAttributeStage(null);
         controllerFacade.deleteAttributeController();

@@ -58,7 +58,7 @@ public class IconSelectionController {
      * Scrapes selected icon from {@link edu.kit.ifv.trafficspvisualizer.view.window.IconSelectionStage} and
      * instructs {@link IconSelectionController#parentController} to update icon. Closes controller and stage.
      */
-    public void actionOnChooseButton() {
+    private void actionOnChooseButton() {
         int iconIdentifier = controllerFacade.getViewFacade().getIconSelectionStage().getSelectedIconIdentifier();
         Icon selectedIcon = controllerFacade.getProject().getIconManager().getIcons().get(iconIdentifier);
         parentController.updateIcon(selectedIcon, index);
@@ -69,7 +69,7 @@ public class IconSelectionController {
      * Instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.IconSelectionStage} to open
      * {@link javafx.stage.FileChooser} and adds selected icon to model. Instructs IconSelectionStage to update.
      */
-    public void actionOnNewIconButton(){
+    private void actionOnNewIconButton(){
         File selectedFile = controllerFacade.getViewFacade().getIconSelectionStage().showFileChooserDialog();
 
         if (selectedFile == null) return;
@@ -90,7 +90,7 @@ public class IconSelectionController {
      * deletes its reference in the {@link edu.kit.ifv.trafficspvisualizer.view.ViewFacade}.
      * Deletes IconSelectionController from {@link ControllerFacade}.
      */
-    public void actionOnCancelButton(){
+    private void actionOnCancelButton(){
         controllerFacade.getViewFacade().getIconSelectionStage().close();
         controllerFacade.getViewFacade().setIconSelectionStage(null);
         controllerFacade.deleteIconSelectionController();
