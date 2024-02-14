@@ -523,7 +523,7 @@ public class ChoiceOptionSettingsStage extends Stage {
         GridPane.setValignment(routeSectionRemoveButton, VPos.CENTER);
 
         routeSectionRemoveButtonList.add(routeSectionRemoveButton);
-        routeSectionsGridPane.add(routeSectionRemoveButton, 1, rowIndex);
+        routeSectionsGridPane.add(routeSectionRemoveButton, 4, rowIndex);
     }
 
 
