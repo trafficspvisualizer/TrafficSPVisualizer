@@ -172,17 +172,13 @@ public class MainApplicationController {
         }
 
         ExportType exportType = controllerFacade.getProject().getExportSettings().getExportType();
-        ImageCollectionGenerator imageCollectionGenerator = null;
 
-        if(exportType == ExportType.SITUATION) {
-            imageCollectionGenerator = new SituationGenerator();
-        } else if (exportType == ExportType.CHOICE_OPTION || exportType == ExportType.HTML){
-            imageCollectionGenerator = new ChoiceOptionGenerator();
-        }
+        ImageCollectionGenerator imageCollectionGenerator = ImageCollectionGenerator
+                                                                            .getImageCollectionGenerator(exportType);
+        Exporter exporter = Exporter.getExporter(controllerFacade.getProject().getExportSettings().getExportType());
 
         try {
             ChoiceOptionImage[] images = imageCollectionGenerator.createImage(controllerFacade.getProject());
-            Exporter exporter = Exporter.getExporter(controllerFacade.getProject().getExportSettings().getExportType());
             exporter.export(images, controllerFacade.getProject().getExportSettings().getExportPath().toFile());
         } catch (NullPointerException | IOException | InvalidDataKeyException e) {
             controllerFacade.getViewFacade().getMainApplicationWindow().showExportErrorAlert();

@@ -1,12 +1,6 @@
 package edu.kit.ifv.trafficspvisualizer.util.image;
 
-import edu.kit.ifv.trafficspvisualizer.model.AbstractAttribute;
-import edu.kit.ifv.trafficspvisualizer.model.ChoiceOption;
-import edu.kit.ifv.trafficspvisualizer.model.DataObject;
-import edu.kit.ifv.trafficspvisualizer.model.ExportSettings;
-import edu.kit.ifv.trafficspvisualizer.model.InvalidDataKeyException;
-import edu.kit.ifv.trafficspvisualizer.model.Project;
-import edu.kit.ifv.trafficspvisualizer.model.RouteSection;
+import edu.kit.ifv.trafficspvisualizer.model.*;
 
 import java.awt.image.BufferedImage;
 import java.util.List;
@@ -26,6 +20,13 @@ public abstract class ImageCollectionGenerator {
     protected StandardImageGenerator standardImageGenerator;
 
     public abstract ChoiceOptionImage[] createImage(Project project) throws InvalidDataKeyException;
+
+    public static ImageCollectionGenerator getImageCollectionGenerator(ExportType exportType) {
+        if(exportType == ExportType.SITUATION) {
+            return new SituationGenerator();
+        }
+        return new ChoiceOptionGenerator();
+    }
 
     protected void setUpImageCreation(Project project) {
         this.exportSettings = project.getExportSettings();
