@@ -104,7 +104,7 @@ public abstract class AbstractLoader {
      * @return The created list of strings.
      */
     protected List<String> createList(JSONObject jsonObject) {
-        JSONArray list = jsonObject.optJSONArray("List");
+        JSONArray list = jsonObject.optJSONArray(JsonKeys.KEY_LIST.getKey());
         return IntStream.range(0, list.length())
                 .mapToObj(list::getString)
                 .collect(Collectors.toList());
@@ -117,7 +117,7 @@ public abstract class AbstractLoader {
      * @return The created ChoiceOption.
      */
     protected ChoiceOption createOneChoiceOption(JSONObject jsonObject) {
-        JSONObject choiceOption = jsonObject.getJSONObject("ChoiceOption");
+        JSONObject choiceOption = jsonObject.getJSONObject(JsonKeys.KEY_CHOICE_OPTION.getKey());
         String name = choiceOption.optString(JsonKeys.KEY_NAME_CHOICE_OPTION.getKey());
         String title = choiceOption.optString(JsonKeys.KEY_TITLE.getKey());
         String colour = choiceOption.optString(JsonKeys.KEY_COLOR.getKey());
@@ -197,7 +197,8 @@ public abstract class AbstractLoader {
     protected void updateProjectRouteSection(Project project, JSONArray jsonChoiceOptions) {
         for (int i = 0; i < project.getChoiceOptions().size(); i++) {
             JSONObject obj = jsonChoiceOptions.optJSONObject(i);
-            JSONArray routeSectionJSON = obj.optJSONArray(JsonKeys.KEY_ROUTE_SECTIONS.getKey());
+            JSONArray routeSectionJSON = obj.optJSONObject(JsonKeys.KEY_CHOICE_OPTION.getKey()).optJSONArray(JsonKeys.KEY_ROUTE_SECTIONS.getKey());
+
             ChoiceOption choiceOption = project.getChoiceOptions().get(i);
             for (int j = 0; j < choiceOption.getRouteSections().size(); j++) {
                 JSONObject route = routeSectionJSON.getJSONObject(j);

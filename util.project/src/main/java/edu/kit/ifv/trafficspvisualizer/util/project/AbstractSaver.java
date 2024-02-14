@@ -180,8 +180,8 @@ public abstract class AbstractSaver {
             JSONObject choiceOptionJson = createJsonChoiceOption( choiceOption.getName(),
                     choiceOption.getRouteSections(), choiceOption.getTitle(), choiceOption.getColor());
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("ChoiceOption",choiceOptionJson);
-            jsonObject.put("List",strings);
+            jsonObject.put(JsonKeys.KEY_CHOICE_OPTION.getKey(),choiceOptionJson);
+            jsonObject.put(JsonKeys.KEY_LIST.getKey(),strings);
             choiceOptionMappingsJson.put(jsonObject);
         }
         return choiceOptionMappingsJson;

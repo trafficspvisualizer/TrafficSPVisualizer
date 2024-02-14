@@ -28,7 +28,9 @@ public enum JsonKeys {
     KEY_COLOR("color"),
     KEY_EXPORT_SETTINGS("exportSettings"),
     KEY_LINE_SEPARATOR("LineSeparator"),
-    KEY_CHOICE_OPTIONS("ChoiceOptions");
+    KEY_CHOICE_OPTIONS("ChoiceOptions"),
+    KEY_CHOICE_OPTION("ChoiceOption"),
+    KEY_LIST("List");
     private final String key;
 
     JsonKeys(String key) {
