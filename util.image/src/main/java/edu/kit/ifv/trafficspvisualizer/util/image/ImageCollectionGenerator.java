@@ -45,7 +45,7 @@ public abstract class ImageCollectionGenerator {
         double lengthOfRouteSections = 0;
         double lengthOfCurrentRouteSection;
         for (RouteSection routeSection : choiceOption.getRouteSections()) {
-            lengthOfCurrentRouteSection = dataObject.getAttributeValue(situationNumber, choiceOption.getName(), routeSection.getChoiceDataKey());
+            lengthOfCurrentRouteSection = dataObject.getValue(situationNumber, choiceOption.getName(), routeSection.getChoiceDataKey());
             lengthOfRouteSections += lengthOfCurrentRouteSection;
         }
         return lengthOfRouteSections;

@@ -15,14 +15,15 @@ class NGDParserBlockNumberTest {
     public  void testBlockNumber() {
         File file = new File(Objects.requireNonNull(getClass().getResource("/IFVExample.ngd")).getFile());
         NGDParser ngdParser = new NGDParser();
-        DataObject dataObject = new DataObject(null);
+        DataObject dataObject;
         try {
             dataObject = ngdParser.parse(file);
         } catch (IOException | ParseException e) {
-            assert false;
+            assert(false);
+            return;
         }
 
-        assertEquals(15, dataObject.getAttributeValue(0, "fuss", "fuss.fz_fuss"));
+        assertEquals(15, dataObject.getValue(0, "fuss", "fz_fuss"));
         assertEquals(16, dataObject.getSituationCount());
         assertEquals(1, dataObject.getBlockNumber(15));
     }
