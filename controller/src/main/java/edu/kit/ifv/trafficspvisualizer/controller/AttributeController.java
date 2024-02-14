@@ -44,14 +44,12 @@ public class AttributeController {
      * assure no existing {@link edu.kit.ifv.trafficspvisualizer.model.Attribute} is edited.
      */
     public void actionOnNewAttributeButton(){
-        //TODO: Default constructor for Attribute class
 
         // Creating and adding new default Attribute and opening AttributeSettingsStage to edit it
         Attribute newAttribute = new Attribute(controllerFacade.getProject().getIconManager().getDefaultIcon());
         controllerFacade.getProject().addAttribute(newAttribute);
-        controllerFacade.createAttributeSettingsController(controllerFacade.getProject().getAttributes().size() - 1,
-                                                                                                true);
-
+        controllerFacade.createAttributeSettingsController(controllerFacade.getProject().getAbstractAttributes().size() - 1,
+                                                                                            true);
     }
 
     /**
@@ -67,15 +65,15 @@ public class AttributeController {
      * Ask user for confirmation and instructs model to delete attribute at given index if user confirms. Notifies
      * {@link edu.kit.ifv.trafficspvisualizer.view.window.AttributeStage} of change.
      *
-     * @param attributeIndex the index of the attribute which should be deleted
+     * @param abstractAttributeIndex the index of the attribute which should be deleted
      */
-    public void actionOnDeleteButton(int attributeIndex){
+    public void actionOnDeleteButton(int abstractAttributeIndex){
 
         controllerFacade.getViewFacade().getAttributeStage()
                 .showRemoveAttributeProjectConfirmationAlert()
                 .ifPresent(response -> {
                     if (response == ButtonType.OK) {
-                        controllerFacade.getProject().removeAttribute(attributeIndex);
+                        controllerFacade.getProject().removeAttribute(abstractAttributeIndex);
                         update();
                     }
                 });
@@ -86,19 +84,19 @@ public class AttributeController {
      * Creates new {@link AttributeSettingsController} and sets its attributeIndex to the index of the
      * {@link edu.kit.ifv.trafficspvisualizer.model.Attribute} which should be edited.
      *
-     * @param attributeIndex the index of the attribute which should be edited
+     * @param abstractAttributeIndex the index of the attribute which should be edited
      */
-    public void actionOnSettingsButton(int attributeIndex){
-        controllerFacade.createAttributeSettingsController(attributeIndex, false);
+    public void actionOnSettingsButton(int abstractAttributeIndex){
+        controllerFacade.createAttributeSettingsController(abstractAttributeIndex, false);
     }
 
     /**
      * Instructs model to invert whether the attribute at the given index is active or not.
      *
-     * @param attributeIndex the index of the attribute for which the active status should be inverted
+     * @param abstractAttributeIndex the index of the attribute for which the active status should be inverted
      */
-    public void actionOnActiveCheck(int attributeIndex){
-        AbstractAttribute attribute = controllerFacade.getProject().getAttributes().get(attributeIndex);
+    public void actionOnActiveCheck(int abstractAttributeIndex){
+        AbstractAttribute attribute = controllerFacade.getProject().getAbstractAttributes().get(abstractAttributeIndex);
         attribute.setActive(!attribute.isActive());
         update();
     }
@@ -108,10 +106,10 @@ public class AttributeController {
      * {@link edu.kit.ifv.trafficspvisualizer.view.window.AttributeStage} of the change.
      * If possible, the attribute with the given index is swapped with the preceding one.
      *
-     * @param attributeIndex the index of the attribute which should be moved up
+     * @param abstractAttributeIndex the index of the attribute which should be moved up
      */
-    public void actionOnMoveAttributeUpButton(int attributeIndex) {
-        controllerFacade.getProject().swapAttributeUp(attributeIndex);
+    public void actionOnMoveAttributeUpButton(int abstractAttributeIndex) {
+        controllerFacade.getProject().swapAttributeUp(abstractAttributeIndex);
         update();
     }
 
@@ -120,10 +118,10 @@ public class AttributeController {
      * {@link edu.kit.ifv.trafficspvisualizer.view.window.AttributeStage} of the change.
      * If possible, the attribute with the given index is swapped with the succeeding one.
      *
-     * @param attributeIndex the index of the attribute which should be moved down
+     * @param abstractAttributeIndex the index of the attribute which should be moved down
      */
-    public void actionOnMoveAttributeDownButton(int attributeIndex){
-        controllerFacade.getProject().swapAttributeDown(attributeIndex);
+    public void actionOnMoveAttributeDownButton(int abstractAttributeIndex){
+        controllerFacade.getProject().swapAttributeDown(abstractAttributeIndex);
         update();
     }
 

@@ -145,7 +145,7 @@ public class ChoiceOptionSettingsController implements IconDisplayingController 
         List<String> attributeValueSelection = controllerFacade.getViewFacade().getChoiceOptionSettingsStage()
                 .getAttributeValueNamesSelection(attributeIndex);
 
-        Attribute attribute = (Attribute) controllerFacade.getProject().getAttributes().get(attributeIndex);
+        Attribute attribute = controllerFacade.getProject().getAttributes().get(attributeIndex);
         ChoiceOption choiceOption = controllerFacade.getProject().getChoiceOptions().get(choiceOptionId);
 
         attribute.setMapping(choiceOption, attributeValueSelection);
