@@ -117,7 +117,7 @@ public class Project {
                 .collect(Collectors.toList());
     }
 
-    public void addAttribute(AbstractAttribute attribute) {
+    public void addAbstractAttribute(AbstractAttribute attribute) {
         attributes.add(attribute);
     }
 

@@ -47,7 +47,7 @@ public class AttributeController {
 
         // Creating and adding new default Attribute and opening AttributeSettingsStage to edit it
         Attribute newAttribute = new Attribute(controllerFacade.getProject().getIconManager().getDefaultIcon());
-        controllerFacade.getProject().addAttribute(newAttribute);
+        controllerFacade.getProject().addAbstractAttribute(newAttribute);
         controllerFacade.createAttributeSettingsController(controllerFacade.getProject().getAbstractAttributes().size() - 1,
                                                                                             true);
     }
@@ -57,7 +57,7 @@ public class AttributeController {
      * {@link edu.kit.ifv.trafficspvisualizer.view.window.AttributeStage} of change.
      */
     public void actionOnNewSeparatorLineButton(){
-        controllerFacade.getProject().addAttribute(new SeparatorLine());
+        controllerFacade.getProject().addAbstractAttribute(new SeparatorLine());
         update();
     }
 
