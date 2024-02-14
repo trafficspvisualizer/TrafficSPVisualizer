@@ -121,7 +121,7 @@ public class Project {
         attributes.add(attribute);
     }
 
-    public void removeAttribute(int index) {
+    public void removeAbstractAttribute(int index) {
         attributes.remove(index);
     }
 

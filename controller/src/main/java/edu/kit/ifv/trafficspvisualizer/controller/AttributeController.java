@@ -73,7 +73,7 @@ public class AttributeController {
                 .showRemoveAttributeProjectConfirmationAlert()
                 .ifPresent(response -> {
                     if (response == ButtonType.OK) {
-                        controllerFacade.getProject().removeAttribute(abstractAttributeIndex);
+                        controllerFacade.getProject().removeAbstractAttribute(abstractAttributeIndex);
                         update();
                     }
                 });

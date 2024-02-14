@@ -109,7 +109,7 @@ public class AttributeSettingsController implements IconDisplayingController {
     public void actionOnCancelButton(){
         // if user created new attribute and pressed cancel
         if (workingOnNewAttribute) {
-            controllerFacade.getProject().removeAttribute(abstractAttributeIndex);
+            controllerFacade.getProject().removeAbstractAttribute(abstractAttributeIndex);
         }
         controllerFacade.getViewFacade().getAttributeSettingsStage().close();
         controllerFacade.getViewFacade().setAttributeSettingsStage(null);
