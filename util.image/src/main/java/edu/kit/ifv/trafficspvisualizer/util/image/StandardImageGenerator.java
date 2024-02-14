@@ -149,7 +149,7 @@ public class StandardImageGenerator extends ImageGenerator{
         graphics2DChoiceOption.drawLine(currentXCoordinate, routeSectionDrawingHeight + 1, currentXCoordinate, routeSectionDrawingHeight - 1);
         for (RouteSection routeSection : routeSections) {
             String key = routeSection.getChoiceDataKey();
-            double lengthOfRouteSection = dataObject.getAttributeValue(situationIndex, choiceOption.getName(), key);
+            double lengthOfRouteSection = dataObject.getValue(situationIndex, choiceOption.getName(), key);
             int imageLengthOfRouteSection = (int) ((lengthOfLongestRouteSection * lengthOfRouteSection)
                     / lengthOfLongestRouteSectionOfSituation);
             graphics2DChoiceOption.drawLine(currentXCoordinate, routeSectionDrawingHeight,
@@ -208,7 +208,7 @@ public class StandardImageGenerator extends ImageGenerator{
         List<String> choiceOptionMappings = attribute.getMapping(choiceOption);
         double attributeValue = 0;
         for (String string : choiceOptionMappings) {
-            attributeValue += dataObject.getAttributeValue(situationIndex, choiceOption.getName(), string);
+            attributeValue += dataObject.getValue(situationIndex, choiceOption.getName(), string);
         }
         int decimalPlaces = attribute.getDecimalPlaces();
         return round(decimalPlaces, attributeValue);
