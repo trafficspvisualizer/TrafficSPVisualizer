@@ -26,7 +26,7 @@ public class Project {
         this.attributes = new ArrayList<>();
         this.choiceOptions = initializeChoiceOptions();
         this.exportSettings = new ExportSettings(this.projectPath);
-        this.currentPreviewSituation = 1;
+        this.currentPreviewSituation = 0;
         this.cacheDirectory = createCache(ngdFile);
         this.iconManager = new IconManager(cacheDirectory);
     }
@@ -43,7 +43,7 @@ public class Project {
         this.exportSettings = exportSettings;
         this.cacheDirectory = createCache(ngdFile);
         this.iconManager = new IconManager(cacheDirectory, iconDirectory);
-        this.currentPreviewSituation = 1;
+        this.currentPreviewSituation = 0;
     }
 
     private Path createCache(File ngdFile) throws IOException {
