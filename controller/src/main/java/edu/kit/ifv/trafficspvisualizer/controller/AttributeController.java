@@ -47,7 +47,7 @@ public class AttributeController {
         //TODO: Default constructor for Attribute class
 
         // Creating and adding new default Attribute and opening AttributeSettingsStage to edit it
-        Attribute newAttribute = new Attribute("test", null,"test", "test", true, 0);
+        Attribute newAttribute = new Attribute(controllerFacade.getProject().getIconManager().getDefaultIcon());
         controllerFacade.getProject().addAttribute(newAttribute);
         controllerFacade.createAttributeSettingsController(controllerFacade.getProject().getAttributes().size() - 1,
                                                                                                 true);
@@ -169,7 +169,8 @@ public class AttributeController {
             attributeStage.getAttributeSettingsButtonList().get(index).setOnAction(e -> actionOnSettingsButton(index));
 
             // Active-Checkbox
-            attributeStage.getAttributeActiveCheckBoxList().get(index).setOnAction(e -> actionOnActiveCheck(index));
+            attributeStage.getAttributeActiveCheckBoxList().get(index)
+                                                    .selectedProperty().addListener(e -> actionOnActiveCheck(index));
 
             // Delete-Button
             attributeStage.getAttributeRemoveButtonList().get(index).setOnAction(e -> actionOnDeleteButton(index));

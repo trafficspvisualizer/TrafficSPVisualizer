@@ -2,6 +2,7 @@ package edu.kit.ifv.trafficspvisualizer.view.window;
 
 import edu.kit.ifv.trafficspvisualizer.model.ExportSettings;
 import edu.kit.ifv.trafficspvisualizer.model.ExportType;
+import edu.kit.ifv.trafficspvisualizer.model.Project;
 import edu.kit.ifv.trafficspvisualizer.view.ViewFacade;
 import edu.kit.ifv.trafficspvisualizer.view.data.font.FontLibrary;
 import edu.kit.ifv.trafficspvisualizer.view.data.image.ImageLibrary;
@@ -14,7 +15,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -26,7 +26,14 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.util.Objects;
 
+/**
+ * The {@link ExportSettingsStage} inherits from {@link Stage} and is a sub-window of the application
+ * which can be opened from the {@link MainApplicationWindow} and on which the user can edit the export settings.
+ *
+ * @version 1.0
+ */
 public class ExportSettingsStage extends Stage {
 
     private ViewFacade viewFacade;
@@ -67,7 +74,12 @@ public class ExportSettingsStage extends Stage {
 
     private Scene scene;
 
-
+    /**
+     * Creates the basic structure of the {@link ExportSettingsStage}.
+     *
+     * @param viewFacade The {@link ViewFacade} through which this class can access
+     *                   the {@link Project} and the {@link LanguageStrategy}.
+     */
     public ExportSettingsStage(ViewFacade viewFacade) {
         this.viewFacade = viewFacade;
         buildStage();
@@ -242,7 +254,7 @@ public class ExportSettingsStage extends Stage {
         widthTextField.setText(String.valueOf(exportSettings.getImageWidth()));
 
         if (exportSettings.getExportPath() != null) {
-            exportDirectoryTextField.setText(exportSettings.getExportPath().toFile().getAbsolutePath());
+            setExportDirectory(exportSettings.getExportPath().toFile());
         }
 
         exportTypeChoiceBox.setValue(viewFacade.getLanguageStrategy()
@@ -252,16 +264,31 @@ public class ExportSettingsStage extends Stage {
 
 
     // setter-methods
-    public void setExportFolderPath(File file) {
+
+    /**
+     * Sets the export folder path.
+     *
+     * @param file The export folder path.
+     */
+    public void setExportDirectory(File file) {
         exportDirectoryTextField.setText(file.getAbsolutePath());
+        exportDirectoryTextField.setUserData(file);
     }
 
     // show-methods
+    /**
+     * Shows a file chooser dialog bounded to this {@link ExportSettingsStage}.
+     *
+     * @return The {@link File} selected by the user.
+     */
     public File showDirectoryChooserDialog() {
         DirectoryChooser directoryChooser = new DirectoryChooser();
         return directoryChooser.showDialog(this);
     }
 
+    /**
+     * Shows an error alert indicating that an error occurred during saving export setting.
+     */
     public void showSaveErrorAlert() {
         LanguageStrategy languageStrategy = viewFacade.getLanguageStrategy();
 
@@ -276,28 +303,59 @@ public class ExportSettingsStage extends Stage {
     // getter-methods
 
     // buttons
+
+    /**
+     * Gets the save button.
+     *
+     * @return The save button.
+     */
     public Button getSaveButton() {
         return saveButton;
     }
 
+    /**
+     * Gets the cancel button.
+     *
+     * @return The cancel button.
+     */
     public Button getCancelButton() {
         return cancelButton;
     }
 
+    /**
+     * Gets the export directory button.
+     *
+     * @return The export directory button.
+     */
     public Button getExportDirectoryButton() {
         return exportDirectoryButton;
     }
 
     // values
 
+    /**
+     * Gets the height {@code String}.
+     *
+     * @return The height {@code String}.
+     */
     public String getHeightString() {
         return heightTextField.getText();
     }
 
+    /**
+     * Gets the width {@code String}.
+     *
+     * @return The width {@code String}.
+     */
     public String getWidthString() {
         return widthTextField.getText();
     }
 
+    /**
+     * Gets the export type.
+     *
+     * @return The export type.
+     */
     public ExportType getExportType() {
         // check which export type fits the displayed string
         for(ExportType exportType: ExportType.values()) {
@@ -310,7 +368,14 @@ public class ExportSettingsStage extends Stage {
         return ExportType.CHOICE_OPTION;
     }
 
-    public String getExportDirectoryPathString() {
-        return exportDirectoryTextField.getText();
+    /**
+     * Gets the export directory.
+     *
+     * @return The export directory.
+     */
+    public File getExportDirectory() {
+        if (exportDirectoryTextField.getUserData().getClass() != File.class) return null;
+        return (File) exportDirectoryTextField.getUserData();
     }
+
 }

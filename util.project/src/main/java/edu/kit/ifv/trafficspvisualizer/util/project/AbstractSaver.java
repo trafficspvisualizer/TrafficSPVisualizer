@@ -15,6 +15,8 @@ import java.util.Objects;
  */
 public abstract class AbstractSaver {
 
+
+
     /**
      * Save a project to a specified path.
      *
@@ -33,7 +35,7 @@ public abstract class AbstractSaver {
      * @return A JSONObject representing the project.
      */
     protected JSONObject createJsonProject(String name, List<AbstractAttribute> attributes,
-                                           ExportSettings exportSettings) {
+                                           ExportSettings exportSettings, List<ChoiceOption> choiceOptions) {
         Objects.requireNonNull(name, "Name cannot be null");
         Objects.requireNonNull(attributes, "Attributes cannot be null");
         Objects.requireNonNull(exportSettings, "Export settings cannot be null");
@@ -43,12 +45,20 @@ public abstract class AbstractSaver {
             JSONObject jsonAttribute = createJsonAbstractAttribute(attribute);
             attributesJsonArray.put(jsonAttribute);
         }
+        JSONArray choiceOptionJsonArray = new JSONArray();
+
+        for (ChoiceOption choiceOption : choiceOptions) {
+            JSONObject jsonChoiceOption = createJsonChoiceOption(choiceOption.getName(),
+                    choiceOption.getRouteSections(),choiceOption.getTitle(),choiceOption.getColor());
+            JSONObject jsonObject = new JSONObject();
+            choiceOptionJsonArray.put(jsonObject.put("ChoiceOption",jsonChoiceOption));
+        }
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.put(SharedConstants.KEY_NAME, name);
         jsonObject.put(SharedConstants.KEY_ATTRIBUTES, attributesJsonArray);
         jsonObject.put(SharedConstants.KEY_EXPORT_SETTINGS, createJsonExportSettings(exportSettings));
-
+        jsonObject.put(SharedConstants.KEY_CHOICE_OPTIONS, choiceOptionJsonArray);
         return jsonObject;
     }
 

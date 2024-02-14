@@ -2,7 +2,6 @@ package edu.kit.ifv.trafficspvisualizer.util.project;
 
 import edu.kit.ifv.trafficspvisualizer.model.*;
 import edu.kit.ifv.trafficspvisualizer.util.parse.NGDParser;
-import edu.kit.ifv.trafficspvisualizer.util.parse.Parser;
 import javafx.scene.paint.Color;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -181,35 +180,48 @@ public abstract class AbstractLoader {
         DataObject dataObject = createDataObject(ngdFile);
         String name = jsonProject.optString(SharedConstants.KEY_NAME);
         JSONArray jsonAttributes = jsonProject.optJSONArray(SharedConstants.KEY_ATTRIBUTES);
+        JSONArray jsonChoiceOptions = jsonProject.optJSONArray(SharedConstants.KEY_CHOICE_OPTIONS);
         JSONObject jsonExportSettings = jsonProject.optJSONObject(SharedConstants.KEY_EXPORT_SETTINGS);
         List<AbstractAttribute> attributes = createAttributes(jsonAttributes);
         List<ChoiceOption> choiceOptions = createChoiceOptionList(attributes);
+        choiceOptions = allChoiceOptions(choiceOptions,jsonChoiceOptions);
         ExportSettings exportSettings = createExportSettings(jsonExportSettings);
         Project project = new Project(name, projectDir, dataObject, attributes, choiceOptions, exportSettings,
                 iconDir, ngdFile);
-        updateProjectAttributes(project, jsonAttributes, choiceOptions);
+        updateProjectAttributes(project, jsonAttributes);
+
         return project;
     }
+
+    protected List<ChoiceOption> allChoiceOptions(List<ChoiceOption> choiceOptionsList, JSONArray jsonChoiceOptions) {
+        List<ChoiceOption> fromArray = new ArrayList<>();
+        for (Object object: jsonChoiceOptions) {
+            JSONObject jsonObject = (JSONObject)object;
+            fromArray.add(createOneChoiceOption(jsonObject));
+        }
+        for (ChoiceOption choiceOption: fromArray) {
+            if (!choiceOptionsList.contains(choiceOption)) {
+                choiceOptionsList.add(choiceOption);
+            }
+        }
+        return choiceOptionsList;
+    }
+
+
 
     /**
      * Updates the attributes of a Project.
      *
      * @param project The Project to update the attributes of.
      * @param jsonAttributes The JSONArray containing the attributes.
-     * @param choiceOptions The list of ChoiceOption to be updated.
      */
-    protected void updateProjectAttributes(Project project, JSONArray jsonAttributes, List<ChoiceOption> choiceOptions) {
+    protected void updateProjectAttributes(Project project, JSONArray jsonAttributes) {
         for (int i = 0; i < project.getAttributes().size(); i++) {
             JSONObject obj = jsonAttributes.optJSONObject(i);
             if (project.getAttributes().get(i) instanceof Attribute attribute1 && obj.has(SharedConstants.KEY_ATTRIBUTE)) {
                 JSONObject attributeJSON = obj.optJSONObject(SharedConstants.KEY_ATTRIBUTE);
                 int id = attributeJSON.optInt(SharedConstants.KEY_ICON);
                 attribute1.setIcon(project.getIconManager().getIcons().get(id));
-                for (ChoiceOption choiceOption: attribute1.getChoiceOptionMappings().keySet()) {
-                    if (!choiceOptions.contains(choiceOption)){
-                        choiceOptions.add(choiceOption);
-                    }
-                }
             }
         }
     }

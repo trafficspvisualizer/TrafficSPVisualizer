@@ -4,4 +4,5 @@ module edu.kit.ifv.trafficspvisualizer.util.image {
     requires java.desktop;
     requires org.apache.commons.io;
     requires batik.all;
+    requires javafx.graphics;
 }

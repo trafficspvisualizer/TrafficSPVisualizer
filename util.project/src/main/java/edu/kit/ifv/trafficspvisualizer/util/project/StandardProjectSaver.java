@@ -25,7 +25,7 @@ public class StandardProjectSaver extends AbstractSaver {
     public void saveProject(Project project, Path path) throws IOException, IllegalArgumentException {
         Path dir = makeDir(project.getName(), path);
         JSONObject jsonObject = createJsonProject(project.getName(), project.getAttributes(),
-                project.getExportSettings());
+                project.getExportSettings(), project.getChoiceOptions());
 
         writeJsonToFile(dir, jsonObject);
         copyCacheDirectory(project, dir);
@@ -39,7 +39,7 @@ public class StandardProjectSaver extends AbstractSaver {
      * @throws IOException If an I/O error occurs.
      */
     private void writeJsonToFile(Path dir, JSONObject jsonObject) throws IOException {
-        Files.writeString(dir.resolve(PROJECT_JSON), jsonObject.toString());
+        Files.writeString(dir.resolve(PROJECT_JSON), jsonObject.toString(4));
     }
 
     /**
@@ -63,15 +63,17 @@ public class StandardProjectSaver extends AbstractSaver {
      */
     private Path makeDir(String name, Path path) throws IllegalArgumentException {
         Path dir = path.resolve(name);
+        int count = 0;
 
-        if (Files.exists(dir)) {
-            throw new IllegalArgumentException("Directory " + name + " already exists at " + path);
-        } else {
-            try {
-                return Files.createDirectory(dir);
-            } catch (IOException e) {
-                throw new IllegalArgumentException("Failed to create directory " + name + " at " + path, e);
-            }
+        while (Files.exists(dir)) {
+            count++;
+            dir = path.resolve(name + count);
+        }
+
+        try {
+            return Files.createDirectory(dir);
+        } catch (IOException e) {
+            throw new IllegalArgumentException("Failed to create directory " + name + " at " + path, e);
         }
     }
 }

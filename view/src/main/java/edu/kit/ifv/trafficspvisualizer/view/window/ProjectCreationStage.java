@@ -1,5 +1,6 @@
 package edu.kit.ifv.trafficspvisualizer.view.window;
 
+import edu.kit.ifv.trafficspvisualizer.model.Project;
 import edu.kit.ifv.trafficspvisualizer.view.ViewFacade;
 import edu.kit.ifv.trafficspvisualizer.view.data.font.FontLibrary;
 import edu.kit.ifv.trafficspvisualizer.view.data.image.ImageLibrary;
@@ -25,6 +26,13 @@ import javafx.stage.Stage;
 
 import java.io.File;
 
+/**
+ * The {@link ProjectCreationStage} inherits from {@link Stage} and is a sub-window of the application
+ * which can be opened from the MainApplicationWidow and on which the user can create
+ * a new project by passing a project name, a project path and input data.
+ *
+ * @version 1.0
+ */
 public class ProjectCreationStage extends Stage {
 
     private ViewFacade viewFacade;
@@ -71,7 +79,12 @@ public class ProjectCreationStage extends Stage {
 
 
 
-
+    /**
+     * Creates the basic structure of the {@link ProjectCreationStage}.
+     *
+     * @param viewFacade The {@link ViewFacade} through which this class can access
+     *                   the {@link Project} and the {@link LanguageStrategy}.
+     */
     public ProjectCreationStage(ViewFacade viewFacade) {
         this.viewFacade = viewFacade;
         buildStage();
@@ -233,27 +246,51 @@ public class ProjectCreationStage extends Stage {
     }
 
     // setter-methods
+
+    /**
+     * Sets the new displayed save project directory.
+     *
+     * @param file The new displayed save project directory.
+     */
     public void setSaveProjectDirectory(File file) {
         saveProjectDirectoryTextField.setText(file.getAbsolutePath());
         saveProjectDirectoryTextField.setUserData(file);
     }
 
+    /**
+     * Sets the new displayed input data file.
+     *
+     * @param file The new displayed input data file.
+     */
     public void setInputDataFile(File file) {
         inputDataFileTextField.setText(file.getAbsolutePath());
         inputDataFileTextField.setUserData(file);
     }
 
     // show-methods
+    /**
+     * Shows a file chooser dialog bounded to this {@link ProjectCreationStage}.
+     *
+     * @return The {@link File} selected by the user.
+     */
     public File showFileChooserDialog() {
         FileChooser fileChooser = new FileChooser();
         return fileChooser.showOpenDialog(this);
     }
 
+    /**
+     * Shows a directory chooser dialog bounded to this {@link ProjectCreationStage}.
+     *
+     * @return The {@link File} selected by the user.
+     */
     public File showDirectoryChooserDialog() {
         DirectoryChooser directoryChooser = new DirectoryChooser();
         return directoryChooser.showDialog(this);
     }
 
+    /**
+     * Shows an error alert indicating that an error occurred during creation of a new project.
+     */
     public void showNewProjectErrorAlert() {
         LanguageStrategy languageStrategy = viewFacade.getLanguageStrategy();
 
@@ -265,30 +302,65 @@ public class ProjectCreationStage extends Stage {
         alert.showAndWait();
     }
 
+    /**
+     * Gets the create new project button.
+     *
+     * @return The create new project button.
+     */
     public Button getCreateNewProjectButton() {
         return createNewProjectButton;
     }
 
+    /**
+     * Gets the cancel button.
+     *
+     * @return The cancel button.
+     */
     public Button getCancelButton() {
         return cancelButton;
     }
 
+    /**
+     * Gets the input data file button.
+     *
+     * @return The input data file button.
+     */
     public Button getInputDataFileButton() {
         return inputDataFileButton;
     }
 
+    /**
+     * Gets the save project directory button.
+     *
+     * @return The save project directory button.
+     */
     public Button getSaveProjectDirectoryButton() {
         return saveProjectDirectoryButton;
     }
 
+    /**
+     * Gets the input data file.
+     *
+     * @return The input data file.
+     */
     public File getInputDataFile() {
         return (File) inputDataFileTextField.getUserData();
     }
 
+    /**
+     * Gets the save project directory.
+     *
+     * @return The save project directory.
+     */
     public File getSaveProjectDirectory() {
         return (File) saveProjectDirectoryTextField.getUserData();
     }
 
+    /**
+     * Gets the project name.
+     *
+     * @return The project name.
+     */
     public String getProjectName() {
         return projectNameTextField.getText();
     }
