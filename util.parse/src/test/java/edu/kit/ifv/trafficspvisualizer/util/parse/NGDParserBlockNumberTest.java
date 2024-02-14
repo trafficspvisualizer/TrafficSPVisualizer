@@ -1,6 +1,7 @@
 package edu.kit.ifv.trafficspvisualizer.util.parse;
 
 import edu.kit.ifv.trafficspvisualizer.model.DataObject;
+import edu.kit.ifv.trafficspvisualizer.model.InvalidDataKeyException;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -12,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class NGDParserBlockNumberTest {
     @Test
-    public  void testBlockNumber() {
+    public  void testBlockNumber() throws InvalidDataKeyException {
         File file = new File(Objects.requireNonNull(getClass().getResource("/IFVExample.ngd")).getFile());
         NGDParser ngdParser = new NGDParser();
         DataObject dataObject;

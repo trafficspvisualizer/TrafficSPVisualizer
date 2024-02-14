@@ -1,6 +1,7 @@
 package edu.kit.ifv.trafficspvisualizer.util.image;
 
 import edu.kit.ifv.trafficspvisualizer.model.ChoiceOption;
+import edu.kit.ifv.trafficspvisualizer.model.InvalidDataKeyException;
 import edu.kit.ifv.trafficspvisualizer.model.Project;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -12,7 +13,7 @@ public class SituationGenerator extends ImageCollectionGenerator {
 
 
     @Override
-    public ChoiceOptionImage[] createImage(Project project) {
+    public ChoiceOptionImage[] createImage(Project project) throws InvalidDataKeyException {
         setUpImageCreation(project);
         ChoiceOptionImage[] situationImages = new ChoiceOptionImage[numberOfSituations];
         ChoiceOptionImage currentSituationImage;
@@ -26,7 +27,7 @@ public class SituationGenerator extends ImageCollectionGenerator {
         return situationImages;
     }
 
-    public BufferedImage createPreviewImage(Project project) {
+    public BufferedImage createPreviewImage(Project project) throws InvalidDataKeyException {
         int situationIndex = project.getCurrentPreviewSituation();
         setUpImageCreation(project);
         this.choiceOptionWidth = PREVIEW_WIDTH;
@@ -47,7 +48,7 @@ public class SituationGenerator extends ImageCollectionGenerator {
     }
 
 
-    private BufferedImage createSituationImage(int situationIndex) {
+    private BufferedImage createSituationImage(int situationIndex) throws InvalidDataKeyException {
         double longestRouteSectionOfSituation = calculateLongestRouteSection(situationIndex);
         BufferedImage[] choiceOptionImages = new BufferedImage[numberOfChoiceOptionsPerSituation];
         for (int j = 0; j < numberOfChoiceOptionsPerSituation; j++) {

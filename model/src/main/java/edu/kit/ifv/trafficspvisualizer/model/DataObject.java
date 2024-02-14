@@ -13,8 +13,18 @@ public class DataObject {
         return this.situationData[situationIndex].getBlockNumber();
     }
 
-    public double getValue(int situationIndex, String choiceName, String valueName) {
-        return this.situationData[situationIndex].getChoiceData(choiceName).getValue(valueName);
+    public double getValue(int situationIndex, String choiceName, String valueName) throws InvalidDataKeyException {
+        SituationData situation = this.situationData[situationIndex];
+        if (situation == null) {
+            throw new InvalidDataKeyException();
+        }
+
+        ChoiceData choiceData = situation.getChoiceData(choiceName);
+        if (choiceData == null) {
+            throw new InvalidDataKeyException();
+        }
+
+        return choiceData.getValue(valueName);
     }
 
     public Set<String> getChoiceNames(int situationIndex) {
