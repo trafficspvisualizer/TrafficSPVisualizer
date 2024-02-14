@@ -25,7 +25,7 @@ public class AttributeSettingsController implements IconDisplayingController {
     /**
      * Index of the {@link Attribute} on which the controller is working.
      */
-    private final int attributeIndex;
+    private final int abstractAttributeIndex;
 
     private final boolean workingOnNewAttribute;
 
@@ -34,16 +34,16 @@ public class AttributeSettingsController implements IconDisplayingController {
      * saves it in ViewFacade and sets its ActionListeners.
      *
      * @param controllerFacade the front-facing interface for the controller package
-     * @param attributeIndex the index of the attribute on which the controller is working
+     * @param abstractAttributeIndex the index of the attribute on which the controller is working
      */
-    public AttributeSettingsController(ControllerFacade controllerFacade, int attributeIndex, boolean workingOnNewAttribute) {
+    public AttributeSettingsController(ControllerFacade controllerFacade, int abstractAttributeIndex, boolean workingOnNewAttribute) {
         this.controllerFacade = controllerFacade;
-        this.attributeIndex = attributeIndex;
+        this.abstractAttributeIndex = abstractAttributeIndex;
         this.workingOnNewAttribute = workingOnNewAttribute;
 
         //creates and shows new stage
         controllerFacade.getViewFacade().
-                setAttributeSettingsStage(new AttributeSettingsStage(controllerFacade.getViewFacade(), attributeIndex));
+                setAttributeSettingsStage(new AttributeSettingsStage(controllerFacade.getViewFacade(), abstractAttributeIndex));
         setActionListeners();
     }
 
@@ -52,7 +52,7 @@ public class AttributeSettingsController implements IconDisplayingController {
      * Sets AttributeSettingsController as parentController of IconSelectionController and attributeIndex as index.
      */
     private void actionOnIconButton(){
-        controllerFacade.createIconSelectionController(this, attributeIndex);
+        controllerFacade.createIconSelectionController(this, abstractAttributeIndex);
     }
 
     /**
@@ -86,7 +86,7 @@ public class AttributeSettingsController implements IconDisplayingController {
 
         // type casting should be no problem cause index is given by AttributeController which ensures
         // only indexes of non-separator-line Attributes are given
-        Attribute attribute = (Attribute) controllerFacade.getProject().getAttributes().get(attributeIndex);
+        Attribute attribute = (Attribute) controllerFacade.getProject().getAbstractAttributes().get(abstractAttributeIndex);
         attribute.setName(name);
         attribute.setIcon(icon);
         attribute.setPrefix(prefix);
@@ -109,7 +109,7 @@ public class AttributeSettingsController implements IconDisplayingController {
     private void actionOnCancelButton(){
         // if user created new attribute and pressed cancel
         if (workingOnNewAttribute) {
-            controllerFacade.getProject().removeAttribute(attributeIndex);
+            controllerFacade.getProject().removeAbstractAttribute(abstractAttributeIndex);
         }
         controllerFacade.getViewFacade().getAttributeSettingsStage().close();
         controllerFacade.getViewFacade().setAttributeSettingsStage(null);

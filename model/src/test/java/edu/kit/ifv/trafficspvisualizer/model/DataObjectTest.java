@@ -54,12 +54,12 @@ class DataObjectTest {
     }
 
     @Test
-    void testGetValue() {
+    void testGetValue() throws InvalidDataKeyException {
         assertEquals(1.0, dataObject.getValue(0, "first", "1"));
         assertEquals(4.0, dataObject.getValue(0, "second", "4"));
         assertEquals(1.0, dataObject.getValue(1, "third", "1"));
         assertThrows(
-                NullPointerException.class,
+                InvalidDataKeyException.class,
                 () -> dataObject.getValue(0, "third", "1")
         );
     }

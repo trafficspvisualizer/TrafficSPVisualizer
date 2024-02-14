@@ -4,6 +4,7 @@ import edu.kit.ifv.trafficspvisualizer.model.AbstractAttribute;
 import edu.kit.ifv.trafficspvisualizer.model.Attribute;
 import edu.kit.ifv.trafficspvisualizer.model.ChoiceOption;
 import edu.kit.ifv.trafficspvisualizer.model.DataObject;
+import edu.kit.ifv.trafficspvisualizer.model.InvalidDataKeyException;
 import edu.kit.ifv.trafficspvisualizer.model.RouteSection;
 import edu.kit.ifv.trafficspvisualizer.model.SVGToBufferedImageConverter;
 
@@ -36,7 +37,7 @@ public class StandardImageGenerator extends ImageGenerator{
     SVGToBufferedImageConverter svgToBufferedImageConverter;
     @Override
     public BufferedImage createChoiceOption(ChoiceOption choiceOption, DataObject dataObject,
-                                            List<AbstractAttribute> attributes, int height, int width, double min, double max, int situationIndex) {
+                                            List<AbstractAttribute> attributes, int height, int width, double min, double max, int situationIndex) throws InvalidDataKeyException {
         BufferedImage choiceOptionImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         this.heightOfHeadline = height / 4;
         this.height = height;
@@ -88,7 +89,7 @@ public class StandardImageGenerator extends ImageGenerator{
         graphics2DChoiceOption.drawImage(headlineImage,0,0,null);
     }
 
-    private void drawAttributeImages() {
+    private void drawAttributeImages() throws InvalidDataKeyException {
         int numberOfAttributes = calculateNumberOfAttributes();
         int numberOfSeparatorLines = attributes.size() - numberOfAttributes;
 
@@ -141,7 +142,7 @@ public class StandardImageGenerator extends ImageGenerator{
                 xCoordinateOfCentralSeparatorLine, yCoordinateOfCentralSeparatorLine + lengthOfCentralSeparatorLine);
     }
 
-    private void drawTimeline() {
+    private void drawTimeline() throws InvalidDataKeyException {
         int lengthOfLongestRouteSection = width - (currentXCoordinate + 2 * distanceToSide);
         int routeSectionDrawingHeight = (int) (height * 0.625);
         List<RouteSection> routeSections = choiceOption.getRouteSections();
@@ -161,7 +162,7 @@ public class StandardImageGenerator extends ImageGenerator{
 
 
 
-    private BufferedImage createOneAttributeImage(Attribute attribute) {
+    private BufferedImage createOneAttributeImage(Attribute attribute) throws InvalidDataKeyException {
         double imageAttributeValue = calculateValueOfAttribute(attribute);
         String prefix = attribute.getPrefix();
         String suffix = attribute.getSuffix();
@@ -204,7 +205,7 @@ public class StandardImageGenerator extends ImageGenerator{
         graphics2D.fillRect(0,0, width, height);
     }
 
-    private double calculateValueOfAttribute (Attribute attribute) {
+    private double calculateValueOfAttribute (Attribute attribute) throws InvalidDataKeyException {
         List<String> choiceOptionMappings = attribute.getMapping(choiceOption);
         double attributeValue = 0;
         for (String string : choiceOptionMappings) {
