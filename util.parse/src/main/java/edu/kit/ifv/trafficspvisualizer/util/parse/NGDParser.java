@@ -47,7 +47,7 @@ public class NGDParser extends Parser {
     private ParsedData parseData(String[][] data) throws ParseException {
         // First 2 columns are filled with design and situation number
         String[] columnNames = Arrays.copyOfRange(data[0], 2, data[0].length - 1);
-        String[][] trimmedData = Arrays.copyOfRange(data, 1, data.length);
+        String[][] trimmedData = Arrays.copyOfRange(data, 1, data.length); //TODO check if files match regex
 
         int[] blockNumbers = new int[trimmedData.length];
         double[][] parsedData = new double[trimmedData.length][];

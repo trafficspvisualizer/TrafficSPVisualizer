@@ -184,7 +184,7 @@ public class StandardImageGenerator extends ImageGenerator{
             iconHeight = (int) (height * 0.25);
             g2DAttribute.drawString(text, attributeWidth / 8, (8 * attributeHeight) / 9);
         }
-        iconImage = svgToBufferedImageConverter.convert(attribute.getIcon().getIconPath().toFile(), iconHeight, attributeWidth);
+        iconImage = (attribute.getIcon().toBufferedImage(iconHeight, attributeWidth));
         changeImageColor(iconImage, Color.BLACK, color);
         g2DAttribute.drawImage(iconImage, 0, 0, null);
         g2DAttribute.dispose();
