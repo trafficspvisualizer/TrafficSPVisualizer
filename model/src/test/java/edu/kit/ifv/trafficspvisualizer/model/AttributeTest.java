@@ -14,7 +14,7 @@ class AttributeTest {
     static void setup() {
         attribute = new Attribute(
                 "testName",
-                mock(testIcon),
+                testIcon,
                 "testPrefix",
                 "testSuffix",
                 false,

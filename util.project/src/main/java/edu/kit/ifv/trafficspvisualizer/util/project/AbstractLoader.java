@@ -82,7 +82,7 @@ public abstract class AbstractLoader {
         boolean vis = attributeJSON.optBoolean(SharedConstants.KEY_PERMANENTLY_VISIBLE);
         int dec = attributeJSON.optInt(SharedConstants.KEY_DECIMAL_PLACES);
         Map<ChoiceOption,List<String>> choiceOptionMap = createChoiceOptions(attributeJSON.optJSONArray(SharedConstants.KEY_CHOICE_OPTION_MAPPINGS));
-        return new Attribute(name,null, prefix, suffix, vis,dec,choiceOptionMap);
+        return new Attribute(name,null, prefix, suffix, vis, dec, choiceOptionMap, true);
     }
 
     /**
