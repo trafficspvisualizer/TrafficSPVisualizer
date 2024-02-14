@@ -29,8 +29,8 @@ public class SituationGenerator extends ImageCollectionGenerator {
     public BufferedImage createPreviewImage(Project project) {
         int situationIndex = project.getCurrentPreviewSituation();
         setUpImageCreation(project);
-        this.choiceOptionWidth = PREVIEW_WIDTH;
-        this.choiceOptionHeight = PREVIEW_HEIGHT;
+        this.exportWidth = PREVIEW_WIDTH;
+        this.exportHeight = PREVIEW_HEIGHT;
         return createSituationImage(situationIndex);
     }
 
