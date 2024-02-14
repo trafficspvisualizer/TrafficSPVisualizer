@@ -6,6 +6,7 @@ import edu.kit.ifv.trafficspvisualizer.model.ChoiceOption;
 import edu.kit.ifv.trafficspvisualizer.model.DataObject;
 import edu.kit.ifv.trafficspvisualizer.model.RouteSection;
 import edu.kit.ifv.trafficspvisualizer.model.SVGToBufferedImageConverter;
+import edu.kit.ifv.trafficspvisualizer.model.SeparatorLine;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -92,7 +93,7 @@ public class StandardImageGenerator extends ImageGenerator{
         int numberOfAttributes = calculateNumberOfAttributes();
         int numberOfSeparatorLines = attributes.size() - numberOfAttributes;
 
-        float separatorLineStrokeWidth = (float) (width / 150 + 2);
+        float separatorLineStrokeWidth = (float) (width / 400 + 1);
 
         double leftHandSideWidth = distanceToSide + attributeWidth * numberOfAttributes +
                 separatorLineStrokeWidth * numberOfSeparatorLines;
@@ -119,10 +120,11 @@ public class StandardImageGenerator extends ImageGenerator{
                     }
                     graphics2DChoiceOption.drawImage(attributeImage, currentXCoordinate, attributeDrawingHeight, null);
                     currentXCoordinate += attributeWidth;
-                } else {
+                } else if (attribute instanceof SeparatorLine) {
                     currentXCoordinate += (int) separatorLineStrokeWidth / 2;
                     BasicStroke separatorLineStroke = new BasicStroke(separatorLineStrokeWidth);
                     graphics2DChoiceOption.setStroke(separatorLineStroke);
+                    graphics2DChoiceOption.setColor(Color.GRAY);
                     graphics2DChoiceOption.drawLine(currentXCoordinate, attributeDrawingHeight, currentXCoordinate, attributeDrawingHeight + attributeHeight);
                     currentXCoordinate += (int) separatorLineStrokeWidth / 2 + 1;
                 }
@@ -131,22 +133,27 @@ public class StandardImageGenerator extends ImageGenerator{
     }
 
     private void drawCentralSeparator() {
-        float centralSeparatorStrokeWidth = (float) (width / 300 + 2);
+        float centralSeparatorStrokeWidth = (float) (width / 300 + 1);
         int yCoordinateOfCentralSeparatorLine = (int) (height * 0.3);
         int xCoordinateOfCentralSeparatorLine = currentXCoordinate + 1;
         int lengthOfCentralSeparatorLine = (int) (0.65 * height);
+        graphics2DChoiceOption.setColor(Color.GRAY);
         BasicStroke centralStroke = new BasicStroke(centralSeparatorStrokeWidth);
         graphics2DChoiceOption.setStroke(centralStroke);
         graphics2DChoiceOption.drawLine(xCoordinateOfCentralSeparatorLine, yCoordinateOfCentralSeparatorLine,
                 xCoordinateOfCentralSeparatorLine, yCoordinateOfCentralSeparatorLine + lengthOfCentralSeparatorLine);
+        currentXCoordinate += (int) centralSeparatorStrokeWidth;
     }
 
     private void drawTimeline() {
+        float widthOfTimeLineStroke = (float) (width / 400 + 1);
+        BasicStroke timeLineStroke = new BasicStroke();
         int lengthOfLongestRouteSection = width - (currentXCoordinate + 2 * distanceToSide);
         int routeSectionDrawingHeight = (int) (height * 0.625);
         List<RouteSection> routeSections = choiceOption.getRouteSections();
+        currentXCoordinate += distanceToSide;
         graphics2DChoiceOption.setColor(color);
-        graphics2DChoiceOption.drawLine(currentXCoordinate, routeSectionDrawingHeight + 1, currentXCoordinate, routeSectionDrawingHeight - 1);
+        graphics2DChoiceOption.drawLine(currentXCoordinate, routeSectionDrawingHeight + 3, currentXCoordinate, routeSectionDrawingHeight - 3);
         for (RouteSection routeSection : routeSections) {
             String key = routeSection.getChoiceDataKey();
             double lengthOfRouteSection = dataObject.getValue(situationIndex, choiceOption.getName(), key);
@@ -155,7 +162,7 @@ public class StandardImageGenerator extends ImageGenerator{
             graphics2DChoiceOption.drawLine(currentXCoordinate, routeSectionDrawingHeight,
                     currentXCoordinate + imageLengthOfRouteSection, routeSectionDrawingHeight);
             currentXCoordinate += imageLengthOfRouteSection;
-            graphics2DChoiceOption.drawLine(currentXCoordinate, routeSectionDrawingHeight + 1, currentXCoordinate, routeSectionDrawingHeight - 1);
+            graphics2DChoiceOption.drawLine(currentXCoordinate, routeSectionDrawingHeight + 3, currentXCoordinate, routeSectionDrawingHeight - 3);
         }
     }
 
@@ -170,10 +177,11 @@ public class StandardImageGenerator extends ImageGenerator{
         int fontImageHeight;
         BufferedImage attributeImage = new BufferedImage(attributeWidth, attributeHeight, BufferedImage.TYPE_INT_RGB);
         Graphics2D g2DAttribute = attributeImage.createGraphics();
+        fillGraphicWhite(g2DAttribute, attributeWidth, attributeHeight);
         g2DAttribute.setColor(color);
         BufferedImage iconImage;
         BufferedImage fontImage;
-        Font font = new Font("Arial Bold", Font.BOLD, 12);
+        Font font = new Font("Arial Bold", Font.BOLD, 18);
         g2DAttribute.setFont(font);
         if (attribute.getPrefix().length() > 2) { // draw font in two lines
             String secondLineString = imageAttributeValue + " " + suffix;

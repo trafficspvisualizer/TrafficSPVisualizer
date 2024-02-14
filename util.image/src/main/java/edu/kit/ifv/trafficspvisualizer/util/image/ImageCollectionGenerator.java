@@ -18,7 +18,6 @@ public abstract class ImageCollectionGenerator {
     protected int numberOfChoiceOptions;
     protected List<AbstractAttribute> attributeList;
     protected int numberOfSituations;
-    protected int numberOfChoiceOptionsPerSituation;
     protected DataObject dataObject;
     protected ExportSettings exportSettings;
     protected Project project;
@@ -35,7 +34,6 @@ public abstract class ImageCollectionGenerator {
         this.dataObject = project.getDataObject();
         this.numberOfSituations = dataObject.getSituationCount();
         this.numberOfChoiceOptions = project.getChoiceOptions().size();
-        this.numberOfChoiceOptionsPerSituation = numberOfChoiceOptions / numberOfSituations;
         this.attributeList = project.getAttributes();
         this.project = project;
         this.standardImageGenerator = new StandardImageGenerator();
@@ -55,8 +53,8 @@ public abstract class ImageCollectionGenerator {
         double lengthOfLongestRouteSection = 0;
         double lengthOfCurrentRouteSection;
         ChoiceOption currentChoiceOption;
-        for (int m = 0; m < numberOfChoiceOptionsPerSituation; m++) {
-            currentChoiceOption = project.getChoiceOptions().get(m + (situationIndex * numberOfChoiceOptionsPerSituation));
+        for (int m = 0; m < numberOfChoiceOptions; m++) {
+            currentChoiceOption = project.getChoiceOptions().get(m);
             lengthOfCurrentRouteSection = calculateLengthOfRouteSection(currentChoiceOption, situationIndex);
             if (lengthOfCurrentRouteSection > lengthOfLongestRouteSection) {
                 lengthOfLongestRouteSection = lengthOfCurrentRouteSection;

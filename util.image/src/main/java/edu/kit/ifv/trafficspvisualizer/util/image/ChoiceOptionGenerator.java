@@ -11,10 +11,10 @@ public class ChoiceOptionGenerator extends ImageCollectionGenerator {
     public ChoiceOptionImage[] createImage(Project project) {
         setUpImageCreation(project);
         ChoiceOption currentChoiceOption;
-        ChoiceOptionImage[] images = new ChoiceOptionImage[numberOfChoiceOptions];
+        ChoiceOptionImage[] images = new ChoiceOptionImage[numberOfChoiceOptions * numberOfChoiceOptions];
         ChoiceOptionImage currentChoiceOptionImage;
         for (int i = 0; i < numberOfSituations; i++) {
-            for (int j = 0; j < numberOfChoiceOptionsPerSituation; j++) {
+            for (int j = 0; j < numberOfChoiceOptions; j++) {
                 currentChoiceOptionImage = new ChoiceOptionImage();
                 currentChoiceOption = project.getChoiceOptions().get(j);
                 currentChoiceOptionImage.setChoiceOptionNumber(j);
@@ -24,7 +24,7 @@ public class ChoiceOptionGenerator extends ImageCollectionGenerator {
                         dataObject, attributeList, choiceOptionHeight, choiceOptionWidth, 0, lengthOfLongestRouteSectionsOfSituation, i);
                 currentChoiceOptionImage.setImage(bufferedImage);
                 currentChoiceOptionImage.setTitle(currentChoiceOption.getTitle());
-                images[j + i * numberOfChoiceOptionsPerSituation] = currentChoiceOptionImage;
+                images[j + i * numberOfChoiceOptions] = currentChoiceOptionImage;
             }
         }
         return images;
