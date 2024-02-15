@@ -503,7 +503,6 @@ public class MainApplicationWindow {
         GridPane.setHalignment(routeSectionFlowPane, HPos.LEFT);
         GridPane.setValignment(routeSectionFlowPane, VPos.BOTTOM);
         GridPane.setHgrow(routeSectionFlowPane, Priority.ALWAYS);
-        routeSectionFlowPane.setPadding(new Insets(15));
         routeSectionFlowPane.setHgap(15);
         routeSectionFlowPane.setVgap(15);
 

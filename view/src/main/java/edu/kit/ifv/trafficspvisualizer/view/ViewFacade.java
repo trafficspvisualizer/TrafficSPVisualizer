@@ -13,7 +13,6 @@ import edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow;
 import edu.kit.ifv.trafficspvisualizer.view.window.ProjectCreationStage;
 import javafx.stage.Stage;
 
-import java.util.Optional;
 
 /**
  * The ViewFacade serves as an external-facing interface for the view package.
