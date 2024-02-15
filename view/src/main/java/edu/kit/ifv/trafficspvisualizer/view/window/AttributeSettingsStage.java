@@ -85,9 +85,9 @@ public class AttributeSettingsStage extends Stage {
      * @param viewFacade The {@link ViewFacade} through which this class can access
      *                   the {@link Project} and the {@link LanguageStrategy}.
      */
-    public AttributeSettingsStage(ViewFacade viewFacade, int attributeIndex) {
+    public AttributeSettingsStage(ViewFacade viewFacade, int abstractAttributeIndex) {
         this.viewFacade = viewFacade;
-        this.attributeIndex = attributeIndex;
+        this.attributeIndex = abstractAttributeIndex;
         buildStage();
         styleStage();
         updateStage();
@@ -265,7 +265,7 @@ public class AttributeSettingsStage extends Stage {
 
     // update-methods
     private void updateStage() {
-        Attribute attribute = (Attribute) viewFacade.getProject().getAttributes().get(attributeIndex);
+        Attribute attribute = (Attribute) viewFacade.getProject().getAbstractAttributes().get(attributeIndex);
 
         nameTextField.setText(attribute.getName());
 

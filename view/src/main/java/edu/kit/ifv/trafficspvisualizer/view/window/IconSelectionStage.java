@@ -6,6 +6,7 @@ import edu.kit.ifv.trafficspvisualizer.view.ViewFacade;
 import edu.kit.ifv.trafficspvisualizer.view.data.font.FontLibrary;
 import edu.kit.ifv.trafficspvisualizer.view.data.image.ImageLibrary;
 import edu.kit.ifv.trafficspvisualizer.view.data.language.LanguageStrategy;
+import edu.kit.ifv.trafficspvisualizer.view.util.javafx.ListFlowPane;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -14,13 +15,11 @@ import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
-import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -40,9 +39,9 @@ public class IconSelectionStage extends Stage {
     private ViewFacade viewFacade;
 
 
-    private ListView<ImageView> iconListView;
+    private ListFlowPane iconListFlowPane;
 
-    private GridPane iconGridPane;
+    private ScrollPane iconScrollPane;
 
     private Button addIconButton;
 
@@ -74,11 +73,9 @@ public class IconSelectionStage extends Stage {
     private void buildStage() {
         LanguageStrategy languageStrategy = viewFacade.getLanguageStrategy();
 
-        iconListView = new ListView<>();
-        iconListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        iconListFlowPane = new ListFlowPane();
 
-        iconGridPane = new GridPane();
-        iconGridPane.add(iconListView, 0,0);
+        iconScrollPane = new ScrollPane(iconListFlowPane);
 
         addIconButton = new Button(languageStrategy.getIconSelectionAddIconButtonText());
 
@@ -92,7 +89,7 @@ public class IconSelectionStage extends Stage {
         selectAndCancelGridPane.add(cancelButton, 1,1);
 
         bodyBorderPane = new BorderPane();
-        bodyBorderPane.setTop(iconGridPane);
+        bodyBorderPane.setTop(iconScrollPane);
         bodyBorderPane.setBottom(selectAndCancelGridPane);
 
         scene = new Scene(bodyBorderPane);
@@ -103,16 +100,16 @@ public class IconSelectionStage extends Stage {
         getIcons().add(ImageLibrary.getApplicationIcon());
     }
     private void styleStage() {
-        // iconListView
-        iconListView.prefHeightProperty().bind(
-                scene.heightProperty()
-                        .subtract(selectAndCancelGridPane.heightProperty())
-                        .subtract(15 * 2));
-        GridPane.setHgrow(iconListView, Priority.ALWAYS);
+        // iconListFlowPane
+        GridPane.setHgrow(iconListFlowPane, Priority.ALWAYS);
+        iconListFlowPane.prefWidthProperty().bind(scene.widthProperty().subtract(17));
+        iconListFlowPane.setPadding(new Insets(15));
+        iconListFlowPane.setHgap(15);
+        iconListFlowPane.setVgap(15);
 
-        // iconGridPane
-        BorderPane.setAlignment(iconGridPane, Pos.TOP_LEFT);
-        iconGridPane.setPadding(new Insets(15));
+        // iconScrollPane
+        iconScrollPane.prefHeightProperty().bind(
+                scene.heightProperty().subtract(selectAndCancelGridPane.heightProperty()));
 
         // addIconButton
         GridPane.setHalignment(addIconButton, HPos.LEFT);
@@ -151,13 +148,24 @@ public class IconSelectionStage extends Stage {
      * Updates the selectable icons.
      */
     public void updateStage() {
-        iconListView.getItems().clear();
+        iconListFlowPane.getChildren().clear();
 
         for (Icon icon : viewFacade.getProject().getIconManager().getIcons().values()) {
-            ImageView iconImageView = new ImageView(SwingFXUtils.toFXImage(icon.toBufferedImage(), null));
-            iconImageView.setUserData(icon.getIdentifier());
+            ImageView iconButtonImageView = new ImageView(SwingFXUtils.toFXImage(icon.toBufferedImage(), null));
+            iconButtonImageView.setUserData(icon.getIdentifier());
 
-            iconListView.getItems().add(iconImageView);
+            iconButtonImageView.setFitWidth(50);
+            iconButtonImageView.setFitHeight(50);
+            iconButtonImageView.setPreserveRatio(true);
+
+            Button iconButton = new Button();
+            iconButton.setGraphic(iconButtonImageView);
+
+            iconButton.setPrefSize(60,60);
+            iconButton.setFocusTraversable(false);
+
+
+            iconListFlowPane.getChildren().add(iconButton);
         }
 
 
@@ -223,6 +231,8 @@ public class IconSelectionStage extends Stage {
      * @return The identifier of the selected icon.
      */
     public int getSelectedIconIdentifier() {
-        return (int) iconListView.getSelectionModel().getSelectedItem().getUserData();
+        if (iconListFlowPane.getSingleSelectionModel().getSelectedItem() == null) return -1;
+
+        return (int) ((Button) iconListFlowPane.getSingleSelectionModel().getSelectedItem()).getGraphic().getUserData();
     }
 }

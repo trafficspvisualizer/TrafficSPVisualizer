@@ -60,6 +60,8 @@ public class IconSelectionController {
      */
     public void actionOnChooseButton() {
         int iconIdentifier = controllerFacade.getViewFacade().getIconSelectionStage().getSelectedIconIdentifier();
+        if (!controllerFacade.getProject().getIconManager().getIcons().containsKey(iconIdentifier)) return;
+
         Icon selectedIcon = controllerFacade.getProject().getIconManager().getIcons().get(iconIdentifier);
         parentController.updateIcon(selectedIcon, index);
         actionOnCancelButton();
