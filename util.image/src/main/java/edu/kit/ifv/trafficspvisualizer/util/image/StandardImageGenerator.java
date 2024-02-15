@@ -4,6 +4,7 @@ import edu.kit.ifv.trafficspvisualizer.model.AbstractAttribute;
 import edu.kit.ifv.trafficspvisualizer.model.Attribute;
 import edu.kit.ifv.trafficspvisualizer.model.ChoiceOption;
 import edu.kit.ifv.trafficspvisualizer.model.DataObject;
+import edu.kit.ifv.trafficspvisualizer.model.LineType;
 import edu.kit.ifv.trafficspvisualizer.model.RouteSection;
 import edu.kit.ifv.trafficspvisualizer.model.SVGToBufferedImageConverter;
 import edu.kit.ifv.trafficspvisualizer.model.SeparatorLine;
@@ -122,7 +123,7 @@ public class StandardImageGenerator extends ImageGenerator{
                     currentXCoordinate += attributeWidth;
                 } else if (attribute instanceof SeparatorLine) {
                     currentXCoordinate += (int) separatorLineStrokeWidth / 2;
-                    BasicStroke separatorLineStroke = new BasicStroke(separatorLineStrokeWidth);
+                    Stroke separatorLineStroke = new BasicStroke(separatorLineStrokeWidth);
                     graphics2DChoiceOption.setStroke(separatorLineStroke);
                     graphics2DChoiceOption.setColor(Color.GRAY);
                     graphics2DChoiceOption.drawLine(currentXCoordinate, attributeDrawingHeight, currentXCoordinate, attributeDrawingHeight + attributeHeight);
@@ -138,7 +139,7 @@ public class StandardImageGenerator extends ImageGenerator{
         int xCoordinateOfCentralSeparatorLine = currentXCoordinate + 1;
         int lengthOfCentralSeparatorLine = (int) (0.65 * height);
         graphics2DChoiceOption.setColor(Color.GRAY);
-        BasicStroke centralStroke = new BasicStroke(centralSeparatorStrokeWidth);
+        Stroke centralStroke = new BasicStroke(centralSeparatorStrokeWidth);
         graphics2DChoiceOption.setStroke(centralStroke);
         graphics2DChoiceOption.drawLine(xCoordinateOfCentralSeparatorLine, yCoordinateOfCentralSeparatorLine,
                 xCoordinateOfCentralSeparatorLine, yCoordinateOfCentralSeparatorLine + lengthOfCentralSeparatorLine);
@@ -146,8 +147,13 @@ public class StandardImageGenerator extends ImageGenerator{
     }
 
     private void drawTimeline() {
-        float widthOfTimeLineStroke = (float) (width / 400 + 1);
-        BasicStroke timeLineStroke = new BasicStroke();
+        float widthOfTimeLineStroke = (float) (height / 100);
+        Stroke solidTimeLineStroke = new BasicStroke(widthOfTimeLineStroke);
+        Stroke dashedTimeLineStroke = new BasicStroke(widthOfTimeLineStroke, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL,
+                0, new float[]{7}, 0);
+        int iconHeight = (int) (height * 0.2);
+        int iconWidth = iconHeight;
+        graphics2DChoiceOption.setStroke(solidTimeLineStroke);
         int lengthOfLongestRouteSection = width - (currentXCoordinate + 2 * distanceToSide);
         int routeSectionDrawingHeight = (int) (height * 0.625);
         List<RouteSection> routeSections = choiceOption.getRouteSections();
@@ -159,9 +165,19 @@ public class StandardImageGenerator extends ImageGenerator{
             double lengthOfRouteSection = dataObject.getValue(situationIndex, choiceOption.getName(), key);
             int imageLengthOfRouteSection = (int) ((lengthOfLongestRouteSection * lengthOfRouteSection)
                     / lengthOfLongestRouteSectionOfSituation);
+            if (routeSection.getLineType() == LineType.DASHED) {
+                graphics2DChoiceOption.setStroke(dashedTimeLineStroke);
+            } else if (routeSection.getLineType() == LineType.SOLID) {
+                graphics2DChoiceOption.setStroke(solidTimeLineStroke);
+            }
             graphics2DChoiceOption.drawLine(currentXCoordinate, routeSectionDrawingHeight,
                     currentXCoordinate + imageLengthOfRouteSection, routeSectionDrawingHeight);
+
+            BufferedImage iconImage = routeSection.getIcon().toBufferedImage(iconHeight, iconWidth);
+            changeImageColor(iconImage, Color.black, color);
+            graphics2DChoiceOption.drawImage(iconImage, currentXCoordinate + imageLengthOfRouteSection / 2 - iconWidth / 2, attributeDrawingHeight, null);
             currentXCoordinate += imageLengthOfRouteSection;
+            graphics2DChoiceOption.setStroke(solidTimeLineStroke);
             graphics2DChoiceOption.drawLine(currentXCoordinate, routeSectionDrawingHeight + 3, currentXCoordinate, routeSectionDrawingHeight - 3);
         }
     }
