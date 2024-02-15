@@ -58,7 +58,7 @@ public class SVGToBufferedImageConverter implements ImageToBufferedImageConverte
             transcoder.transcode(input, output);
             byte[] imgData = outputStream.toByteArray();
             return ImageIO.read(new ByteArrayInputStream(imgData));
-        } catch (IOException | TranscoderException e) {
+        } catch (TranscoderException | IOException e) {
             //TODO
             return null;
         }
