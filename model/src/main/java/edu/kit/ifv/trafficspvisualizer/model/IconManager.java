@@ -12,14 +12,19 @@ import java.util.Objects;
 
 public class IconManager {
     private static final String[] DEFAULT_ICON_NAMES = {
-        "empty.svg",
-        "bike.svg",
-        "bus.svg",
-        "car.svg",
-        "plane.svg",
-        "train.svg",
-        "tram.svg",
-        "walk.svg"
+            "empty.svg",
+            "bike.svg",
+            "bus.svg",
+            "car.svg",
+            "clock.svg",
+            "clock-rotate-left.svg",
+            "euro-sign.svg",
+            "hourglass-half.svg",
+            "house-chimney.svg",
+            "plane.svg",
+            "train.svg",
+            "tram.svg",
+            "walk.svg"
     };
 
     private final static String DIR_NAME = "icon";
