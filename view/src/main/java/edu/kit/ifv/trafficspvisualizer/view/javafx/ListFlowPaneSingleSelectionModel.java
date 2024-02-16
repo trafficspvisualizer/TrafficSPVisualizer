@@ -1,10 +1,8 @@
-package edu.kit.ifv.trafficspvisualizer.view.util.javafx;
+package edu.kit.ifv.trafficspvisualizer.view.javafx;
 
 import javafx.scene.Node;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.effect.Glow;
-import javafx.scene.effect.InnerShadow;
 import javafx.scene.paint.Color;
 
 public class ListFlowPaneSingleSelectionModel extends SingleSelectionModel<Node> {

@@ -6,7 +6,7 @@ import edu.kit.ifv.trafficspvisualizer.view.ViewFacade;
 import edu.kit.ifv.trafficspvisualizer.view.data.font.FontLibrary;
 import edu.kit.ifv.trafficspvisualizer.view.data.image.ImageLibrary;
 import edu.kit.ifv.trafficspvisualizer.view.data.language.LanguageStrategy;
-import edu.kit.ifv.trafficspvisualizer.view.util.javafx.ListFlowPane;
+import edu.kit.ifv.trafficspvisualizer.view.javafx.ListFlowPane;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;

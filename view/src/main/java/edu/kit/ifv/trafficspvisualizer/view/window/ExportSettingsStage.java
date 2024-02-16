@@ -26,7 +26,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.util.Objects;
 
 /**
  * The {@link ExportSettingsStage} inherits from {@link Stage} and is a sub-window of the application

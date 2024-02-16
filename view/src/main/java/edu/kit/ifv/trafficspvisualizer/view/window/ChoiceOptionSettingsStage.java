@@ -1,6 +1,5 @@
 package edu.kit.ifv.trafficspvisualizer.view.window;
 
-import edu.kit.ifv.trafficspvisualizer.model.AbstractAttribute;
 import edu.kit.ifv.trafficspvisualizer.model.Attribute;
 import edu.kit.ifv.trafficspvisualizer.model.ChoiceOption;
 import edu.kit.ifv.trafficspvisualizer.model.Icon;
@@ -34,7 +33,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.w3c.dom.Attr;
 
 import java.util.ArrayList;
 import java.util.List;

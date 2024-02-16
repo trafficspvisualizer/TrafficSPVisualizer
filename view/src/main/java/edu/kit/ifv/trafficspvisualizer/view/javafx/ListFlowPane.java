@@ -1,4 +1,4 @@
-package edu.kit.ifv.trafficspvisualizer.view.util.javafx;
+package edu.kit.ifv.trafficspvisualizer.view.javafx;
 
 import javafx.collections.ListChangeListener;
 import javafx.scene.Node;
