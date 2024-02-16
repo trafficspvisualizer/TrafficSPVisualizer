@@ -3,8 +3,10 @@ package edu.kit.ifv.trafficspvisualizer.model;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -42,7 +44,7 @@ class SVGToBufferedImageConverterTest {
     void testConvertSVGNoWidthHeight() {
         File testSVG = loadFile("test3.svg");
         BufferedImage image = converter.convert(testSVG, 200, 100);
-        assertTrue(image.getHeight() == 200 || image.getWidth() == 100);
+        assertTrue(image.getHeight() == 200 && image.getWidth() == 100);
     }
 
     @Test
