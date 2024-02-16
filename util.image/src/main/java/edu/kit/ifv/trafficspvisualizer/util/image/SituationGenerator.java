@@ -39,7 +39,7 @@ public class SituationGenerator extends ImageCollectionGenerator {
 
 
 
-    private BufferedImage createSituationImage(int situationIndex) {
+    private BufferedImage createSituationImage(int situationIndex) throws InvalidDataKeyException {
         double longestRouteSectionOfSituation = calculateLongestRouteSection(situationIndex);
         BufferedImage[] choiceOptionImages = new BufferedImage[numberOfChoiceOptions];
         for (int j = 0; j < numberOfChoiceOptions; j++) {
