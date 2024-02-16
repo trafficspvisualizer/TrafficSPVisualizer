@@ -4,7 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class Project {
@@ -20,15 +21,16 @@ public class Project {
     private int currentPreviewSituation;
 
     public Project(String name, Path projectPath, DataObject dataObject, File ngdFile) throws IOException {
-        this.name = name;
-        this.projectPath = projectPath;
-        this.dataObject = dataObject;
-        this.attributes = new ArrayList<>();
-        this.choiceOptions = initializeChoiceOptions();
-        this.exportSettings = new ExportSettings(this.projectPath);
-        this.currentPreviewSituation = 0;
-        this.cacheDirectory = createCache(ngdFile);
-        this.iconManager = new IconManager(cacheDirectory);
+        this(
+            name,
+            projectPath,
+            dataObject,
+            new ArrayList<>(),
+            new ArrayList<>(),
+            new ExportSettings(projectPath),
+            null,
+            ngdFile
+        );
     }
 
     public Project(String name, Path projectPath, DataObject dataObject, List<AbstractAttribute> attributes,
@@ -39,7 +41,7 @@ public class Project {
         this.projectPath = projectPath;
         this.dataObject = dataObject;
         this.attributes = new ArrayList<>(attributes);
-        this.choiceOptions = new ArrayList<>(choiceOptions);
+        this.choiceOptions = choiceOptions.isEmpty() ? initializeChoiceOptions() : List.copyOf(choiceOptions) ;
         this.exportSettings = exportSettings;
         this.cacheDirectory = createCache(ngdFile);
         this.iconManager = new IconManager(cacheDirectory, iconDirectory);
