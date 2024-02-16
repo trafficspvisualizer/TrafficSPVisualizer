@@ -33,6 +33,7 @@ public class SituationGenerator extends ImageCollectionGenerator {
         this.exportWidth = PREVIEW_WIDTH;
         this.exportHeight = PREVIEW_HEIGHT;
         this.choiceOptionHeight = exportHeight / numberOfChoiceOptions;
+        this.choiceOptionWidth = exportWidth;
         return createSituationImage(situationIndex);
     }
 

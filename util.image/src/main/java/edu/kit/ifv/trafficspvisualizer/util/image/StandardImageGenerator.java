@@ -65,7 +65,11 @@ public class StandardImageGenerator extends ImageGenerator{
         drawHeadlineImage();
         drawAttributeImages();
         drawCentralSeparator();
-        drawTimeline();
+        drawRouteSections();
+        graphics2DChoiceOption.setColor(Color.GRAY);
+        Stroke borderLineStroke = new BasicStroke(0.1f);
+        graphics2DChoiceOption.setStroke(borderLineStroke);
+        graphics2DChoiceOption.drawLine(0, height - 1, width, height - 1);
         return choiceOptionImage;
     }
 
@@ -147,7 +151,7 @@ public class StandardImageGenerator extends ImageGenerator{
         currentXCoordinate += (int) centralSeparatorStrokeWidth;
     }
 
-    private void drawTimeline() throws InvalidDataKeyException {
+    private void drawRouteSections() throws InvalidDataKeyException {
         float widthOfTimeLineStroke = (float) (height / 100);
         Stroke solidTimeLineStroke = new BasicStroke(widthOfTimeLineStroke);
         Stroke dashedTimeLineStroke = new BasicStroke(widthOfTimeLineStroke, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL,
@@ -164,6 +168,9 @@ public class StandardImageGenerator extends ImageGenerator{
         for (RouteSection routeSection : routeSections) {
             String key = routeSection.getChoiceDataKey();
             double lengthOfRouteSection = dataObject.getValue(situationIndex, choiceOption.getName(), key);
+            if (lengthOfRouteSection == 0) {
+                continue;
+            }
             int imageLengthOfRouteSection = (int) ((lengthOfLongestRouteSection * lengthOfRouteSection)
                     / lengthOfLongestRouteSectionOfSituation);
             if (routeSection.getLineType() == LineType.DASHED) {
@@ -175,8 +182,9 @@ public class StandardImageGenerator extends ImageGenerator{
                     currentXCoordinate + imageLengthOfRouteSection, routeSectionDrawingHeight);
 
             BufferedImage iconImage = routeSection.getIcon().toBufferedImage(iconHeight, iconWidth);
-            changeImageColor(iconImage, Color.black, color);
-            graphics2DChoiceOption.drawImage(iconImage, currentXCoordinate + imageLengthOfRouteSection / 2 - iconWidth / 2, attributeDrawingHeight, null);
+            BufferedImage copyImage = copyImage(iconImage); //copy needed, else image would be saved with color
+            changeImageColor(copyImage, Color.black, color);
+            graphics2DChoiceOption.drawImage(copyImage, currentXCoordinate + imageLengthOfRouteSection / 2 - iconWidth / 2, attributeDrawingHeight, null);
             currentXCoordinate += imageLengthOfRouteSection;
             graphics2DChoiceOption.setStroke(solidTimeLineStroke);
             graphics2DChoiceOption.drawLine(currentXCoordinate, routeSectionDrawingHeight + 3, currentXCoordinate, routeSectionDrawingHeight - 3);
@@ -210,8 +218,9 @@ public class StandardImageGenerator extends ImageGenerator{
             g2DAttribute.drawString(text, attributeWidth / 8, (8 * attributeHeight) / 9);
         }
         iconImage = (attribute.getIcon().toBufferedImage(iconHeight, attributeWidth));
-        changeImageColor(iconImage, Color.BLACK, color);
-        g2DAttribute.drawImage(iconImage, 0, 0, null);
+        BufferedImage copyImage = copyImage(iconImage);
+        changeImageColor(copyImage, Color.BLACK, color);
+        g2DAttribute.drawImage(copyImage, 0, 0, null);
         g2DAttribute.dispose();
         return attributeImage;
     }
@@ -222,6 +231,15 @@ public class StandardImageGenerator extends ImageGenerator{
         fillGraphicWhite(graphics2D, attributeWidth, attributeHeight);
         graphics2D.dispose();
         return emptyAttributeImage;
+    }
+
+    //code from stackoverflow: https://stackoverflow.com/questions/3514158/how-do-you-clone-a-bufferedimage
+    private static BufferedImage copyImage(BufferedImage source){
+        BufferedImage b = new BufferedImage(source.getWidth(), source.getHeight(), source.getType());
+        Graphics g = b.getGraphics();
+        g.drawImage(source, 0, 0, null);
+        g.dispose();
+        return b;
     }
 
     private void fillGraphicWhite(Graphics2D graphics2D,int width, int height) {
