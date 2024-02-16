@@ -15,7 +15,7 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class StandardProjectSaverTest {
+class SaverAndLoaderTest {
 
     @Test
     void saveProject() {
