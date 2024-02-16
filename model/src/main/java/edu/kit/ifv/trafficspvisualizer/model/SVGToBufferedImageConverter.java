@@ -13,12 +13,14 @@ import javax.imageio.ImageIO;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.Buffer;
 import java.nio.file.Files;
 
 public class SVGToBufferedImageConverter implements ImageToBufferedImageConverter {
@@ -28,7 +30,7 @@ public class SVGToBufferedImageConverter implements ImageToBufferedImageConverte
         this.factory = DocumentBuilderFactory.newInstance();
     }
 
-    public BufferedImage convert(File file, float maxHeight, float maxWidth) {
+    public BufferedImage convert(File file, int height, int width) {
         float aspectRatio;
         try {
             DocumentBuilder documentBuilder = factory.newDocumentBuilder();
@@ -38,10 +40,11 @@ public class SVGToBufferedImageConverter implements ImageToBufferedImageConverte
             aspectRatio = 1.0F;
         }
 
-        float scaledHeight = maxHeight;
+        // Calculate the best fitting height and width
+        float scaledHeight = height;
         float scaledWidth = aspectRatio * scaledHeight;
-        if (scaledWidth > maxWidth) {
-            scaledWidth = maxWidth;
+        if (scaledWidth > width) {
+            scaledWidth = width;
             scaledHeight = scaledWidth / aspectRatio;
         }
 
@@ -49,6 +52,7 @@ public class SVGToBufferedImageConverter implements ImageToBufferedImageConverte
         transcoder.addTranscodingHint(PNGTranscoder.KEY_HEIGHT, scaledHeight);
         transcoder.addTranscodingHint(PNGTranscoder.KEY_WIDTH, scaledWidth);
 
+        BufferedImage resultImage;
         try (
                 InputStream inputStream = Files.newInputStream(file.toPath());
                 ByteArrayOutputStream outputStream = new ByteArrayOutputStream()
@@ -57,13 +61,44 @@ public class SVGToBufferedImageConverter implements ImageToBufferedImageConverte
             TranscoderOutput output = new TranscoderOutput(outputStream);
             transcoder.transcode(input, output);
             byte[] imgData = outputStream.toByteArray();
-            return ImageIO.read(new ByteArrayInputStream(imgData));
+            resultImage = ImageIO.read(new ByteArrayInputStream(imgData));
         } catch (TranscoderException | IOException e) {
             //TODO
             return null;
         }
+
+        return fillToSize(resultImage, height, width);
     }
 
+    private BufferedImage fillToSize(BufferedImage image, int height, int width) {
+        if (image.getHeight() == height) {
+            return fillToWidth(image, width);
+        }
+
+        return fillToHeight(image, height);
+    }
+
+    private BufferedImage fillToWidth(BufferedImage image, int width) {
+        int offset = (width - image.getWidth()) / 2;
+        BufferedImage newImage = new BufferedImage(width, image.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = newImage.createGraphics();
+        g2d.setColor(new Color(0, 0, 0, 0));
+        g2d.fillRect(0, 0, newImage.getWidth(), newImage.getHeight());
+        g2d.drawImage(image, offset, 0, null);
+        g2d.dispose();
+        return newImage;
+    }
+
+    private BufferedImage fillToHeight(BufferedImage image, int height) {
+        int offset = (height - image.getHeight()) / 2;
+        BufferedImage newImage = new BufferedImage(image.getWidth(), height, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = newImage.createGraphics();
+        g2d.setColor(new Color(0, 0, 0, 0));
+        g2d.fillRect(0, 0, newImage.getWidth(), newImage.getHeight());
+        g2d.drawImage(image, 0, offset, null);
+        g2d.dispose();
+        return newImage;
+    }
 
     private float getAspectRatio(Document svgDocument) {
         Element root = svgDocument.getDocumentElement();
