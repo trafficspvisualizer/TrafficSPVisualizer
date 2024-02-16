@@ -1,6 +1,5 @@
 package edu.kit.ifv.trafficspvisualizer.model;
 
-
 import java.awt.image.BufferedImage;
 import java.io.File;
 
