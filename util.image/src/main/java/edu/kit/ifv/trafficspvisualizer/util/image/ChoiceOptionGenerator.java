@@ -12,7 +12,7 @@ public class ChoiceOptionGenerator extends ImageCollectionGenerator {
     public ChoiceOptionImage[] createImage(Project project) throws InvalidDataKeyException {
         setUpImageCreation(project);
         ChoiceOption currentChoiceOption;
-        ChoiceOptionImage[] images = new ChoiceOptionImage[numberOfChoiceOptions * numberOfChoiceOptions];
+        ChoiceOptionImage[] images = new ChoiceOptionImage[numberOfChoiceOptions * numberOfSituations];
         ChoiceOptionImage currentChoiceOptionImage;
         for (int i = 0; i < numberOfSituations; i++) {
             for (int j = 0; j < numberOfChoiceOptions; j++) {
