@@ -7,8 +7,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class SituationGenerator extends ImageCollectionGenerator {
-    private static final int PREVIEW_WIDTH = 1920;
-    private static final int PREVIEW_HEIGHT = 1024;
+    private static final int PREVIEW_WIDTH = 2220;
+    private static final int PREVIEW_HEIGHT = 1400;
 
 
 
@@ -32,26 +32,18 @@ public class SituationGenerator extends ImageCollectionGenerator {
         setUpImageCreation(project);
         this.exportWidth = PREVIEW_WIDTH;
         this.exportHeight = PREVIEW_HEIGHT;
+        this.choiceOptionHeight = exportHeight / numberOfChoiceOptions;
+        this.choiceOptionWidth = exportWidth;
         return createSituationImage(situationIndex);
     }
 
 
 
-    private BufferedImage combineChoiceOptionImages(BufferedImage[] choiceOptionImages) {
-        BufferedImage situationImage = new BufferedImage(exportWidth, exportHeight, BufferedImage.TYPE_INT_RGB);
-        Graphics g2d = situationImage.getGraphics();
-        for (int i = 0; i < numberOfChoiceOptionsPerSituation; i++) {
-            g2d.drawImage(choiceOptionImages[i], 0, i * choiceOptionHeight, null);
-        }
-        g2d.dispose();
-        return situationImage;
-    }
-
 
     private BufferedImage createSituationImage(int situationIndex) throws InvalidDataKeyException {
         double longestRouteSectionOfSituation = calculateLongestRouteSection(situationIndex);
-        BufferedImage[] choiceOptionImages = new BufferedImage[numberOfChoiceOptionsPerSituation];
-        for (int j = 0; j < numberOfChoiceOptionsPerSituation; j++) {
+        BufferedImage[] choiceOptionImages = new BufferedImage[numberOfChoiceOptions];
+        for (int j = 0; j < numberOfChoiceOptions; j++) {
             ChoiceOption currentChoiceOption = project.getChoiceOptions().get(j);
             BufferedImage bufferedImage = standardImageGenerator.createChoiceOption(currentChoiceOption,
                     dataObject, attributeList, choiceOptionHeight,
@@ -60,4 +52,19 @@ public class SituationGenerator extends ImageCollectionGenerator {
         }
         return combineChoiceOptionImages(choiceOptionImages);
     }
+
+
+
+    private BufferedImage combineChoiceOptionImages(BufferedImage[] choiceOptionImages) {
+        BufferedImage situationImage = new BufferedImage(exportWidth, exportHeight, BufferedImage.TYPE_INT_RGB);
+        Graphics g2d = situationImage.getGraphics();
+        g2d.setColor(Color.WHITE);
+        g2d.fillRect(0, 0, exportWidth, exportHeight);
+        for (int i = 0; i < numberOfChoiceOptions; i++) {
+            g2d.drawImage(choiceOptionImages[i], 0, i * choiceOptionHeight, null);
+        }
+        g2d.dispose();
+        return situationImage;
+    }
+
 }
