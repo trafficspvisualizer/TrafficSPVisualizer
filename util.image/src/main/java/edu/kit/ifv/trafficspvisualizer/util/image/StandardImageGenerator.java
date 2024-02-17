@@ -209,17 +209,31 @@ public class StandardImageGenerator extends ImageGenerator{
         String suffix = attribute.getSuffix();
         String text = attribute.getPrefix() + imageAttributeValue + attribute.getSuffix();
         int iconHeight;
-        int fontImageHeight;
         BufferedImage attributeImage = new BufferedImage(attributeWidth, attributeHeight, BufferedImage.TYPE_INT_RGB);
         Graphics2D g2DAttribute = attributeImage.createGraphics();
         fillGraphicWhite(g2DAttribute, attributeWidth, attributeHeight);
         g2DAttribute.setColor(color);
         BufferedImage iconImage;
-        BufferedImage fontImage;
-        Font font = new Font("Arial Bold", Font.BOLD, 18);
-        g2DAttribute.setFont(font);
+        g2DAttribute.setFont(headlineFont);
+        String secondLineString = imageAttributeValue + " " + suffix;
+        String longerString;
+        if (prefix.length() > suffix.length()) {
+            longerString = prefix;
+        } else {
+            longerString = suffix;
+        }
+        int maxTextWidth = attributeWidth - attributeWidth / 4;
+        int sizeOfFont = graphics2DChoiceOption.getFontMetrics().getFont().getSize();
+        int widthOfString = g2DAttribute.getFontMetrics().stringWidth(longerString) + distanceToSide;
+        while (widthOfString > maxTextWidth) {
+            sizeOfFont--;
+            headlineFont = new Font("Arial Bold", Font.BOLD, sizeOfFont);
+            g2DAttribute.setFont(headlineFont);
+            widthOfString = graphics2DHeadline.getFontMetrics().stringWidth(longerString) + distanceToSide;
+        }
+
         if (attribute.getPrefix().length() > 2) { // draw font in two lines
-            String secondLineString = imageAttributeValue + " " + suffix;
+
             iconHeight = (int) (height * 0.15);
             g2DAttribute.drawString(secondLineString, attributeWidth / 8, (8 * attributeHeight) / 9);
             g2DAttribute.drawString(prefix, attributeWidth / 8, (5 * attributeHeight) / 9);
