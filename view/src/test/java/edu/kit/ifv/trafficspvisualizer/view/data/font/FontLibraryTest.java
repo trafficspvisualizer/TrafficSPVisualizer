@@ -9,6 +9,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * Unit tests for the {@link FontLibrary} class.
+ *
+ * @version 1.0
  */
 class FontLibraryTest {
 
