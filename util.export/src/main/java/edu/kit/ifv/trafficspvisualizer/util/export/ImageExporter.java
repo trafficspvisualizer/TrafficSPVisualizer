@@ -13,7 +13,7 @@ import java.nio.file.Paths;
  * Exporter class for exporting images.
  */
 public class ImageExporter extends Exporter {
-        private static final String DIRECTORY_NAME = "trafficSPVisulizer";
+        private static final String DIRECTORY_NAME = "TrafficSPVisualizer";
 
     /**
      * Exports an array of images to a specified file.

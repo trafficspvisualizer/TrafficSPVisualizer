@@ -36,6 +36,7 @@ public class StandardImageGenerator extends ImageGenerator{
     private List<AbstractAttribute> attributes;
     private java.awt.Color color;
     private int currentXCoordinate;
+    private Font headlineFont;
     SVGToBufferedImageConverter svgToBufferedImageConverter;
     @Override
     public BufferedImage createChoiceOption(ChoiceOption choiceOption, DataObject dataObject,
@@ -79,14 +80,14 @@ public class StandardImageGenerator extends ImageGenerator{
         fillGraphicWhite(graphics2DHeadline, width, heightOfHeadline);
 
         int sizeOfFont = heightOfHeadline / 3;
-        Font font = new Font("Arial Bold", Font.BOLD, sizeOfFont);
-        graphics2DHeadline.setFont(font);
+        headlineFont = new Font("Arial Bold", Font.BOLD, sizeOfFont);
+        graphics2DHeadline.setFont(headlineFont);
         String headline = choiceOption.getTitle();
         int widthOfString = graphics2DHeadline.getFontMetrics().stringWidth(headline) + distanceToSide;
         while (widthOfString > width) {
             sizeOfFont--;
-            font = new Font("Arial Bold", Font.BOLD, sizeOfFont);
-            graphics2DHeadline.setFont(font);
+            headlineFont = new Font("Arial Bold", Font.BOLD, sizeOfFont);
+            graphics2DHeadline.setFont(headlineFont);
             widthOfString = graphics2DHeadline.getFontMetrics().stringWidth(headline) + distanceToSide;
         }
         graphics2DHeadline.setColor(color);
@@ -181,10 +182,19 @@ public class StandardImageGenerator extends ImageGenerator{
             graphics2DChoiceOption.drawLine(currentXCoordinate, routeSectionDrawingHeight,
                     currentXCoordinate + imageLengthOfRouteSection, routeSectionDrawingHeight);
 
+            String subText = (int) (round(0, lengthOfRouteSection)) + " min";
+            graphics2DChoiceOption.setFont(headlineFont);
+            FontMetrics fontMetrics = graphics2DChoiceOption.getFontMetrics();
+            int textWidth = fontMetrics.stringWidth(subText);
+            int x = currentXCoordinate + (imageLengthOfRouteSection - textWidth) / 2;
+            int textHeight = fontMetrics.getHeight();
+            int y = routeSectionDrawingHeight + textHeight + 1;
+            graphics2DChoiceOption.drawString(subText, x, y);
+
             BufferedImage iconImage = routeSection.getIcon().toBufferedImage(iconHeight, iconWidth);
             BufferedImage copyImage = copyImage(iconImage); //copy needed, else image would be saved with color
             changeImageColor(copyImage, Color.black, color);
-            graphics2DChoiceOption.drawImage(copyImage, currentXCoordinate + imageLengthOfRouteSection / 2 - iconWidth / 2, attributeDrawingHeight, null);
+            graphics2DChoiceOption.drawImage(copyImage, currentXCoordinate + (imageLengthOfRouteSection - iconWidth) / 2, attributeDrawingHeight, null);
             currentXCoordinate += imageLengthOfRouteSection;
             graphics2DChoiceOption.setStroke(solidTimeLineStroke);
             graphics2DChoiceOption.drawLine(currentXCoordinate, routeSectionDrawingHeight + 3, currentXCoordinate, routeSectionDrawingHeight - 3);
@@ -197,25 +207,46 @@ public class StandardImageGenerator extends ImageGenerator{
         double imageAttributeValue = calculateValueOfAttribute(attribute);
         String prefix = attribute.getPrefix();
         String suffix = attribute.getSuffix();
-        String text = attribute.getPrefix() + imageAttributeValue + attribute.getSuffix();
+        String attributeText = attribute.getPrefix() + imageAttributeValue + attribute.getSuffix();
         int iconHeight;
-        int fontImageHeight;
         BufferedImage attributeImage = new BufferedImage(attributeWidth, attributeHeight, BufferedImage.TYPE_INT_RGB);
         Graphics2D g2DAttribute = attributeImage.createGraphics();
         fillGraphicWhite(g2DAttribute, attributeWidth, attributeHeight);
         g2DAttribute.setColor(color);
         BufferedImage iconImage;
-        BufferedImage fontImage;
-        Font font = new Font("Arial Bold", Font.BOLD, 18);
-        g2DAttribute.setFont(font);
+        Font attributeFont = headlineFont;
+        g2DAttribute.setFont(attributeFont);
+        String secondLineString = imageAttributeValue + suffix;
+        String longerString;
+
+        int maxTextWidth = attributeWidth - attributeWidth / 4;
+
+
         if (attribute.getPrefix().length() > 2) { // draw font in two lines
-            String secondLineString = imageAttributeValue + " " + suffix;
+            if (prefix.length() > secondLineString.length()) {
+                longerString = prefix;
+            } else {
+                longerString = secondLineString;
+            }
+
+            makeStringFit(g2DAttribute, maxTextWidth, longerString);
+
+            int prefixWidth = g2DAttribute.getFontMetrics().stringWidth(prefix);
+            int secondLineStringWidth = g2DAttribute.getFontMetrics().stringWidth(secondLineString);
+
+
+            int x = (attributeWidth - prefixWidth) / 2;
+            g2DAttribute.drawString(prefix, x, (5 * attributeHeight) / 9);
+            x = (attributeWidth - secondLineStringWidth) / 2;
+            g2DAttribute.drawString(secondLineString, x, (8 * attributeHeight) / 9);
+
             iconHeight = (int) (height * 0.15);
-            g2DAttribute.drawString(secondLineString, attributeWidth / 8, (8 * attributeHeight) / 9);
-            g2DAttribute.drawString(prefix, attributeWidth / 8, (5 * attributeHeight) / 9);
         } else {
+            makeStringFit(g2DAttribute, maxTextWidth, attributeText);
+            int attributeTextWidth = g2DAttribute.getFontMetrics().stringWidth(attributeText);
+            int x = (attributeWidth - attributeTextWidth) / 2;
+            g2DAttribute.drawString(attributeText, x, (8 * attributeHeight) / 9);
             iconHeight = (int) (height * 0.25);
-            g2DAttribute.drawString(text, attributeWidth / 8, (8 * attributeHeight) / 9);
         }
         iconImage = (attribute.getIcon().toBufferedImage(iconHeight, attributeWidth));
         BufferedImage copyImage = copyImage(iconImage);
@@ -231,6 +262,18 @@ public class StandardImageGenerator extends ImageGenerator{
         fillGraphicWhite(graphics2D, attributeWidth, attributeHeight);
         graphics2D.dispose();
         return emptyAttributeImage;
+    }
+
+    private void makeStringFit (Graphics2D graphics2D, int maxWidth, String string) {
+        Font font;
+        int sizeOfFont = graphics2D.getFontMetrics().getFont().getSize();
+        int widthOfString = graphics2D.getFontMetrics().stringWidth(string);
+        while (widthOfString > maxWidth) {
+            sizeOfFont--;
+            font = new Font("Arial Bold", Font.BOLD, sizeOfFont);
+            graphics2D.setFont(font);
+            widthOfString = graphics2D.getFontMetrics().stringWidth(string);
+        }
     }
 
     //code from stackoverflow: https://stackoverflow.com/questions/3514158/how-do-you-clone-a-bufferedimage
