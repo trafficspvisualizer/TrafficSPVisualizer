@@ -1,8 +1,8 @@
 package edu.kit.ifv.trafficspvisualizer.util.parse;
 
-import edu.kit.ifv.trafficspvisualizer.model.ChoiceData;
-import edu.kit.ifv.trafficspvisualizer.model.DataObject;
-import edu.kit.ifv.trafficspvisualizer.model.SituationData;
+import edu.kit.ifv.trafficspvisualizer.model.data.ChoiceData;
+import edu.kit.ifv.trafficspvisualizer.model.data.DataObject;
+import edu.kit.ifv.trafficspvisualizer.model.data.SituationData;
 
 import java.io.BufferedReader;
 import java.io.File;

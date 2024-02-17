@@ -1,9 +1,10 @@
 package edu.kit.ifv.trafficspvisualizer.controller;
 
-import edu.kit.ifv.trafficspvisualizer.model.ExportSettings;
-import edu.kit.ifv.trafficspvisualizer.model.InvalidDataKeyException;
+import edu.kit.ifv.trafficspvisualizer.model.settings.ExportSettings;
+import edu.kit.ifv.trafficspvisualizer.model.data.InvalidDataKeyException;
 import edu.kit.ifv.trafficspvisualizer.model.Project;
-import edu.kit.ifv.trafficspvisualizer.model.ExportType;
+import edu.kit.ifv.trafficspvisualizer.model.settings.ExportType;
+import edu.kit.ifv.trafficspvisualizer.model.settings.ChoiceOption;
 import edu.kit.ifv.trafficspvisualizer.util.export.Exporter;
 import edu.kit.ifv.trafficspvisualizer.util.image.ChoiceOptionImage;
 import edu.kit.ifv.trafficspvisualizer.util.image.ImageCollectionGenerator;
@@ -119,7 +120,7 @@ public class MainApplicationController {
     }
 
     /**
-     * Instructs model to change the order of {@link edu.kit.ifv.trafficspvisualizer.model.ChoiceOption}
+     * Instructs model to change the order of {@link ChoiceOption}
      * in the model and notifies the {@link edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow}
      * of the change. The choiceOptionIndex is passed and the matching ChoiceOption
      * is swapped with the previous one.
@@ -135,7 +136,7 @@ public class MainApplicationController {
     }
 
     /**
-     * Instructs model to change the order of {@link edu.kit.ifv.trafficspvisualizer.model.ChoiceOption}
+     * Instructs model to change the order of {@link ChoiceOption}
      * in the model and notifies the {@link edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow}
      * of the change. The choiceOptionIndex is passed and the matching ChoiceOption
      * is swapped with the following one.

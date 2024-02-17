@@ -1,6 +1,8 @@
 package edu.kit.ifv.trafficspvisualizer.util.project;
 
-import edu.kit.ifv.trafficspvisualizer.model.*;
+import edu.kit.ifv.trafficspvisualizer.model.settings.AbstractAttribute;
+import edu.kit.ifv.trafficspvisualizer.model.settings.ChoiceOption;
+import edu.kit.ifv.trafficspvisualizer.model.settings.RouteSection;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -11,8 +13,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.nio.file.Path;
-import static org.junit.jupiter.api.Assertions.*;
 
 class StandardProjectSaverTest {
 

@@ -1,6 +1,16 @@
 package edu.kit.ifv.trafficspvisualizer.util.project;
 
 import edu.kit.ifv.trafficspvisualizer.model.*;
+import edu.kit.ifv.trafficspvisualizer.model.data.DataObject;
+import edu.kit.ifv.trafficspvisualizer.model.settings.AbstractAttribute;
+import edu.kit.ifv.trafficspvisualizer.model.settings.Attribute;
+import edu.kit.ifv.trafficspvisualizer.model.settings.ChoiceOption;
+import edu.kit.ifv.trafficspvisualizer.model.settings.ExportSettings;
+import edu.kit.ifv.trafficspvisualizer.model.settings.ExportType;
+import edu.kit.ifv.trafficspvisualizer.model.settings.FileFormat;
+import edu.kit.ifv.trafficspvisualizer.model.settings.LineType;
+import edu.kit.ifv.trafficspvisualizer.model.settings.RouteSection;
+import edu.kit.ifv.trafficspvisualizer.model.settings.SeparatorLine;
 import edu.kit.ifv.trafficspvisualizer.util.parse.NGDParser;
 import javafx.scene.paint.Color;
 import org.json.JSONArray;
@@ -149,7 +159,7 @@ public abstract class AbstractLoader {
     protected RouteSection createRouteSection(JSONObject routeSection) {
         String choiceDataKey  = routeSection.optString(JsonKeys.KEY_CHOICE_DATA_KEY.getKey());
         String lineType = routeSection.optString(JsonKeys.KEY_LINE_TYPE.getKey());
-        return new RouteSection(null,choiceDataKey,LineType.fromString(lineType));
+        return new RouteSection(null,choiceDataKey, LineType.fromString(lineType));
     }
 
     /**

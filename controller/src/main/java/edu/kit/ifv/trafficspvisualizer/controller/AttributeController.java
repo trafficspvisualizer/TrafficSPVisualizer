@@ -1,8 +1,8 @@
 package edu.kit.ifv.trafficspvisualizer.controller;
 
-import edu.kit.ifv.trafficspvisualizer.model.AbstractAttribute;
-import edu.kit.ifv.trafficspvisualizer.model.Attribute;
-import edu.kit.ifv.trafficspvisualizer.model.SeparatorLine;
+import edu.kit.ifv.trafficspvisualizer.model.settings.AbstractAttribute;
+import edu.kit.ifv.trafficspvisualizer.model.settings.Attribute;
+import edu.kit.ifv.trafficspvisualizer.model.settings.SeparatorLine;
 import edu.kit.ifv.trafficspvisualizer.view.window.AttributeStage;
 import javafx.scene.control.ButtonType;
 
@@ -41,7 +41,7 @@ public class AttributeController {
     /**
      * Creates new {@link AttributeSettingsController}.
      * Sets its attributeIndex to the length of the list of attributes in the model to
-     * assure no existing {@link edu.kit.ifv.trafficspvisualizer.model.Attribute} is edited.
+     * assure no existing {@link Attribute} is edited.
      */
     private void actionOnNewAttributeButton(){
 
@@ -82,7 +82,7 @@ public class AttributeController {
 
     /**
      * Creates new {@link AttributeSettingsController} and sets its attributeIndex to the index of the
-     * {@link edu.kit.ifv.trafficspvisualizer.model.Attribute} which should be edited.
+     * {@link Attribute} which should be edited.
      *
      * @param abstractAttributeIndex the index of the attribute which should be edited
      */

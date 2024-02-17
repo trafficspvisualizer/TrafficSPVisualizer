@@ -1,8 +1,8 @@
 package edu.kit.ifv.trafficspvisualizer.controller;
 
-import edu.kit.ifv.trafficspvisualizer.model.ExportSettings;
-import edu.kit.ifv.trafficspvisualizer.model.ExportType;
-import edu.kit.ifv.trafficspvisualizer.model.FileFormat;
+import edu.kit.ifv.trafficspvisualizer.model.settings.ExportSettings;
+import edu.kit.ifv.trafficspvisualizer.model.settings.ExportType;
+import edu.kit.ifv.trafficspvisualizer.model.settings.FileFormat;
 import edu.kit.ifv.trafficspvisualizer.view.window.ExportSettingsStage;
 
 import java.io.File;

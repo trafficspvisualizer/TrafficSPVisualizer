@@ -1,10 +1,10 @@
 package edu.kit.ifv.trafficspvisualizer.controller;
 
-import edu.kit.ifv.trafficspvisualizer.model.Attribute;
-import edu.kit.ifv.trafficspvisualizer.model.ChoiceOption;
-import edu.kit.ifv.trafficspvisualizer.model.Icon;
-import edu.kit.ifv.trafficspvisualizer.model.LineType;
-import edu.kit.ifv.trafficspvisualizer.model.RouteSection;
+import edu.kit.ifv.trafficspvisualizer.model.settings.Attribute;
+import edu.kit.ifv.trafficspvisualizer.model.settings.ChoiceOption;
+import edu.kit.ifv.trafficspvisualizer.model.icon.Icon;
+import edu.kit.ifv.trafficspvisualizer.model.settings.LineType;
+import edu.kit.ifv.trafficspvisualizer.model.settings.RouteSection;
 import edu.kit.ifv.trafficspvisualizer.view.window.ChoiceOptionSettingsStage;
 import javafx.scene.control.ButtonType;
 import javafx.scene.paint.Color;
@@ -29,7 +29,7 @@ public class ChoiceOptionSettingsController implements IconDisplayingController 
      */
     private final ControllerFacade controllerFacade;
     /**
-     * ID of the {@link edu.kit.ifv.trafficspvisualizer.model.ChoiceOption} on which the controller is working.
+     * ID of the {@link ChoiceOption} on which the controller is working.
      */
     private final int choiceOptionId;
 
@@ -37,7 +37,7 @@ public class ChoiceOptionSettingsController implements IconDisplayingController 
      * Constructs the ChoiceOptionSettingsController. Creates new {@link ChoiceOptionSettingsStage},
      * saves it in ViewFacade and sets its ActionListeners.
      *
-     * @param choiceOptionId the ID of the {@link edu.kit.ifv.trafficspvisualizer.model.ChoiceOption}
+     * @param choiceOptionId the ID of the {@link ChoiceOption}
      *                       on which the controller is working
      * @param controllerFacade the front-facing interface for the controller package
      */
@@ -70,7 +70,7 @@ public class ChoiceOptionSettingsController implements IconDisplayingController 
 
     /**
      * Instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.ChoiceOptionSettingsStage} to open
-     * {@link javafx.scene.control.ColorPicker} and updates {@link edu.kit.ifv.trafficspvisualizer.model.ChoiceOption}
+     * {@link javafx.scene.control.ColorPicker} and updates {@link ChoiceOption}
      * at index {@link ChoiceOptionSettingsController#choiceOptionId} with given color.
      */
     private void actionOnColorButton(){
@@ -79,7 +79,7 @@ public class ChoiceOptionSettingsController implements IconDisplayingController 
     }
 
     /**
-     * Scrapes title from text field and updates {@link edu.kit.ifv.trafficspvisualizer.model.ChoiceOption}
+     * Scrapes title from text field and updates {@link ChoiceOption}
      * at index {@link ChoiceOptionSettingsController#choiceOptionId} with given color.
      */
     private void actionOnTitleTextField(){
@@ -154,7 +154,7 @@ public class ChoiceOptionSettingsController implements IconDisplayingController 
 
     /**
      * Creates a new {@link RouteSection} and adds it to the list of route sections in
-     * {@link edu.kit.ifv.trafficspvisualizer.model.ChoiceOption} with
+     * {@link ChoiceOption} with
      * index {@link ChoiceOptionSettingsController#choiceOptionId}.
      */
     public void actionOnNewRouteSectionButton(){
@@ -165,7 +165,7 @@ public class ChoiceOptionSettingsController implements IconDisplayingController 
 
     /**
      * Asks user to confirm deletion and deletes {@link RouteSection} at given index from
-     * {@link edu.kit.ifv.trafficspvisualizer.model.ChoiceOption} with index
+     * {@link ChoiceOption} with index
      * {@link ChoiceOptionSettingsController#choiceOptionId} if user clicked "ok".
      *
      * @param routeSectionIndex index of route section which should be deleted

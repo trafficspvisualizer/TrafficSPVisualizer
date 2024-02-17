@@ -1,10 +1,9 @@
 package edu.kit.ifv.trafficspvisualizer.util.export;
 
-import edu.kit.ifv.trafficspvisualizer.model.ExportType;
+import edu.kit.ifv.trafficspvisualizer.model.settings.ExportType;
 import edu.kit.ifv.trafficspvisualizer.util.image.ChoiceOptionImage;
 
 import java.io.File;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;

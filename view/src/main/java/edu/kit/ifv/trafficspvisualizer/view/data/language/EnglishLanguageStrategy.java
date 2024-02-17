@@ -1,7 +1,7 @@
 package edu.kit.ifv.trafficspvisualizer.view.data.language;
 
-import edu.kit.ifv.trafficspvisualizer.model.ExportType;
-import edu.kit.ifv.trafficspvisualizer.model.LineType;
+import edu.kit.ifv.trafficspvisualizer.model.settings.ExportType;
+import edu.kit.ifv.trafficspvisualizer.model.settings.LineType;
 
 /**
  * A class that inherits from LanguageStrategy
