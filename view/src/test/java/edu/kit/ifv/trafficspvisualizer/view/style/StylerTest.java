@@ -1,4 +1,4 @@
-package edu.kit.ifv.trafficspvisualizer.view.data.style;
+package edu.kit.ifv.trafficspvisualizer.view.style;
 
 import edu.kit.ifv.trafficspvisualizer.view.data.font.FontLibrary;
 import edu.kit.ifv.trafficspvisualizer.view.style.Styler;

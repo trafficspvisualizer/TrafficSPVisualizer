@@ -5,11 +5,21 @@ import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.paint.Color;
 
+/**
+ * Custom {@link SingleSelectionModel} for the {@link ListFlowPane}.
+ *
+ * @version 1.0
+ */
 public class ListFlowPaneSingleSelectionModel extends SingleSelectionModel<Node> {
     private static final DropShadow SELECTION_EFFECT = new DropShadow(20, Color.DARKTURQUOISE);
 
     private final ListFlowPane boundedListFlowPane;
 
+    /**
+     * Creates the {@link ListFlowPaneSingleSelectionModel}.
+     *
+     * @param boundedListFlowPane The {@link ListFlowPane} bounded to this {@link ListFlowPaneSingleSelectionModel}.
+     */
     public ListFlowPaneSingleSelectionModel(ListFlowPane boundedListFlowPane) {
         this.boundedListFlowPane = boundedListFlowPane;
     }

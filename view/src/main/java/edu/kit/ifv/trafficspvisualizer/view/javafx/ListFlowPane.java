@@ -5,10 +5,18 @@ import javafx.scene.Node;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.layout.FlowPane;
 
+/**
+ * Custom JavaFX {@link FlowPane} with a single selection model.
+ *
+ * @version 1.0
+ */
 public class ListFlowPane extends FlowPane {
 
     private final SingleSelectionModel<Node> singleSelectionModel;
 
+    /**
+     * Creates the {@link ListFlowPane} by adding and linking a single selection model.
+     */
     public ListFlowPane() {
         singleSelectionModel = new ListFlowPaneSingleSelectionModel(this);
 
@@ -23,6 +31,11 @@ public class ListFlowPane extends FlowPane {
         });
     }
 
+    /**
+     * Gets the {@link SingleSelectionModel}.
+     *
+     * @return The {@link SingleSelectionModel}.
+     */
     public SingleSelectionModel<Node> getSingleSelectionModel() {
         return singleSelectionModel;
     }
