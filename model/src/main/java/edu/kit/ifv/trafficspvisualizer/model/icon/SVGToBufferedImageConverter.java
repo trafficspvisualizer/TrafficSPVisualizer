@@ -13,7 +13,8 @@ import javax.imageio.ImageIO;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -60,8 +61,8 @@ public class SVGToBufferedImageConverter implements ImageToBufferedImageConverte
 
         BufferedImage resultImage;
         try (
-                InputStream inputStream = Files.newInputStream(file.toPath());
-                ByteArrayOutputStream outputStream = new ByteArrayOutputStream()
+            InputStream inputStream = Files.newInputStream(file.toPath());
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream()
         ) {
             TranscoderInput input = new TranscoderInput(inputStream);
             TranscoderOutput output = new TranscoderOutput(outputStream);
