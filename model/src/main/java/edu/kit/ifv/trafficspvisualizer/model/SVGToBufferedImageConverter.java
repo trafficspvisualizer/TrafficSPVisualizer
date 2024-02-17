@@ -20,16 +20,22 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.Buffer;
 import java.nio.file.Files;
 
+/**
+ * A converter that converts an SVG image to a {@link BufferedImage}.
+ */
 public class SVGToBufferedImageConverter implements ImageToBufferedImageConverter {
     private final DocumentBuilderFactory factory;
 
+    /**
+     * The default constructor.
+     */
     public SVGToBufferedImageConverter() {
         this.factory = DocumentBuilderFactory.newInstance();
     }
 
+    @Override
     public BufferedImage convert(File file, int height, int width) {
         float aspectRatio;
         try {
