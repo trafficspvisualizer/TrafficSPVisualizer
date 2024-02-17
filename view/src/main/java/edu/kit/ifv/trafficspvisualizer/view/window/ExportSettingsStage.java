@@ -7,6 +7,7 @@ import edu.kit.ifv.trafficspvisualizer.view.ViewFacade;
 import edu.kit.ifv.trafficspvisualizer.view.data.font.FontLibrary;
 import edu.kit.ifv.trafficspvisualizer.view.data.image.ImageLibrary;
 import edu.kit.ifv.trafficspvisualizer.view.data.language.LanguageStrategy;
+import edu.kit.ifv.trafficspvisualizer.view.style.Styler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -155,93 +156,57 @@ public class ExportSettingsStage extends Stage {
     // style-methods
     private void styleStage() {
         // choiceOptionSizeText
-        GridPane.setHalignment(choiceOptionSizeText, HPos.LEFT);
-        GridPane.setValignment(choiceOptionSizeText, VPos.CENTER);
-        choiceOptionSizeText.setFont(FontLibrary.getMidFont());
+        Styler.leftCenterMidFontTextInGridPane(choiceOptionSizeText);
 
         // heightText
-        GridPane.setHalignment(heightText, HPos.LEFT);
-        GridPane.setValignment(heightText, VPos.CENTER);
-        heightText.setFont(FontLibrary.getSmallFont());
+        Styler.leftCenterSmallFontTextInGridPane(heightText);
 
         // heightTextField
-        GridPane.setHalignment(heightTextField, HPos.LEFT);
-        GridPane.setValignment(heightTextField, VPos.CENTER);
-        GridPane.setHgrow(heightTextField, Priority.ALWAYS);
-        heightTextField.setFont(FontLibrary.getSmallFont());
+        Styler.leftCenterHGrowSmallFontTextFieldInGridPane(heightTextField);
 
         // widthText
-        GridPane.setHalignment(widthText, HPos.LEFT);
-        GridPane.setValignment(widthText, VPos.CENTER);
-        widthText.setFont(FontLibrary.getSmallFont());
+        Styler.leftCenterSmallFontTextInGridPane(widthText);
 
         // widthTextField
-        GridPane.setHalignment(widthTextField, HPos.LEFT);
-        GridPane.setValignment(widthTextField, VPos.CENTER);
-        GridPane.setHgrow(widthTextField, Priority.ALWAYS);
-        widthTextField.setFont(FontLibrary.getSmallFont());
+        Styler.leftCenterHGrowSmallFontTextFieldInGridPane(widthTextField);
 
         // exportDirectoryText
-        GridPane.setHalignment(exportDirectoryText, HPos.LEFT);
-        GridPane.setValignment(exportDirectoryText, VPos.CENTER);
-        exportDirectoryText.setFont(FontLibrary.getMidFont());
+        Styler.leftCenterMidFontTextInGridPane(exportDirectoryText);
 
         // exportDirectoryTextField
-        GridPane.setHalignment(exportDirectoryTextField, HPos.LEFT);
-        GridPane.setValignment(exportDirectoryTextField, VPos.CENTER);
-        GridPane.setHgrow(exportDirectoryTextField, Priority.ALWAYS);
-        exportDirectoryTextField.setFont(FontLibrary.getSmallFont());
+        Styler.leftCenterHGrowSmallFontTextFieldInGridPane(exportDirectoryTextField);
 
         // exportDirectoryButtonImageView
-        exportDirectoryButtonImageView.setFitWidth(25);
-        exportDirectoryButtonImageView.setFitHeight(25);
-        exportDirectoryButtonImageView.setPreserveRatio(true);
+        Styler.midImageView(exportDirectoryButtonImageView);
 
         // exportDirectoryButton
-        GridPane.setHalignment(exportDirectoryButton, HPos.CENTER);
-        GridPane.setValignment(exportDirectoryButton, VPos.CENTER);
+        Styler.centerCenterInGridPane(exportDirectoryButton);
 
         // exportTypeText
-        GridPane.setHalignment(exportTypeText, HPos.LEFT);
-        GridPane.setValignment(exportTypeText, VPos.CENTER);
-        exportTypeText.setFont(FontLibrary.getMidFont());
+        Styler.leftCenterMidFontTextInGridPane(exportTypeText);
 
         // exportTypeChoiceBox
-        GridPane.setHalignment(exportTypeChoiceBox, HPos.LEFT);
-        GridPane.setValignment(exportTypeChoiceBox, VPos.CENTER);
+        Styler.leftCenterInGridPane(exportTypeChoiceBox);
         GridPane.setHgrow(exportTypeChoiceBox, Priority.ALWAYS);
 
         // configGridPane
-        BorderPane.setAlignment(configGridPane, Pos.TOP_LEFT);
-        configGridPane.setPadding(new Insets(15));
-        configGridPane.setHgap(15);
-        configGridPane.setVgap(15);
+        Styler.midHVGabMidPaddingGridPane(configGridPane);
 
         // saveButton
-        GridPane.setHalignment(saveButton, HPos.LEFT);
-        GridPane.setValignment(saveButton, VPos.CENTER);
-        saveButton.setFont(FontLibrary.getSmallFont());
+        Styler.leftCenterSmallFontButtonInGridPane(saveButton);
 
         // cancelButton
-        GridPane.setHalignment(cancelButton, HPos.LEFT);
-        GridPane.setValignment(cancelButton, VPos.CENTER);
-        cancelButton.setFont(FontLibrary.getSmallFont());
+        Styler.leftCenterSmallFontButtonInGridPane(cancelButton);
 
         // saveAndCancelGridPane
-        BorderPane.setAlignment(saveAndCancelGridPane, Pos.BOTTOM_LEFT);
-        saveAndCancelGridPane.setPadding(new Insets(15));
-        saveAndCancelGridPane.setHgap(15);
-        saveAndCancelGridPane.setVgap(15);
+        Styler.midHVGabMidPaddingGridPane(saveAndCancelGridPane);
 
         // bodyBorderPane
 
         // scene
 
         // stage
-        setMinWidth(960);
-        setMinHeight(540);
-        setWidth(960);
-        setHeight(540);
+        Styler.midStage(this);
     }
 
     // update-methods
