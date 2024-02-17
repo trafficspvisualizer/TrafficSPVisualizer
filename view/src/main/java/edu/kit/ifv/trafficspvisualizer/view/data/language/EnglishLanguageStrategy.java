@@ -14,7 +14,7 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
     // Application
 
         // Application Alerts
-    private final static String CONFIRMATION_ALERT_TITLE = "Conformation";
+    private final static String CONFIRMATION_ALERT_TITLE = "Confirmation";
 
     private final static String CLOSE_PROJECT_CONFIRMATION_ALERT_TITLE = CONFIRMATION_ALERT_TITLE;
 
