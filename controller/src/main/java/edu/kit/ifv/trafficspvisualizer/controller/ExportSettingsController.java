@@ -113,5 +113,8 @@ public class ExportSettingsController {
 
         //Cancel
         exportSettingsStage.getCancelButton().setOnAction(e -> actionOnCancelButton());
+
+        // Close Request - same event handler as cancel button
+        exportSettingsStage.setOnCloseRequest(e -> actionOnCancelButton());
     }
 }

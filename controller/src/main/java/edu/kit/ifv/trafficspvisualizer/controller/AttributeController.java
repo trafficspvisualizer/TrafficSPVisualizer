@@ -189,5 +189,8 @@ public class AttributeController {
 
         // Close-Button
         attributeStage.getCloseButton().setOnAction(e -> actionOnCompleteButton());
+
+        // Close Request - same event handler as complete button
+        attributeStage.setOnCloseRequest(e -> actionOnCompleteButton());
     }
 }

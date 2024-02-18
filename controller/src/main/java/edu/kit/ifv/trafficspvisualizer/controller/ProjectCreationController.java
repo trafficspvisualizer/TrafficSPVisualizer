@@ -137,6 +137,9 @@ public class ProjectCreationController {
 
         // Cancel-Button
         projectCreationStage.getCancelButton().setOnAction(e -> actionOnCancelButton());
+
+        // Close Request - same event handler as cancel button
+        projectCreationStage.setOnCloseRequest(e -> actionOnCancelButton());
     }
 
     private boolean validateInput(String projectName, File projectFolder, File inputFile) {

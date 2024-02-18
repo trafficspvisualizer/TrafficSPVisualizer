@@ -124,6 +124,9 @@ public class AttributeSettingsController implements IconDisplayingController {
     private void setActionListeners(){
         AttributeSettingsStage attributeSettingsStage = controllerFacade.getViewFacade().getAttributeSettingsStage();
 
+        // Close Request - same event handler as cancel button
+        attributeSettingsStage.setOnCloseRequest(e -> actionOnCancelButton());
+
         // Icon Button
         attributeSettingsStage.getIconButton().setOnAction(e -> actionOnIconButton());
 

@@ -213,11 +213,14 @@ public class ChoiceOptionSettingsController implements IconDisplayingController 
         // Attribute values
         updateAttributeActionListeners();
 
-        // Close
+        // Complete
         choiceOptionSettingsStage.getCloseButton().setOnAction(e -> actionOnCompleteButton());
 
         // Title - when text field loses focus
         choiceOptionSettingsStage.getTitleTextField().focusedProperty().addListener(e -> actionOnTitleTextField());
+
+        // Close Request - same event handler as complete button
+        choiceOptionSettingsStage.setOnCloseRequest(e -> actionOnCompleteButton());
     }
 
     private void updateRouteSectionActionListeners() {
