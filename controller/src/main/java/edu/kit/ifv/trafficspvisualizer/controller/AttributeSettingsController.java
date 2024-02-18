@@ -81,6 +81,11 @@ class AttributeSettingsController implements IconDisplayingController {
             return;
         }
 
+        if (decimalPlaces < 0) {
+            controllerFacade.getViewFacade().getAttributeSettingsStage().showSaveErrorAlert();
+            return;
+        }
+
         // get icon from iconId
         Icon icon = controllerFacade.getProject().getIconManager().getIcons().get(iconId);
 
