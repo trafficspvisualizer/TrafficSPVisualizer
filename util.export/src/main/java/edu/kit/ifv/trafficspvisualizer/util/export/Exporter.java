@@ -38,6 +38,7 @@ public abstract class  Exporter {
      * @return The constructed image path.
      */
     protected String constructImagePath(ChoiceOptionImage image) {
+        //TODO: Maybe set info to null instead of "-1" in ChoiceOptionImage
         return String.format("%s.%s",
                 image.getInfos().stream()
                         .map(info -> {
