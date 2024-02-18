@@ -214,7 +214,7 @@ public class StandardImageGenerator extends ImageGenerator{
         BufferedImage iconImage;
         Font attributeFont = headlineFont;
         g2DAttribute.setFont(attributeFont);
-        String secondLineString = imageAttributeValue + suffix;
+        String secondLineString = getRoundedString(attribute.getDecimalPlaces(), imageAttributeValue) + suffix;
         String longerString;
 
         int maxTextWidth = attributeWidth - attributeWidth / 4;
