@@ -180,7 +180,7 @@ public class StandardImageGenerator extends ImageGenerator{
             graphics2DChoiceOption.drawLine(currentXCoordinate, routeSectionDrawingHeight,
                     currentXCoordinate + imageLengthOfRouteSection, routeSectionDrawingHeight);
 
-            String subText = (int) (round(0, lengthOfRouteSection)) + " min";
+            String subText = (getRoundedString(0, lengthOfRouteSection)) + " min";
             graphics2DChoiceOption.setFont(headlineFont);
             FontMetrics fontMetrics = graphics2DChoiceOption.getFontMetrics();
             int textWidth = fontMetrics.stringWidth(subText);
@@ -205,7 +205,7 @@ public class StandardImageGenerator extends ImageGenerator{
         double imageAttributeValue = calculateValueOfAttribute(attribute);
         String prefix = attribute.getPrefix();
         String suffix = attribute.getSuffix();
-        String attributeText = attribute.getPrefix() + imageAttributeValue + attribute.getSuffix();
+        String attributeText = attribute.getPrefix() + getRoundedString(attribute.getDecimalPlaces(), imageAttributeValue) + attribute.getSuffix();
         int iconHeight;
         BufferedImage attributeImage = new BufferedImage(attributeWidth, attributeHeight, BufferedImage.TYPE_INT_RGB);
         Graphics2D g2DAttribute = attributeImage.createGraphics();
@@ -294,8 +294,7 @@ public class StandardImageGenerator extends ImageGenerator{
         for (String string : choiceOptionMappings) {
             attributeValue += dataObject.getValue(situationIndex, choiceOption.getName(), string);
         }
-        int decimalPlaces = attribute.getDecimalPlaces();
-        return round(decimalPlaces, attributeValue);
+        return attributeValue;
     }
     private int calculateNumberOfAttributes() {
         int numberOfAttributes = 0;
@@ -307,21 +306,11 @@ public class StandardImageGenerator extends ImageGenerator{
         return numberOfAttributes;
     }
 
-    public static double round(int decimalPlaces, double value) {
+    public static String getRoundedString(int decimalPlaces, double value) {
         if (decimalPlaces < 0) {
             throw new IllegalArgumentException("Decimal places cannot be negative");
         }
-
-        DecimalFormatSymbols symbols = new DecimalFormatSymbols();
-        symbols.setDecimalSeparator('.');
-        StringBuilder pattern = new StringBuilder("0.");
-        for (int i = 0; i < decimalPlaces; i++) {
-            pattern.append("0");
-        }
-
-        DecimalFormat decimalFormat = new DecimalFormat(pattern.toString(), symbols);
-        String formattedString = decimalFormat.format(value);
-        return Double.parseDouble(formattedString);
+        return String.format(("%." + decimalPlaces + "f"), value);
     }
 
     private static void changeImageColor(BufferedImage image, Color oldColor, Color newColor) {
