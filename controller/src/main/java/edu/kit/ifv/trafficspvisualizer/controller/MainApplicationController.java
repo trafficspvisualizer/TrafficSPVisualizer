@@ -31,7 +31,7 @@ import java.util.List;
  * @author ughhz
  * @version 1.0
  */
-public class MainApplicationController {
+class MainApplicationController {
 
     /**
      * Front-facing interface for the controller package.
@@ -43,7 +43,7 @@ public class MainApplicationController {
      *
      * @param controllerFacade the front-facing interface for the controller package
      */
-    public MainApplicationController(ControllerFacade controllerFacade) {
+    MainApplicationController(ControllerFacade controllerFacade) {
         this.controllerFacade = controllerFacade;
         // MainApplicationWindow is created when starting application
         setActionListeners();
@@ -253,7 +253,7 @@ public class MainApplicationController {
     /**
      * Instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow} to update preview.
      */
-    public void updatePreview() {
+    void updatePreview() {
         SituationGenerator situationGenerator = new SituationGenerator();
         try {
             controllerFacade.getViewFacade().getMainApplicationWindow()
@@ -269,7 +269,7 @@ public class MainApplicationController {
     /**
      * Instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow} to update choice options.
      */
-    public void updateChoiceOptions() {
+    void updateChoiceOptions() {
         controllerFacade.getViewFacade().getMainApplicationWindow().updateChoiceOptions();
         setChoiceOptionActionListeners();
     }

@@ -16,7 +16,7 @@ import javafx.scene.control.ButtonType;
  * @author ugghz
  * @version 1.0
  */
-public class AttributeController {
+class AttributeController {
 
     /**
      * Front-facing interface for the controller package.
@@ -29,7 +29,7 @@ public class AttributeController {
      *
      * @param controllerFacade the front-facing interface for the controller package
      */
-    public AttributeController(ControllerFacade controllerFacade) {
+    AttributeController(ControllerFacade controllerFacade) {
         this.controllerFacade = controllerFacade;
 
         //creates and shows new stage
@@ -142,7 +142,7 @@ public class AttributeController {
     /**
      * Instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.AttributeStage} to update itself.
      */
-    public void update() {
+    void update() {
         controllerFacade.getViewFacade().getAttributeStage().updateStage();
         updateActionListeners();
     }
@@ -174,6 +174,7 @@ public class AttributeController {
             attributeStage.getAttributeRemoveButtonList().get(index).setOnAction(e -> actionOnDeleteButton(index));
         }
     }
+
     private void setActionListeners(){
         AttributeStage attributeStage = controllerFacade.getViewFacade().getAttributeStage();
 

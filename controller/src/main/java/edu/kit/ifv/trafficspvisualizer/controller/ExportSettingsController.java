@@ -18,7 +18,7 @@ import java.io.File;
  * @version 1.0
  *
  */
-public class ExportSettingsController {
+class ExportSettingsController {
 
     /**
      * Front-facing interface for the controller package.
@@ -31,7 +31,7 @@ public class ExportSettingsController {
      *
      * @param controllerFacade the front-facing interface for the controller package
      */
-    public ExportSettingsController(ControllerFacade controllerFacade) {
+    ExportSettingsController(ControllerFacade controllerFacade) {
         this.controllerFacade = controllerFacade;
         //creates and shows new stage
         controllerFacade.getViewFacade().

@@ -22,7 +22,7 @@ import java.util.List;
  * @author ughhz
  * @version 1.0
  */
-public class ChoiceOptionSettingsController implements IconDisplayingController {
+class ChoiceOptionSettingsController implements IconDisplayingController {
 
     /**
      * Front-facing interface for the controller package.
@@ -41,7 +41,7 @@ public class ChoiceOptionSettingsController implements IconDisplayingController 
      *                       on which the controller is working
      * @param controllerFacade the front-facing interface for the controller package
      */
-    public ChoiceOptionSettingsController(int choiceOptionId, ControllerFacade controllerFacade) {
+    ChoiceOptionSettingsController(int choiceOptionId, ControllerFacade controllerFacade) {
         this.choiceOptionId = choiceOptionId;
         this.controllerFacade = controllerFacade;
 
@@ -157,7 +157,7 @@ public class ChoiceOptionSettingsController implements IconDisplayingController 
      * {@link ChoiceOption} with
      * index {@link ChoiceOptionSettingsController#choiceOptionId}.
      */
-    public void actionOnNewRouteSectionButton(){
+    private void actionOnNewRouteSectionButton(){
         controllerFacade.getProject().getChoiceOptions().get(choiceOptionId)
                 .addRouteSection(new RouteSection(controllerFacade.getProject().getIconManager().getDefaultIcon()));
         updateRouteSections();

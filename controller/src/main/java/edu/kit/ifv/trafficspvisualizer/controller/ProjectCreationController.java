@@ -19,7 +19,7 @@ import java.text.ParseException;
  * @author ughhz
  * @version 1.0
  */
-public class ProjectCreationController {
+class ProjectCreationController {
 
     /**
      * Front-facing interface for the controller package.
@@ -32,7 +32,7 @@ public class ProjectCreationController {
      *
      * @param controllerFacade the front-facing interface for the controller package
      */
-    public ProjectCreationController(ControllerFacade controllerFacade) {
+    ProjectCreationController(ControllerFacade controllerFacade) {
         this.controllerFacade = controllerFacade;
         //creates and shows new stage
         controllerFacade.getViewFacade().

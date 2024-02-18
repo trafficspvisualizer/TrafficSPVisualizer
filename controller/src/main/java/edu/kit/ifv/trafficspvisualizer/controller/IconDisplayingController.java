@@ -8,7 +8,7 @@ import edu.kit.ifv.trafficspvisualizer.model.icon.Icon;
  * can always send an update request after successful icon selection.
  *
  */
-public interface IconDisplayingController {
+interface IconDisplayingController {
 
     /**
      * Updates icon in associated stage.

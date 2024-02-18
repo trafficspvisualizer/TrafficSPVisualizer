@@ -15,7 +15,7 @@ import edu.kit.ifv.trafficspvisualizer.view.window.AttributeSettingsStage;
  * @author ughhz
  * @version 1.0
  */
-public class AttributeSettingsController implements IconDisplayingController {
+class AttributeSettingsController implements IconDisplayingController {
 
     /**
      * Front-facing interface for the controller package.
@@ -36,7 +36,7 @@ public class AttributeSettingsController implements IconDisplayingController {
      * @param controllerFacade the front-facing interface for the controller package
      * @param abstractAttributeIndex the index of the attribute on which the controller is working
      */
-    public AttributeSettingsController(ControllerFacade controllerFacade, int abstractAttributeIndex, boolean workingOnNewAttribute) {
+    AttributeSettingsController(ControllerFacade controllerFacade, int abstractAttributeIndex, boolean workingOnNewAttribute) {
         this.controllerFacade = controllerFacade;
         this.abstractAttributeIndex = abstractAttributeIndex;
         this.workingOnNewAttribute = workingOnNewAttribute;
