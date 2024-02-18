@@ -27,6 +27,10 @@ public class ChoiceOptionImage {
         this.image = image;
     }
 
+    public void add(String info) {
+        infos.put(infos.size(), info);
+    }
+
     public List<String> getInfos() {
         return List.copyOf(infos.values());
     }
