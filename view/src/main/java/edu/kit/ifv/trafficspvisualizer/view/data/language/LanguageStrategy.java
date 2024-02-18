@@ -180,6 +180,28 @@ public abstract class LanguageStrategy {
     public abstract String getSaveProjectErrorAlertContentText();
 
     /**
+     * Gets the title for the alert shown when an error occurs while trying to update preview.
+     *
+     * @return The title of the preview error alert.
+     */
+    public abstract String getPreviewErrorAlertTitle();
+
+    /**
+     * Gets the header text for the alert shown when an error occurs while trying to update preview.
+     *
+     * @return The header text of the preview error alert.
+     */
+    public abstract String getPreviewErrorAlertHeaderText();
+
+    /**
+     * Gets the content text for the alert shown when an error occurs while trying to update preview.
+     *
+     * @return The content text of the preview error alert.
+     */
+    public abstract String getPreviewErrorAlertContentText();
+
+
+    /**
      * Gets the title for the alert shown when an error occurs while creating a new project.
      *
      * @return The title of the new project error alert.

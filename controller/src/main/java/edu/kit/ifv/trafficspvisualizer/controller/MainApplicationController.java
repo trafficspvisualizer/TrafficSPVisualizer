@@ -259,8 +259,8 @@ public class MainApplicationController {
             controllerFacade.getViewFacade().getMainApplicationWindow()
                     .setPreviewImage(situationGenerator.createPreviewImage(controllerFacade.getProject()));
         } catch (InvalidDataKeyException e) {
-            //TODO: placeholder
-            e.printStackTrace();
+            controllerFacade.getViewFacade().getMainApplicationWindow().showPreviewErrorAlert();
+            return;
         }
 
         controllerFacade.getViewFacade().getMainApplicationWindow().updateCurrentPreviewSituation();

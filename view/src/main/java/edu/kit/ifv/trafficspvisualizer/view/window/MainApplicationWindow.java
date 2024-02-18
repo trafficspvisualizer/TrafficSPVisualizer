@@ -621,6 +621,20 @@ public class MainApplicationWindow {
     }
 
     /**
+     * Shows an error alert indicating that there is a problem with updating the preview.
+     */
+    public void showPreviewErrorAlert() {
+        LanguageStrategy languageStrategy = viewFacade.getLanguageStrategy();
+
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(languageStrategy.getPreviewErrorAlertTitle());
+        alert.setHeaderText(languageStrategy.getPreviewErrorAlertHeaderText());
+        alert.setContentText(languageStrategy.getPreviewErrorAlertContentText());
+
+        alert.showAndWait();
+    }
+
+    /**
      * Closes this {@link MainApplicationWindow} and the whole application.
      */
     public void close() {

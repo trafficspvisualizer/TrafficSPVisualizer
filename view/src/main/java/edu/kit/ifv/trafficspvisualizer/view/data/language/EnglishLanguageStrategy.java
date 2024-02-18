@@ -73,6 +73,14 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
     private final static String SAVE_PROJECT_ERROR_ALERT_CONTENT_TEXT =
             "Please check if you selected a valid save directory.";
 
+    private final static String PREVIEW_ERROR_ALERT_TITLE = ERROR_ALERT_TITLE;
+
+    private final static String PREVIEW_ERROR_ALERT_HEADER_TEXT =
+            "Something went wrong! Could not update preview!";
+
+    private final static String PREVIEW_ERROR_ALERT_CONTENT_TEXT =
+            "Please check if you selected valid values.";
+
     private final static String NEW_PROJECT_ERROR_ALERT_TITLE = ERROR_ALERT_TITLE;
 
     private final static String NEW_PROJECT_ERROR_ALERT_HEADER_TEXT =
@@ -350,6 +358,18 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
 
     public String getSaveProjectErrorAlertContentText() {
         return SAVE_PROJECT_ERROR_ALERT_CONTENT_TEXT;
+    }
+
+    public String getPreviewErrorAlertTitle() {
+        return PREVIEW_ERROR_ALERT_TITLE;
+    }
+
+    public String getPreviewErrorAlertHeaderText() {
+        return PREVIEW_ERROR_ALERT_HEADER_TEXT;
+    }
+
+    public String getPreviewErrorAlertContentText() {
+        return PREVIEW_ERROR_ALERT_CONTENT_TEXT;
     }
 
     public String getNewProjectErrorAlertTitle() {
