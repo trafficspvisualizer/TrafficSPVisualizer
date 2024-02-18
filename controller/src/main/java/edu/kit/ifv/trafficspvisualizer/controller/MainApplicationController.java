@@ -11,6 +11,7 @@ import edu.kit.ifv.trafficspvisualizer.util.image.ImageCollectionGenerator;
 import edu.kit.ifv.trafficspvisualizer.util.image.SituationGenerator;
 import edu.kit.ifv.trafficspvisualizer.util.project.StandardProjectLoader;
 import edu.kit.ifv.trafficspvisualizer.util.project.StandardProjectSaver;
+import edu.kit.ifv.trafficspvisualizer.view.window.InstructionStage;
 import edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow;
 import javafx.event.Event;
 import javafx.scene.control.Button;
@@ -102,12 +103,10 @@ public class MainApplicationController {
     }
 
     /**
-     * Instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow} to show help dialog.
+     * Creates new instance of {@link InstructionStage}.
      */
     private void actionOnHelpButton(){
-        //TODO: missing help dialog
-        //controllerFacade.getViewFacade().getMainApplicationWindow().showHelpDialog();
-
+        new InstructionStage();
     }
 
     /**
