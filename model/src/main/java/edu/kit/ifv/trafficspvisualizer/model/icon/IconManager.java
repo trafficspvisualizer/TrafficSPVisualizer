@@ -8,7 +8,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -70,7 +69,9 @@ public class IconManager {
         }
 
         for (String iconName : defaultIconNames) {
-            try (InputStream iconStream = IconManager.class.getResourceAsStream("/defaultIcons/" + iconName)) {
+            try (InputStream iconStream = IconManager.class.getResourceAsStream(
+                    "%s/%s".formatted(DEFAULT_ICON_DIR, iconName))
+            ) {
                 createIcon(Objects.requireNonNull(iconStream));
             }
         }
@@ -78,8 +79,7 @@ public class IconManager {
 
     private void initIcons(Path iconDirectory) throws IOException {
         if (!iconDirectory.toFile().isDirectory()) {
-            //TODO: Maybe throw an exception?
-            return;
+            throw new IOException();
         }
         File[] iconFiles = iconDirectory.toFile().listFiles();
         if (iconFiles == null) {
