@@ -33,6 +33,7 @@ public class StandardImageGenerator extends ImageGenerator{
     private java.awt.Color color;
     private int currentXCoordinate;
     private Font headlineFont;
+    private Font attributeFont;
     SVGToBufferedImageConverter svgToBufferedImageConverter;
     @Override
     public BufferedImage createChoiceOption(ChoiceOption choiceOption, DataObject dataObject,
@@ -50,6 +51,8 @@ public class StandardImageGenerator extends ImageGenerator{
         this.attributes = attributes;
         this.dataObject = dataObject;
         this.situationIndex = situationIndex;
+        int attributeFontSize = (int) (height * 8.33333 / 100);
+        this.attributeFont = new Font("Arial", Font.BOLD, attributeFontSize);
         javafx.scene.paint.Color fxColor = choiceOption.getColor();
         this.color = new java.awt.Color((float) fxColor.getRed(),
                 (float) fxColor.getGreen(),
@@ -73,14 +76,14 @@ public class StandardImageGenerator extends ImageGenerator{
         Graphics2D graphics2DHeadline = headlineImage.createGraphics();
         fillGraphicWhite(graphics2DHeadline, width, heightOfHeadline);
 
-        int sizeOfFont = heightOfHeadline / 3;
+        int sizeOfFont = heightOfHeadline / 2;
         headlineFont = new Font("Arial Bold", Font.BOLD, sizeOfFont);
         graphics2DHeadline.setFont(headlineFont);
         String headline = choiceOption.getTitle();
         int maxHeadlineWidth = width - 2 * distanceToSide;
         makeStringFit(graphics2DHeadline, maxHeadlineWidth, headline);
         graphics2DHeadline.setColor(color);
-        graphics2DHeadline.drawString(headline, distanceToSide, ( 2 * heightOfHeadline) / 3);
+        graphics2DHeadline.drawString(headline, distanceToSide,  3 * heightOfHeadline / 4);
         graphics2DHeadline.dispose();
         graphics2DChoiceOption.drawImage(headlineImage,0,0,null);
     }
@@ -170,7 +173,7 @@ public class StandardImageGenerator extends ImageGenerator{
                     currentXCoordinate + imageLengthOfRouteSection, routeSectionDrawingHeight);
 
             String subText = (getRoundedString(0, lengthOfRouteSection)) + " min";
-            graphics2DChoiceOption.setFont(headlineFont);
+            graphics2DChoiceOption.setFont(attributeFont);
             FontMetrics fontMetrics = graphics2DChoiceOption.getFontMetrics();
             int textWidth = fontMetrics.stringWidth(subText);
             int x = currentXCoordinate + (imageLengthOfRouteSection - textWidth) / 2;
@@ -207,7 +210,6 @@ public class StandardImageGenerator extends ImageGenerator{
         fillGraphicWhite(g2DAttribute, attributeWidth, attributeHeight);
         g2DAttribute.setColor(color);
         BufferedImage iconImage;
-        Font attributeFont = headlineFont;
         g2DAttribute.setFont(attributeFont);
         String secondLineString = getRoundedString(attribute.getDecimalPlaces(), imageAttributeValue) + suffix;
         int maxTextWidth = attributeWidth - attributeWidth / 4;
