@@ -577,6 +577,14 @@ public abstract class LanguageStrategy {
     public abstract String getExportSettingsExportTypeText();
 
     /**
+     * Gets the text for the html variable name in the
+     * {@link edu.kit.ifv.trafficspvisualizer.view.window.ExportSettingsStage}.
+     *
+     * @return A {@code String} representing the text for the html variable name.
+     */
+    public abstract String getExportSettingsHtmlVariableNameText();
+
+    /**
      * Gets the text for the save button in the
      * {@link edu.kit.ifv.trafficspvisualizer.view.window.ExportSettingsStage}.
      *

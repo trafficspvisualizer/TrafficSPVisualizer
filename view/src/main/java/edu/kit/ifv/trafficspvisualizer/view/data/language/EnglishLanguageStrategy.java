@@ -198,6 +198,8 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
 
     private final static String EXPORT_SETTINGS_EXPORT_TYPE_TEXT = "Export type:";
 
+    private final static String EXPORT_SETTINGS_HTML_VARIABLE_NAME_TEXT = "HTML variable name:";
+
     private final static String EXPORT_SETTINGS_SAVE_BUTTON_TEXT = ATTRIBUTE_SETTINGS_SAVE_BUTTON_TEXT;
 
     private final static String EXPORT_SETTINGS_CANCEL_BUTTON_TEXT = ATTRIBUTE_SETTINGS_CANCEL_BUTTON_TEXT;
@@ -585,6 +587,10 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
 
     public String getExportSettingsExportTypeText() {
         return EXPORT_SETTINGS_EXPORT_TYPE_TEXT;
+    }
+
+    public String getExportSettingsHtmlVariableNameText() {
+        return EXPORT_SETTINGS_HTML_VARIABLE_NAME_TEXT;
     }
 
     public String getExportSettingsSaveButtonText() {
