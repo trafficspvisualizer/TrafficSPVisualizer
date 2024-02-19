@@ -32,14 +32,14 @@ class HTMLExporterTest {
             image = ImageIO.read(file);
             image2 = ImageIO.read(file);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            fail();
         }
         ChoiceOptionImage choiceOptionImage = new ChoiceOptionImage();
         ChoiceOptionImage choiceOptionImage2 = new ChoiceOptionImage();
         choiceOptionImage.setImage(image);
-        choiceOptionImage.setTitle("sddsa");
+        choiceOptionImage.setTitle("Test1");
         choiceOptionImage2.setImage(image2);
-        choiceOptionImage2.setTitle("asdawqeqw");
+        choiceOptionImage2.setTitle("Test2");
         choiceOptionImage.add("00");
         choiceOptionImage.add("321");
         Exporter imageExporter = new HTMLExporter();
@@ -57,7 +57,7 @@ class HTMLExporterTest {
         try {
             imageExporter.export(choiceOptionImages, files.toFile(), "sd");
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            fail();
         }
     }
 }
