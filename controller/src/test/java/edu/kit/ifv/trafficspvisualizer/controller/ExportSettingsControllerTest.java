@@ -1,6 +1,5 @@
 package edu.kit.ifv.trafficspvisualizer.controller;
 
-
 import edu.kit.ifv.trafficspvisualizer.model.settings.ExportSettings;
 import edu.kit.ifv.trafficspvisualizer.model.settings.ExportType;
 import edu.kit.ifv.trafficspvisualizer.model.settings.FileFormat;
@@ -24,6 +23,8 @@ public class ExportSettingsControllerTest {
     private ViewFacade viewFacadeMock;
     private ExportSettingsController exportSettingsController;
 
+    private ExportSettingsStage exportSettingsStageMock;
+
     @BeforeAll
     static void setUpClass() {
         new JFXPanel();
@@ -33,25 +34,23 @@ public class ExportSettingsControllerTest {
         Platform.runLater(() -> {
             controllerFacadeMock = mock(ControllerFacade.class);
             viewFacadeMock = mock(ViewFacade.class);
+            exportSettingsController = new ExportSettingsController(controllerFacadeMock);
+            exportSettingsStageMock = mock(ExportSettingsStage.class);
 
             when(controllerFacadeMock.getViewFacade()).thenReturn(viewFacadeMock);
-
-            exportSettingsController = new ExportSettingsController(controllerFacadeMock);
+            when(controllerFacadeMock.getViewFacade().getExportSettingsStage()).thenReturn(exportSettingsStageMock);
         });
     }
 
     @Test
     public void testActionOnExportFolderButton() {
         Platform.runLater(() -> {
-        // Mock the ExportSettingsStage
         ExportSettingsStage exportSettingsStageMock = mock(ExportSettingsStage.class);
         when(controllerFacadeMock.getViewFacade().getExportSettingsStage()).thenReturn(exportSettingsStageMock);
 
-        // Simulate user selecting a directory
         File selectedDirectory = new File("testDirectory");
         when(exportSettingsStageMock.showDirectoryChooserDialog()).thenReturn(selectedDirectory);
 
-        // Perform action on export folder button
         try {
             Method method = exportSettingsController.getClass().getMethod("actionOnExportFolderButton");
             method.setAccessible(true);
@@ -60,20 +59,18 @@ public class ExportSettingsControllerTest {
             fail();
         }
 
-        // Verify that the export directory is set correctly
         verify(exportSettingsStageMock).setExportDirectory(selectedDirectory);
     });
     }
     @Test
     public void testActionOnExportFolderButtonNull() {
         Platform.runLater(() -> {
-            // Mock the ExportSettingsStage
+
             ExportSettingsStage exportSettingsStageMock = mock(ExportSettingsStage.class);
             when(controllerFacadeMock.getViewFacade().getExportSettingsStage()).thenReturn(exportSettingsStageMock);
 
             when(exportSettingsStageMock.showDirectoryChooserDialog()).thenReturn(null);
 
-            // Perform action on export folder button
             try {
                 Method method = exportSettingsController.getClass().getMethod("actionOnExportFolderButton");
                 method.setAccessible(true);
@@ -82,27 +79,47 @@ public class ExportSettingsControllerTest {
                 fail();
             }
 
-            // Verify that the export directory is not set
-            verify(exportSettingsStageMock, times(0)).setExportDirectory(null);
+            verify(exportSettingsStageMock, never()).setExportDirectory(null);
         });
     }
 
     @Test
-    public void testActionOnSaveButton() {
-        // Mock the ExportSettingsStage
+    public void testActionOnSaveButtonValidInput() {
         Platform.runLater(() -> {
             ExportSettingsStage exportSettingsStageMock = mock(ExportSettingsStage.class);
             when(controllerFacadeMock.getViewFacade().getExportSettingsStage()).thenReturn(exportSettingsStageMock);
 
-
-        // Set up mock data
         when(exportSettingsStageMock.getHeightString()).thenReturn("100");
         when(exportSettingsStageMock.getWidthString()).thenReturn("200");
         when(exportSettingsStageMock.getExportDirectory()).thenReturn(new File("testDirectory"));
         when(exportSettingsStageMock.getExportType()).thenReturn(ExportType.CHOICE_OPTION);
         when(exportSettingsStageMock.getHtmlVariableName()).thenReturn("testHtmlVariable");
 
-        // Perform action on save button
+
+        try {
+            Method method = exportSettingsController.getClass().getMethod("actionOnSaveButton");
+            method.setAccessible(true);
+            method.invoke(exportSettingsController);
+        } catch (Exception e) {
+            fail();
+        }
+
+
+        ExportSettings expectedExportSettings = new ExportSettings(100, 200, new File("testDirectory").toPath(),
+                FileFormat.PNG, ExportType.CHOICE_OPTION, "testHtmlVariable");
+        verify(controllerFacadeMock.getProject()).setExportSettings(expectedExportSettings);
+        });
+    }
+    @Test
+    public void testActionOnSaveButtonInvalidEmptyInput() {
+        Platform.runLater(() -> {
+
+            when(exportSettingsStageMock.getHeightString()).thenReturn("");
+            when(exportSettingsStageMock.getWidthString()).thenReturn("");
+            when(exportSettingsStageMock.getExportDirectory()).thenReturn(null);
+            when(exportSettingsStageMock.getExportType()).thenReturn(null);
+            when(exportSettingsStageMock.getHtmlVariableName()).thenReturn("testHtmlVariable");
+
             try {
                 Method method = exportSettingsController.getClass().getMethod("actionOnSaveButton");
                 method.setAccessible(true);
@@ -111,11 +128,30 @@ public class ExportSettingsControllerTest {
                 fail();
             }
 
+            verify(controllerFacadeMock.getViewFacade().getExportSettingsStage()).showSaveErrorAlert();
+        });
+    }
+    @Test
+    public void testActionOnSaveButtonInvalidEmptyNoInteger() {
+        Platform.runLater(() -> {
+            ExportSettingsStage exportSettingsStageMock = mock(ExportSettingsStage.class);
+            when(controllerFacadeMock.getViewFacade().getExportSettingsStage()).thenReturn(exportSettingsStageMock);
 
-        // Verify that export settings are set correctly in the model
-        ExportSettings expectedExportSettings = new ExportSettings(100, 200, new File("testDirectory").toPath(),
-                FileFormat.PNG, ExportType.CHOICE_OPTION, "testHtmlVariable");
-        verify(controllerFacadeMock.getProject()).setExportSettings(expectedExportSettings);
+            when(exportSettingsStageMock.getHeightString()).thenReturn("test");
+            when(exportSettingsStageMock.getWidthString()).thenReturn("test");
+            when(exportSettingsStageMock.getExportDirectory()).thenReturn(new File("testDirectory"));
+            when(exportSettingsStageMock.getExportType()).thenReturn(ExportType.CHOICE_OPTION);
+            when(exportSettingsStageMock.getHtmlVariableName()).thenReturn("testHtmlVariable");
+
+            try {
+                Method method = exportSettingsController.getClass().getMethod("actionOnSaveButton");
+                method.setAccessible(true);
+                method.invoke(exportSettingsController);
+            } catch (Exception e) {
+                fail();
+            }
+
+            verify(controllerFacadeMock.getViewFacade().getExportSettingsStage()).showSaveErrorAlert();
         });
     }
 }
