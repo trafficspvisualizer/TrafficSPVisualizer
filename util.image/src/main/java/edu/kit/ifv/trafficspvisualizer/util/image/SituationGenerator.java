@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 
 public class SituationGenerator extends ImageCollectionGenerator {
     private static final int PREVIEW_WIDTH = 1920;
-    private static final int PREVIEW_CHOICEOPTION_HEIGHT = 180;
+    private static final int PREVIEW_CHOICEOPTION_HEIGHT = 270;
 
 
 
