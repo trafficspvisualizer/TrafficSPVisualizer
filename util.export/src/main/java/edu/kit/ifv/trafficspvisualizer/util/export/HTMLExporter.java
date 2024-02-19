@@ -64,6 +64,12 @@ public class HTMLExporter extends Exporter { //todo aufteilen in einzelen Situat
         try (var writer = Files.newBufferedWriter(tempFilePath)) {
             writeHtmlContent(imageGroup, writer);
         }
+
+
+        Path path = Paths.get(file.toString() + "\\" + directoryName);
+        if (!path.toFile().exists()) {
+            path.toFile().mkdir();
+        }
         Path finalFilePath = Paths.get(file.toString() + "\\" + directoryName , "trafficSPVisualizer.html");
         Files.move(tempFilePath, finalFilePath, StandardCopyOption.REPLACE_EXISTING);
     }

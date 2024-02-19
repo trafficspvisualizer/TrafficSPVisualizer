@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Objects;
 
 
 /**
@@ -25,7 +26,7 @@ public class ImageExporter extends Exporter {
     @Override
     public void export(ChoiceOptionImage[] images, File file, String name) throws IOException {
         File newDirectory = createDirectory(file);
-        directoryName = name;
+        this.directoryName = name;
         for (ChoiceOptionImage image : images) {
             Path imagePath = Paths.get(newDirectory.getPath() + File.separator + constructImagePath(image));
             Files.createDirectories(imagePath.getParent());
@@ -38,7 +39,25 @@ public class ImageExporter extends Exporter {
     }
 
     /**
-     * Creates a new directory for the images. If the directory already exists, it is replaced.
+     * Deletes a file or directory and all its contents.
+     *
+     * @param file The file or directory to delete.
+     * @throws IOException If the file or directory cannot be deleted.
+     */
+    private void deleteFileOrDirectory(File file) throws IOException {
+        if (file.isDirectory()) {
+            for (File subFile : Objects.requireNonNull(file.listFiles())) {
+                deleteFileOrDirectory(subFile);
+            }
+        }
+        boolean isDeleted = file.delete();
+        if (!isDeleted) {
+            throw new IOException("Failed to delete file or directory: " + file.getPath());
+        }
+    }
+
+    /**
+     * Creates a new directory for the images. If the directory already exists, it and its contents are replaced.
      *
      * @param file The file in which the new directory will be created.
      * @return The new directory.
@@ -47,10 +66,7 @@ public class ImageExporter extends Exporter {
     private File createDirectory(File file) throws IOException {
         File newDirectory = new File(file.getPath() + File.separator + directoryName);
         if (newDirectory.exists()) {
-            boolean isDeleted = newDirectory.delete();
-            if (!isDeleted) {
-                throw new IOException("Failed to delete existing directory: " + newDirectory.getPath());
-            }
+            deleteFileOrDirectory(newDirectory);
         }
         boolean isCreated = newDirectory.mkdir();
         if (!isCreated) {
@@ -58,5 +74,6 @@ public class ImageExporter extends Exporter {
         }
         return newDirectory;
     }
+
 
 }

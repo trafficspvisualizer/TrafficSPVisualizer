@@ -57,6 +57,7 @@ class HTMLExporterTest {
         try {
             imageExporter.export(choiceOptionImages, files.toFile(), "sd");
         } catch (IOException e) {
+            System.out.println(e.getMessage());
             fail();
         }
     }

@@ -55,13 +55,14 @@ public abstract class AbstractLoader {
      * @param attributes The JSONArray to create the AbstractAttribute from.
      * @return The created list of AbstractAttribute.
      */
-    protected List<AbstractAttribute> createAttributes(JSONArray attributes) {
+    protected List<AbstractAttribute> createAttributes(JSONArray attributes, List<ChoiceOption> choiceOptions) {
         return IntStream.range(0, attributes.length())
                 .mapToObj(attributes::getJSONObject)
-                .map(this::createAttribute)
+                .map(jsonObject -> this.createAttribute(jsonObject, choiceOptions))
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
     }
+
 
     /**
      * Creates an AbstractAttribute from a JSONObject.
@@ -69,9 +70,9 @@ public abstract class AbstractLoader {
      * @param jsonObject The JSONObject to create the AbstractAttribute from.
      * @return The created AbstractAttribute, or null if the JSONObject does not represent an attribute.
      */
-    protected AbstractAttribute createAttribute(JSONObject jsonObject) {
+    protected AbstractAttribute createAttribute(JSONObject jsonObject, List<ChoiceOption> choiceOptions) {
         if (jsonObject.has(JsonKeys.KEY_ATTRIBUTE.getKey())) {
-            return createAttributeFromJson(jsonObject.getJSONObject(JsonKeys.KEY_ATTRIBUTE.getKey()));
+            return createAttributeFromJson(jsonObject.getJSONObject(JsonKeys.KEY_ATTRIBUTE.getKey()),choiceOptions);
         } else if (jsonObject.has(JsonKeys.KEY_LINE_SEPARATOR.getKey())) {
             return new SeparatorLine();
         }
@@ -84,14 +85,14 @@ public abstract class AbstractLoader {
      * @param attributeJSON The JSONObject to create the Attribute from.
      * @return The created Attribute.
      */
-    protected Attribute createAttributeFromJson(JSONObject attributeJSON) {
+    protected Attribute createAttributeFromJson(JSONObject attributeJSON, List<ChoiceOption> choiceOptions) {
         String prefix = attributeJSON.optString(JsonKeys.KEY_PREFIX.getKey());
         String name = attributeJSON.optString(JsonKeys.KEY_NAME.getKey());
         String suffix = attributeJSON.optString(JsonKeys.KEY_SUFFIX.getKey());
         boolean vis = attributeJSON.optBoolean(JsonKeys.KEY_PERMANENTLY_VISIBLE.getKey());
         int dec = attributeJSON.optInt(JsonKeys.KEY_DECIMAL_PLACES.getKey());
         Map<ChoiceOption,List<String>> choiceOptionMap = createChoiceOptions(attributeJSON.optJSONArray
-                (JsonKeys.KEY_CHOICE_OPTION_MAPPINGS.getKey()));
+                (JsonKeys.KEY_CHOICE_OPTION_MAPPINGS.getKey()), choiceOptions);
         return new Attribute(name,null, prefix, suffix, vis, dec, choiceOptionMap, true);
     }
 
@@ -101,10 +102,10 @@ public abstract class AbstractLoader {
      * @param choiceOptions The JSONArray to create the map from.
      * @return The created map.
      */
-    protected Map<ChoiceOption,List<String>> createChoiceOptions(JSONArray choiceOptions) {
+    protected Map<ChoiceOption,List<String>> createChoiceOptions(JSONArray choiceOptions, List<ChoiceOption> choiceOption) {
         return IntStream.range(0, choiceOptions.length())
                 .mapToObj(choiceOptions::getJSONObject)
-                .collect(Collectors.toMap(this::createOneChoiceOption, this::createList));
+                .collect(Collectors.toMap(jsonObject -> this.createOneChoiceOption(jsonObject, choiceOption), this::createList));
     }
 
     /**
@@ -126,13 +127,17 @@ public abstract class AbstractLoader {
      * @param jsonObject The JSONObject to create the ChoiceOption from.
      * @return The created ChoiceOption.
      */
-    protected ChoiceOption createOneChoiceOption(JSONObject jsonObject) {
+    protected ChoiceOption createOneChoiceOption(JSONObject jsonObject, List<ChoiceOption> choiceOptions) {
         JSONObject choiceOption = jsonObject.getJSONObject(JsonKeys.KEY_CHOICE_OPTION.getKey());
         String name = choiceOption.optString(JsonKeys.KEY_NAME_CHOICE_OPTION.getKey());
         String title = choiceOption.optString(JsonKeys.KEY_TITLE.getKey());
         String colour = choiceOption.optString(JsonKeys.KEY_COLOR.getKey());
         JSONArray routeSection = choiceOption.optJSONArray(JsonKeys.KEY_ROUTE_SECTIONS.getKey());
-
+        if (choiceOptions != null) {
+           for (ChoiceOption choiceOption1: choiceOptions) {
+               if (choiceOption1.getName().equals(name)) return choiceOption1;
+           }
+        }
         return new ChoiceOption(name,title,createRouteSectionList(routeSection) ,Color.valueOf(colour));
     }
 
@@ -193,9 +198,9 @@ public abstract class AbstractLoader {
         JSONArray jsonAttributes = jsonProject.optJSONArray(JsonKeys.KEY_ATTRIBUTES.getKey());
         JSONArray jsonChoiceOptions = jsonProject.optJSONArray(JsonKeys.KEY_CHOICE_OPTIONS.getKey());
         JSONObject jsonExportSettings = jsonProject.optJSONObject(JsonKeys.KEY_EXPORT_SETTINGS.getKey());
-        List<AbstractAttribute> attributes = createAttributes(jsonAttributes);
-        List<ChoiceOption> choiceOptions = createChoiceOptionList(attributes);
-        choiceOptions = allChoiceOptions(choiceOptions,jsonChoiceOptions);
+        List<ChoiceOption> choiceOptions = allChoiceOptions(jsonChoiceOptions);
+        List<AbstractAttribute> attributes = createAttributes(jsonAttributes,choiceOptions);
+
         ExportSettings exportSettings = createExportSettings(jsonExportSettings);
         Project project = new Project(name, projectDir, dataObject, attributes, choiceOptions, exportSettings,
                 iconDir, ngdFile);
@@ -227,18 +232,13 @@ public abstract class AbstractLoader {
         }
     }
 
-    protected List<ChoiceOption> allChoiceOptions(List<ChoiceOption> choiceOptionsList, JSONArray jsonChoiceOptions) {
-        List<ChoiceOption> fromArray = new ArrayList<>();
+    protected List<ChoiceOption> allChoiceOptions(JSONArray jsonChoiceOptions) {
+        List<ChoiceOption> choiceOptions = new ArrayList<>();
         for (Object object: jsonChoiceOptions) {
             JSONObject jsonObject = (JSONObject)object;
-            fromArray.add(createOneChoiceOption(jsonObject));
+            choiceOptions.add(createOneChoiceOption(jsonObject,null));
         }
-        for (ChoiceOption choiceOption: fromArray) {
-            if (!choiceOptionsList.contains(choiceOption)) {
-                choiceOptionsList.add(choiceOption);
-            }
-        }
-        return choiceOptionsList;
+        return choiceOptions;
     }
 
     /**
