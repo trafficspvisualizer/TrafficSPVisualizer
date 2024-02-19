@@ -14,7 +14,7 @@ import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ExporterTest {
+class HTMLExporterTest {
 
     @Test
     void export() {
@@ -55,9 +55,9 @@ class ExporterTest {
             fail();
         }
         try {
-        imageExporter.export(choiceOptionImages, files.toFile());
+            imageExporter.export(choiceOptionImages, files.toFile());
         } catch (IOException e) {
-        throw new RuntimeException(e);
+            throw new RuntimeException(e);
         }
     }
 }
