@@ -62,7 +62,7 @@ public class HTMLExporter extends Exporter {
         try (var writer = Files.newBufferedWriter(tempFilePath)) {
             writeHtmlContent(imageGroup, writer);
         }
-        Path finalFilePath = Paths.get(file.toString() + "\\images\\", "trafficSPVisualizer.html");
+        Path finalFilePath = Paths.get(file.toString() + "\\trafficSPVisulizer\\", "trafficSPVisualizer.html");
         Files.move(tempFilePath, finalFilePath, StandardCopyOption.REPLACE_EXISTING);
     }
 
