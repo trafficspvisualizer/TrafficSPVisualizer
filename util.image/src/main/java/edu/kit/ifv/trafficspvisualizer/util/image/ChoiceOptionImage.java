@@ -41,7 +41,7 @@ public class ChoiceOptionImage {
         return infos.get(2);
     }
     public String getTitle() {
-        return infos.get(2);
+        return infos.get(3);
     }
 
     public String getScenarioNumber() {
@@ -71,6 +71,6 @@ public class ChoiceOptionImage {
 
     public void setTitle(String title) {
         Objects.requireNonNull(title);
-        infos.set(4,title);
+        infos.set(3,title);
     }
 }

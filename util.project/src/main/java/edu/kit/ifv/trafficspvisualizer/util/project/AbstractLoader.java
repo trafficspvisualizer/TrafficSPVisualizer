@@ -197,15 +197,16 @@ public abstract class AbstractLoader {
     protected void updateProjectRouteSection(Project project, JSONArray jsonChoiceOptions) {
         for (int i = 0; i < project.getChoiceOptions().size(); i++) {
             JSONObject obj = jsonChoiceOptions.optJSONObject(i);
-            JSONArray routeSectionJSON = obj.optJSONObject(JsonKeys.KEY_CHOICE_OPTION.getKey()).optJSONArray(JsonKeys.KEY_ROUTE_SECTIONS.getKey());
-
-            ChoiceOption choiceOption = project.getChoiceOptions().get(i);
-            for (int j = 0; j < choiceOption.getRouteSections().size(); j++) {
-                JSONObject route = routeSectionJSON.getJSONObject(j);
-                choiceOption.getRouteSections().get(j).setIcon(project.getIconManager().getIcons().get(route.optInt(JsonKeys.KEY_ICON.getKey())));
+            if (obj != null) {
+                JSONArray routeSectionJSON = obj.optJSONObject(JsonKeys.KEY_CHOICE_OPTION.getKey()).optJSONArray(JsonKeys.KEY_ROUTE_SECTIONS.getKey());
+                ChoiceOption choiceOption = project.getChoiceOptions().get(i);
+                for (int j = 0; j < choiceOption.getRouteSections().size(); j++) {
+                    if (!routeSectionJSON.isEmpty() &&  !routeSectionJSON.getJSONObject(j).isEmpty()) {
+                        JSONObject route = routeSectionJSON.getJSONObject(j);
+                        choiceOption.getRouteSections().get(j).setIcon(project.getIconManager().getIcons().get(route.optInt(JsonKeys.KEY_ICON.getKey())));
+                    }
+                }
             }
-
-
         }
     }
 
