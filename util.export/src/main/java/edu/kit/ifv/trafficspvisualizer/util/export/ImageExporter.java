@@ -13,7 +13,7 @@ import java.nio.file.Paths;
  * Exporter class for exporting images.
  */
 public class ImageExporter extends Exporter {
-        private static final String DIRECTORY_NAME = "TrafficSPVisualizer";
+        private String directoryName = "TrafficSPVisualizer";
 
     /**
      * Exports an array of images to a specified file.
@@ -25,6 +25,7 @@ public class ImageExporter extends Exporter {
     @Override
     public void export(ChoiceOptionImage[] images, File file, String name) throws IOException {
         File newDirectory = createDirectory(file);
+        directoryName = name;
         for (ChoiceOptionImage image : images) {
             Path imagePath = Paths.get(newDirectory.getPath() + File.separator + constructImagePath(image));
             Files.createDirectories(imagePath.getParent());
@@ -37,18 +38,19 @@ public class ImageExporter extends Exporter {
     }
 
     /**
-     * Creates a new directory for the images. If the directory already exists, a number is appended to the name.
+     * Creates a new directory for the images. If the directory already exists, it is replaced.
      *
      * @param file The file in which the new directory will be created.
      * @return The new directory.
      * @throws IOException If the directory cannot be created.
      */
     private File createDirectory(File file) throws IOException {
-        int count = 0;
-        File newDirectory = new File(file.getPath() + File.separator + DIRECTORY_NAME);
-        while (newDirectory.exists()) {
-            count++;
-            newDirectory = new File(file.getPath() + File.separator + DIRECTORY_NAME + count);
+        File newDirectory = new File(file.getPath() + File.separator + directoryName);
+        if (newDirectory.exists()) {
+            boolean isDeleted = newDirectory.delete();
+            if (!isDeleted) {
+                throw new IOException("Failed to delete existing directory: " + newDirectory.getPath());
+            }
         }
         boolean isCreated = newDirectory.mkdir();
         if (!isCreated) {
@@ -56,4 +58,5 @@ public class ImageExporter extends Exporter {
         }
         return newDirectory;
     }
+
 }
