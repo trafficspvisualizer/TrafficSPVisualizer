@@ -1,12 +1,16 @@
 package edu.kit.ifv.trafficspvisualizer.model.icon;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -16,22 +20,8 @@ import java.util.Objects;
  * The {@link IconManager} also defines a set of default icons that are always loaded.
  */
 public class IconManager {
-    private static final String[] DEFAULT_ICON_NAMES = {
-        "empty.svg",
-        "bike.svg",
-        "bus.svg",
-        "car.svg",
-        "clock.svg",
-        "clock-rotate-left.svg",
-        "euro-sign.svg",
-        "hourglass-half.svg",
-        "house-chimney.svg",
-        "plane.svg",
-        "train.svg",
-        "tram.svg",
-        "walk.svg"
-    };
-
+    private static final String DEFAULT_ICON_DIR = "/defaultIcons";
+    private static final String DEFAULT_ICON_NAMES_FILE = "defaultIcons.txt";
     private static final String DIR_NAME = "icon";
     private final Path iconDir;
     private final Map<Integer, Icon> icons;
@@ -67,7 +57,19 @@ public class IconManager {
     }
 
     private void initDefaultIcons() throws IOException {
-        for (String iconName : DEFAULT_ICON_NAMES) {
+        List<String> defaultIconNames;
+        try (InputStream defaultIcons = IconManager.class.getResourceAsStream(
+                "%s/%s".formatted(DEFAULT_ICON_DIR, DEFAULT_ICON_NAMES_FILE))
+        ) {
+            if (defaultIcons == null) {
+                throw new IOException();
+            }
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(defaultIcons));
+            defaultIconNames = reader.lines().toList();
+        }
+
+        for (String iconName : defaultIconNames) {
             try (InputStream iconStream = IconManager.class.getResourceAsStream("/defaultIcons/" + iconName)) {
                 createIcon(Objects.requireNonNull(iconStream));
             }

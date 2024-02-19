@@ -1,0 +1,13 @@
+empty.svg
+bike.svg
+bus.svg
+car.svg
+clock.svg
+clock-rotate-left.svg
+euro-sign.svg
+hourglass-half.svg
+house-chimney.svg
+plane.svg
+train.svg
+tram.svg
+walk.svg
