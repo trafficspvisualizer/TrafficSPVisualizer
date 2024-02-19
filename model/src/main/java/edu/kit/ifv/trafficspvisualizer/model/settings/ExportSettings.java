@@ -12,6 +12,8 @@ public class ExportSettings {
     private FileFormat fileFormat;
     private ExportType exportType;
 
+    private String htmlVariableName;
+
     public ExportSettings(Path exportPath) {
         this.imageHeight = DEFAULT_HEIGHT;
         this.imageWidth = DEFAULT_WIDTH;
@@ -20,12 +22,13 @@ public class ExportSettings {
         this.exportType = ExportType.CHOICE_OPTION;
     }
 
-    public ExportSettings(int imageHeight, int imageWidth, Path exportPath, FileFormat fileFormat, ExportType exportType) {
+    public ExportSettings(int imageHeight, int imageWidth, Path exportPath, FileFormat fileFormat, ExportType exportType, String htmlVariableName) {
         this.imageHeight = imageHeight;
         this.imageWidth = imageWidth;
         this.exportPath = exportPath;
         this.fileFormat = fileFormat;
         this.exportType = exportType;
+        this.htmlVariableName = htmlVariableName;
     }
 
     public int getImageHeight() {
@@ -66,5 +69,13 @@ public class ExportSettings {
 
     public void setExportType(ExportType exportType) {
         this.exportType = exportType;
+    }
+
+    public String getHtmlVariableName() {
+        return htmlVariableName;
+    }
+
+    public void setHtmlVariableName(String htmlVariableName) {
+        this.htmlVariableName = htmlVariableName;
     }
 }

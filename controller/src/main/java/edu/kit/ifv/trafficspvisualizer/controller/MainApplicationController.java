@@ -178,7 +178,7 @@ class MainApplicationController {
 
         try {
             ChoiceOptionImage[] images = imageCollectionGenerator.createImage(controllerFacade.getProject());
-            exporter.export(images, controllerFacade.getProject().getExportSettings().getExportPath().toFile());
+            exporter.export(images, controllerFacade.getProject().getExportSettings().getExportPath().toFile(), controllerFacade.getProject().getName());
         } catch (NullPointerException | IOException | InvalidDataKeyException e) {
             controllerFacade.getViewFacade().getMainApplicationWindow().showExportErrorAlert();
         }

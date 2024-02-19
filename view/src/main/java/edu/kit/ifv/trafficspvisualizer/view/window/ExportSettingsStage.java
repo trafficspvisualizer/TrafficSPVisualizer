@@ -4,14 +4,9 @@ import edu.kit.ifv.trafficspvisualizer.model.settings.ExportSettings;
 import edu.kit.ifv.trafficspvisualizer.model.settings.ExportType;
 import edu.kit.ifv.trafficspvisualizer.model.Project;
 import edu.kit.ifv.trafficspvisualizer.view.ViewFacade;
-import edu.kit.ifv.trafficspvisualizer.view.data.font.FontLibrary;
 import edu.kit.ifv.trafficspvisualizer.view.data.image.ImageLibrary;
 import edu.kit.ifv.trafficspvisualizer.view.data.language.LanguageStrategy;
 import edu.kit.ifv.trafficspvisualizer.view.style.Styler;
-import javafx.geometry.HPos;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -60,6 +55,10 @@ public class ExportSettingsStage extends Stage {
     private Text exportTypeText;
 
     private ChoiceBox<String> exportTypeChoiceBox;
+
+    private Text htmlVariableNameText;
+
+    private TextField htmlVariableNameTextField;
 
     private GridPane
             configGridPane;
@@ -119,6 +118,10 @@ public class ExportSettingsStage extends Stage {
             exportTypeChoiceBox.getItems().add(languageStrategy.getExportTypeText(exportType));
         }
 
+        htmlVariableNameText = new Text(languageStrategy.getExportSettingsHtmlVariableNameText());
+
+        htmlVariableNameTextField = new TextField();
+
         configGridPane = new GridPane();
         configGridPane.add(choiceOptionSizeText, 0,0);
         configGridPane.add(heightText, 1,0);
@@ -130,6 +133,8 @@ public class ExportSettingsStage extends Stage {
         configGridPane.add(exportDirectoryButton, 3,2);
         configGridPane.add(exportTypeText, 0,3);
         configGridPane.add(exportTypeChoiceBox, 1,3,2,1);
+        configGridPane.add(htmlVariableNameText, 0,4);
+        configGridPane.add(htmlVariableNameTextField, 1,4);
 
 
         saveButton = new Button(languageStrategy.getExportSettingsSaveButtonText());
@@ -189,6 +194,12 @@ public class ExportSettingsStage extends Stage {
         Styler.leftCenterInGridPane(exportTypeChoiceBox);
         GridPane.setHgrow(exportTypeChoiceBox, Priority.ALWAYS);
 
+        //variableNameText
+        Styler.leftCenterMidFontTextInGridPane(htmlVariableNameText);
+
+        //variableNameTextField
+        Styler.leftCenterHGrowSmallFontTextFieldInGridPane(htmlVariableNameTextField);
+
         // configGridPane
         Styler.midHVGabMidPaddingGridPane(configGridPane);
 
@@ -223,6 +234,8 @@ public class ExportSettingsStage extends Stage {
 
         exportTypeChoiceBox.setValue(viewFacade.getLanguageStrategy()
                 .getExportTypeText(exportSettings.getExportType()));
+
+        htmlVariableNameTextField.setText(exportSettings.getHtmlVariableName());
     }
 
 
@@ -330,6 +343,10 @@ public class ExportSettingsStage extends Stage {
 
         // default value, method should never reach this point
         return ExportType.CHOICE_OPTION;
+    }
+
+    public String getHtmlVariableName() {
+        return htmlVariableNameTextField.getText();
     }
 
     /**

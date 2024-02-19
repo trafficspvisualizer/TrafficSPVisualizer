@@ -106,7 +106,7 @@ public abstract class AbstractSaver {
         jsonObject.put(JsonKeys.KEY_IMAGE_WIDTH.getKey(), exportSettings.getImageWidth());
         jsonObject.put(JsonKeys.KEY_FILE_FORMAT.getKey(), exportSettings.getFileFormat().toString());
         jsonObject.put(JsonKeys.KEY_EXPORT_TYPE.getKey(), exportSettings.getExportType().toString());
-
+        jsonObject.put(JsonKeys.KEY_HTML_VARIABLE.getKey(), exportSettings.getHtmlVariableName());
         return jsonObject;
     }
 
