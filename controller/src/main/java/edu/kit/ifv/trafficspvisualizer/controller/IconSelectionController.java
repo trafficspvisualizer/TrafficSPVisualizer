@@ -1,6 +1,6 @@
 package edu.kit.ifv.trafficspvisualizer.controller;
 
-import edu.kit.ifv.trafficspvisualizer.model.Icon;
+import edu.kit.ifv.trafficspvisualizer.model.icon.Icon;
 import edu.kit.ifv.trafficspvisualizer.view.window.IconSelectionStage;
 
 
@@ -18,7 +18,7 @@ import java.io.IOException;
  * @author ughhz
  * @version 1.0
  */
-public class IconSelectionController {
+class IconSelectionController {
 
     /**
      * Front-facing interface for the controller package.
@@ -42,8 +42,7 @@ public class IconSelectionController {
      * @param parentController the controller, which requested creation of IconSelectionController
      * @param index the index of the component for which an icon is selected
      */
-    public IconSelectionController(ControllerFacade controllerFacade, IconDisplayingController parentController,
-                                                                                                            int index) {
+    IconSelectionController(ControllerFacade controllerFacade, IconDisplayingController parentController, int index) {
         this.controllerFacade = controllerFacade;
         this.parentController = parentController;
         this.index = index;
@@ -60,7 +59,10 @@ public class IconSelectionController {
      */
     private void actionOnChooseButton() {
         int iconIdentifier = controllerFacade.getViewFacade().getIconSelectionStage().getSelectedIconIdentifier();
-        if (!controllerFacade.getProject().getIconManager().getIcons().containsKey(iconIdentifier)) return;
+        if (!controllerFacade.getProject().getIconManager().getIcons().containsKey(iconIdentifier)) {
+            controllerFacade.getViewFacade().getIconSelectionStage().showSelectIconErrorAlert();
+            return;
+        }
 
         Icon selectedIcon = controllerFacade.getProject().getIconManager().getIcons().get(iconIdentifier);
         parentController.updateIcon(selectedIcon, index);
@@ -109,5 +111,8 @@ public class IconSelectionController {
 
         // Cancel
         iconSelectionStage.getCancelButton().setOnAction(e -> actionOnCancelButton());
+
+        // Close Request - same event handler as cancel button
+        iconSelectionStage.setOnCloseRequest(e -> actionOnCancelButton());
     }
 }

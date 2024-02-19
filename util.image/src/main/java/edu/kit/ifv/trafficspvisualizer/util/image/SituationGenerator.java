@@ -1,14 +1,14 @@
 package edu.kit.ifv.trafficspvisualizer.util.image;
 
-import edu.kit.ifv.trafficspvisualizer.model.ChoiceOption;
-import edu.kit.ifv.trafficspvisualizer.model.InvalidDataKeyException;
+import edu.kit.ifv.trafficspvisualizer.model.settings.ChoiceOption;
+import edu.kit.ifv.trafficspvisualizer.model.data.InvalidDataKeyException;
 import edu.kit.ifv.trafficspvisualizer.model.Project;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class SituationGenerator extends ImageCollectionGenerator {
     private static final int PREVIEW_WIDTH = 1920;
-    private static final int PREVIEW_HEIGHT = 1024;
+    private static final int PREVIEW_CHOICEOPTION_HEIGHT = 270;
 
 
 
@@ -31,8 +31,26 @@ public class SituationGenerator extends ImageCollectionGenerator {
         int situationIndex = project.getCurrentPreviewSituation();
         setUpImageCreation(project);
         this.exportWidth = PREVIEW_WIDTH;
-        this.exportHeight = PREVIEW_HEIGHT;
+        this.exportHeight = PREVIEW_CHOICEOPTION_HEIGHT * numberOfChoiceOptions;
+        this.choiceOptionHeight = PREVIEW_CHOICEOPTION_HEIGHT;
+        this.choiceOptionWidth = exportWidth;
         return createSituationImage(situationIndex);
+    }
+
+
+
+
+    private BufferedImage createSituationImage(int situationIndex) throws InvalidDataKeyException {
+        double longestRouteSectionOfSituation = calculateLongestRouteSection(situationIndex);
+        BufferedImage[] choiceOptionImages = new BufferedImage[numberOfChoiceOptions];
+        for (int j = 0; j < numberOfChoiceOptions; j++) {
+            ChoiceOption currentChoiceOption = project.getChoiceOptions().get(j);
+            BufferedImage bufferedImage = standardImageGenerator.createChoiceOption(currentChoiceOption,
+                    dataObject, attributeList, choiceOptionHeight,
+                    choiceOptionWidth, 0, longestRouteSectionOfSituation, situationIndex);
+            choiceOptionImages[j] = bufferedImage;
+        }
+        return combineChoiceOptionImages(choiceOptionImages);
     }
 
 
@@ -40,24 +58,13 @@ public class SituationGenerator extends ImageCollectionGenerator {
     private BufferedImage combineChoiceOptionImages(BufferedImage[] choiceOptionImages) {
         BufferedImage situationImage = new BufferedImage(exportWidth, exportHeight, BufferedImage.TYPE_INT_RGB);
         Graphics g2d = situationImage.getGraphics();
-        for (int i = 0; i < numberOfChoiceOptionsPerSituation; i++) {
+        g2d.setColor(Color.WHITE);
+        g2d.fillRect(0, 0, exportWidth, exportHeight);
+        for (int i = 0; i < numberOfChoiceOptions; i++) {
             g2d.drawImage(choiceOptionImages[i], 0, i * choiceOptionHeight, null);
         }
         g2d.dispose();
         return situationImage;
     }
 
-
-    private BufferedImage createSituationImage(int situationIndex) throws InvalidDataKeyException {
-        double longestRouteSectionOfSituation = calculateLongestRouteSection(situationIndex);
-        BufferedImage[] choiceOptionImages = new BufferedImage[numberOfChoiceOptionsPerSituation];
-        for (int j = 0; j < numberOfChoiceOptionsPerSituation; j++) {
-            ChoiceOption currentChoiceOption = project.getChoiceOptions().get(j);
-            BufferedImage bufferedImage = standardImageGenerator.createChoiceOption(currentChoiceOption,
-                    dataObject, attributeList, choiceOptionHeight,
-                    choiceOptionWidth, 0,longestRouteSectionOfSituation, situationIndex);
-            choiceOptionImages[j] = bufferedImage;
-        }
-        return combineChoiceOptionImages(choiceOptionImages);
-    }
 }

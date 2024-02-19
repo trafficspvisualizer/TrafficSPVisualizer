@@ -1,6 +1,6 @@
 package edu.kit.ifv.trafficspvisualizer.util.parse;
 
-import edu.kit.ifv.trafficspvisualizer.model.DataObject;
+import edu.kit.ifv.trafficspvisualizer.model.data.DataObject;
 
 import java.io.File;
 import java.io.IOException;

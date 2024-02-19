@@ -1,8 +1,8 @@
 package edu.kit.ifv.trafficspvisualizer.controller;
 
-import edu.kit.ifv.trafficspvisualizer.model.ExportSettings;
-import edu.kit.ifv.trafficspvisualizer.model.ExportType;
-import edu.kit.ifv.trafficspvisualizer.model.FileFormat;
+import edu.kit.ifv.trafficspvisualizer.model.settings.ExportSettings;
+import edu.kit.ifv.trafficspvisualizer.model.settings.ExportType;
+import edu.kit.ifv.trafficspvisualizer.model.settings.FileFormat;
 import edu.kit.ifv.trafficspvisualizer.view.window.ExportSettingsStage;
 
 import java.io.File;
@@ -18,7 +18,7 @@ import java.io.File;
  * @version 1.0
  *
  */
-public class ExportSettingsController {
+class ExportSettingsController {
 
     /**
      * Front-facing interface for the controller package.
@@ -31,7 +31,7 @@ public class ExportSettingsController {
      *
      * @param controllerFacade the front-facing interface for the controller package
      */
-    public ExportSettingsController(ControllerFacade controllerFacade) {
+    ExportSettingsController(ControllerFacade controllerFacade) {
         this.controllerFacade = controllerFacade;
         //creates and shows new stage
         controllerFacade.getViewFacade().
@@ -58,9 +58,9 @@ public class ExportSettingsController {
         // scraping data from view in String format
         String heightString = controllerFacade.getViewFacade().getExportSettingsStage().getHeightString();
         String widthString = controllerFacade.getViewFacade().getExportSettingsStage().getWidthString();
-        File exportPath = controllerFacade.getViewFacade().getExportSettingsStage().
-                getExportDirectory();
+        File exportPath = controllerFacade.getViewFacade().getExportSettingsStage().getExportDirectory();
         ExportType exportType = controllerFacade.getViewFacade().getExportSettingsStage().getExportType();
+        String htmlVariableName = controllerFacade.getViewFacade().getExportSettingsStage().getHtmlVariableName();
 
         // check validity of input
         if (heightString.isEmpty() || widthString.isEmpty() || exportPath == null
@@ -83,7 +83,7 @@ public class ExportSettingsController {
 
         // setting new export settings in model, png as default because we currently only support png export
         ExportSettings exportSettings = new ExportSettings(height, width, exportPath.toPath(),
-                                                                                            FileFormat.PNG, exportType);
+                                                                                FileFormat.PNG, exportType, htmlVariableName);
 
         controllerFacade.getProject().setExportSettings(exportSettings);
 
@@ -113,5 +113,8 @@ public class ExportSettingsController {
 
         //Cancel
         exportSettingsStage.getCancelButton().setOnAction(e -> actionOnCancelButton());
+
+        // Close Request - same event handler as cancel button
+        exportSettingsStage.setOnCloseRequest(e -> actionOnCancelButton());
     }
 }

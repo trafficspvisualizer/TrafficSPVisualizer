@@ -1,6 +1,7 @@
 package edu.kit.ifv.trafficspvisualizer.util.project;
 
 import edu.kit.ifv.trafficspvisualizer.model.*;
+import edu.kit.ifv.trafficspvisualizer.model.settings.*;
 import edu.kit.ifv.trafficspvisualizer.util.parse.NGDParser;
 import edu.kit.ifv.trafficspvisualizer.util.parse.Parser;
 import javafx.scene.paint.Color;
@@ -31,14 +32,14 @@ class SaverAndLoaderTest {
         Project project = null;
         try {
             project = new Project("name", files,parser.parse(ngd),ngd);
-            project.addAttribute(new SeparatorLine());
+            project.addAbstractAttribute(new SeparatorLine());
             Attribute attribut = new Attribute("je",project.getIconManager().getDefaultIcon(),"","",true,0);
-            RouteSection routeSection = new RouteSection(project.getIconManager().getDefaultIcon(),"cfd",LineType.DASHED);
+            RouteSection routeSection = new RouteSection(project.getIconManager().getDefaultIcon(),"cfd", LineType.DASHED);
             ArrayList<RouteSection> routeSections = new ArrayList<>();
             routeSections.add(routeSection);
             ChoiceOption choiceOption = new ChoiceOption("ds","sfd", routeSections, Color.ALICEBLUE);
             attribut.setMapping(choiceOption, new ArrayList<>());
-            project.addAttribute(attribut);
+            project.addAbstractAttribute(attribut);
 
         } catch (IOException | ParseException e) {
             fail();

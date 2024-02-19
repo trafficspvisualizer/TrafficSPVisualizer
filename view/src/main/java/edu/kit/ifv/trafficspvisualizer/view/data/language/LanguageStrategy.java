@@ -1,7 +1,7 @@
 package edu.kit.ifv.trafficspvisualizer.view.data.language;
 
-import edu.kit.ifv.trafficspvisualizer.model.ExportType;
-import edu.kit.ifv.trafficspvisualizer.model.LineType;
+import edu.kit.ifv.trafficspvisualizer.model.settings.ExportType;
+import edu.kit.ifv.trafficspvisualizer.model.settings.LineType;
 
 /**
  * An abstract class in which all character strings that occur in the view are stored and/or made accessible.
@@ -180,6 +180,28 @@ public abstract class LanguageStrategy {
     public abstract String getSaveProjectErrorAlertContentText();
 
     /**
+     * Gets the title for the alert shown when an error occurs while trying to update preview.
+     *
+     * @return The title of the preview error alert.
+     */
+    public abstract String getPreviewErrorAlertTitle();
+
+    /**
+     * Gets the header text for the alert shown when an error occurs while trying to update preview.
+     *
+     * @return The header text of the preview error alert.
+     */
+    public abstract String getPreviewErrorAlertHeaderText();
+
+    /**
+     * Gets the content text for the alert shown when an error occurs while trying to update preview.
+     *
+     * @return The content text of the preview error alert.
+     */
+    public abstract String getPreviewErrorAlertContentText();
+
+
+    /**
      * Gets the title for the alert shown when an error occurs while creating a new project.
      *
      * @return The title of the new project error alert.
@@ -262,6 +284,27 @@ public abstract class LanguageStrategy {
      * @return The content text of the add icon error alert
      */
     public abstract String getAddIconErrorAlertContentText();
+
+    /**
+     * Gets the title for the alert shown when an error occurs while selecting an icon.
+     *
+     * @return The title of the add select error alert.
+     */
+    public abstract String getSelectIconErrorAlertTitle();
+
+    /**
+     * Gets the header text for the alert shown when an error occurs while adding an icon.
+     *
+     * @return The header text of the add icon error alert.
+     */
+    public abstract String getSelectIconErrorAlertHeaderText();
+
+    /**
+     * Gets the content text for the alert shown when an error occurs while selecting an icon.
+     *
+     * @return The content text of the select icon error alert
+     */
+    public abstract String getSelectIconErrorAlertContentText();
 
 
         // ENUMS
@@ -553,6 +596,14 @@ public abstract class LanguageStrategy {
      * @return A {@code String} representing the text for the export type selection.
      */
     public abstract String getExportSettingsExportTypeText();
+
+    /**
+     * Gets the text for the html variable name in the
+     * {@link edu.kit.ifv.trafficspvisualizer.view.window.ExportSettingsStage}.
+     *
+     * @return A {@code String} representing the text for the html variable name.
+     */
+    public abstract String getExportSettingsHtmlVariableNameText();
 
     /**
      * Gets the text for the save button in the

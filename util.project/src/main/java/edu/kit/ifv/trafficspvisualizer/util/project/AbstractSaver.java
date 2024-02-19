@@ -1,6 +1,14 @@
 package edu.kit.ifv.trafficspvisualizer.util.project;
 
 import edu.kit.ifv.trafficspvisualizer.model.*;
+import edu.kit.ifv.trafficspvisualizer.model.icon.Icon;
+import edu.kit.ifv.trafficspvisualizer.model.settings.AbstractAttribute;
+import edu.kit.ifv.trafficspvisualizer.model.settings.Attribute;
+import edu.kit.ifv.trafficspvisualizer.model.settings.ChoiceOption;
+import edu.kit.ifv.trafficspvisualizer.model.settings.ExportSettings;
+import edu.kit.ifv.trafficspvisualizer.model.settings.LineType;
+import edu.kit.ifv.trafficspvisualizer.model.settings.RouteSection;
+import edu.kit.ifv.trafficspvisualizer.model.settings.SeparatorLine;
 import javafx.scene.paint.Color;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -98,7 +106,7 @@ public abstract class AbstractSaver {
         jsonObject.put(JsonKeys.KEY_IMAGE_WIDTH.getKey(), exportSettings.getImageWidth());
         jsonObject.put(JsonKeys.KEY_FILE_FORMAT.getKey(), exportSettings.getFileFormat().toString());
         jsonObject.put(JsonKeys.KEY_EXPORT_TYPE.getKey(), exportSettings.getExportType().toString());
-
+        jsonObject.put(JsonKeys.KEY_HTML_VARIABLE.getKey(), exportSettings.getHtmlVariableName());
         return jsonObject;
     }
 
@@ -205,8 +213,7 @@ public abstract class AbstractSaver {
 
         JSONArray routeSectionsJsonArray = new JSONArray();
         for (RouteSection routeSection : routeSections) {
-            JSONObject jsonRouteSection = createJsonRouteSection(routeSection.getIcon(), routeSection.getChoiceDataKey(),
-                    routeSection.getLineType());
+            JSONObject jsonRouteSection = createJsonRouteSection(routeSection.getIcon(), routeSection.getChoiceDataKey(), routeSection.getLineType());
             routeSectionsJsonArray.put(jsonRouteSection);
         }
 

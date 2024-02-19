@@ -1,15 +1,17 @@
 package edu.kit.ifv.trafficspvisualizer.controller;
 
-import edu.kit.ifv.trafficspvisualizer.model.ExportSettings;
-import edu.kit.ifv.trafficspvisualizer.model.InvalidDataKeyException;
+import edu.kit.ifv.trafficspvisualizer.model.settings.ExportSettings;
+import edu.kit.ifv.trafficspvisualizer.model.data.InvalidDataKeyException;
 import edu.kit.ifv.trafficspvisualizer.model.Project;
-import edu.kit.ifv.trafficspvisualizer.model.ExportType;
+import edu.kit.ifv.trafficspvisualizer.model.settings.ExportType;
+import edu.kit.ifv.trafficspvisualizer.model.settings.ChoiceOption;
 import edu.kit.ifv.trafficspvisualizer.util.export.Exporter;
 import edu.kit.ifv.trafficspvisualizer.util.image.ChoiceOptionImage;
 import edu.kit.ifv.trafficspvisualizer.util.image.ImageCollectionGenerator;
 import edu.kit.ifv.trafficspvisualizer.util.image.SituationGenerator;
 import edu.kit.ifv.trafficspvisualizer.util.project.StandardProjectLoader;
 import edu.kit.ifv.trafficspvisualizer.util.project.StandardProjectSaver;
+import edu.kit.ifv.trafficspvisualizer.view.window.InstructionStage;
 import edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow;
 import javafx.event.Event;
 import javafx.scene.control.Button;
@@ -29,7 +31,7 @@ import java.util.List;
  * @author ughhz
  * @version 1.0
  */
-public class MainApplicationController {
+class MainApplicationController {
 
     /**
      * Front-facing interface for the controller package.
@@ -41,7 +43,7 @@ public class MainApplicationController {
      *
      * @param controllerFacade the front-facing interface for the controller package
      */
-    public MainApplicationController(ControllerFacade controllerFacade) {
+    MainApplicationController(ControllerFacade controllerFacade) {
         this.controllerFacade = controllerFacade;
         // MainApplicationWindow is created when starting application
         setActionListeners();
@@ -101,12 +103,10 @@ public class MainApplicationController {
     }
 
     /**
-     * Instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow} to show help dialog.
+     * Creates new instance of {@link InstructionStage}.
      */
     private void actionOnHelpButton(){
-        //TODO: missing help dialog
-        //controllerFacade.getViewFacade().getMainApplicationWindow().showHelpDialog();
-
+        new InstructionStage();
     }
 
     /**
@@ -119,7 +119,7 @@ public class MainApplicationController {
     }
 
     /**
-     * Instructs model to change the order of {@link edu.kit.ifv.trafficspvisualizer.model.ChoiceOption}
+     * Instructs model to change the order of {@link ChoiceOption}
      * in the model and notifies the {@link edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow}
      * of the change. The choiceOptionIndex is passed and the matching ChoiceOption
      * is swapped with the previous one.
@@ -135,7 +135,7 @@ public class MainApplicationController {
     }
 
     /**
-     * Instructs model to change the order of {@link edu.kit.ifv.trafficspvisualizer.model.ChoiceOption}
+     * Instructs model to change the order of {@link ChoiceOption}
      * in the model and notifies the {@link edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow}
      * of the change. The choiceOptionIndex is passed and the matching ChoiceOption
      * is swapped with the following one.
@@ -178,7 +178,7 @@ public class MainApplicationController {
 
         try {
             ChoiceOptionImage[] images = imageCollectionGenerator.createImage(controllerFacade.getProject());
-            exporter.export(images, controllerFacade.getProject().getExportSettings().getExportPath().toFile());
+            exporter.export(images, controllerFacade.getProject().getExportSettings().getExportPath().toFile(), controllerFacade.getProject().getName());
         } catch (NullPointerException | IOException | InvalidDataKeyException e) {
             controllerFacade.getViewFacade().getMainApplicationWindow().showExportErrorAlert();
         }
@@ -253,14 +253,14 @@ public class MainApplicationController {
     /**
      * Instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow} to update preview.
      */
-    public void updatePreview() {
+    void updatePreview() {
         SituationGenerator situationGenerator = new SituationGenerator();
         try {
             controllerFacade.getViewFacade().getMainApplicationWindow()
                     .setPreviewImage(situationGenerator.createPreviewImage(controllerFacade.getProject()));
         } catch (InvalidDataKeyException e) {
-            //TODO: placeholder
-            e.printStackTrace();
+            controllerFacade.getViewFacade().getMainApplicationWindow().showPreviewErrorAlert();
+            return;
         }
 
         controllerFacade.getViewFacade().getMainApplicationWindow().updateCurrentPreviewSituation();
@@ -269,7 +269,7 @@ public class MainApplicationController {
     /**
      * Instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow} to update choice options.
      */
-    public void updateChoiceOptions() {
+    void updateChoiceOptions() {
         controllerFacade.getViewFacade().getMainApplicationWindow().updateChoiceOptions();
         setChoiceOptionActionListeners();
     }

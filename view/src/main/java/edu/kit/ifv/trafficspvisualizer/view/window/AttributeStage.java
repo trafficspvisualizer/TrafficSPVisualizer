@@ -1,20 +1,19 @@
 package edu.kit.ifv.trafficspvisualizer.view.window;
 
-import edu.kit.ifv.trafficspvisualizer.model.AbstractAttribute;
-import edu.kit.ifv.trafficspvisualizer.model.Attribute;
-import edu.kit.ifv.trafficspvisualizer.model.Icon;
-import edu.kit.ifv.trafficspvisualizer.model.LineType;
+import edu.kit.ifv.trafficspvisualizer.model.settings.AbstractAttribute;
+import edu.kit.ifv.trafficspvisualizer.model.settings.Attribute;
+import edu.kit.ifv.trafficspvisualizer.model.icon.Icon;
 import edu.kit.ifv.trafficspvisualizer.model.Project;
 import edu.kit.ifv.trafficspvisualizer.view.ViewFacade;
 import edu.kit.ifv.trafficspvisualizer.view.data.font.FontLibrary;
 import edu.kit.ifv.trafficspvisualizer.view.data.image.ImageLibrary;
 import edu.kit.ifv.trafficspvisualizer.view.data.language.LanguageStrategy;
+import edu.kit.ifv.trafficspvisualizer.view.style.Styler;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -26,9 +25,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -175,48 +171,31 @@ public class AttributeStage extends Stage {
     // style-methods
     private void styleStage() {
         // activeText
-        GridPane.setHalignment(activeText, HPos.CENTER);
-        GridPane.setValignment(activeText, VPos.CENTER);
-        activeText.setFont(FontLibrary.getSmallBoldFont());
+        Styler.centerCenterSmallBoldFontTextInGridPane(activeText);
 
         // nameText
-        GridPane.setHalignment(nameText, HPos.CENTER);
-        GridPane.setValignment(nameText, VPos.CENTER);
-        nameText.setFont(FontLibrary.getSmallBoldFont());
+        Styler.centerCenterSmallBoldFontTextInGridPane(nameText);
 
         // iconText
-        GridPane.setHalignment(iconText, HPos.CENTER);
-        GridPane.setValignment(iconText, VPos.CENTER);
-        iconText.setFont(FontLibrary.getSmallBoldFont());
+        Styler.centerCenterSmallBoldFontTextInGridPane(iconText);
 
         // prefixText
-        GridPane.setHalignment(prefixText, HPos.CENTER);
-        GridPane.setValignment(prefixText, VPos.CENTER);
-        prefixText.setFont(FontLibrary.getSmallBoldFont());
+        Styler.centerCenterSmallBoldFontTextInGridPane(prefixText);
 
         // suffixText
-        GridPane.setHalignment(suffixText, HPos.CENTER);
-        GridPane.setValignment(suffixText, VPos.CENTER);
-        suffixText.setFont(FontLibrary.getSmallBoldFont());
+        Styler.centerCenterSmallBoldFontTextInGridPane(suffixText);
 
         // numberOfDecimalPlacesText
-        GridPane.setHalignment(numberOfDecimalPlacesText, HPos.CENTER);
-        GridPane.setValignment(numberOfDecimalPlacesText, VPos.CENTER);
-        numberOfDecimalPlacesText.setFont(FontLibrary.getSmallBoldFont());
+        Styler.centerCenterSmallBoldFontTextInGridPane(numberOfDecimalPlacesText);
 
         // permanentlyVisibleText
-        GridPane.setHalignment(permanentlyVisibleText, HPos.CENTER);
-        GridPane.setValignment(permanentlyVisibleText, VPos.CENTER);
-        permanentlyVisibleText.setFont(FontLibrary.getSmallBoldFont());
+        Styler.centerCenterSmallBoldFontTextInGridPane(permanentlyVisibleText);
 
         // sizingPane
         GridPane.setHgrow(sizingPane, Priority.ALWAYS);
 
         // attributeGridPane
-        BorderPane.setAlignment(attributeGridPane, Pos.TOP_LEFT);
-        attributeGridPane.setPadding(new Insets(15));
-        attributeGridPane.setHgap(15);
-        attributeGridPane.setVgap(15);
+        Styler.midHVGabMidPaddingGridPane(attributeGridPane);
         attributeGridPane.prefWidthProperty().bind(scene.widthProperty().subtract(17));
 
 
@@ -224,35 +203,23 @@ public class AttributeStage extends Stage {
                 scene.heightProperty().subtract(closeAndAddGridPane.heightProperty()));
 
         // addAttributeButton
-        GridPane.setHalignment(addAttributeButton, HPos.LEFT);
-        GridPane.setValignment(addAttributeButton, VPos.CENTER);
-        addAttributeButton.setFont(FontLibrary.getSmallFont());
+        Styler.leftCenterSmallFontButtonInGridPane(addAttributeButton);
 
         // addSeparatorLineButton
-        GridPane.setHalignment(addSeparatorLineButton, HPos.LEFT);
-        GridPane.setValignment(addSeparatorLineButton, VPos.CENTER);
-        addSeparatorLineButton.setFont(FontLibrary.getSmallFont());
+        Styler.leftCenterSmallFontButtonInGridPane(addSeparatorLineButton);
 
         // closeButton
-        GridPane.setHalignment(closeButton, HPos.LEFT);
-        GridPane.setValignment(closeButton, VPos.CENTER);
-        closeButton.setFont(FontLibrary.getSmallFont());
+        Styler.leftCenterSmallFontButtonInGridPane(closeButton);
 
         // closeAndAddGridPane
-        BorderPane.setAlignment(closeAndAddGridPane, Pos.BOTTOM_LEFT);
-        closeAndAddGridPane.setPadding(new Insets(15));
-        closeAndAddGridPane.setHgap(15);
-        closeAndAddGridPane.setVgap(15);
+        Styler.midHVGabMidPaddingGridPane(closeAndAddGridPane);
 
         // bodyBorderPane
 
         // scene
 
         // stage
-        setMinWidth(960);
-        setMinHeight(540);
-        setWidth(960);
-        setHeight(540);
+        Styler.midStage(this);
     }
 
 
@@ -277,8 +244,7 @@ public class AttributeStage extends Stage {
             CheckBox attributeActiveCheckBox = new CheckBox();
             attributeActiveCheckBox.setSelected(abstractAttribute.isActive());
 
-            GridPane.setHalignment(attributeActiveCheckBox, HPos.CENTER);
-            GridPane.setValignment(attributeActiveCheckBox, VPos.CENTER);
+            Styler.centerCenterInGridPane(attributeActiveCheckBox);
             attributeActiveCheckBox.setFont(FontLibrary.getSmallFont());
 
             attributeActiveCheckBoxList.add(attributeActiveCheckBox);
@@ -289,15 +255,12 @@ public class AttributeStage extends Stage {
             ImageView upSwitchAttributeButtonImageView =
                     new ImageView(ImageLibrary.getAttributeUpSwitchAttributeButtonImage());
 
-            upSwitchAttributeButtonImageView.setFitWidth(15);
-            upSwitchAttributeButtonImageView.setFitHeight(15);
-            upSwitchAttributeButtonImageView.setPreserveRatio(true);
+            Styler.smallImageView(upSwitchAttributeButtonImageView);
 
             Button upSwitchAttributeButton = new Button();
             upSwitchAttributeButton.setGraphic(upSwitchAttributeButtonImageView);
 
-            GridPane.setHalignment(upSwitchAttributeButton, HPos.CENTER);
-            GridPane.setValignment(upSwitchAttributeButton, VPos.CENTER);
+            Styler.centerCenterInGridPane(upSwitchAttributeButton);
 
             upSwitchAttributeButtonList.add(upSwitchAttributeButton);
             attributeGridPane.add(upSwitchAttributeButton, 8, currentRowIndex);
@@ -307,15 +270,12 @@ public class AttributeStage extends Stage {
             ImageView downSwitchAttributeButtonImageView =
                     new ImageView(ImageLibrary.getAttributeDownSwitchAttributeButtonImage());
 
-            downSwitchAttributeButtonImageView.setFitWidth(15);
-            downSwitchAttributeButtonImageView.setFitHeight(15);
-            downSwitchAttributeButtonImageView.setPreserveRatio(true);
+            Styler.smallImageView(downSwitchAttributeButtonImageView);
 
             Button downSwitchAttributeButton = new Button();
             downSwitchAttributeButton.setGraphic(downSwitchAttributeButtonImageView);
 
-            GridPane.setHalignment(downSwitchAttributeButton, HPos.CENTER);
-            GridPane.setValignment(downSwitchAttributeButton, VPos.CENTER);
+            Styler.centerCenterInGridPane(downSwitchAttributeButton);
 
             downSwitchAttributeButtonList.add(downSwitchAttributeButton);
             attributeGridPane.add(downSwitchAttributeButton, 9, currentRowIndex);
@@ -325,15 +285,12 @@ public class AttributeStage extends Stage {
             ImageView attributeSettingsButtonImageView =
                     new ImageView(ImageLibrary.getAttributeAttributeSettingsButtonImage());
 
-            attributeSettingsButtonImageView.setFitWidth(25);
-            attributeSettingsButtonImageView.setFitHeight(25);
-            attributeSettingsButtonImageView.setPreserveRatio(true);
+            Styler.midImageView(attributeSettingsButtonImageView);
 
             Button attributeSettingsButton = new Button();
             attributeSettingsButton.setGraphic(attributeSettingsButtonImageView);
 
-            GridPane.setHalignment(attributeSettingsButton, HPos.CENTER);
-            GridPane.setValignment(attributeSettingsButton, VPos.CENTER);
+            Styler.centerCenterInGridPane(attributeSettingsButton);
 
             attributeSettingsButtonList.add(attributeSettingsButton);
             attributeGridPane.add(attributeSettingsButton, 10, currentRowIndex);
@@ -343,15 +300,12 @@ public class AttributeStage extends Stage {
             ImageView attributeRemoveButtonImageView =
                     new ImageView(ImageLibrary.getAttributeAttributeRemoveButtonImage());
 
-            attributeRemoveButtonImageView.setFitWidth(25);
-            attributeRemoveButtonImageView.setFitHeight(25);
-            attributeRemoveButtonImageView.setPreserveRatio(true);
+            Styler.midImageView(attributeRemoveButtonImageView);
 
             Button attributeRemoveButton = new Button();
             attributeRemoveButton.setGraphic(attributeRemoveButtonImageView);
 
-            GridPane.setHalignment(attributeRemoveButton, HPos.CENTER);
-            GridPane.setValignment(attributeRemoveButton, VPos.CENTER);
+            Styler.centerCenterInGridPane(attributeRemoveButton);
 
             attributeRemoveButtonList.add(attributeRemoveButton);
             attributeGridPane.add(attributeRemoveButton, 11, currentRowIndex);
@@ -363,9 +317,7 @@ public class AttributeStage extends Stage {
             } else {
                 Text separatorLineText = new Text(viewFacade.getLanguageStrategy().getAttributeSeparatorLineText());
 
-                GridPane.setHalignment(separatorLineText, HPos.CENTER);
-                GridPane.setValignment(separatorLineText, VPos.CENTER);
-                separatorLineText.setFont(FontLibrary.getMidFont());
+                Styler.centerCenterMidFontTextInGridPane(separatorLineText);
 
                 attributeGridPane.add(separatorLineText, 1, currentRowIndex, 6,1);
 
@@ -387,9 +339,7 @@ public class AttributeStage extends Stage {
 
         Text attributeNameText = new Text(attribute.getName());
 
-        GridPane.setHalignment(attributeNameText, HPos.CENTER);
-        GridPane.setValignment(attributeNameText, VPos.CENTER);
-        attributeNameText.setFont(FontLibrary.getSmallFont());
+        Styler.centerCenterSmallFontTextInGridPane(attributeNameText);
 
         attributeGridPane.add(attributeNameText, 1, rowIndex);
 
@@ -398,11 +348,8 @@ public class AttributeStage extends Stage {
         ImageView attributeIconImageView =
                 new ImageView(SwingFXUtils.toFXImage(attributeIcon.toBufferedImage(), null));
 
-        GridPane.setHalignment(attributeIconImageView, HPos.CENTER);
-        GridPane.setValignment(attributeIconImageView, VPos.CENTER);
-        attributeIconImageView.setFitWidth(25);
-        attributeIconImageView.setFitHeight(25);
-        attributeIconImageView.setPreserveRatio(true);
+        Styler.centerCenterInGridPane(attributeIconImageView);
+        Styler.midImageView(attributeIconImageView);
 
         attributeGridPane.add(attributeIconImageView, 2, rowIndex);
 
@@ -410,9 +357,7 @@ public class AttributeStage extends Stage {
 
         Text attributePrefixText = new Text(attribute.getPrefix());
 
-        GridPane.setHalignment(attributePrefixText, HPos.CENTER);
-        GridPane.setValignment(attributePrefixText, VPos.CENTER);
-        attributePrefixText.setFont(FontLibrary.getSmallFont());
+        Styler.centerCenterSmallFontTextInGridPane(attributePrefixText);
 
         attributeGridPane.add(attributePrefixText, 3, rowIndex);
 
@@ -420,9 +365,7 @@ public class AttributeStage extends Stage {
 
         Text attributeSuffixText = new Text(attribute.getSuffix());
 
-        GridPane.setHalignment(attributeSuffixText, HPos.CENTER);
-        GridPane.setValignment(attributeSuffixText, VPos.CENTER);
-        attributeSuffixText.setFont(FontLibrary.getSmallFont());
+        Styler.centerCenterSmallFontTextInGridPane(attributeSuffixText);
 
         attributeGridPane.add(attributeSuffixText, 4, rowIndex);
 
@@ -430,9 +373,7 @@ public class AttributeStage extends Stage {
 
         Text attributeNumberOfDecimalPlacesText = new Text(String.valueOf(attribute.getDecimalPlaces()));
 
-        GridPane.setHalignment(attributeNumberOfDecimalPlacesText, HPos.CENTER);
-        GridPane.setValignment(attributeNumberOfDecimalPlacesText, VPos.CENTER);
-        attributeNumberOfDecimalPlacesText.setFont(FontLibrary.getSmallFont());
+        Styler.centerCenterSmallFontTextInGridPane(attributeNumberOfDecimalPlacesText);
 
         attributeGridPane.add(attributeNumberOfDecimalPlacesText, 5, rowIndex);
 
@@ -442,8 +383,7 @@ public class AttributeStage extends Stage {
         attributePermanentlyVisibleCheckBox.setSelected(attribute.isPermanentlyVisible());
         attributePermanentlyVisibleCheckBox.setDisable(true);
 
-        GridPane.setHalignment(attributePermanentlyVisibleCheckBox, HPos.CENTER);
-        GridPane.setValignment(attributePermanentlyVisibleCheckBox, VPos.CENTER);
+        Styler.centerCenterInGridPane(attributePermanentlyVisibleCheckBox);
 
         attributeGridPane.add(attributePermanentlyVisibleCheckBox, 6, rowIndex);
     }

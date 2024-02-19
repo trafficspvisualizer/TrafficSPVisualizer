@@ -1,7 +1,7 @@
 package edu.kit.ifv.trafficspvisualizer.view.data.language;
 
-import edu.kit.ifv.trafficspvisualizer.model.ExportType;
-import edu.kit.ifv.trafficspvisualizer.model.LineType;
+import edu.kit.ifv.trafficspvisualizer.model.settings.ExportType;
+import edu.kit.ifv.trafficspvisualizer.model.settings.LineType;
 
 /**
  * A class that inherits from LanguageStrategy
@@ -14,7 +14,7 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
     // Application
 
         // Application Alerts
-    private final static String CONFIRMATION_ALERT_TITLE = "Conformation";
+    private final static String CONFIRMATION_ALERT_TITLE = "Confirmation";
 
     private final static String CLOSE_PROJECT_CONFIRMATION_ALERT_TITLE = CONFIRMATION_ALERT_TITLE;
 
@@ -73,6 +73,14 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
     private final static String SAVE_PROJECT_ERROR_ALERT_CONTENT_TEXT =
             "Please check if you selected a valid save directory.";
 
+    private final static String PREVIEW_ERROR_ALERT_TITLE = ERROR_ALERT_TITLE;
+
+    private final static String PREVIEW_ERROR_ALERT_HEADER_TEXT =
+            "Something went wrong! Could not update preview!";
+
+    private final static String PREVIEW_ERROR_ALERT_CONTENT_TEXT =
+            "Please check if you selected valid values.";
+
     private final static String NEW_PROJECT_ERROR_ALERT_TITLE = ERROR_ALERT_TITLE;
 
     private final static String NEW_PROJECT_ERROR_ALERT_HEADER_TEXT =
@@ -100,9 +108,16 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
     private final static String ADD_ICON_ERROR_ALERT_TITLE = ERROR_ALERT_TITLE;
 
     private final static String ADD_ICON_ERROR_ALERT_HEADER_TEXT =
-            "Something went wrong! Could not save add the selected icon.";
+            "Something went wrong! Could not add the selected icon.";
 
-    private final static String ADD_ICON_ERROR_ALERT_CONTENT_TEXT = "Please check the selected icon.";
+    private final static String ADD_ICON_ERROR_ALERT_CONTENT_TEXT = "Please check the selected file.";
+
+    private final static String SELECT_ICON_ERROR_ALERT_TITLE = ERROR_ALERT_TITLE;
+
+    private final static String SELECT_ICON_ERROR_ALERT_HEADER_TEXT =
+            "Something went wrong! Could not select the selected icon.";
+
+    private final static String SELECT_ICON_ERROR_ALERT_CONTENT_TEXT = "Please check if an icon is selected.";
 
 
         // ENUMS
@@ -189,6 +204,8 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
     private final static String EXPORT_SETTINGS_EXPORT_DIRECTORY_TEXT = "Export directory:";
 
     private final static String EXPORT_SETTINGS_EXPORT_TYPE_TEXT = "Export type:";
+
+    private final static String EXPORT_SETTINGS_HTML_VARIABLE_NAME_TEXT = "HTML variable name:";
 
     private final static String EXPORT_SETTINGS_SAVE_BUTTON_TEXT = ATTRIBUTE_SETTINGS_SAVE_BUTTON_TEXT;
 
@@ -352,6 +369,18 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
         return SAVE_PROJECT_ERROR_ALERT_CONTENT_TEXT;
     }
 
+    public String getPreviewErrorAlertTitle() {
+        return PREVIEW_ERROR_ALERT_TITLE;
+    }
+
+    public String getPreviewErrorAlertHeaderText() {
+        return PREVIEW_ERROR_ALERT_HEADER_TEXT;
+    }
+
+    public String getPreviewErrorAlertContentText() {
+        return PREVIEW_ERROR_ALERT_CONTENT_TEXT;
+    }
+
     public String getNewProjectErrorAlertTitle() {
         return NEW_PROJECT_ERROR_ALERT_TITLE;
     }
@@ -400,8 +429,19 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
         return ADD_ICON_ERROR_ALERT_CONTENT_TEXT;
     }
 
+    public String getSelectIconErrorAlertTitle() {
+        return SELECT_ICON_ERROR_ALERT_TITLE;
+    }
 
-        // ENUMS
+    public String getSelectIconErrorAlertHeaderText() {
+        return SELECT_ICON_ERROR_ALERT_HEADER_TEXT;
+    }
+
+    public String getSelectIconErrorAlertContentText() {
+        return SELECT_ICON_ERROR_ALERT_CONTENT_TEXT;
+    }
+
+    // ENUMS
     public String getExportTypeText(ExportType exportType) {
         switch (exportType) {
             case HTML -> {
@@ -565,6 +605,10 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
 
     public String getExportSettingsExportTypeText() {
         return EXPORT_SETTINGS_EXPORT_TYPE_TEXT;
+    }
+
+    public String getExportSettingsHtmlVariableNameText() {
+        return EXPORT_SETTINGS_HTML_VARIABLE_NAME_TEXT;
     }
 
     public String getExportSettingsSaveButtonText() {

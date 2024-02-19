@@ -1,10 +1,10 @@
 package edu.kit.ifv.trafficspvisualizer.controller;
 
-import edu.kit.ifv.trafficspvisualizer.model.Attribute;
-import edu.kit.ifv.trafficspvisualizer.model.ChoiceOption;
-import edu.kit.ifv.trafficspvisualizer.model.Icon;
-import edu.kit.ifv.trafficspvisualizer.model.LineType;
-import edu.kit.ifv.trafficspvisualizer.model.RouteSection;
+import edu.kit.ifv.trafficspvisualizer.model.settings.Attribute;
+import edu.kit.ifv.trafficspvisualizer.model.settings.ChoiceOption;
+import edu.kit.ifv.trafficspvisualizer.model.icon.Icon;
+import edu.kit.ifv.trafficspvisualizer.model.settings.LineType;
+import edu.kit.ifv.trafficspvisualizer.model.settings.RouteSection;
 import edu.kit.ifv.trafficspvisualizer.view.window.ChoiceOptionSettingsStage;
 import javafx.scene.control.ButtonType;
 import javafx.scene.paint.Color;
@@ -22,14 +22,14 @@ import java.util.List;
  * @author ughhz
  * @version 1.0
  */
-public class ChoiceOptionSettingsController implements IconDisplayingController {
+class ChoiceOptionSettingsController implements IconDisplayingController {
 
     /**
      * Front-facing interface for the controller package.
      */
     private final ControllerFacade controllerFacade;
     /**
-     * ID of the {@link edu.kit.ifv.trafficspvisualizer.model.ChoiceOption} on which the controller is working.
+     * ID of the {@link ChoiceOption} on which the controller is working.
      */
     private final int choiceOptionId;
 
@@ -37,11 +37,11 @@ public class ChoiceOptionSettingsController implements IconDisplayingController 
      * Constructs the ChoiceOptionSettingsController. Creates new {@link ChoiceOptionSettingsStage},
      * saves it in ViewFacade and sets its ActionListeners.
      *
-     * @param choiceOptionId the ID of the {@link edu.kit.ifv.trafficspvisualizer.model.ChoiceOption}
+     * @param choiceOptionId the ID of the {@link ChoiceOption}
      *                       on which the controller is working
      * @param controllerFacade the front-facing interface for the controller package
      */
-    public ChoiceOptionSettingsController(int choiceOptionId, ControllerFacade controllerFacade) {
+    ChoiceOptionSettingsController(int choiceOptionId, ControllerFacade controllerFacade) {
         this.choiceOptionId = choiceOptionId;
         this.controllerFacade = controllerFacade;
 
@@ -70,7 +70,7 @@ public class ChoiceOptionSettingsController implements IconDisplayingController 
 
     /**
      * Instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.ChoiceOptionSettingsStage} to open
-     * {@link javafx.scene.control.ColorPicker} and updates {@link edu.kit.ifv.trafficspvisualizer.model.ChoiceOption}
+     * {@link javafx.scene.control.ColorPicker} and updates {@link ChoiceOption}
      * at index {@link ChoiceOptionSettingsController#choiceOptionId} with given color.
      */
     private void actionOnColorButton(){
@@ -79,7 +79,7 @@ public class ChoiceOptionSettingsController implements IconDisplayingController 
     }
 
     /**
-     * Scrapes title from text field and updates {@link edu.kit.ifv.trafficspvisualizer.model.ChoiceOption}
+     * Scrapes title from text field and updates {@link ChoiceOption}
      * at index {@link ChoiceOptionSettingsController#choiceOptionId} with given color.
      */
     private void actionOnTitleTextField(){
@@ -154,10 +154,10 @@ public class ChoiceOptionSettingsController implements IconDisplayingController 
 
     /**
      * Creates a new {@link RouteSection} and adds it to the list of route sections in
-     * {@link edu.kit.ifv.trafficspvisualizer.model.ChoiceOption} with
+     * {@link ChoiceOption} with
      * index {@link ChoiceOptionSettingsController#choiceOptionId}.
      */
-    public void actionOnNewRouteSectionButton(){
+    private void actionOnNewRouteSectionButton(){
         controllerFacade.getProject().getChoiceOptions().get(choiceOptionId)
                 .addRouteSection(new RouteSection(controllerFacade.getProject().getIconManager().getDefaultIcon()));
         updateRouteSections();
@@ -165,7 +165,7 @@ public class ChoiceOptionSettingsController implements IconDisplayingController 
 
     /**
      * Asks user to confirm deletion and deletes {@link RouteSection} at given index from
-     * {@link edu.kit.ifv.trafficspvisualizer.model.ChoiceOption} with index
+     * {@link ChoiceOption} with index
      * {@link ChoiceOptionSettingsController#choiceOptionId} if user clicked "ok".
      *
      * @param routeSectionIndex index of route section which should be deleted
@@ -213,11 +213,14 @@ public class ChoiceOptionSettingsController implements IconDisplayingController 
         // Attribute values
         updateAttributeActionListeners();
 
-        // Close
+        // Complete
         choiceOptionSettingsStage.getCloseButton().setOnAction(e -> actionOnCompleteButton());
 
         // Title - when text field loses focus
         choiceOptionSettingsStage.getTitleTextField().focusedProperty().addListener(e -> actionOnTitleTextField());
+
+        // Close Request - same event handler as complete button
+        choiceOptionSettingsStage.setOnCloseRequest(e -> actionOnCompleteButton());
     }
 
     private void updateRouteSectionActionListeners() {

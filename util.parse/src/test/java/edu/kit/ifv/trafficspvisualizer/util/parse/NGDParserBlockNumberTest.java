@@ -1,7 +1,7 @@
 package edu.kit.ifv.trafficspvisualizer.util.parse;
 
-import edu.kit.ifv.trafficspvisualizer.model.DataObject;
-import edu.kit.ifv.trafficspvisualizer.model.InvalidDataKeyException;
+import edu.kit.ifv.trafficspvisualizer.model.data.DataObject;
+import edu.kit.ifv.trafficspvisualizer.model.data.InvalidDataKeyException;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;

@@ -1,8 +1,8 @@
 package edu.kit.ifv.trafficspvisualizer.controller;
 
-import edu.kit.ifv.trafficspvisualizer.model.AbstractAttribute;
-import edu.kit.ifv.trafficspvisualizer.model.Attribute;
-import edu.kit.ifv.trafficspvisualizer.model.SeparatorLine;
+import edu.kit.ifv.trafficspvisualizer.model.settings.AbstractAttribute;
+import edu.kit.ifv.trafficspvisualizer.model.settings.Attribute;
+import edu.kit.ifv.trafficspvisualizer.model.settings.SeparatorLine;
 import edu.kit.ifv.trafficspvisualizer.view.window.AttributeStage;
 import javafx.scene.control.ButtonType;
 
@@ -16,7 +16,7 @@ import javafx.scene.control.ButtonType;
  * @author ugghz
  * @version 1.0
  */
-public class AttributeController {
+class AttributeController {
 
     /**
      * Front-facing interface for the controller package.
@@ -29,7 +29,7 @@ public class AttributeController {
      *
      * @param controllerFacade the front-facing interface for the controller package
      */
-    public AttributeController(ControllerFacade controllerFacade) {
+    AttributeController(ControllerFacade controllerFacade) {
         this.controllerFacade = controllerFacade;
 
         //creates and shows new stage
@@ -41,7 +41,7 @@ public class AttributeController {
     /**
      * Creates new {@link AttributeSettingsController}.
      * Sets its attributeIndex to the length of the list of attributes in the model to
-     * assure no existing {@link edu.kit.ifv.trafficspvisualizer.model.Attribute} is edited.
+     * assure no existing {@link Attribute} is edited.
      */
     private void actionOnNewAttributeButton(){
 
@@ -82,7 +82,7 @@ public class AttributeController {
 
     /**
      * Creates new {@link AttributeSettingsController} and sets its attributeIndex to the index of the
-     * {@link edu.kit.ifv.trafficspvisualizer.model.Attribute} which should be edited.
+     * {@link Attribute} which should be edited.
      *
      * @param abstractAttributeIndex the index of the attribute which should be edited
      */
@@ -142,7 +142,7 @@ public class AttributeController {
     /**
      * Instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.AttributeStage} to update itself.
      */
-    public void update() {
+    void update() {
         controllerFacade.getViewFacade().getAttributeStage().updateStage();
         updateActionListeners();
     }
@@ -174,6 +174,7 @@ public class AttributeController {
             attributeStage.getAttributeRemoveButtonList().get(index).setOnAction(e -> actionOnDeleteButton(index));
         }
     }
+
     private void setActionListeners(){
         AttributeStage attributeStage = controllerFacade.getViewFacade().getAttributeStage();
 
@@ -189,5 +190,8 @@ public class AttributeController {
 
         // Close-Button
         attributeStage.getCloseButton().setOnAction(e -> actionOnCompleteButton());
+
+        // Close Request - same event handler as complete button
+        attributeStage.setOnCloseRequest(e -> actionOnCompleteButton());
     }
 }

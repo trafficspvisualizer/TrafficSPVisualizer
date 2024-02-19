@@ -1,7 +1,7 @@
 package edu.kit.ifv.trafficspvisualizer.controller;
 
-import edu.kit.ifv.trafficspvisualizer.model.Attribute;
-import edu.kit.ifv.trafficspvisualizer.model.Icon;
+import edu.kit.ifv.trafficspvisualizer.model.settings.Attribute;
+import edu.kit.ifv.trafficspvisualizer.model.icon.Icon;
 import edu.kit.ifv.trafficspvisualizer.view.window.AttributeSettingsStage;
 
 /**
@@ -15,7 +15,7 @@ import edu.kit.ifv.trafficspvisualizer.view.window.AttributeSettingsStage;
  * @author ughhz
  * @version 1.0
  */
-public class AttributeSettingsController implements IconDisplayingController {
+class AttributeSettingsController implements IconDisplayingController {
 
     /**
      * Front-facing interface for the controller package.
@@ -36,7 +36,7 @@ public class AttributeSettingsController implements IconDisplayingController {
      * @param controllerFacade the front-facing interface for the controller package
      * @param abstractAttributeIndex the index of the attribute on which the controller is working
      */
-    public AttributeSettingsController(ControllerFacade controllerFacade, int abstractAttributeIndex, boolean workingOnNewAttribute) {
+    AttributeSettingsController(ControllerFacade controllerFacade, int abstractAttributeIndex, boolean workingOnNewAttribute) {
         this.controllerFacade = controllerFacade;
         this.abstractAttributeIndex = abstractAttributeIndex;
         this.workingOnNewAttribute = workingOnNewAttribute;
@@ -77,6 +77,11 @@ public class AttributeSettingsController implements IconDisplayingController {
         try {
             decimalPlaces = Integer.parseInt(decimalPlacesString);
         } catch (NumberFormatException e) {
+            controllerFacade.getViewFacade().getAttributeSettingsStage().showSaveErrorAlert();
+            return;
+        }
+
+        if (decimalPlaces < 0) {
             controllerFacade.getViewFacade().getAttributeSettingsStage().showSaveErrorAlert();
             return;
         }
@@ -123,6 +128,9 @@ public class AttributeSettingsController implements IconDisplayingController {
 
     private void setActionListeners(){
         AttributeSettingsStage attributeSettingsStage = controllerFacade.getViewFacade().getAttributeSettingsStage();
+
+        // Close Request - same event handler as cancel button
+        attributeSettingsStage.setOnCloseRequest(e -> actionOnCancelButton());
 
         // Icon Button
         attributeSettingsStage.getIconButton().setOnAction(e -> actionOnIconButton());

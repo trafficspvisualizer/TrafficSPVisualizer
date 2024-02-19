@@ -1,18 +1,18 @@
 package edu.kit.ifv.trafficspvisualizer.view.window;
 
-import edu.kit.ifv.trafficspvisualizer.model.ChoiceOption;
-import edu.kit.ifv.trafficspvisualizer.model.Icon;
+import edu.kit.ifv.trafficspvisualizer.model.settings.ChoiceOption;
+import edu.kit.ifv.trafficspvisualizer.model.icon.Icon;
 import edu.kit.ifv.trafficspvisualizer.model.Project;
-import edu.kit.ifv.trafficspvisualizer.model.RouteSection;
+import edu.kit.ifv.trafficspvisualizer.model.settings.RouteSection;
 import edu.kit.ifv.trafficspvisualizer.view.ViewFacade;
 import edu.kit.ifv.trafficspvisualizer.view.data.font.FontLibrary;
 import edu.kit.ifv.trafficspvisualizer.view.data.image.ImageLibrary;
 import edu.kit.ifv.trafficspvisualizer.view.data.language.LanguageStrategy;
+import edu.kit.ifv.trafficspvisualizer.view.style.Styler;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -22,24 +22,19 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -199,6 +194,7 @@ public class MainApplicationWindow {
         previewText = new Text(viewFacade.getLanguageStrategy().getMainApplicationPreviewText());
 
         previewImageView = new ImageView();
+        previewImageView.setImage(ImageLibrary.getApplicationIcon());
 
         currentPreviewText = new Text();
 
@@ -270,11 +266,7 @@ public class MainApplicationWindow {
         styleConfigVBox();
 
 
-
-        stage.setMinWidth(1440);
-        stage.setMinHeight(810);
-        stage.setWidth(1440);
-        stage.setHeight(810);
+        Styler.bigStage(stage);
     }
 
 
@@ -285,116 +277,87 @@ public class MainApplicationWindow {
 
     private void stylePreviewGridPane() {
         // previewText
-        GridPane.setHalignment(previewText, HPos.CENTER);
-        GridPane.setValignment(previewText, VPos.CENTER);
-        previewText.setFont(FontLibrary.getMidFont());
+        Styler.centerCenterMidFontTextInGridPane(previewText);
 
 
         // previewImageView
-        GridPane.setHalignment(previewImageView, HPos.CENTER);
-        GridPane.setValignment(previewImageView, VPos.CENTER);
-        GridPane.setVgrow(previewImageView, Priority.ALWAYS);
+        Styler.centerCenterInGridPane(previewImageView);
         GridPane.setHgrow(previewImageView, Priority.ALWAYS);
-
-
-        GridPane.setMargin(previewImageView, new Insets(0));
-        previewImageView.fitWidthProperty().bind(previewGridPane.widthProperty().subtract(leftSwitchPreviewButton.widthProperty().multiply(5)).subtract(previewGridPane.hgapProperty().multiply(3)));
-        previewImageView.fitHeightProperty().bind(previewGridPane.heightProperty().subtract(leftSwitchPreviewButton.heightProperty().multiply(3)).subtract(previewGridPane.vgapProperty().multiply(3)));
+        GridPane.setVgrow(previewImageView, Priority.ALWAYS);
         previewImageView.setPreserveRatio(true);
-        previewImageView.setSmooth(false);
-        previewImageView.setImage(ImageLibrary.getApplicationIcon());
+        previewImageView.fitWidthProperty().bind(
+                scene.widthProperty()
+                        .subtract(configVbox.widthProperty())
+                        .subtract(leftSwitchPreviewButton.widthProperty())
+                        .subtract(rightSwitchPreviewButton.widthProperty())
+                        .subtract(previewGridPane.hgapProperty().multiply(10)));
+        previewImageView.fitHeightProperty().bind(
+                scene.heightProperty()
+                        .subtract(leftSwitchPreviewButton.heightProperty())
+                        .subtract(rightSwitchPreviewButton.heightProperty())
+                        .subtract(previewGridPane.vgapProperty().multiply(8)));
 
 
 
         // currentPreviewText
-        GridPane.setHalignment(currentPreviewText, HPos.CENTER);
-        GridPane.setValignment(currentPreviewText, VPos.CENTER);
-        currentPreviewText.setFont(FontLibrary.getMidFont());
+        Styler.centerCenterMidFontTextInGridPane(currentPreviewText);
 
         // leftSwitchPreviewButtonImageView
-        leftSwitchPreviewButtonImageView.setFitWidth(20);
-        leftSwitchPreviewButtonImageView.setFitHeight(20);
+        Styler.midImageView(leftSwitchPreviewButtonImageView);
 
         // leftSwitchPreviewButton
-        GridPane.setHalignment(leftSwitchPreviewButton, HPos.CENTER);
-        GridPane.setValignment(leftSwitchPreviewButton, VPos.CENTER);
-        leftSwitchPreviewButton.setPrefSize(25,25);
+        Styler.centerCenterInGridPane(leftSwitchPreviewButton);
 
         // rightSwitchPreviewButtonImageView
-        rightSwitchPreviewButtonImageView.setFitWidth(20);
-        rightSwitchPreviewButtonImageView.setFitHeight(20);
+        Styler.midImageView(rightSwitchPreviewButtonImageView);
 
         // rightSwitchPreviewButton
-        GridPane.setHalignment(rightSwitchPreviewButton, HPos.CENTER);
-        GridPane.setValignment(rightSwitchPreviewButton, VPos.CENTER);
-        rightSwitchPreviewButton.setPrefSize(25,25);
+        Styler.centerCenterInGridPane(rightSwitchPreviewButton);
 
 
         // previewGridPane
-        BorderPane.setMargin(previewGridPane, new Insets(15));
-        previewGridPane.setHgap(15);
-        previewGridPane.setVgap(15);
-
-
-
+        Styler.midHVGabMidPaddingGridPane(previewGridPane);
 
     }
 
     private void styleConfigVBox() {
         // exportButtonImageView
-        exportButtonImageView.setFitWidth(50);
-        exportButtonImageView.setFitHeight(50);
-        exportButtonImageView.setSmooth(true);
+        Styler.bigImageView(exportButtonImageView);
 
 
         // exportButton
-        GridPane.setHalignment(exportButton, HPos.CENTER);
-        GridPane.setValignment(exportButton, VPos.CENTER);
+        Styler.centerCenterInGridPane(exportButton);
 
         // exportSettingsButtonImageView
-        exportSettingsButtonImageView.setFitWidth(50);
-        exportSettingsButtonImageView.setFitHeight(50);
-        exportSettingsButtonImageView.setSmooth(true);
+        Styler.bigImageView(exportSettingsButtonImageView);
 
         // exportSettingsButton
-        GridPane.setHalignment(exportSettingsButton, HPos.CENTER);
-        GridPane.setValignment(exportSettingsButton, VPos.CENTER);
+        Styler.centerCenterInGridPane(exportSettingsButton);
 
         // exportText
-        GridPane.setHalignment(exportText, HPos.CENTER);
-        GridPane.setValignment(exportText, VPos.CENTER);
-        exportText.setFont(FontLibrary.getSmallFont());
+        Styler.centerCenterSmallFontTextInGridPane(exportText);
 
         // attributesButtonImageView
-        attributesButtonImageView.setFitWidth(50);
-        attributesButtonImageView.setFitHeight(50);
-        exportButtonImageView.setSmooth(true);
+        Styler.bigImageView(attributesButtonImageView);
 
         // attributesButton
-        GridPane.setHalignment(attributesButton, HPos.CENTER);
-        GridPane.setValignment(attributesButton, VPos.CENTER);
+        Styler.centerCenterInGridPane(attributesButton);
 
 
         // attributesText
-        GridPane.setHalignment(attributesText, HPos.CENTER);
-        GridPane.setValignment(attributesText, VPos.CENTER);
-        attributesText.setFont(FontLibrary.getSmallFont());
+        Styler.centerCenterSmallFontTextInGridPane(attributesText);
 
         // exportAndAttributesGridPane
-        VBox.setMargin(exportAndAttributesGridPane, new Insets(15));
-        exportAndAttributesGridPane.setVgap(15);
-        exportAndAttributesGridPane.setHgap(15);
+        Styler.midHVGabMidPaddingGridPane(exportAndAttributesGridPane);
 
 
         // choiceOptionText
-        GridPane.setHalignment(choiceOptionText, HPos.CENTER);
-        GridPane.setValignment(choiceOptionText, VPos.CENTER);
+        Styler.centerCenterMidFontTextInGridPane(choiceOptionText);
         GridPane.setHgrow(choiceOptionText,Priority.ALWAYS);
-        GridPane.setMargin(choiceOptionText, new Insets(15));
-        choiceOptionText.setFont(FontLibrary.getMidFont());
 
 
         // choiceOptionTextGridPane
+        Styler.midHVGabMidPaddingGridPane(choiceOptionTextGridPane);
         choiceOptionTextGridPane.setBorder(new Border(
                 new BorderStroke(Color.LIGHTGRAY, BorderStrokeStyle.SOLID, null,
                         new BorderWidths(2,0,0,0))));
@@ -493,9 +456,7 @@ public class MainApplicationWindow {
             ImageView routeSelectionImageView =
                     new ImageView(SwingFXUtils.toFXImage(routeSectionIcon.toBufferedImage(), null));
 
-            routeSelectionImageView.setFitWidth(25);
-            routeSelectionImageView.setFitHeight(25);
-            routeSelectionImageView.setPreserveRatio(true);
+            Styler.midImageView(routeSelectionImageView);
 
             routeSectionFlowPane.getChildren().add(routeSelectionImageView);
         }
@@ -503,23 +464,19 @@ public class MainApplicationWindow {
         GridPane.setHalignment(routeSectionFlowPane, HPos.LEFT);
         GridPane.setValignment(routeSectionFlowPane, VPos.BOTTOM);
         GridPane.setHgrow(routeSectionFlowPane, Priority.ALWAYS);
-        routeSectionFlowPane.setHgap(15);
-        routeSectionFlowPane.setVgap(15);
+        Styler.midHVGabFlowPane(routeSectionFlowPane);
 
 
 
         ImageView choiceOptionSettingsButtonImageView = new ImageView(
                 ImageLibrary.getMainApplicationChoiceOptionSettingsButtonImage());
 
-        choiceOptionSettingsButtonImageView.setFitWidth(25);
-        choiceOptionSettingsButtonImageView.setFitHeight(25);
-        choiceOptionSettingsButtonImageView.setPreserveRatio(true);
+        Styler.midImageView(choiceOptionSettingsButtonImageView);
 
         Button choiceOptionSettingsButton = new Button();
         choiceOptionSettingsButton.setGraphic(choiceOptionSettingsButtonImageView);
 
-        GridPane.setHalignment(choiceOptionSettingsButton, HPos.CENTER);
-        GridPane.setValignment(choiceOptionSettingsButton, VPos.CENTER);
+        Styler.centerCenterInGridPane(choiceOptionSettingsButton);
 
         choiceOptionSettingsButtonList.add(choiceOptionSettingsButton);
 
@@ -527,15 +484,12 @@ public class MainApplicationWindow {
         ImageView upSwitchChoiceOptionButtonImageView = new ImageView(
                 ImageLibrary.getMainApplicationUpSwitchChoiceOptionButtonImage());
 
-        upSwitchChoiceOptionButtonImageView.setFitWidth(15);
-        upSwitchChoiceOptionButtonImageView.setFitHeight(15);
-        upSwitchChoiceOptionButtonImageView.setPreserveRatio(true);
+        Styler.smallImageView(upSwitchChoiceOptionButtonImageView);
 
         Button upSwitchChoiceOptionButton = new Button();
         upSwitchChoiceOptionButton.setGraphic(upSwitchChoiceOptionButtonImageView);
 
-        GridPane.setHalignment(upSwitchChoiceOptionButton, HPos.CENTER);
-        GridPane.setValignment(upSwitchChoiceOptionButton, VPos.CENTER);
+        Styler.centerCenterInGridPane(upSwitchChoiceOptionButton);
 
         upSwitchChoiceOptionButtonList.add(upSwitchChoiceOptionButton);
 
@@ -543,15 +497,12 @@ public class MainApplicationWindow {
         ImageView downSwitchChoiceOptionButtonImageView = new ImageView(
                 ImageLibrary.getMainApplicationDownSwitchChoiceOptionButtonImage());
 
-        downSwitchChoiceOptionButtonImageView.setFitWidth(15);
-        downSwitchChoiceOptionButtonImageView.setFitHeight(15);
-        downSwitchChoiceOptionButtonImageView.setPreserveRatio(true);
+        Styler.smallImageView(downSwitchChoiceOptionButtonImageView);
 
         Button downSwitchChoiceOptionButton = new Button();
         downSwitchChoiceOptionButton.setGraphic(downSwitchChoiceOptionButtonImageView);
 
-        GridPane.setHalignment(downSwitchChoiceOptionButton, HPos.CENTER);
-        GridPane.setValignment(downSwitchChoiceOptionButton, VPos.CENTER);
+        Styler.centerCenterInGridPane(downSwitchChoiceOptionButton);
 
         downSwitchChoiceOptionButtonList.add(downSwitchChoiceOptionButton);
 
@@ -561,8 +512,7 @@ public class MainApplicationWindow {
         choiceOptionButtonGridPane.add(upSwitchChoiceOptionButton, 0, 1);
         choiceOptionButtonGridPane.add(downSwitchChoiceOptionButton, 0,2);
 
-        choiceOptionButtonGridPane.setHgap(15);
-        choiceOptionButtonGridPane.setVgap(15);
+        Styler.midHVGabGridPane(choiceOptionButtonGridPane);
 
 
 
@@ -571,9 +521,7 @@ public class MainApplicationWindow {
         choiceOptionGridPane.add(routeSectionFlowPane,0,1);
         choiceOptionGridPane.add(choiceOptionButtonGridPane,1,0,1,2);
 
-        choiceOptionGridPane.setPadding(new Insets(15));
-        choiceOptionGridPane.setHgap(15);
-        choiceOptionGridPane.setVgap(15);
+        Styler.midHVGabMidPaddingGridPane(choiceOptionGridPane);
         choiceOptionGridPane.prefWidthProperty().bind(configVbox.widthProperty().subtract(17));
         choiceOptionGridPane.setBorder(new Border(
                 new BorderStroke(Color.LIGHTGRAY, BorderStrokeStyle.SOLID, null,
@@ -668,6 +616,20 @@ public class MainApplicationWindow {
         alert.setTitle(languageStrategy.getSaveProjectErrorAlertTitle());
         alert.setHeaderText(languageStrategy.getSaveProjectErrorAlertHeaderText());
         alert.setContentText(languageStrategy.getSaveProjectErrorAlertContentText());
+
+        alert.showAndWait();
+    }
+
+    /**
+     * Shows an error alert indicating that there is a problem with updating the preview.
+     */
+    public void showPreviewErrorAlert() {
+        LanguageStrategy languageStrategy = viewFacade.getLanguageStrategy();
+
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(languageStrategy.getPreviewErrorAlertTitle());
+        alert.setHeaderText(languageStrategy.getPreviewErrorAlertHeaderText());
+        alert.setContentText(languageStrategy.getPreviewErrorAlertContentText());
 
         alert.showAndWait();
     }

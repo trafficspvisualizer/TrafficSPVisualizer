@@ -1,6 +1,16 @@
 package edu.kit.ifv.trafficspvisualizer.util.project;
 
 import edu.kit.ifv.trafficspvisualizer.model.*;
+import edu.kit.ifv.trafficspvisualizer.model.data.DataObject;
+import edu.kit.ifv.trafficspvisualizer.model.settings.AbstractAttribute;
+import edu.kit.ifv.trafficspvisualizer.model.settings.Attribute;
+import edu.kit.ifv.trafficspvisualizer.model.settings.ChoiceOption;
+import edu.kit.ifv.trafficspvisualizer.model.settings.ExportSettings;
+import edu.kit.ifv.trafficspvisualizer.model.settings.ExportType;
+import edu.kit.ifv.trafficspvisualizer.model.settings.FileFormat;
+import edu.kit.ifv.trafficspvisualizer.model.settings.LineType;
+import edu.kit.ifv.trafficspvisualizer.model.settings.RouteSection;
+import edu.kit.ifv.trafficspvisualizer.model.settings.SeparatorLine;
 import edu.kit.ifv.trafficspvisualizer.util.parse.NGDParser;
 import javafx.scene.paint.Color;
 import org.json.JSONArray;
@@ -149,7 +159,7 @@ public abstract class AbstractLoader {
     protected RouteSection createRouteSection(JSONObject routeSection) {
         String choiceDataKey  = routeSection.optString(JsonKeys.KEY_CHOICE_DATA_KEY.getKey());
         String lineType = routeSection.optString(JsonKeys.KEY_LINE_TYPE.getKey());
-        return new RouteSection(null,choiceDataKey,LineType.fromString(lineType));
+        return new RouteSection(null,choiceDataKey, LineType.fromString(lineType));
     }
 
     /**
@@ -198,8 +208,15 @@ public abstract class AbstractLoader {
         for (int i = 0; i < project.getChoiceOptions().size(); i++) {
             JSONObject obj = jsonChoiceOptions.optJSONObject(i);
             if (obj != null) {
-                JSONArray routeSectionJSON = obj.optJSONObject(JsonKeys.KEY_CHOICE_OPTION.getKey()).optJSONArray(JsonKeys.KEY_ROUTE_SECTIONS.getKey());
-                ChoiceOption choiceOption = project.getChoiceOptions().get(i);
+                ChoiceOption choiceOption = null;
+                JSONObject ch = obj.optJSONObject(JsonKeys.KEY_CHOICE_OPTION.getKey());
+                JSONArray routeSectionJSON = ch.optJSONArray(JsonKeys.KEY_ROUTE_SECTIONS.getKey());
+                for (ChoiceOption co: project.getChoiceOptions()) {
+                    if (ch.get(JsonKeys.KEY_NAME.getKey()).equals(co.getName())) {
+                        choiceOption = co;
+                        break;
+                    }
+                }
                 for (int j = 0; j < choiceOption.getRouteSections().size(); j++) {
                     if (!routeSectionJSON.isEmpty() &&  !routeSectionJSON.getJSONObject(j).isEmpty()) {
                         JSONObject route = routeSectionJSON.getJSONObject(j);
@@ -231,10 +248,10 @@ public abstract class AbstractLoader {
      * @param jsonAttributes The JSONArray containing the attributes.
      */
     protected void updateProjectAttributes(Project project, JSONArray jsonAttributes) {
-        for (int i = 0; i < project.getAttributes().size(); i++) {
+        for (int i = 0; i < project.getAbstractAttributes().size(); i++) {
             JSONObject obj = jsonAttributes.optJSONObject(i);
             if (obj.has(JsonKeys.KEY_ATTRIBUTE.getKey())) {
-                Attribute attribute1 = project.getAttributes().get(i);
+                Attribute attribute1 = (Attribute)project.getAbstractAttributes().get(i);
                 JSONObject attributeJSON = obj.optJSONObject(JsonKeys.KEY_ATTRIBUTE.getKey());
                 int id = attributeJSON.optInt(JsonKeys.KEY_ICON.getKey());
                 attribute1.setIcon(project.getIconManager().getIcons().get(id));
@@ -254,6 +271,7 @@ public abstract class AbstractLoader {
         int width = attribute.optInt(JsonKeys.KEY_IMAGE_WIDTH.getKey());
         FileFormat format = FileFormat.fromString(attribute.optString(JsonKeys.KEY_FILE_FORMAT.getKey()));
         ExportType exportType = ExportType.fromString(attribute.optString(JsonKeys.KEY_EXPORT_TYPE.getKey()));
-        return new ExportSettings(height,width, null,format,exportType);
+        String htmlVariable = attribute.optString(JsonKeys.KEY_HTML_VARIABLE.getKey());
+        return new ExportSettings(height,width, null,format,exportType,htmlVariable);
     }
 }

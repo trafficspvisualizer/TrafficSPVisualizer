@@ -1,16 +1,16 @@
 package edu.kit.ifv.trafficspvisualizer.view.window;
 
-import edu.kit.ifv.trafficspvisualizer.model.AbstractAttribute;
-import edu.kit.ifv.trafficspvisualizer.model.Attribute;
-import edu.kit.ifv.trafficspvisualizer.model.ChoiceOption;
-import edu.kit.ifv.trafficspvisualizer.model.Icon;
-import edu.kit.ifv.trafficspvisualizer.model.LineType;
+import edu.kit.ifv.trafficspvisualizer.model.settings.Attribute;
+import edu.kit.ifv.trafficspvisualizer.model.settings.ChoiceOption;
+import edu.kit.ifv.trafficspvisualizer.model.icon.Icon;
+import edu.kit.ifv.trafficspvisualizer.model.settings.LineType;
 import edu.kit.ifv.trafficspvisualizer.model.Project;
-import edu.kit.ifv.trafficspvisualizer.model.RouteSection;
+import edu.kit.ifv.trafficspvisualizer.model.settings.RouteSection;
 import edu.kit.ifv.trafficspvisualizer.view.ViewFacade;
 import edu.kit.ifv.trafficspvisualizer.view.data.font.FontLibrary;
 import edu.kit.ifv.trafficspvisualizer.view.data.image.ImageLibrary;
 import edu.kit.ifv.trafficspvisualizer.view.data.language.LanguageStrategy;
+import edu.kit.ifv.trafficspvisualizer.view.style.Styler;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -34,7 +34,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.w3c.dom.Attr;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -237,92 +236,59 @@ public class ChoiceOptionSettingsStage extends Stage {
         // scene
 
         // stage
-        setMinWidth(960);
-        setMinHeight(540);
-        setWidth(960);
-        setHeight(540);
+        Styler.midStage(this);
     }
 
     private void styleTitleAndColorGridPane() {
         // titleText
-        GridPane.setHalignment(titleText, HPos.LEFT);
-        GridPane.setValignment(titleText, VPos.CENTER);
-        titleText.setFont(FontLibrary.getMidFont());
+        Styler.leftCenterMidFontTextInGridPane(titleText);
 
         // titleTextField
-        GridPane.setHalignment(titleTextField, HPos.LEFT);
-        GridPane.setValignment(titleTextField, VPos.CENTER);
-        GridPane.setHgrow(titleTextField, Priority.ALWAYS);
-        titleTextField.setFont(FontLibrary.getSmallFont());
+        Styler.leftCenterHGrowSmallFontTextFieldInGridPane(titleTextField);
 
         // colorText
-        GridPane.setHalignment(colorText, HPos.CENTER);
-        GridPane.setValignment(colorText, VPos.CENTER);
-        colorText.setFont(FontLibrary.getMidFont());
+        Styler.leftCenterMidFontTextInGridPane(colorText);
 
         // colorPicker
-        GridPane.setHalignment(colorText, HPos.LEFT);
-        GridPane.setValignment(colorText, VPos.CENTER);
+        Styler.leftCenterInGridPane(colorPicker);
 
         // titleAndColorGridPane
-        titleAndColorGridPane.setPadding(new Insets(15));
-        titleAndColorGridPane.setHgap(15);
-        titleAndColorGridPane.setVgap(15);
+        Styler.midHVGabMidPaddingGridPane(titleAndColorGridPane);
     }
     private void styleAttributeScrollPane() {
         // attributesText
-        GridPane.setHalignment(attributesText, HPos.LEFT);
-        GridPane.setValignment(attributesText, VPos.CENTER);
-        attributesText.setFont(FontLibrary.getMidBoldFont());
+        Styler.leftCenterMidBoldFontTextInGridPane(attributesText);
 
         // attributesNameText
-        GridPane.setHalignment(attributesNameText, HPos.CENTER);
-        GridPane.setValignment(attributesNameText, VPos.CENTER);
-        attributesNameText.setFont(FontLibrary.getSmallBoldFont());
+        Styler.centerCenterSmallBoldFontTextInGridPane(attributesNameText);
 
         // attributesColumnsText
-        GridPane.setHalignment(attributesColumnsText, HPos.CENTER);
-        GridPane.setValignment(attributesColumnsText, VPos.CENTER);
-        attributesColumnsText.setFont(FontLibrary.getSmallBoldFont());
+        Styler.centerCenterSmallBoldFontTextInGridPane(attributesColumnsText);
 
         // attributesGridPane
-        attributesGridPane.setPadding(new Insets(15));
-        attributesGridPane.setHgap(15);
-        attributesGridPane.setVgap(15);
+        Styler.midHVGabMidPaddingGridPane(attributesGridPane);
 
         // attributesScrollPane
         attributesScrollPane.setFitToHeight(true);
     }
     private void styleRouteSectionScrollPane() {
         // routeSectionsText
-        GridPane.setHalignment(routeSectionsText, HPos.LEFT);
-        GridPane.setValignment(routeSectionsText, VPos.CENTER);
-        routeSectionsText.setFont(FontLibrary.getMidBoldFont());
+        Styler.leftCenterMidBoldFontTextInGridPane(routeSectionsText);
 
         // routeSectionsNumberText
-        GridPane.setHalignment(routeSectionsNumberText, HPos.CENTER);
-        GridPane.setValignment(routeSectionsNumberText, VPos.CENTER);
-        routeSectionsNumberText.setFont(FontLibrary.getSmallBoldFont());
+        Styler.centerCenterSmallBoldFontTextInGridPane(routeSectionsNumberText);
 
         // routeSectionsIconText
-        GridPane.setHalignment(routeSectionsIconText, HPos.CENTER);
-        GridPane.setValignment(routeSectionsIconText, VPos.CENTER);
-        routeSectionsIconText.setFont(FontLibrary.getSmallBoldFont());
+        Styler.centerCenterSmallBoldFontTextInGridPane(routeSectionsIconText);
 
         // routeSectionsLineTypeText
-        GridPane.setHalignment(routeSectionsLineTypeText, HPos.CENTER);
-        GridPane.setValignment(routeSectionsLineTypeText, VPos.CENTER);
-        routeSectionsLineTypeText.setFont(FontLibrary.getSmallBoldFont());
+        Styler.centerCenterSmallBoldFontTextInGridPane(routeSectionsLineTypeText);
 
         // routeSectionsColumnText
-        GridPane.setHalignment(routeSectionsColumnText, HPos.CENTER);
-        GridPane.setValignment(routeSectionsColumnText, VPos.CENTER);
-        routeSectionsColumnText.setFont(FontLibrary.getSmallBoldFont());
+        Styler.centerCenterSmallBoldFontTextInGridPane(routeSectionsColumnText);
 
         // routeSectionsGridPane
-        routeSectionsGridPane.setPadding(new Insets(15));
-        routeSectionsGridPane.setHgap(15);
-        routeSectionsGridPane.setVgap(15);
+        Styler.midHVGabMidPaddingGridPane(routeSectionsGridPane);
 
         // routeSectionsScrollPane
         routeSectionsScrollPane.setFitToHeight(true);
@@ -330,19 +296,13 @@ public class ChoiceOptionSettingsStage extends Stage {
     }
     private void styleCloseAndAddGridPane() {
         // addRouteSectionButton
-        GridPane.setHalignment(addRouteSectionButton, HPos.LEFT);
-        GridPane.setValignment(addRouteSectionButton, VPos.CENTER);
-        addRouteSectionButton.setFont(FontLibrary.getSmallFont());
+        Styler.leftCenterSmallFontButtonInGridPane(addRouteSectionButton);
 
         // closeButton
-        GridPane.setHalignment(closeButton, HPos.LEFT);
-        GridPane.setValignment(closeButton, VPos.CENTER);
-        closeButton.setFont(FontLibrary.getSmallFont());
+        Styler.leftCenterSmallFontButtonInGridPane(closeButton);
 
         // closeAndAddGridPane
-        closeAndAddGridPane.setPadding(new Insets(15));
-        closeAndAddGridPane.setHgap(15);
-        closeAndAddGridPane.setVgap(15);
+        Styler.midHVGabMidPaddingGridPane(closeAndAddGridPane);
     }
 
 
@@ -409,9 +369,7 @@ public class ChoiceOptionSettingsStage extends Stage {
 
         Text attributeNameText = new Text(attribute.getName());
 
-        GridPane.setHalignment(attributeNameText, HPos.CENTER);
-        GridPane.setValignment(attributeNameText, VPos.CENTER);
-        attributeNameText.setFont(FontLibrary.getSmallFont());
+        Styler.centerCenterSmallFontTextInGridPane(attributeNameText);
 
         attributesGridPane.add(attributeNameText,0, rowIndex);
 
@@ -436,8 +394,7 @@ public class ChoiceOptionSettingsStage extends Stage {
             attributeValueNamesMenuButton.getItems().add(valueNameCustomMenuItem);
         }
 
-        GridPane.setHalignment(attributeNameText, HPos.CENTER);
-        GridPane.setValignment(attributeNameText, VPos.CENTER);
+        Styler.centerCenterInGridPane(attributeValueNamesMenuButton);
         attributeValueNamesMenuButton.setFont(FontLibrary.getSmallFont());
 
         attributesValueNamesCheckBoxList.add(valueNameCheckBoxList);
@@ -453,9 +410,7 @@ public class ChoiceOptionSettingsStage extends Stage {
 
         Text routeSectionNumberText = new Text(String.valueOf(routeSectionIndex + 1));
 
-        GridPane.setHalignment(routeSectionNumberText, HPos.CENTER);
-        GridPane.setValignment(routeSectionNumberText, VPos.CENTER);
-        routeSectionNumberText.setFont(FontLibrary.getSmallFont());
+        Styler.centerCenterSmallFontTextInGridPane(routeSectionNumberText);
 
         routeSectionsGridPane.add(routeSectionNumberText,0,rowIndex);
 
@@ -464,15 +419,12 @@ public class ChoiceOptionSettingsStage extends Stage {
         ImageView routeSectionIconButtonImageView =
                 new ImageView(SwingFXUtils.toFXImage(routeSectionIcon.toBufferedImage(),null));
 
-        routeSectionIconButtonImageView.setFitWidth(25);
-        routeSectionIconButtonImageView.setFitHeight(25);
-        routeSectionIconButtonImageView.setPreserveRatio(true);
+        Styler.midImageView(routeSectionIconButtonImageView);
 
         Button routeSectionIconButton = new Button();
         routeSectionIconButton.setGraphic(routeSectionIconButtonImageView);
 
-        GridPane.setHalignment(routeSectionIconButton, HPos.CENTER);
-        GridPane.setValignment(routeSectionIconButton, VPos.CENTER);
+        Styler.centerCenterInGridPane(routeSectionIconButton);
 
         routeSectionIconButtonList.add(routeSectionIconButton);
         routeSectionsGridPane.add(routeSectionIconButton, 1, rowIndex);
@@ -485,8 +437,7 @@ public class ChoiceOptionSettingsStage extends Stage {
         }
         routeSectionLineTypeChoiceBox.setValue(languageStrategy.getLineTypeText(routeSection.getLineType()));
 
-        GridPane.setHalignment(routeSectionLineTypeChoiceBox, HPos.CENTER);
-        GridPane.setValignment(routeSectionLineTypeChoiceBox, VPos.CENTER);
+        Styler.centerCenterInGridPane(routeSectionLineTypeChoiceBox);
 
         routeSectionLineTypeChoiceBoxList.add(routeSectionLineTypeChoiceBox);
         routeSectionsGridPane.add(routeSectionLineTypeChoiceBox, 2, rowIndex);
@@ -500,8 +451,7 @@ public class ChoiceOptionSettingsStage extends Stage {
         }
         routeSectionValueNameChoiceBox.setValue(routeSection.getChoiceDataKey());
 
-        GridPane.setHalignment(routeSectionValueNameChoiceBox, HPos.CENTER);
-        GridPane.setValignment(routeSectionValueNameChoiceBox, VPos.CENTER);
+        Styler.centerCenterInGridPane(routeSectionValueNameChoiceBox);
 
         routeSectionValueNameChoiceBoxList.add(routeSectionValueNameChoiceBox);
         routeSectionsGridPane.add(routeSectionValueNameChoiceBox, 3, rowIndex);
@@ -511,15 +461,12 @@ public class ChoiceOptionSettingsStage extends Stage {
         ImageView routeSectionRemoveButtonImageView =
                 new ImageView(ImageLibrary.getChoiceOptionSettingsRouteSectionRemoveButtonImage());
 
-        routeSectionRemoveButtonImageView.setFitWidth(25);
-        routeSectionRemoveButtonImageView.setFitHeight(25);
-        routeSectionRemoveButtonImageView.setPreserveRatio(true);
+        Styler.midImageView(routeSectionRemoveButtonImageView);
 
         Button routeSectionRemoveButton = new Button();
         routeSectionRemoveButton.setGraphic(routeSectionRemoveButtonImageView);
 
-        GridPane.setHalignment(routeSectionRemoveButton, HPos.CENTER);
-        GridPane.setValignment(routeSectionRemoveButton, VPos.CENTER);
+        Styler.centerCenterInGridPane(routeSectionRemoveButton);
 
         routeSectionRemoveButtonList.add(routeSectionRemoveButton);
         routeSectionsGridPane.add(routeSectionRemoveButton, 4, rowIndex);

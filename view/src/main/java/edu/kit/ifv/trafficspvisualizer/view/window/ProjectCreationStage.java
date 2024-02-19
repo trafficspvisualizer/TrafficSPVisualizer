@@ -2,13 +2,9 @@ package edu.kit.ifv.trafficspvisualizer.view.window;
 
 import edu.kit.ifv.trafficspvisualizer.model.Project;
 import edu.kit.ifv.trafficspvisualizer.view.ViewFacade;
-import edu.kit.ifv.trafficspvisualizer.view.data.font.FontLibrary;
 import edu.kit.ifv.trafficspvisualizer.view.data.image.ImageLibrary;
 import edu.kit.ifv.trafficspvisualizer.view.data.language.LanguageStrategy;
-import javafx.geometry.HPos;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.geometry.VPos;
+import edu.kit.ifv.trafficspvisualizer.view.style.Styler;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -16,7 +12,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
 import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
@@ -40,7 +35,7 @@ public class ProjectCreationStage extends Stage {
 
     private Text nameText;
 
-    private TextField projectNameTextField;
+    private TextField nameTextField;
 
 
     private Text saveProjectDirectoryText;
@@ -100,7 +95,7 @@ public class ProjectCreationStage extends Stage {
 
         nameText = new Text(languageStrategy.getProjectCreationProjectNameText());
 
-        projectNameTextField = new TextField();
+        nameTextField = new TextField();
 
         saveProjectDirectoryText = new Text(languageStrategy.getProjectCreationSaveProjectDirectoryText());
 
@@ -124,7 +119,7 @@ public class ProjectCreationStage extends Stage {
 
         configGridPane = new GridPane();
         configGridPane.add(nameText,0,0);
-        configGridPane.add(projectNameTextField,1,0);
+        configGridPane.add(nameTextField,1,0);
         configGridPane.add(saveProjectDirectoryText,0,1);
         configGridPane.add(saveProjectDirectoryTextField,1,1);
         configGridPane.add(saveProjectDirectoryButton,2,1);
@@ -158,80 +153,48 @@ public class ProjectCreationStage extends Stage {
 
     private void styleStage() {
         // projectNameText
-        GridPane.setHalignment(nameText, HPos.LEFT);
-        GridPane.setValignment(nameText, VPos.CENTER);
-        nameText.setFont(FontLibrary.getMidFont());
+        Styler.leftCenterMidFontTextInGridPane(nameText);
 
-
-        // projectNameTextField
-        GridPane.setHalignment(projectNameTextField, HPos.LEFT);
-        GridPane.setValignment(projectNameTextField, VPos.CENTER);
-        GridPane.setHgrow(projectNameTextField, Priority.ALWAYS);
-        projectNameTextField.setFont(FontLibrary.getSmallFont());
+        // nameTextField
+        Styler.leftCenterHGrowSmallFontTextFieldInGridPane(nameTextField);
 
         // saveProjectDirectoryText
-        GridPane.setHalignment(saveProjectDirectoryText, HPos.LEFT);
-        GridPane.setValignment(saveProjectDirectoryText, VPos.CENTER);
-        saveProjectDirectoryText.setFont(FontLibrary.getMidFont());
+        Styler.leftCenterMidFontTextInGridPane(saveProjectDirectoryText);
 
         // saveProjectDirectoryTextField
-        GridPane.setHalignment(saveProjectDirectoryTextField, HPos.LEFT);
-        GridPane.setValignment(saveProjectDirectoryTextField, VPos.CENTER);
-        GridPane.setHgrow(projectNameTextField, Priority.ALWAYS);
-        saveProjectDirectoryTextField.setFont(FontLibrary.getSmallFont());
+        Styler.leftCenterHGrowSmallFontTextFieldInGridPane(saveProjectDirectoryTextField);
 
         // saveProjectDirectoryButtonImageView
-        saveProjectDirectoryButtonImageView.setFitWidth(25);
-        saveProjectDirectoryButtonImageView.setFitHeight(25);
-        saveProjectDirectoryButtonImageView.setPreserveRatio(true);
+        Styler.midImageView(saveProjectDirectoryButtonImageView);
 
         // saveProjectDirectoryButton
-        GridPane.setHalignment(saveProjectDirectoryTextField, HPos.CENTER);
-        GridPane.setValignment(saveProjectDirectoryTextField, VPos.CENTER);
+        Styler.centerCenterInGridPane(saveProjectDirectoryButton);
 
         // inputDataFileText
-        GridPane.setHalignment(inputDataFileText, HPos.LEFT);
-        GridPane.setValignment(inputDataFileText, VPos.CENTER);
-        inputDataFileText.setFont(FontLibrary.getMidFont());
+        Styler.leftCenterMidFontTextInGridPane(inputDataFileText);
 
         // inputDataFileTextField
-        GridPane.setHalignment(inputDataFileTextField, HPos.LEFT);
-        GridPane.setValignment(inputDataFileTextField, VPos.CENTER);
-        GridPane.setHgrow(inputDataFileTextField, Priority.ALWAYS);
-        inputDataFileTextField.setFont(FontLibrary.getSmallFont());
+        Styler.leftCenterHGrowSmallFontTextFieldInGridPane(inputDataFileTextField);
 
 
         // inputDataFileButtonImageView
-        inputDataFileButtonImageView.setFitWidth(25);
-        inputDataFileButtonImageView.setFitHeight(25);
-        inputDataFileButtonImageView.setPreserveRatio(true);
+        Styler.midImageView(inputDataFileButtonImageView);
 
         // inputDataFileButton
-        GridPane.setHalignment(inputDataFileButton, HPos.CENTER);
-        GridPane.setValignment(inputDataFileButton, VPos.CENTER);
+        Styler.centerCenterInGridPane(inputDataFileButton);
 
         // configGridPane
-        BorderPane.setAlignment(configGridPane, Pos.TOP_LEFT);
-        configGridPane.setPadding(new Insets(15));
-        configGridPane.setHgap(15);
-        configGridPane.setVgap(15);
+        Styler.midHVGabMidPaddingGridPane(configGridPane);
 
 
         // createNewProjectButton
-        GridPane.setHalignment(createNewProjectButton, HPos.LEFT);
-        GridPane.setValignment(createNewProjectButton, VPos.CENTER);
-        createNewProjectButton.setFont(FontLibrary.getSmallFont());
+        Styler.leftCenterSmallFontButtonInGridPane(createNewProjectButton);
 
         // cancelButton
-        GridPane.setHalignment(cancelButton, HPos.LEFT);
-        GridPane.setValignment(cancelButton, VPos.CENTER);
-        cancelButton.setFont(FontLibrary.getSmallFont());
+        Styler.leftCenterSmallFontButtonInGridPane(cancelButton);
 
-        // saveAndCancelGridPane
-        BorderPane.setAlignment(createAndCancelGridPane, Pos.BOTTOM_LEFT);
-        createAndCancelGridPane.setPadding(new Insets(15));
-        createAndCancelGridPane.setHgap(15);
-        createAndCancelGridPane.setVgap(15);
+        // createAndCancelGridPane
+        Styler.midHVGabMidPaddingGridPane(createAndCancelGridPane);
 
 
         // bodyBorderPane
@@ -239,10 +202,7 @@ public class ProjectCreationStage extends Stage {
         // scene
 
         // stage
-        setMinWidth(960);
-        setMinHeight(540);
-        setWidth(960);
-        setHeight(540);
+        Styler.midStage(this);
     }
 
     // setter-methods
@@ -362,7 +322,7 @@ public class ProjectCreationStage extends Stage {
      * @return The project name.
      */
     public String getProjectName() {
-        return projectNameTextField.getText();
+        return nameTextField.getText();
     }
 
 }

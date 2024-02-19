@@ -1,6 +1,6 @@
 package edu.kit.ifv.trafficspvisualizer.controller;
 
-import edu.kit.ifv.trafficspvisualizer.model.DataObject;
+import edu.kit.ifv.trafficspvisualizer.model.data.DataObject;
 import edu.kit.ifv.trafficspvisualizer.model.Project;
 import edu.kit.ifv.trafficspvisualizer.util.parse.NGDParser;
 import edu.kit.ifv.trafficspvisualizer.view.window.ProjectCreationStage;
@@ -19,7 +19,7 @@ import java.text.ParseException;
  * @author ughhz
  * @version 1.0
  */
-public class ProjectCreationController {
+class ProjectCreationController {
 
     /**
      * Front-facing interface for the controller package.
@@ -32,7 +32,7 @@ public class ProjectCreationController {
      *
      * @param controllerFacade the front-facing interface for the controller package
      */
-    public ProjectCreationController(ControllerFacade controllerFacade) {
+    ProjectCreationController(ControllerFacade controllerFacade) {
         this.controllerFacade = controllerFacade;
         //creates and shows new stage
         controllerFacade.getViewFacade().
@@ -137,6 +137,9 @@ public class ProjectCreationController {
 
         // Cancel-Button
         projectCreationStage.getCancelButton().setOnAction(e -> actionOnCancelButton());
+
+        // Close Request - same event handler as cancel button
+        projectCreationStage.setOnCloseRequest(e -> actionOnCancelButton());
     }
 
     private boolean validateInput(String projectName, File projectFolder, File inputFile) {

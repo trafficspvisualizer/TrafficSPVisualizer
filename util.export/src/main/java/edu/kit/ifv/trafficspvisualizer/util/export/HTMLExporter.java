@@ -16,7 +16,8 @@ import java.util.stream.Collectors;
  * A class for exporting images in HTML format.
  * Inherits from the Exporter class.
  */
-public class HTMLExporter extends Exporter {
+public class HTMLExporter extends Exporter { //todo aufteilen in einzelen Situationen
+    private String directoryName = "TrafficSPVisualizer";
 
     /**
      * Exports an array of ChoiceOptionImage objects as an HTML file.
@@ -26,8 +27,9 @@ public class HTMLExporter extends Exporter {
      * @throws IOException If an error occurs while writing to the file.
      */
     @Override
-    public void export(ChoiceOptionImage[] images, File file) throws IOException {
+    public void export(ChoiceOptionImage[] images, File file, String name) throws IOException {
         var groupedImages = groupImagesByScenario(images);
+        this.directoryName = name;
         for (var imageGroup : groupedImages) {
             exportGroup(imageGroup, file);
         }
@@ -57,12 +59,12 @@ public class HTMLExporter extends Exporter {
      */
     private void exportGroup(List<ChoiceOptionImage> imageGroup, File file) throws IOException {
         var imageExporter = new ImageExporter();
-        imageExporter.export(imageGroup.toArray(new ChoiceOptionImage[0]), file);
+        imageExporter.export(imageGroup.toArray(new ChoiceOptionImage[0]), file, directoryName);
         var tempFilePath = Files.createTempFile(file.toPath(), "datei", ".html");
         try (var writer = Files.newBufferedWriter(tempFilePath)) {
             writeHtmlContent(imageGroup, writer);
         }
-        Path finalFilePath = Paths.get(file.toString() + "\\trafficSPVisulizer\\", "trafficSPVisualizer.html");
+        Path finalFilePath = Paths.get(file.toString() + "\\" + directoryName , "trafficSPVisualizer.html");
         Files.move(tempFilePath, finalFilePath, StandardCopyOption.REPLACE_EXISTING);
     }
 
