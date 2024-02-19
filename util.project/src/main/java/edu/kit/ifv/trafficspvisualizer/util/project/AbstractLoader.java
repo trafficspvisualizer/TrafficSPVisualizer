@@ -271,6 +271,7 @@ public abstract class AbstractLoader {
         int width = attribute.optInt(JsonKeys.KEY_IMAGE_WIDTH.getKey());
         FileFormat format = FileFormat.fromString(attribute.optString(JsonKeys.KEY_FILE_FORMAT.getKey()));
         ExportType exportType = ExportType.fromString(attribute.optString(JsonKeys.KEY_EXPORT_TYPE.getKey()));
-        return new ExportSettings(height,width, null,format,exportType);
+        String htmlVariable = attribute.optString(JsonKeys.KEY_HTML_VARIABLE.getKey());
+        return new ExportSettings(height,width, null,format,exportType,htmlVariable);
     }
 }
