@@ -9,8 +9,12 @@ public class ChoiceData {
     public ChoiceData(Map<String, Double> values) {
         this.values = values;
     }
-    public double getValue(String valueName) {
-        return this.values.get(valueName);
+    public double getValue(String valueName) throws InvalidDataKeyException {
+        if (!values.containsKey(valueName)) {
+            throw new InvalidDataKeyException();
+        }
+
+        return values.get(valueName);
     }
 
     public Set<String> getNames() {
