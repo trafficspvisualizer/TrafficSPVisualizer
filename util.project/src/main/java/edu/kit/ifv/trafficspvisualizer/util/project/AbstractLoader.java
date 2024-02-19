@@ -208,8 +208,15 @@ public abstract class AbstractLoader {
         for (int i = 0; i < project.getChoiceOptions().size(); i++) {
             JSONObject obj = jsonChoiceOptions.optJSONObject(i);
             if (obj != null) {
-                JSONArray routeSectionJSON = obj.optJSONObject(JsonKeys.KEY_CHOICE_OPTION.getKey()).optJSONArray(JsonKeys.KEY_ROUTE_SECTIONS.getKey());
-                ChoiceOption choiceOption = project.getChoiceOptions().get(i);
+                ChoiceOption choiceOption = null;
+                JSONObject ch = obj.optJSONObject(JsonKeys.KEY_CHOICE_OPTION.getKey());
+                JSONArray routeSectionJSON = ch.optJSONArray(JsonKeys.KEY_ROUTE_SECTIONS.getKey());
+                for (ChoiceOption co: project.getChoiceOptions()) {
+                    if (ch.get(JsonKeys.KEY_NAME.getKey()).equals(co.getName())) {
+                        choiceOption = co;
+                        break;
+                    }
+                }
                 for (int j = 0; j < choiceOption.getRouteSections().size(); j++) {
                     if (!routeSectionJSON.isEmpty() &&  !routeSectionJSON.getJSONObject(j).isEmpty()) {
                         JSONObject route = routeSectionJSON.getJSONObject(j);
