@@ -64,6 +64,7 @@ public class StandardImageGenerator extends ImageGenerator{
         drawCentralSeparator();
         drawRouteSections();
         drawBottomLine();
+        graphics2DChoiceOption.dispose();
         return choiceOptionImage;
     }
 
@@ -188,9 +189,8 @@ public class StandardImageGenerator extends ImageGenerator{
     }
 
     private void drawBottomLine() {
-        graphics2DChoiceOption.setColor(Color.GRAY);
-        Stroke borderLineStroke = new BasicStroke(0.1f);
-        graphics2DChoiceOption.setStroke(borderLineStroke);
+        graphics2DChoiceOption.setColor(Color.LIGHT_GRAY);
+        graphics2DChoiceOption.setStroke(new BasicStroke(1.0f));
         graphics2DChoiceOption.drawLine(0, height - 1, width, height - 1);
     }
 

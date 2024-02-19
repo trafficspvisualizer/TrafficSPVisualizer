@@ -7,8 +7,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class SituationGenerator extends ImageCollectionGenerator {
-    private static final int PREVIEW_WIDTH = 2220;
-    private static final int PREVIEW_HEIGHT = 1400;
+    private static final int PREVIEW_WIDTH = 1920;
+    private static final int PREVIEW_CHOICEOPTION_HEIGHT = 180;
 
 
 
@@ -31,8 +31,8 @@ public class SituationGenerator extends ImageCollectionGenerator {
         int situationIndex = project.getCurrentPreviewSituation();
         setUpImageCreation(project);
         this.exportWidth = PREVIEW_WIDTH;
-        this.exportHeight = PREVIEW_HEIGHT;
-        this.choiceOptionHeight = exportHeight / numberOfChoiceOptions;
+        this.exportHeight = PREVIEW_CHOICEOPTION_HEIGHT * numberOfChoiceOptions;
+        this.choiceOptionHeight = PREVIEW_CHOICEOPTION_HEIGHT;
         this.choiceOptionWidth = exportWidth;
         return createSituationImage(situationIndex);
     }
@@ -47,7 +47,7 @@ public class SituationGenerator extends ImageCollectionGenerator {
             ChoiceOption currentChoiceOption = project.getChoiceOptions().get(j);
             BufferedImage bufferedImage = standardImageGenerator.createChoiceOption(currentChoiceOption,
                     dataObject, attributeList, choiceOptionHeight,
-                    choiceOptionWidth, 0,longestRouteSectionOfSituation, situationIndex);
+                    choiceOptionWidth, 0, longestRouteSectionOfSituation, situationIndex);
             choiceOptionImages[j] = bufferedImage;
         }
         return combineChoiceOptionImages(choiceOptionImages);
