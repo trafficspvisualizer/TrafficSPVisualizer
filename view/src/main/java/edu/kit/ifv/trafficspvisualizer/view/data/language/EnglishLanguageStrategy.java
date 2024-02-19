@@ -108,9 +108,16 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
     private final static String ADD_ICON_ERROR_ALERT_TITLE = ERROR_ALERT_TITLE;
 
     private final static String ADD_ICON_ERROR_ALERT_HEADER_TEXT =
-            "Something went wrong! Could not save add the selected icon.";
+            "Something went wrong! Could not add the selected icon.";
 
-    private final static String ADD_ICON_ERROR_ALERT_CONTENT_TEXT = "Please check the selected icon.";
+    private final static String ADD_ICON_ERROR_ALERT_CONTENT_TEXT = "Please check the selected file.";
+
+    private final static String SELECT_ICON_ERROR_ALERT_TITLE = ERROR_ALERT_TITLE;
+
+    private final static String SELECT_ICON_ERROR_ALERT_HEADER_TEXT =
+            "Something went wrong! Could not select the selected icon.";
+
+    private final static String SELECT_ICON_ERROR_ALERT_CONTENT_TEXT = "Please check if an icon is selected.";
 
 
         // ENUMS
@@ -422,8 +429,19 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
         return ADD_ICON_ERROR_ALERT_CONTENT_TEXT;
     }
 
+    public String getSelectIconErrorAlertTitle() {
+        return SELECT_ICON_ERROR_ALERT_TITLE;
+    }
 
-        // ENUMS
+    public String getSelectIconErrorAlertHeaderText() {
+        return SELECT_ICON_ERROR_ALERT_HEADER_TEXT;
+    }
+
+    public String getSelectIconErrorAlertContentText() {
+        return SELECT_ICON_ERROR_ALERT_CONTENT_TEXT;
+    }
+
+    // ENUMS
     public String getExportTypeText(ExportType exportType) {
         switch (exportType) {
             case HTML -> {

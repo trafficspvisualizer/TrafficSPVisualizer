@@ -178,6 +178,20 @@ public class IconSelectionStage extends Stage {
         alert.showAndWait();
     }
 
+    /**
+     * Shows an error alert indicating that an error occurred during adding of an icon.
+     */
+    public void showSelectIconErrorAlert() {
+        LanguageStrategy languageStrategy = viewFacade.getLanguageStrategy();
+
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(languageStrategy.getSelectIconErrorAlertTitle());
+        alert.setHeaderText(languageStrategy.getSelectIconErrorAlertHeaderText());
+        alert.setContentText(languageStrategy.getSelectIconErrorAlertContentText());
+
+        alert.showAndWait();
+    }
+
     // getter-methods
 
     /**

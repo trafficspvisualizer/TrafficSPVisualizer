@@ -285,6 +285,27 @@ public abstract class LanguageStrategy {
      */
     public abstract String getAddIconErrorAlertContentText();
 
+    /**
+     * Gets the title for the alert shown when an error occurs while selecting an icon.
+     *
+     * @return The title of the add select error alert.
+     */
+    public abstract String getSelectIconErrorAlertTitle();
+
+    /**
+     * Gets the header text for the alert shown when an error occurs while adding an icon.
+     *
+     * @return The header text of the add icon error alert.
+     */
+    public abstract String getSelectIconErrorAlertHeaderText();
+
+    /**
+     * Gets the content text for the alert shown when an error occurs while selecting an icon.
+     *
+     * @return The content text of the select icon error alert
+     */
+    public abstract String getSelectIconErrorAlertContentText();
+
 
         // ENUMS
     /**
