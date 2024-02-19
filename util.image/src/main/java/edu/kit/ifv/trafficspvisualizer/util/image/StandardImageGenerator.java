@@ -12,12 +12,11 @@ import edu.kit.ifv.trafficspvisualizer.model.settings.SeparatorLine;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
 import java.util.List;
 
 public class StandardImageGenerator extends ImageGenerator{
     private static final double ATTRIBUTE_DRAWING_HEIGHT_CONSTANT = 0.39;
+    private static final double HEIGHT_OF_HEADLINE_CONSTANT = 0.25;
     private int heightOfHeadline;
     private int width;
     private int height;
@@ -29,7 +28,6 @@ public class StandardImageGenerator extends ImageGenerator{
     private DataObject dataObject;
     private ChoiceOption choiceOption;
     private int situationIndex;
-    private Graphics2D graphics2DHeadline;
     private Graphics2D graphics2DChoiceOption;
     private List<AbstractAttribute> attributes;
     private java.awt.Color color;
@@ -40,7 +38,7 @@ public class StandardImageGenerator extends ImageGenerator{
     public BufferedImage createChoiceOption(ChoiceOption choiceOption, DataObject dataObject,
                                             List<AbstractAttribute> attributes, int height, int width, double min, double max, int situationIndex) throws InvalidDataKeyException {
         BufferedImage choiceOptionImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-        this.heightOfHeadline = height / 4;
+        this.heightOfHeadline = (int) (height * HEIGHT_OF_HEADLINE_CONSTANT);
         this.height = height;
         this.width = width;
         this.lengthOfLongestRouteSectionOfSituation = max;
@@ -59,35 +57,27 @@ public class StandardImageGenerator extends ImageGenerator{
                 (float) fxColor.getOpacity());
         svgToBufferedImageConverter = new SVGToBufferedImageConverter();
         graphics2DChoiceOption = choiceOptionImage.createGraphics();
-        fillGraphicWhite(graphics2DChoiceOption, width, height);
 
+        fillGraphicWhite(graphics2DChoiceOption, width, height);
         drawHeadlineImage();
         drawAttributeImages();
         drawCentralSeparator();
         drawRouteSections();
-        graphics2DChoiceOption.setColor(Color.GRAY);
-        Stroke borderLineStroke = new BasicStroke(0.1f);
-        graphics2DChoiceOption.setStroke(borderLineStroke);
-        graphics2DChoiceOption.drawLine(0, height - 1, width, height - 1);
+        drawBottomLine();
         return choiceOptionImage;
     }
 
     private void drawHeadlineImage() {
         BufferedImage headlineImage = new BufferedImage(width, heightOfHeadline, BufferedImage.TYPE_INT_RGB);
-        graphics2DHeadline = headlineImage.createGraphics();
+        Graphics2D graphics2DHeadline = headlineImage.createGraphics();
         fillGraphicWhite(graphics2DHeadline, width, heightOfHeadline);
 
         int sizeOfFont = heightOfHeadline / 3;
         headlineFont = new Font("Arial Bold", Font.BOLD, sizeOfFont);
         graphics2DHeadline.setFont(headlineFont);
         String headline = choiceOption.getTitle();
-        int widthOfString = graphics2DHeadline.getFontMetrics().stringWidth(headline) + distanceToSide;
-        while (widthOfString > width) {
-            sizeOfFont--;
-            headlineFont = new Font("Arial Bold", Font.BOLD, sizeOfFont);
-            graphics2DHeadline.setFont(headlineFont);
-            widthOfString = graphics2DHeadline.getFontMetrics().stringWidth(headline) + distanceToSide;
-        }
+        int maxHeadlineWidth = width - 2 * distanceToSide;
+        makeStringFit(graphics2DHeadline, maxHeadlineWidth, headline);
         graphics2DHeadline.setColor(color);
         graphics2DHeadline.drawString(headline, distanceToSide, ( 2 * heightOfHeadline) / 3);
         graphics2DHeadline.dispose();
@@ -108,8 +98,6 @@ public class StandardImageGenerator extends ImageGenerator{
             int widthForAttributesOnly = (int) (0.5 * width - distanceToSide -
                     separatorLineStrokeWidth * numberOfSeparatorLines);
             attributeWidth = widthForAttributesOnly / numberOfAttributes;
-            leftHandSideWidth = distanceToSide + attributeWidth * numberOfAttributes +
-                    separatorLineStrokeWidth * numberOfSeparatorLines;
         }
 
         currentXCoordinate = distanceToSide;
@@ -199,6 +187,13 @@ public class StandardImageGenerator extends ImageGenerator{
         }
     }
 
+    private void drawBottomLine() {
+        graphics2DChoiceOption.setColor(Color.GRAY);
+        Stroke borderLineStroke = new BasicStroke(0.1f);
+        graphics2DChoiceOption.setStroke(borderLineStroke);
+        graphics2DChoiceOption.drawLine(0, height - 1, width, height - 1);
+    }
+
 
 
     private BufferedImage createOneAttributeImage(Attribute attribute) throws InvalidDataKeyException {
@@ -215,12 +210,11 @@ public class StandardImageGenerator extends ImageGenerator{
         Font attributeFont = headlineFont;
         g2DAttribute.setFont(attributeFont);
         String secondLineString = getRoundedString(attribute.getDecimalPlaces(), imageAttributeValue) + suffix;
-        String longerString;
-
         int maxTextWidth = attributeWidth - attributeWidth / 4;
 
 
         if (attribute.getPrefix().length() > 2) { // draw font in two lines
+            String longerString;
             if (prefix.length() > secondLineString.length()) {
                 longerString = prefix;
             } else {
@@ -306,7 +300,7 @@ public class StandardImageGenerator extends ImageGenerator{
         return numberOfAttributes;
     }
 
-    public static String getRoundedString(int decimalPlaces, double value) {
+    private static String getRoundedString(int decimalPlaces, double value) {
         if (decimalPlaces < 0) {
             throw new IllegalArgumentException("Decimal places cannot be negative");
         }
