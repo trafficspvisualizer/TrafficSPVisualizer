@@ -3,6 +3,7 @@ module edu.kit.ifv.trafficspvisualizer.model {
     requires java.desktop;
     requires batik.all;
     requires jdk.xml.dom;
+    requires org.apache.commons.io;
 
     exports edu.kit.ifv.trafficspvisualizer.model;
     exports edu.kit.ifv.trafficspvisualizer.model.icon;

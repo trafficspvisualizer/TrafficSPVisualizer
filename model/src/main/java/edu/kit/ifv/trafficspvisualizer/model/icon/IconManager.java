@@ -8,10 +8,13 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import org.apache.commons.io.FilenameUtils;
 
 /**
  * This class creates and manages a set of {@link Icon}s.
@@ -58,7 +61,7 @@ public class IconManager {
     private void initDefaultIcons() throws IOException {
         List<String> defaultIconNames;
         try (InputStream defaultIcons = IconManager.class.getResourceAsStream(
-                "%s/%s".formatted(DEFAULT_ICON_DIR, DEFAULT_ICON_NAMES_FILE))
+            "%s/%s".formatted(DEFAULT_ICON_DIR, DEFAULT_ICON_NAMES_FILE))
         ) {
             if (defaultIcons == null) {
                 throw new IOException();
@@ -70,7 +73,7 @@ public class IconManager {
 
         for (String iconName : defaultIconNames) {
             try (InputStream iconStream = IconManager.class.getResourceAsStream(
-                    "%s/%s".formatted(DEFAULT_ICON_DIR, iconName))
+                "%s/%s".formatted(DEFAULT_ICON_DIR, iconName))
             ) {
                 createIcon(Objects.requireNonNull(iconStream));
             }
@@ -86,9 +89,25 @@ public class IconManager {
             return;
         }
 
-        for (File icon : iconFiles) {
+        File[] sortedFiles = sortFiles(iconFiles);
+        for (File icon : sortedFiles) {
             createIcon(icon.toPath());
         }
+    }
+
+    private File[] sortFiles(File[] files) {
+        File[] sortedFiles = files.clone();
+        Arrays.sort(sortedFiles, (file1, file2) -> {
+            try {
+                int num1 = Integer.parseInt(FilenameUtils.getBaseName(file1.toString()));
+                int num2 = Integer.parseInt(FilenameUtils.getBaseName(file2.toString()));
+                return Integer.compare(num1, num2);
+            } catch (NumberFormatException e) {
+                return file1.compareTo(file2);
+            }
+        });
+
+        return sortedFiles;
     }
 
     /**
