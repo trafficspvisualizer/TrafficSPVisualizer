@@ -12,9 +12,6 @@ import edu.kit.ifv.trafficspvisualizer.view.data.image.ImageLibrary;
 import edu.kit.ifv.trafficspvisualizer.view.data.language.LanguageStrategy;
 import edu.kit.ifv.trafficspvisualizer.view.style.Styler;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.geometry.HPos;
-import javafx.geometry.Insets;
-import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -29,7 +26,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
@@ -567,7 +563,7 @@ public class ChoiceOptionSettingsStage extends Stage {
      *
      * @return A list of all attribute value name lists.
      */
-    public List<List<CheckBox>> getAttributesColumnsCheckBoxList() {
+    public List<List<CheckBox>> getAttributesValueNamesCheckBoxList() {
         return attributesValueNamesCheckBoxList;
     }
 

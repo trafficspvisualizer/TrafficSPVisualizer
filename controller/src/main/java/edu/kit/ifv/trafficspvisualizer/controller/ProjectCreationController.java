@@ -44,7 +44,7 @@ class ProjectCreationController {
      * Instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.ProjectCreationStage} to open
      * {@link javafx.stage.DirectoryChooser} and sets returned value as project folder path.
      */
-    private void actionOnProjectFolderButton() {
+    private void actionOnSaveProjectDirectoryButton() {
         File selectedFile = controllerFacade.getViewFacade().getProjectCreationStage().showDirectoryChooserDialog();
 
         if (selectedFile == null) return;
@@ -56,7 +56,7 @@ class ProjectCreationController {
      * Instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.ProjectCreationStage} to open
      * {@link javafx.stage.FileChooser} and sets returned value as input file path.
      */
-    private void actionOnInputFileButton() {
+    private void actionOnInputDataFileButton() {
         File selectedFile = controllerFacade.getViewFacade().getProjectCreationStage().showFileChooserDialog();
 
         if (selectedFile == null) return;
@@ -71,7 +71,7 @@ class ProjectCreationController {
      * {@link edu.kit.ifv.trafficspvisualizer.view.ViewFacade} and {@link ControllerFacade};
      *
      */
-    private void actionOnSaveButton(){
+    private void actionOnCreateNewProjectButton(){
         DataObject dataObject;
 
         //Scrape data
@@ -127,13 +127,13 @@ class ProjectCreationController {
         ProjectCreationStage projectCreationStage = controllerFacade.getViewFacade().getProjectCreationStage();
 
         // ProjectFolder-Button
-        projectCreationStage.getSaveProjectDirectoryButton().setOnAction(e -> actionOnProjectFolderButton());
+        projectCreationStage.getSaveProjectDirectoryButton().setOnAction(e -> actionOnSaveProjectDirectoryButton());
 
         // InputFile-Button
-        projectCreationStage.getInputDataFileButton().setOnAction(e -> actionOnInputFileButton());
+        projectCreationStage.getInputDataFileButton().setOnAction(e -> actionOnInputDataFileButton());
 
         // Save-Button
-        projectCreationStage.getCreateNewProjectButton().setOnAction(e -> actionOnSaveButton());
+        projectCreationStage.getCreateNewProjectButton().setOnAction(e -> actionOnCreateNewProjectButton());
 
         // Cancel-Button
         projectCreationStage.getCancelButton().setOnAction(e -> actionOnCancelButton());
@@ -167,7 +167,6 @@ class ProjectCreationController {
                     return false;                }
             }
         }
-
         return true;
     }
 }
