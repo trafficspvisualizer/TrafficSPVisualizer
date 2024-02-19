@@ -295,7 +295,7 @@ public class MainApplicationWindow {
                 scene.heightProperty()
                         .subtract(leftSwitchPreviewButton.heightProperty())
                         .subtract(rightSwitchPreviewButton.heightProperty())
-                        .subtract(previewGridPane.hgapProperty().multiply(4)));
+                        .subtract(previewGridPane.vgapProperty().multiply(8)));
 
 
 
