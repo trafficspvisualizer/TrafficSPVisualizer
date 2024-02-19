@@ -18,7 +18,7 @@ class ExportSettingsTest {
 
     @BeforeEach
     void setup() {
-        exportSettings = new ExportSettings(testHeight, testWidth, testPath, testFormat, testType);
+        exportSettings = new ExportSettings(testHeight, testWidth, testPath, testFormat, testType, "");
     }
 
     @Test
