@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
  * Inherits from the Exporter class.
  */
 public class HTMLExporter extends Exporter {
+    private String name = "";
 
     /**
      * Exports an array of ChoiceOptionImage objects as an HTML file.
@@ -26,8 +27,9 @@ public class HTMLExporter extends Exporter {
      * @throws IOException If an error occurs while writing to the file.
      */
     @Override
-    public void export(ChoiceOptionImage[] images, File file) throws IOException {
+    public void export(ChoiceOptionImage[] images, File file, String name) throws IOException {
         var groupedImages = groupImagesByScenario(images);
+        this.name = name;
         for (var imageGroup : groupedImages) {
             exportGroup(imageGroup, file);
         }
@@ -57,7 +59,7 @@ public class HTMLExporter extends Exporter {
      */
     private void exportGroup(List<ChoiceOptionImage> imageGroup, File file) throws IOException {
         var imageExporter = new ImageExporter();
-        imageExporter.export(imageGroup.toArray(new ChoiceOptionImage[0]), file);
+        imageExporter.export(imageGroup.toArray(new ChoiceOptionImage[0]), file, name);
         var tempFilePath = Files.createTempFile(file.toPath(), "datei", ".html");
         try (var writer = Files.newBufferedWriter(tempFilePath)) {
             writeHtmlContent(imageGroup, writer);
