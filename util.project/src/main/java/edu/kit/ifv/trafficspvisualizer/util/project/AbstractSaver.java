@@ -213,8 +213,7 @@ public abstract class AbstractSaver {
 
         JSONArray routeSectionsJsonArray = new JSONArray();
         for (RouteSection routeSection : routeSections) {
-            JSONObject jsonRouteSection = createJsonRouteSection(routeSection.getIcon(), routeSection.getChoiceDataKey(),
-                    routeSection.getLineType());
+            JSONObject jsonRouteSection = createJsonRouteSection(routeSection.getIcon(), routeSection.getChoiceDataKey(), routeSection.getLineType());
             routeSectionsJsonArray.put(jsonRouteSection);
         }
 
