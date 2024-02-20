@@ -34,6 +34,7 @@ public abstract class ImageCollectionGenerator {
     }
 
     protected void setUpImageCreation(Project project) {
+        this.numberOfChoiceOptions = project.getChoiceOptions().size();
         this.exportSettings = project.getExportSettings();
         this.choiceOptionWidth = exportSettings.getImageWidth();
         this.choiceOptionHeight = exportSettings.getImageHeight();
@@ -41,7 +42,6 @@ public abstract class ImageCollectionGenerator {
         this.exportWidth = choiceOptionWidth;
         this.dataObject = project.getDataObject();
         this.numberOfSituations = dataObject.getSituationCount();
-        this.numberOfChoiceOptions = project.getChoiceOptions().size();
         this.attributeList = project.getAbstractAttributes();
         this.project = project;
         this.standardImageGenerator = new StandardImageGenerator();

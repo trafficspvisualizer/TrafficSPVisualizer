@@ -7,8 +7,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class SituationGenerator extends ImageCollectionGenerator {
-    private static final int PREVIEW_WIDTH = 1920;
-    private static final int PREVIEW_CHOICEOPTION_HEIGHT = 270;
+    private static final int STANDARD_PREVIEW_WIDTH = 1920;
+    private static final int STANDARD_PREVIEW_CHOICE_OPTION_HEIGHT = 270;
 
 
 
@@ -31,10 +31,6 @@ public class SituationGenerator extends ImageCollectionGenerator {
     public BufferedImage createPreviewImage(Project project) throws InvalidDataKeyException {
         int situationIndex = project.getCurrentPreviewSituation();
         setUpImageCreation(project);
-        this.exportWidth = PREVIEW_WIDTH;
-        this.exportHeight = PREVIEW_CHOICEOPTION_HEIGHT * numberOfChoiceOptions;
-        this.choiceOptionHeight = PREVIEW_CHOICEOPTION_HEIGHT;
-        this.choiceOptionWidth = exportWidth;
         return createSituationImage(situationIndex);
     }
 
