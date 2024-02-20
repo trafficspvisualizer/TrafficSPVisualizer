@@ -16,6 +16,6 @@ class LineTypeTest {
     @ParameterizedTest
     @ValueSource(strings = { "dashed ", "S0LID", "das hed"})
     void testFromStringFalse(String string) {
-        assertThrows(IllegalArgumentException.class, () -> LineType.fromString(string));
+        assertNull(LineType.fromString(string));
     }
 }
