@@ -222,7 +222,7 @@ public abstract class AbstractLoader {
                         break;
                     }
                 }
-                for (int j = 0; j < choiceOption.getRouteSections().size(); j++) {
+                for (int j = 0; j < Objects.requireNonNull(choiceOption).getRouteSections().size(); j++) {
                     if (!routeSectionJSON.isEmpty() &&  !routeSectionJSON.getJSONObject(j).isEmpty()) {
                         JSONObject route = routeSectionJSON.getJSONObject(j);
                         choiceOption.getRouteSections().get(j).setIcon(project.getIconManager().getIcons().get(route.optInt(JsonKeys.KEY_ICON.getKey())));

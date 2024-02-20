@@ -79,13 +79,12 @@ public class HTMLExporter extends Exporter { //todo aufteilen in einzelen Situat
         try (var writer = Files.newBufferedWriter(tempFilePath)) {
             writeHtmlContent(imageGroup, writer);
         }
-
-
-        Path path = Paths.get(file.toString() + "\\" + directoryName);
+        Path path = Paths.get(file + "\\" + directoryName);
         if (!path.toFile().exists()) {
-            path.toFile().mkdir();
+            boolean created = path.toFile().mkdir();
+            if (!created) throw new IOException("Could not create the directory");
         }
-        Path finalFilePath = Paths.get(file.toString() + "\\" + directoryName , directoryName + name + ".html");
+        Path finalFilePath = Paths.get(file + "\\" + directoryName , directoryName + name + ".html");
         name++;
         Files.move(tempFilePath, finalFilePath, StandardCopyOption.REPLACE_EXISTING);
     }

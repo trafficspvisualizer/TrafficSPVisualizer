@@ -40,13 +40,6 @@ public class ChoiceOptionImage {
         return image;
     }
 
-    public String getBlockNumber() {
-        return infos.get(BLOCK_NUMBER_KEY);
-    }
-
-    public String getChoiceOptionNumber() {
-        return infos.get(CHOICE_OPTION_NUMBER_KEY);
-    }
     public String getTitle() {
         return infos.get(TITLE_KEY);
     }

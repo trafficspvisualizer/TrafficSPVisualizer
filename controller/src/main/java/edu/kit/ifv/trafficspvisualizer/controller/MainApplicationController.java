@@ -301,7 +301,7 @@ class MainApplicationController {
         MainApplicationWindow mainApplicationWindow = controllerFacade.getViewFacade().getMainApplicationWindow();
 
         // Close Request
-        mainApplicationWindow.setOnCloseRequest(event -> actionOnCloseRequest(event));
+        mainApplicationWindow.setOnCloseRequest(this::actionOnCloseRequest);
 
         // File Menu
         mainApplicationWindow.getNewProjectMenuItem().setOnAction(e -> actionOnNewProjectMenuItem());
