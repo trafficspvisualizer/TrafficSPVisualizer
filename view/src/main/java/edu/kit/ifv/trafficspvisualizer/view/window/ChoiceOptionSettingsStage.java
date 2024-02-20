@@ -637,6 +637,6 @@ public class ChoiceOptionSettingsStage extends Stage {
                 attributeValues.add(checkBox.getText());
             }
         }
-        return  attributeValues;
+        return attributeValues;
     }
 }

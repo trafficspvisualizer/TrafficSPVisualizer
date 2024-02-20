@@ -107,7 +107,7 @@ class MainApplicationController {
      * Creates new instance of {@link InstructionStage}.
      */
     private void actionOnInstructionMenuItem(){
-        new InstructionStage();
+        new InstructionStage(controllerFacade.getViewFacade());
     }
 
     /**
