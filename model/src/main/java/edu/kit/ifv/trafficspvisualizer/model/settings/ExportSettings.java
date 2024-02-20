@@ -144,8 +144,8 @@ public class ExportSettings {
     }
 
     /**
-     * Returns the name of the HTML variable
-     * @return he name of the HTML variable
+     * Returns the name of the HTML variable.
+     * @return the name of the HTML variable
      */
     public String getHtmlVariableName() {
         return htmlVariableName;
