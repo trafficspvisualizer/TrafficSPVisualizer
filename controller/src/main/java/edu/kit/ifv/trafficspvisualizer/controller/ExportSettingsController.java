@@ -86,7 +86,7 @@ class ExportSettingsController {
                                                                                 FileFormat.PNG, exportType, htmlVariableName);
 
         controllerFacade.getProject().setExportSettings(exportSettings);
-
+        controllerFacade.getMainApplicationController().updatePreview();
         actionOnCancelButton();
     }
 
