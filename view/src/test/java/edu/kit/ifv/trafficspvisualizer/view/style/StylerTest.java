@@ -1,7 +1,6 @@
 package edu.kit.ifv.trafficspvisualizer.view.style;
 
 import edu.kit.ifv.trafficspvisualizer.view.data.font.FontLibrary;
-import edu.kit.ifv.trafficspvisualizer.view.style.Styler;
 import javafx.application.Platform;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;

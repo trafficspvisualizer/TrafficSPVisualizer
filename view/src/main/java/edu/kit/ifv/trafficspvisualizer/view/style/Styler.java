@@ -148,6 +148,17 @@ public final class Styler {
     }
 
     /**
+     * Aligns the specified {@link Text} node to the left-center position within a {@link GridPane} and
+     * sets its font to a small bold size as defined by {@link FontLibrary#getSmallFont()}.
+     *
+     * @param text The {@link Text} node to be styled and aligned.
+     */
+    public static void leftCenterSmallBoldFontTextInGridPane(Text text) {
+        leftCenterInGridPane(text);
+        text.setFont(FontLibrary.getSmallBoldFont());
+    }
+
+    /**
      * Aligns the specified {@link Text} node to the center-center position within a {@link GridPane} and
      * sets its font to a small bold size as defined by {@link FontLibrary#getSmallBoldFont()}.
      *
@@ -213,6 +224,23 @@ public final class Styler {
     public static void leftCenterSmallFontButtonInGridPane(Button button) {
         leftCenterInGridPane(button);
         button.setFont(FontLibrary.getSmallFont());
+    }
+
+    /**
+     * Styles the provided texts within a {@link GridPane}.
+     * It applies specific styles to the header text and any subsequent content texts.
+     *
+     * @param gridPane The {@link GridPane} to which the texts are styled.
+     * @param headerText The header text, styled distinctly from content texts.
+     * @param contentTexts The content texts, following the header, each styled uniformly.
+     */
+    public static void continuousTextWithinGridPane(GridPane gridPane, Text headerText,
+                                                    Text... contentTexts) {
+        midHVGabMidPaddingGridPane(gridPane);
+        leftCenterSmallBoldFontTextInGridPane(headerText);
+        for (Text contentText : contentTexts) {
+            leftCenterSmallFontTextInGridPane(contentText);
+        }
     }
 
     /**

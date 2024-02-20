@@ -44,9 +44,9 @@ import java.util.Optional;
  */
 public class ChoiceOptionSettingsStage extends Stage {
 
-    private ViewFacade viewFacade;
+    private final ViewFacade viewFacade;
 
-    private int choiceOptionIndex;
+    private final int choiceOptionIndex;
 
 
 
@@ -65,7 +65,7 @@ public class ChoiceOptionSettingsStage extends Stage {
 
     private Text attributesNameText;
 
-    private Text attributesColumnsText;
+    private Text attributesValueNamesText;
 
     private final List<List<CheckBox>> attributesValueNamesCheckBoxList;
 
@@ -82,7 +82,7 @@ public class ChoiceOptionSettingsStage extends Stage {
 
     private Text routeSectionsLineTypeText;
 
-    private Text routeSectionsColumnText;
+    private Text routeSectionsValueNameText;
 
     private final List<Button> routeSectionIconButtonList;
 
@@ -114,6 +114,7 @@ public class ChoiceOptionSettingsStage extends Stage {
      *
      * @param viewFacade The {@link ViewFacade} through which this class can access
      *                   the {@link Project} and the {@link LanguageStrategy}.
+     * @param choiceOptionIndex The choice option index used to get selected choice option from model.
      */
     public ChoiceOptionSettingsStage(ViewFacade viewFacade, int choiceOptionIndex) {
         attributesValueNamesCheckBoxList = new ArrayList<>();
@@ -174,12 +175,12 @@ public class ChoiceOptionSettingsStage extends Stage {
 
         attributesNameText = new Text(languageStrategy.getChoiceOptionSettingsAttributesNameText());
 
-        attributesColumnsText = new Text(languageStrategy.getChoiceOptionSettingsAttributesValueNamesText());
+        attributesValueNamesText = new Text(languageStrategy.getChoiceOptionSettingsAttributesValueNamesText());
 
         attributesGridPane = new GridPane();
         attributesGridPane.add(attributesText,0,0,2,1);
         attributesGridPane.add(attributesNameText, 0, 2);
-        attributesGridPane.add(attributesColumnsText,1,2);
+        attributesGridPane.add(attributesValueNamesText,1,2);
 
         attributesScrollPane = new ScrollPane(attributesGridPane);
     }
@@ -195,20 +196,20 @@ public class ChoiceOptionSettingsStage extends Stage {
 
         routeSectionsLineTypeText = new Text(languageStrategy.getChoiceOptionSettingsRouteSectionsLineTypeText());
 
-        routeSectionsColumnText = new Text(languageStrategy.getChoiceOptionSettingsRouteSectionsValueNameText());
+        routeSectionsValueNameText = new Text(languageStrategy.getChoiceOptionSettingsRouteSectionsValueNameText());
 
         routeSectionsGridPane = new GridPane();
         routeSectionsGridPane.add(routeSectionsText,0,0,5,1);
         routeSectionsGridPane.add(routeSectionsNumberText, 0,2);
         routeSectionsGridPane.add(routeSectionsIconText, 1,2);
         routeSectionsGridPane.add(routeSectionsLineTypeText,2,2);
-        routeSectionsGridPane.add(routeSectionsColumnText,3,2);
+        routeSectionsGridPane.add(routeSectionsValueNameText,3,2);
 
         routeSectionsScrollPane = new ScrollPane(routeSectionsGridPane);
     }
 
     private void buildCloseAndAddGridPane() {
-        LanguageStrategy languageStrategy = viewFacade.getLanguageStrategy();;
+        LanguageStrategy languageStrategy = viewFacade.getLanguageStrategy();
 
         addRouteSectionButton = new Button(languageStrategy.getChoiceOptionSettingsAddRouteSectionButtonText());
 
@@ -227,77 +228,52 @@ public class ChoiceOptionSettingsStage extends Stage {
         styleRouteSectionScrollPane();
         styleCloseAndAddGridPane();
 
-        // bodyBorderPane
-
-        // scene
-
-        // stage
         Styler.midStage(this);
     }
 
     private void styleTitleAndColorGridPane() {
-        // titleText
         Styler.leftCenterMidFontTextInGridPane(titleText);
 
-        // titleTextField
         Styler.leftCenterHGrowSmallFontTextFieldInGridPane(titleTextField);
 
-        // colorText
         Styler.leftCenterMidFontTextInGridPane(colorText);
 
-        // colorPicker
         Styler.leftCenterInGridPane(colorPicker);
 
-        // titleAndColorGridPane
         Styler.midHVGabMidPaddingGridPane(titleAndColorGridPane);
     }
     private void styleAttributeScrollPane() {
-        // attributesText
         Styler.leftCenterMidBoldFontTextInGridPane(attributesText);
 
-        // attributesNameText
         Styler.centerCenterSmallBoldFontTextInGridPane(attributesNameText);
 
-        // attributesColumnsText
-        Styler.centerCenterSmallBoldFontTextInGridPane(attributesColumnsText);
+        Styler.centerCenterSmallBoldFontTextInGridPane(attributesValueNamesText);
 
-        // attributesGridPane
         Styler.midHVGabMidPaddingGridPane(attributesGridPane);
 
-        // attributesScrollPane
         attributesScrollPane.setFitToHeight(true);
     }
     private void styleRouteSectionScrollPane() {
-        // routeSectionsText
         Styler.leftCenterMidBoldFontTextInGridPane(routeSectionsText);
 
-        // routeSectionsNumberText
         Styler.centerCenterSmallBoldFontTextInGridPane(routeSectionsNumberText);
 
-        // routeSectionsIconText
         Styler.centerCenterSmallBoldFontTextInGridPane(routeSectionsIconText);
 
-        // routeSectionsLineTypeText
         Styler.centerCenterSmallBoldFontTextInGridPane(routeSectionsLineTypeText);
 
-        // routeSectionsColumnText
-        Styler.centerCenterSmallBoldFontTextInGridPane(routeSectionsColumnText);
+        Styler.centerCenterSmallBoldFontTextInGridPane(routeSectionsValueNameText);
 
-        // routeSectionsGridPane
         Styler.midHVGabMidPaddingGridPane(routeSectionsGridPane);
 
-        // routeSectionsScrollPane
         routeSectionsScrollPane.setFitToHeight(true);
 
     }
     private void styleCloseAndAddGridPane() {
-        // addRouteSectionButton
         Styler.leftCenterSmallFontButtonInGridPane(addRouteSectionButton);
 
-        // closeButton
         Styler.leftCenterSmallFontButtonInGridPane(closeButton);
 
-        // closeAndAddGridPane
         Styler.midHVGabMidPaddingGridPane(closeAndAddGridPane);
     }
 
@@ -472,7 +448,6 @@ public class ChoiceOptionSettingsStage extends Stage {
 
 
     // show-methods
-
     /**
      * Shows a confirmation alert that asks whether the user is aware that the selected route section
      * will be removed.
@@ -491,9 +466,7 @@ public class ChoiceOptionSettingsStage extends Stage {
     }
 
     // getter-methods
-
     // components
-
     /**
      * Gets the close button.
      *
@@ -577,7 +550,6 @@ public class ChoiceOptionSettingsStage extends Stage {
     }
 
     // values
-
     /**
      * Gets the title {@code Sting}.
      *
@@ -637,6 +609,6 @@ public class ChoiceOptionSettingsStage extends Stage {
                 attributeValues.add(checkBox.getText());
             }
         }
-        return  attributeValues;
+        return attributeValues;
     }
 }

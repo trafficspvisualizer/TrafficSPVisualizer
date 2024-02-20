@@ -23,9 +23,7 @@ public class ListFlowPane extends FlowPane {
         getChildren().addListener((ListChangeListener<Node>) change -> {
             if (change.next()) {
                 for (Node node : change.getAddedSubList()) {
-                    node.setOnMouseClicked(event -> {
-                        singleSelectionModel.select(node);
-                    });
+                    node.setOnMouseClicked(event -> singleSelectionModel.select(node));
                 }
             }
         });

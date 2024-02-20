@@ -10,10 +10,6 @@ import edu.kit.ifv.trafficspvisualizer.view.data.image.ImageLibrary;
 import edu.kit.ifv.trafficspvisualizer.view.data.language.LanguageStrategy;
 import edu.kit.ifv.trafficspvisualizer.view.style.Styler;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.geometry.HPos;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -42,7 +38,7 @@ import java.util.Optional;
  */
 public class AttributeStage extends Stage {
 
-    private ViewFacade viewFacade;
+    private final ViewFacade viewFacade;
 
 
     private Text activeText;
@@ -170,31 +166,22 @@ public class AttributeStage extends Stage {
 
     // style-methods
     private void styleStage() {
-        // activeText
         Styler.centerCenterSmallBoldFontTextInGridPane(activeText);
 
-        // nameText
         Styler.centerCenterSmallBoldFontTextInGridPane(nameText);
 
-        // iconText
         Styler.centerCenterSmallBoldFontTextInGridPane(iconText);
 
-        // prefixText
         Styler.centerCenterSmallBoldFontTextInGridPane(prefixText);
 
-        // suffixText
         Styler.centerCenterSmallBoldFontTextInGridPane(suffixText);
 
-        // numberOfDecimalPlacesText
         Styler.centerCenterSmallBoldFontTextInGridPane(numberOfDecimalPlacesText);
 
-        // permanentlyVisibleText
         Styler.centerCenterSmallBoldFontTextInGridPane(permanentlyVisibleText);
 
-        // sizingPane
         GridPane.setHgrow(sizingPane, Priority.ALWAYS);
 
-        // attributeGridPane
         Styler.midHVGabMidPaddingGridPane(attributeGridPane);
         attributeGridPane.prefWidthProperty().bind(scene.widthProperty().subtract(17));
 
@@ -202,23 +189,15 @@ public class AttributeStage extends Stage {
         attributeScrollPane.prefHeightProperty().bind(
                 scene.heightProperty().subtract(closeAndAddGridPane.heightProperty()));
 
-        // addAttributeButton
         Styler.leftCenterSmallFontButtonInGridPane(addAttributeButton);
 
-        // addSeparatorLineButton
         Styler.leftCenterSmallFontButtonInGridPane(addSeparatorLineButton);
 
-        // closeButton
         Styler.leftCenterSmallFontButtonInGridPane(closeButton);
 
-        // closeAndAddGridPane
         Styler.midHVGabMidPaddingGridPane(closeAndAddGridPane);
 
-        // bodyBorderPane
 
-        // scene
-
-        // stage
         Styler.midStage(this);
     }
 
