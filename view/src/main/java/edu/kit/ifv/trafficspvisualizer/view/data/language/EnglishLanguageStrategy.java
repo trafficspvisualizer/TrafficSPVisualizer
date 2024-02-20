@@ -13,272 +13,272 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
 
     // Application
 
-        // Application Alerts
-    private final static String CONFIRMATION_ALERT_TITLE = "Confirmation";
+    // Application Alerts
+    private static final String CONFIRMATION_ALERT_TITLE = "Confirmation";
 
-    private final static String CLOSE_PROJECT_CONFIRMATION_ALERT_TITLE = CONFIRMATION_ALERT_TITLE;
+    private static final String CLOSE_PROJECT_CONFIRMATION_ALERT_TITLE = CONFIRMATION_ALERT_TITLE;
 
-    private final static String CLOSE_PROJECT_CONFIRMATION_ALERT_HEADER_TEXT =
+    private static final String CLOSE_PROJECT_CONFIRMATION_ALERT_HEADER_TEXT =
             "Unsaved Project can be lost. Are you sure?";
 
-    private final static String CLOSE_PROJECT_CONFIRMATION_ALERT_CONTENT_TEXT =
+    private static final String CLOSE_PROJECT_CONFIRMATION_ALERT_CONTENT_TEXT =
             "If you continue a potential unsaved project can be lost.";
 
-    private final static String REMOVE_ATTRIBUTE_CONFIRMATION_ALERT_TITLE = CONFIRMATION_ALERT_TITLE;
+    private static final String REMOVE_ATTRIBUTE_CONFIRMATION_ALERT_TITLE = CONFIRMATION_ALERT_TITLE;
 
-    private final static String REMOVE_ATTRIBUTE_CONFIRMATION_ALERT_HEADER_TEXT =
+    private static final String REMOVE_ATTRIBUTE_CONFIRMATION_ALERT_HEADER_TEXT =
             "Are you sure you want to delete the attribute?";
 
-    private final static String REMOVE_ATTRIBUTE_CONFIRMATION_ALERT_CONTENT_TEXT =
+    private static final String REMOVE_ATTRIBUTE_CONFIRMATION_ALERT_CONTENT_TEXT =
             "If you continue the attribute will be removed.";
 
-    private final static String REMOVE_ROUTE_SECTION_CONFIRMATION_ALERT_TITLE = CONFIRMATION_ALERT_TITLE;
+    private static final String REMOVE_ROUTE_SECTION_CONFIRMATION_ALERT_TITLE = CONFIRMATION_ALERT_TITLE;
 
-    private final static String REMOVE_ROUTE_SECTION_CONFIRMATION_ALERT_HEADER_TEXT =
+    private static final String REMOVE_ROUTE_SECTION_CONFIRMATION_ALERT_HEADER_TEXT =
             "Are you sure you want to delete the route section?";
 
-    private final static String REMOVE_ROUTE_SECTION_CONFIRMATION_ALERT_CONTENT_TEXT =
+    private static final String REMOVE_ROUTE_SECTION_CONFIRMATION_ALERT_CONTENT_TEXT =
             "If you continue the route section will be removed.";
 
 
-    private final static String ERROR_ALERT_TITLE = "Error";
+    private static final String ERROR_ALERT_TITLE = "Error";
 
-    private final static String EXPORT_ERROR_ALERT_TITLE = ERROR_ALERT_TITLE;
+    private static final String EXPORT_ERROR_ALERT_TITLE = ERROR_ALERT_TITLE;
 
-    private final static String EXPORT_ERROR_ALERT_HEADER_TEXT = "Something went wrong! Could not export.";
+    private static final String EXPORT_ERROR_ALERT_HEADER_TEXT = "Something went wrong! Could not export.";
 
-    private final static String EXPORT_ERROR_ALERT_CONTENT_TEXT =
+    private static final String EXPORT_ERROR_ALERT_CONTENT_TEXT =
             "Please check your export settings and project configurations.";
 
-    private final static String NO_PROJECT_ERROR_ALERT_TITLE = ERROR_ALERT_TITLE;
+    private static final String NO_PROJECT_ERROR_ALERT_TITLE = ERROR_ALERT_TITLE;
 
-    private final static String NO_PROJECT_ERROR_ALERT_HEADER_TEXT =
+    private static final String NO_PROJECT_ERROR_ALERT_HEADER_TEXT =
             "Something went wrong! Could not do this action because you need a current project.";
 
-    private final static String NO_PROJECT_ERROR_ALERT_CONTENT_TEXT = "Please load or create a new project.";
+    private static final String NO_PROJECT_ERROR_ALERT_CONTENT_TEXT = "Please load or create a new project.";
 
-    private final static String LOAD_PROJECT_ERROR_ALERT_TITLE = ERROR_ALERT_TITLE;
+    private static final String LOAD_PROJECT_ERROR_ALERT_TITLE = ERROR_ALERT_TITLE;
 
-    private final static String LOAD_PROJECT_ERROR_ALERT_HEADER_TEXT =
+    private static final String LOAD_PROJECT_ERROR_ALERT_HEADER_TEXT =
             "Something went wrong! Could not load the project.";
 
-    private final static String LOAD_PROJECT_ERROR_ALERT_CONTENT_TEXT =
+    private static final String LOAD_PROJECT_ERROR_ALERT_CONTENT_TEXT =
             "Please check if you selected a valid project directory.";
 
-    private final static String SAVE_PROJECT_ERROR_ALERT_TITLE = ERROR_ALERT_TITLE;
+    private static final String SAVE_PROJECT_ERROR_ALERT_TITLE = ERROR_ALERT_TITLE;
 
-    private final static String SAVE_PROJECT_ERROR_ALERT_HEADER_TEXT =
+    private static final String SAVE_PROJECT_ERROR_ALERT_HEADER_TEXT =
             "Something went wrong! Could not save the current project!";
 
-    private final static String SAVE_PROJECT_ERROR_ALERT_CONTENT_TEXT =
+    private static final String SAVE_PROJECT_ERROR_ALERT_CONTENT_TEXT =
             "Please check if you selected a valid save directory.";
 
-    private final static String PREVIEW_ERROR_ALERT_TITLE = ERROR_ALERT_TITLE;
+    private static final String PREVIEW_ERROR_ALERT_TITLE = ERROR_ALERT_TITLE;
 
-    private final static String PREVIEW_ERROR_ALERT_HEADER_TEXT =
+    private static final String PREVIEW_ERROR_ALERT_HEADER_TEXT =
             "Something went wrong! Could not update preview!";
 
-    private final static String PREVIEW_ERROR_ALERT_CONTENT_TEXT =
+    private static final String PREVIEW_ERROR_ALERT_CONTENT_TEXT =
             "Please check if you selected valid values.";
 
-    private final static String NEW_PROJECT_ERROR_ALERT_TITLE = ERROR_ALERT_TITLE;
+    private static final String NEW_PROJECT_ERROR_ALERT_TITLE = ERROR_ALERT_TITLE;
 
-    private final static String NEW_PROJECT_ERROR_ALERT_HEADER_TEXT =
+    private static final String NEW_PROJECT_ERROR_ALERT_HEADER_TEXT =
             "Something went wrong! Could not create new project.";
 
-    private final static String NEW_PROJECT_ERROR_ALERT_CONTENT_TEXT =
+    private static final String NEW_PROJECT_ERROR_ALERT_CONTENT_TEXT =
             "Please check your project name, input data file and save path.";
 
-    private final static String SAVE_ATTRIBUTE_SETTINGS_ERROR_ALERT_TITLE = ERROR_ALERT_TITLE;
+    private static final String SAVE_ATTRIBUTE_SETTINGS_ERROR_ALERT_TITLE = ERROR_ALERT_TITLE;
 
-    private final static String SAVE_ATTRIBUTE_SETTINGS_ERROR_ALERT_HEADER_TEXT =
+    private static final String SAVE_ATTRIBUTE_SETTINGS_ERROR_ALERT_HEADER_TEXT =
             "Something went wrong! Could not save attribute settings.";
 
-    private final static String SAVE_ATTRIBUTE_SETTINGS_ERROR_ALERT_CONTENT_TEXT =
+    private static final String SAVE_ATTRIBUTE_SETTINGS_ERROR_ALERT_CONTENT_TEXT =
             "Please check the changed entries/configurations.";
 
-    private final static String SAVE_EXPORT_SETTINGS_ERROR_ALERT_TITLE = ERROR_ALERT_TITLE;
+    private static final String SAVE_EXPORT_SETTINGS_ERROR_ALERT_TITLE = ERROR_ALERT_TITLE;
 
-    private final static String SAVE_EXPORT_SETTINGS_ERROR_ALERT_HEADER_TEXT =
+    private static final String SAVE_EXPORT_SETTINGS_ERROR_ALERT_HEADER_TEXT =
             "Something went wrong! Could not save export settings.";
 
-    private final static String SAVE_EXPORT_SETTINGS_ERROR_ALERT_CONTENT_TEXT =
+    private static final String SAVE_EXPORT_SETTINGS_ERROR_ALERT_CONTENT_TEXT =
             SAVE_ATTRIBUTE_SETTINGS_ERROR_ALERT_CONTENT_TEXT;
 
-    private final static String ADD_ICON_ERROR_ALERT_TITLE = ERROR_ALERT_TITLE;
+    private static final String ADD_ICON_ERROR_ALERT_TITLE = ERROR_ALERT_TITLE;
 
-    private final static String ADD_ICON_ERROR_ALERT_HEADER_TEXT =
+    private static final String ADD_ICON_ERROR_ALERT_HEADER_TEXT =
             "Something went wrong! Could not add the selected icon.";
 
-    private final static String ADD_ICON_ERROR_ALERT_CONTENT_TEXT = "Please check the selected file.";
+    private static final String ADD_ICON_ERROR_ALERT_CONTENT_TEXT = "Please check the selected file.";
 
-    private final static String SELECT_ICON_ERROR_ALERT_TITLE = ERROR_ALERT_TITLE;
+    private static final String SELECT_ICON_ERROR_ALERT_TITLE = ERROR_ALERT_TITLE;
 
-    private final static String SELECT_ICON_ERROR_ALERT_HEADER_TEXT =
+    private static final String SELECT_ICON_ERROR_ALERT_HEADER_TEXT =
             "Something went wrong! Could not select the selected icon.";
 
-    private final static String SELECT_ICON_ERROR_ALERT_CONTENT_TEXT = "Please check if an icon is selected.";
+    private static final String SELECT_ICON_ERROR_ALERT_CONTENT_TEXT = "Please check if an icon is selected.";
 
 
-        // ENUMS
-    private final static String EXPORT_TYPE_HTML_TEXT = "HTML (Hyper text markup language)";
+    // ENUMS
+    private static final String EXPORT_TYPE_HTML_TEXT = "HTML (Hyper text markup language)";
 
-    private final static String EXPORT_TYPE_CHOICE_OPTION_TEXT = "Choice option";
+    private static final String EXPORT_TYPE_CHOICE_OPTION_TEXT = "Choice option";
 
-    private final static String EXPORT_TYPE_SITUATION_TEXT = "Situation";
+    private static final String EXPORT_TYPE_SITUATION_TEXT = "Situation";
 
-    private final static String LINE_TYPE_SOLID_TEXT = "Solid";
+    private static final String LINE_TYPE_SOLID_TEXT = "Solid";
 
-    private final static String LINE_TYPE_DASHED_TEXT = "Dashed";
+    private static final String LINE_TYPE_DASHED_TEXT = "Dashed";
 
 
 
     // MainApplicationWindow
-    private final static String MAIN_APPLICATION_NEW_PROJECT_MENU_ITEM_TEXT = "New project";
+    private static final String MAIN_APPLICATION_NEW_PROJECT_MENU_ITEM_TEXT = "New project";
 
-    private final static String MAIN_APPLICATION_LOAD_PROJECT_MENU_ITEM_TEXT = "Load project";
+    private static final String MAIN_APPLICATION_LOAD_PROJECT_MENU_ITEM_TEXT = "Load project";
 
-    private final static String MAIN_APPLICATION_SAVE_PROJECT_MENU_ITEM_TEXT = "Save project";
+    private static final String MAIN_APPLICATION_SAVE_PROJECT_MENU_ITEM_TEXT = "Save project";
 
-    private final static String MAIN_APPLICATION_FILE_MENU_TEXT = "File";
+    private static final String MAIN_APPLICATION_FILE_MENU_TEXT = "File";
 
-    private final static String MAIN_APPLICATION_INSTRUCTION_MENU_ITEM_TEXT = "Instruction";
+    private static final String MAIN_APPLICATION_INSTRUCTION_MENU_ITEM_TEXT = "Instruction";
 
-    private final static String MAIN_APPLICATION_HELP_MENU_TEXT = "Help";
+    private static final String MAIN_APPLICATION_HELP_MENU_TEXT = "Help";
 
-    private final static String MAIN_APPLICATION_PREVIEW_TEXT = "Preview:";
+    private static final String MAIN_APPLICATION_PREVIEW_TEXT = "Preview:";
 
-    private final static String MAIN_APPLICATION_EXPORT_TEXT = "Export";
+    private static final String MAIN_APPLICATION_EXPORT_TEXT = "Export";
 
-    private final static String MAIN_APPLICATION_ATTRIBUTES_TEXT = "Attributes";
+    private static final String MAIN_APPLICATION_ATTRIBUTES_TEXT = "Attributes";
 
-    private final static String MAIN_APPLICATION_CHOICE_OPTION_TEXT = "Choice options";
+    private static final String MAIN_APPLICATION_CHOICE_OPTION_TEXT = "Choice options";
 
 
 
     // ProjectCreationStage
-    private final static String PROJECT_CREATION_TITLE = "New project";
+    private static final String PROJECT_CREATION_TITLE = "New project";
 
-    private final static String PROJECT_CREATION_PROJECT_NAME_TEXT = "Project name:";
+    private static final String PROJECT_CREATION_PROJECT_NAME_TEXT = "Project name:";
 
-    private final static String PROJECT_CREATION_SAVE_PROJECT_DIRECTORY_TEXT = "Save path:";
+    private static final String PROJECT_CREATION_SAVE_PROJECT_DIRECTORY_TEXT = "Save path:";
 
-    private final static String PROJECT_CREATION_INPUT_DATA_FILE_TEXT = "Input data file:";
+    private static final String PROJECT_CREATION_INPUT_DATA_FILE_TEXT = "Input data file:";
 
-    private final static String PROJECT_CREATION_CREATE_NEW_PROJECT_BUTTON_TEXT = "Create new project";
+    private static final String PROJECT_CREATION_CREATE_NEW_PROJECT_BUTTON_TEXT = "Create new project";
 
-    private final static String PROJECT_CREATION_CANCEL_BUTTON_TEXT = "Cancel";
+    private static final String PROJECT_CREATION_CANCEL_BUTTON_TEXT = "Cancel";
 
 
 
 
     // AttributeSettingsStage
-    private final static String ATTRIBUTE_SETTINGS_TITLE = "Edit Attribute";
+    private static final String ATTRIBUTE_SETTINGS_TITLE = "Edit Attribute";
 
-    private final static String ATTRIBUTE_SETTINGS_NAME_TEXT = "Name:";
+    private static final String ATTRIBUTE_SETTINGS_NAME_TEXT = "Name:";
 
-    private final static String ATTRIBUTE_SETTINGS_ICON_TEXT = "Icon:";
+    private static final String ATTRIBUTE_SETTINGS_ICON_TEXT = "Icon:";
 
-    private final static String ATTRIBUTE_SETTINGS_PREFIX_TEXT = "Prefix:";
+    private static final String ATTRIBUTE_SETTINGS_PREFIX_TEXT = "Prefix:";
 
-    private final static String ATTRIBUTE_SETTINGS_SUFFIX_TEXT = "Suffix:";
-    private final static String ATTRIBUTE_SETTINGS_NUMBER_OF_DECIMAL_PLACES_TEXT = "Number of decimal places:";
+    private static final String ATTRIBUTE_SETTINGS_SUFFIX_TEXT = "Suffix:";
+    private static final String ATTRIBUTE_SETTINGS_NUMBER_OF_DECIMAL_PLACES_TEXT = "Number of decimal places:";
 
-    private final static String ATTRIBUTE_SETTINGS_PERMANENTLY_VISIBLE_TEXT = "Always visible:";
+    private static final String ATTRIBUTE_SETTINGS_PERMANENTLY_VISIBLE_TEXT = "Always visible:";
 
-    private final static String ATTRIBUTE_SETTINGS_SAVE_BUTTON_TEXT = "Save";
+    private static final String ATTRIBUTE_SETTINGS_SAVE_BUTTON_TEXT = "Save";
 
-    private final static String ATTRIBUTE_SETTINGS_CANCEL_BUTTON_TEXT = "Cancel";
+    private static final String ATTRIBUTE_SETTINGS_CANCEL_BUTTON_TEXT = "Cancel";
 
 
 
     // ExportSettingsStage
-    private final static String EXPORT_SETTINGS_TITLE = "Export Settings";
+    private static final String EXPORT_SETTINGS_TITLE = "Export Settings";
 
-    private final static String EXPORT_SETTINGS_CHOICE_OPTION_SIZE_TEXT = "Choice option size:";
+    private static final String EXPORT_SETTINGS_CHOICE_OPTION_SIZE_TEXT = "Choice option size:";
 
-    private final static String EXPORT_SETTINGS_HEIGHT_TEXT = "Height in pixel:";
+    private static final String EXPORT_SETTINGS_HEIGHT_TEXT = "Height in pixel:";
 
-    private final static String EXPORT_SETTINGS_WIDTH_TEXT = "Width in pixel:";
+    private static final String EXPORT_SETTINGS_WIDTH_TEXT = "Width in pixel:";
 
-    private final static String EXPORT_SETTINGS_EXPORT_DIRECTORY_TEXT = "Export directory:";
+    private static final String EXPORT_SETTINGS_EXPORT_DIRECTORY_TEXT = "Export directory:";
 
-    private final static String EXPORT_SETTINGS_EXPORT_TYPE_TEXT = "Export type:";
+    private static final String EXPORT_SETTINGS_EXPORT_TYPE_TEXT = "Export type:";
 
-    private final static String EXPORT_SETTINGS_HTML_VARIABLE_NAME_TEXT = "HTML variable name:";
+    private static final String EXPORT_SETTINGS_HTML_VARIABLE_NAME_TEXT = "HTML variable name:";
 
-    private final static String EXPORT_SETTINGS_SAVE_BUTTON_TEXT = ATTRIBUTE_SETTINGS_SAVE_BUTTON_TEXT;
+    private static final String EXPORT_SETTINGS_SAVE_BUTTON_TEXT = ATTRIBUTE_SETTINGS_SAVE_BUTTON_TEXT;
 
-    private final static String EXPORT_SETTINGS_CANCEL_BUTTON_TEXT = ATTRIBUTE_SETTINGS_CANCEL_BUTTON_TEXT;
+    private static final String EXPORT_SETTINGS_CANCEL_BUTTON_TEXT = ATTRIBUTE_SETTINGS_CANCEL_BUTTON_TEXT;
 
 
 
     // IconSelectionStage
-    private final static String ICON_SELECTION_TITLE = "Select icon";
+    private static final String ICON_SELECTION_TITLE = "Select icon";
 
-    private final static String ICON_SELECTION_ADD_ICON_BUTTON_TEXT = "Add icon";
+    private static final String ICON_SELECTION_ADD_ICON_BUTTON_TEXT = "Add icon";
 
-    private final static String ICON_SELECTION_SELECT_BUTTON_TEXT = "Select";
+    private static final String ICON_SELECTION_SELECT_BUTTON_TEXT = "Select";
 
-    private final static String ICON_SELECTION_CANCEL_BUTTON_TEXT = ATTRIBUTE_SETTINGS_CANCEL_BUTTON_TEXT;
+    private static final String ICON_SELECTION_CANCEL_BUTTON_TEXT = ATTRIBUTE_SETTINGS_CANCEL_BUTTON_TEXT;
 
 
 
     // AttributeStage
-    private final static String ATTRIBUTE_TITLE = "Attributes";
+    private static final String ATTRIBUTE_TITLE = "Attributes";
 
-    private final static String ATTRIBUTE_ACTIVE_TEXT = "Active";
+    private static final String ATTRIBUTE_ACTIVE_TEXT = "Active";
 
-    private final static String ATTRIBUTE_NAME_TEXT = "Name";
+    private static final String ATTRIBUTE_NAME_TEXT = "Name";
 
-    private final static String ATTRIBUTE_ICON_TEXT = "Icon";
+    private static final String ATTRIBUTE_ICON_TEXT = "Icon";
 
-    private final static String ATTRIBUTE_PREFIX_TEXT = "Prefix";
+    private static final String ATTRIBUTE_PREFIX_TEXT = "Prefix";
 
-    private final static String ATTRIBUTE_SUFFIX_TEXT = "Suffix";
+    private static final String ATTRIBUTE_SUFFIX_TEXT = "Suffix";
 
-    private final static String ATTRIBUTE_NUMBER_OF_DECIMAL_PLACES_TEXT = "Decimal places";
+    private static final String ATTRIBUTE_NUMBER_OF_DECIMAL_PLACES_TEXT = "Decimal places";
 
-    private final static String ATTRIBUTE_PERMANENTLY_VISIBLE_TEXT = "Permanently visible";
+    private static final String ATTRIBUTE_PERMANENTLY_VISIBLE_TEXT = "Permanently visible";
 
-    private final static String ATTRIBUTE_SEPARATOR_LINE_TEXT = "SEPARATOR LINE";
+    private static final String ATTRIBUTE_SEPARATOR_LINE_TEXT = "SEPARATOR LINE";
 
-    private final static String ATTRIBUTE_ADD_ATTRIBUTE_BUTTON_TEXT = "Add attribute";
+    private static final String ATTRIBUTE_ADD_ATTRIBUTE_BUTTON_TEXT = "Add attribute";
 
-    private final static String ATTRIBUTE_ADD_SEPARATOR_LINE_BUTTON_TEXT = "Add separator line";
+    private static final String ATTRIBUTE_ADD_SEPARATOR_LINE_BUTTON_TEXT = "Add separator line";
 
-    private final static String ATTRIBUTE_CLOSE_BUTTON_TEXT = "Close";
+    private static final String ATTRIBUTE_CLOSE_BUTTON_TEXT = "Close";
 
 
 
     // ChoiceOptionSettingsStage
-    private final static String CHOICE_OPTION_SETTINGS_TITLE_FORMAT = "Edit choice option - %s";
+    private static final String CHOICE_OPTION_SETTINGS_TITLE_FORMAT = "Edit choice option - %s";
 
-    private final static String CHOICE_OPTION_SETTINGS_TITLE_TEXT = "Title:";
+    private static final String CHOICE_OPTION_SETTINGS_TITLE_TEXT = "Title:";
 
-    private final static String CHOICE_OPTION_SETTINGS_COLOR_TEXT = "Color:";
+    private static final String CHOICE_OPTION_SETTINGS_COLOR_TEXT = "Color:";
 
-    private final static String CHOICE_OPTION_SETTINGS_ATTRIBUTES_TEXT = "Attributes:";
+    private static final String CHOICE_OPTION_SETTINGS_ATTRIBUTES_TEXT = "Attributes:";
 
-    private final static String CHOICE_OPTION_SETTINGS_ATTRIBUTES_NAME_TEXT = "Name";
+    private static final String CHOICE_OPTION_SETTINGS_ATTRIBUTES_NAME_TEXT = "Name";
 
-    private final static String CHOICE_OPTION_SETTINGS_ATTRIBUTES_VALUE_NAMES_TEXT = "Value names";
+    private static final String CHOICE_OPTION_SETTINGS_ATTRIBUTES_VALUE_NAMES_TEXT = "Value names";
 
-    private final static String CHOICE_OPTION_SETTINGS_ATTRIBUTE_VALUE_NAMES_MENU_BUTTON_TEXT = "Select";
+    private static final String CHOICE_OPTION_SETTINGS_ATTRIBUTE_VALUE_NAMES_MENU_BUTTON_TEXT = "Select";
 
-    private final static String CHOICE_OPTION_SETTINGS_ROUTE_SECTIONS_TEXT = "Route sections:";
+    private static final String CHOICE_OPTION_SETTINGS_ROUTE_SECTIONS_TEXT = "Route sections:";
 
-    private final static String CHOICE_OPTION_SETTINGS_ROUTE_SECTIONS_NUMBER_TEXT = "Number";
+    private static final String CHOICE_OPTION_SETTINGS_ROUTE_SECTIONS_NUMBER_TEXT = "Number";
 
-    private final static String CHOICE_OPTION_SETTINGS_ROUTE_SECTIONS_ICON_TEXT = ATTRIBUTE_ICON_TEXT;
+    private static final String CHOICE_OPTION_SETTINGS_ROUTE_SECTIONS_ICON_TEXT = ATTRIBUTE_ICON_TEXT;
 
-    private final static String CHOICE_OPTION_SETTINGS_ROUTE_SECTIONS_LINE_TYPE_TEXT = "Line type";
+    private static final String CHOICE_OPTION_SETTINGS_ROUTE_SECTIONS_LINE_TYPE_TEXT = "Line type";
 
-    private final static String CHOICE_OPTION_SETTINGS_ROUTE_SECTIONS_VALUE_NAME_TEXT = "Value name";
+    private static final String CHOICE_OPTION_SETTINGS_ROUTE_SECTIONS_VALUE_NAME_TEXT = "Value name";
 
-    private final static String CHOICE_OPTION_SETTINGS_ADD_ROUTE_SECTION_BUTTON_TEXT = "Add route section";
+    private static final String CHOICE_OPTION_SETTINGS_ADD_ROUTE_SECTION_BUTTON_TEXT = "Add route section";
 
-    private final static String CHOICE_OPTION_SETTINGS_CLOSE_BUTTON_TEXT = ATTRIBUTE_CLOSE_BUTTON_TEXT;
+    private static final String CHOICE_OPTION_SETTINGS_CLOSE_BUTTON_TEXT = ATTRIBUTE_CLOSE_BUTTON_TEXT;
 
 
 
@@ -579,6 +579,7 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
     }
 
     // ENUMS
+    @Override
     public String getExportTypeText(ExportType exportType) {
         switch (exportType) {
             case HTML -> {
@@ -596,6 +597,7 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
         }
     }
 
+    @Override
     public String getLineTypeText(LineType lineType) {
         switch (lineType) {
             case SOLID -> {

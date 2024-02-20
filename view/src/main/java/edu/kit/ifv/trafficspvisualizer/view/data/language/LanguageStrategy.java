@@ -1038,7 +1038,8 @@ public abstract class LanguageStrategy {
      * Gets the second part of the "choice option settings window" section content text for the
      * {@link edu.kit.ifv.trafficspvisualizer.view.window.InstructionStage}.
      *
-     * @return A {@code String} representing the second part of the "choice option settings window" section content text.
+     * @return A {@code String} representing the second part of the "choice option settings window"
+     * section content text.
      */
     public abstract String getInstructionChoiceOptionSettingsWindowSecondContentText();
 

@@ -4,15 +4,10 @@ import edu.kit.ifv.trafficspvisualizer.model.settings.Attribute;
 import edu.kit.ifv.trafficspvisualizer.model.icon.Icon;
 import edu.kit.ifv.trafficspvisualizer.model.Project;
 import edu.kit.ifv.trafficspvisualizer.view.ViewFacade;
-import edu.kit.ifv.trafficspvisualizer.view.data.font.FontLibrary;
 import edu.kit.ifv.trafficspvisualizer.view.data.image.ImageLibrary;
 import edu.kit.ifv.trafficspvisualizer.view.data.language.LanguageStrategy;
 import edu.kit.ifv.trafficspvisualizer.view.style.Styler;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.geometry.HPos;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -21,7 +16,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -35,9 +29,9 @@ import javafx.stage.Stage;
  */
 public class AttributeSettingsStage extends Stage {
 
-    private ViewFacade viewFacade;
+    private final ViewFacade viewFacade;
 
-    private int attributeIndex;
+    private final int attributeIndex;
 
     private Text nameText;
 
@@ -85,6 +79,7 @@ public class AttributeSettingsStage extends Stage {
      *
      * @param viewFacade The {@link ViewFacade} through which this class can access
      *                   the {@link Project} and the {@link LanguageStrategy}.
+     * @param abstractAttributeIndex The abstract attribute index used to get selected attribute from model.
      */
     public AttributeSettingsStage(ViewFacade viewFacade, int abstractAttributeIndex) {
         this.viewFacade = viewFacade;
@@ -163,63 +158,42 @@ public class AttributeSettingsStage extends Stage {
 
     // style-methods
     private void styleStage() {
-        // nameText
         Styler.leftCenterMidFontTextInGridPane(nameText);
 
-        // nameTextField
         Styler.leftCenterHGrowSmallFontTextFieldInGridPane(nameTextField);
 
-        // iconText
         Styler.leftCenterMidFontTextInGridPane(iconText);
 
 
-        // iconButtonImageView
         Styler.bigImageView(iconButtonImageView);
 
-        // iconButton
         Styler.leftCenterSmallFontButtonInGridPane(iconButton);
 
-        // prefixText
         Styler.leftCenterMidFontTextInGridPane(prefixText);
 
-        // prefixTextField
         Styler.leftCenterHGrowSmallFontTextFieldInGridPane(prefixTextField);
 
-        // suffixText
         Styler.leftCenterMidFontTextInGridPane(suffixText);
 
-        // suffixTextField
         Styler.leftCenterHGrowSmallFontTextFieldInGridPane(suffixTextField);
 
-        // numberOfDecimalPlacesText
         Styler.leftCenterMidFontTextInGridPane(numberOfDecimalPlacesText);
 
-        // numberOfDecimalPlacesTextField
         Styler.leftCenterHGrowSmallFontTextFieldInGridPane(numberOfDecimalPlacesTextField);
 
-        // permanentlyVisibleText
         Styler.leftCenterMidFontTextInGridPane(permanentlyVisibleText);
 
-        // permanentlyVisibleCheckBox
         Styler.leftCenterInGridPane(permanentlyVisibleCheckBox);
 
-        // configGridPane
         Styler.midHVGabMidPaddingGridPane(configGridPane);
 
-        // saveButton
         Styler.leftCenterSmallFontButtonInGridPane(saveButton);
 
-        // cancelButton
         Styler.leftCenterSmallFontButtonInGridPane(cancelButton);
 
-        // saveAndCancelGridPane
         Styler.midHVGabMidPaddingGridPane(saveAndCancelGridPane);
 
-        // bodyBorderPane
 
-        // scene
-
-        // stage
         Styler.midStage(this);
     }
 
@@ -247,7 +221,6 @@ public class AttributeSettingsStage extends Stage {
 
 
     // setter-methods
-
     /**
      * Sets the new attribute icon.
      *

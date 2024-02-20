@@ -226,6 +226,14 @@ public final class Styler {
         button.setFont(FontLibrary.getSmallFont());
     }
 
+    /**
+     * Styles the provided texts within a {@link GridPane}.
+     * It applies specific styles to the header text and any subsequent content texts.
+     *
+     * @param gridPane The {@link GridPane} to which the texts are styled.
+     * @param headerText The header text, styled distinctly from content texts.
+     * @param contentTexts The content texts, following the header, each styled uniformly.
+     */
     public static void continuousTextWithinGridPane(GridPane gridPane, Text headerText,
                                                     Text... contentTexts) {
         midHVGabMidPaddingGridPane(gridPane);

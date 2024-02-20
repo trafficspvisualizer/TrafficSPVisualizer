@@ -55,7 +55,7 @@ public class MainApplicationWindow {
 
     private final ViewFacade viewFacade;
 
-    // menu-bar
+
     private MenuItem newProjectMenuItem;
     private MenuItem loadProjectMenuItem;
     private MenuItem saveProjectMenuItem;
@@ -68,7 +68,7 @@ public class MainApplicationWindow {
 
     private MenuBar menuBar;
 
-    // preview-grid-pane
+
     private Text previewText;
 
     private ImageView previewImageView;
@@ -85,7 +85,7 @@ public class MainApplicationWindow {
 
     private GridPane previewGridPane;
 
-    // config-vbox
+
 
     private ImageView exportButtonImageView;
 
@@ -125,8 +125,6 @@ public class MainApplicationWindow {
 
 
 
-
-    // body
 
     private BorderPane bodyBorderPane;
 
@@ -276,11 +274,9 @@ public class MainApplicationWindow {
     }
 
     private void stylePreviewGridPane() {
-        // previewText
         Styler.centerCenterMidFontTextInGridPane(previewText);
 
 
-        // previewImageView
         Styler.centerCenterInGridPane(previewImageView);
         GridPane.setHgrow(previewImageView, Priority.ALWAYS);
         GridPane.setVgrow(previewImageView, Priority.ALWAYS);
@@ -299,76 +295,56 @@ public class MainApplicationWindow {
 
 
 
-        // currentPreviewText
         Styler.centerCenterMidFontTextInGridPane(currentPreviewText);
 
-        // leftSwitchPreviewButtonImageView
         Styler.midImageView(leftSwitchPreviewButtonImageView);
 
-        // leftSwitchPreviewButton
         Styler.centerCenterInGridPane(leftSwitchPreviewButton);
 
-        // rightSwitchPreviewButtonImageView
         Styler.midImageView(rightSwitchPreviewButtonImageView);
 
-        // rightSwitchPreviewButton
         Styler.centerCenterInGridPane(rightSwitchPreviewButton);
 
 
-        // previewGridPane
         Styler.midHVGabMidPaddingGridPane(previewGridPane);
 
     }
 
     private void styleConfigVBox() {
-        // exportButtonImageView
         Styler.bigImageView(exportButtonImageView);
 
 
-        // exportButton
         Styler.centerCenterInGridPane(exportButton);
 
-        // exportSettingsButtonImageView
         Styler.bigImageView(exportSettingsButtonImageView);
 
-        // exportSettingsButton
         Styler.centerCenterInGridPane(exportSettingsButton);
 
-        // exportText
         Styler.centerCenterSmallFontTextInGridPane(exportText);
 
-        // attributesButtonImageView
         Styler.bigImageView(attributesButtonImageView);
 
-        // attributesButton
         Styler.centerCenterInGridPane(attributesButton);
 
 
-        // attributesText
         Styler.centerCenterSmallFontTextInGridPane(attributesText);
 
-        // exportAndAttributesGridPane
         Styler.midHVGabMidPaddingGridPane(exportAndAttributesGridPane);
 
 
-        // choiceOptionText
         Styler.centerCenterMidFontTextInGridPane(choiceOptionText);
         GridPane.setHgrow(choiceOptionText,Priority.ALWAYS);
 
 
-        // choiceOptionTextGridPane
         Styler.midHVGabMidPaddingGridPane(choiceOptionTextGridPane);
         choiceOptionTextGridPane.setBorder(new Border(
                 new BorderStroke(Color.LIGHTGRAY, BorderStrokeStyle.SOLID, null,
                         new BorderWidths(2,0,0,0))));
 
-        // choiceOptionVBox
 
-        // choiceOptionScrollPane
         VBox.setVgrow(choiceOptionScrollPane, Priority.SOMETIMES);
 
 
-        // configVbox
         configVbox.setBorder(new Border(
                 new BorderStroke(Color.LIGHTGRAY, BorderStrokeStyle.SOLID, null,
                         new BorderWidths(0,2,0,0))));
@@ -378,7 +354,6 @@ public class MainApplicationWindow {
 
 
     // setter-methods
-
     /**
      * Sets the new displayed preview image.
      *
@@ -398,7 +373,6 @@ public class MainApplicationWindow {
     }
 
     // update- and add-methods
-
     /**
      * Updates the current displayed preview-situation-number.
      */

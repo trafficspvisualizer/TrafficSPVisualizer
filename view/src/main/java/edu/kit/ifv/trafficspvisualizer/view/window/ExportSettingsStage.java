@@ -31,7 +31,7 @@ import java.io.File;
  */
 public class ExportSettingsStage extends Stage {
 
-    private ViewFacade viewFacade;
+    private final ViewFacade viewFacade;
 
 
     private Text choiceOptionSizeText;
@@ -160,63 +160,42 @@ public class ExportSettingsStage extends Stage {
 
     // style-methods
     private void styleStage() {
-        // choiceOptionSizeText
         Styler.leftCenterMidFontTextInGridPane(choiceOptionSizeText);
 
-        // heightText
         Styler.leftCenterSmallFontTextInGridPane(heightText);
 
-        // heightTextField
         Styler.leftCenterHGrowSmallFontTextFieldInGridPane(heightTextField);
 
-        // widthText
         Styler.leftCenterSmallFontTextInGridPane(widthText);
 
-        // widthTextField
         Styler.leftCenterHGrowSmallFontTextFieldInGridPane(widthTextField);
 
-        // exportDirectoryText
         Styler.leftCenterMidFontTextInGridPane(exportDirectoryText);
 
-        // exportDirectoryTextField
         Styler.leftCenterHGrowSmallFontTextFieldInGridPane(exportDirectoryTextField);
 
-        // exportDirectoryButtonImageView
         Styler.midImageView(exportDirectoryButtonImageView);
 
-        // exportDirectoryButton
         Styler.centerCenterInGridPane(exportDirectoryButton);
 
-        // exportTypeText
         Styler.leftCenterMidFontTextInGridPane(exportTypeText);
 
-        // exportTypeChoiceBox
         Styler.leftCenterInGridPane(exportTypeChoiceBox);
         GridPane.setHgrow(exportTypeChoiceBox, Priority.ALWAYS);
 
-        //variableNameText
         Styler.leftCenterMidFontTextInGridPane(htmlVariableNameText);
 
-        //variableNameTextField
         Styler.leftCenterHGrowSmallFontTextFieldInGridPane(htmlVariableNameTextField);
 
-        // configGridPane
         Styler.midHVGabMidPaddingGridPane(configGridPane);
 
-        // saveButton
         Styler.leftCenterSmallFontButtonInGridPane(saveButton);
 
-        // cancelButton
         Styler.leftCenterSmallFontButtonInGridPane(cancelButton);
 
-        // saveAndCancelGridPane
         Styler.midHVGabMidPaddingGridPane(saveAndCancelGridPane);
 
-        // bodyBorderPane
 
-        // scene
-
-        // stage
         Styler.midStage(this);
     }
 
@@ -241,7 +220,6 @@ public class ExportSettingsStage extends Stage {
 
 
     // setter-methods
-
     /**
      * Sets the export folder path.
      *
@@ -278,9 +256,7 @@ public class ExportSettingsStage extends Stage {
     }
 
     // getter-methods
-
     // buttons
-
     /**
      * Gets the save button.
      *

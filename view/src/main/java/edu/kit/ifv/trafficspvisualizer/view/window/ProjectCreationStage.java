@@ -30,7 +30,7 @@ import java.io.File;
  */
 public class ProjectCreationStage extends Stage {
 
-    private ViewFacade viewFacade;
+    private final ViewFacade viewFacade;
 
 
     private Text nameText;
@@ -152,56 +152,37 @@ public class ProjectCreationStage extends Stage {
     // style-methods
 
     private void styleStage() {
-        // projectNameText
         Styler.leftCenterMidFontTextInGridPane(nameText);
 
-        // nameTextField
         Styler.leftCenterHGrowSmallFontTextFieldInGridPane(nameTextField);
 
-        // saveProjectDirectoryText
         Styler.leftCenterMidFontTextInGridPane(saveProjectDirectoryText);
 
-        // saveProjectDirectoryTextField
         Styler.leftCenterHGrowSmallFontTextFieldInGridPane(saveProjectDirectoryTextField);
 
-        // saveProjectDirectoryButtonImageView
         Styler.midImageView(saveProjectDirectoryButtonImageView);
 
-        // saveProjectDirectoryButton
         Styler.centerCenterInGridPane(saveProjectDirectoryButton);
 
-        // inputDataFileText
         Styler.leftCenterMidFontTextInGridPane(inputDataFileText);
 
-        // inputDataFileTextField
         Styler.leftCenterHGrowSmallFontTextFieldInGridPane(inputDataFileTextField);
 
 
-        // inputDataFileButtonImageView
         Styler.midImageView(inputDataFileButtonImageView);
 
-        // inputDataFileButton
         Styler.centerCenterInGridPane(inputDataFileButton);
 
-        // configGridPane
         Styler.midHVGabMidPaddingGridPane(configGridPane);
 
 
-        // createNewProjectButton
         Styler.leftCenterSmallFontButtonInGridPane(createNewProjectButton);
 
-        // cancelButton
         Styler.leftCenterSmallFontButtonInGridPane(cancelButton);
 
-        // createAndCancelGridPane
         Styler.midHVGabMidPaddingGridPane(createAndCancelGridPane);
 
 
-        // bodyBorderPane
-
-        // scene
-
-        // stage
         Styler.midStage(this);
     }
 

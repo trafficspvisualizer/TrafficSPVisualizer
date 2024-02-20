@@ -8,7 +8,6 @@ import edu.kit.ifv.trafficspvisualizer.view.data.language.LanguageStrategy;
 import edu.kit.ifv.trafficspvisualizer.view.javafx.ListFlowPane;
 import edu.kit.ifv.trafficspvisualizer.view.style.Styler;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -33,7 +32,7 @@ import java.io.File;
  */
 public class IconSelectionStage extends Stage {
 
-    private ViewFacade viewFacade;
+    private final ViewFacade viewFacade;
 
 
     private ListFlowPane iconListFlowPane;
@@ -98,33 +97,22 @@ public class IconSelectionStage extends Stage {
     }
 
     private void styleStage() {
-        // iconListFlowPane
         GridPane.setHgrow(iconListFlowPane, Priority.ALWAYS);
         Styler.midHVGabMidPaddingFlowPane(iconListFlowPane);
         iconListFlowPane.prefWidthProperty().bind(scene.widthProperty().subtract(17));
 
-        // iconScrollPane
         iconScrollPane.prefHeightProperty().bind(
                 scene.heightProperty().subtract(selectAndCancelGridPane.heightProperty()));
 
-        // addIconButton
         Styler.leftCenterSmallFontButtonInGridPane(addIconButton);
 
-        // selectButton
         Styler.leftCenterSmallFontButtonInGridPane(selectButton);
 
-        // cancelButton
         Styler.leftCenterSmallFontButtonInGridPane(cancelButton);
 
-        // selectAndCancelGridPane
         Styler.midHVGabMidPaddingGridPane(selectAndCancelGridPane);
 
-        // bodyBorderPane
 
-
-        // scene
-
-        // stage
         Styler.smallStage(this);
     }
 
@@ -193,7 +181,6 @@ public class IconSelectionStage extends Stage {
     }
 
     // getter-methods
-
     /**
      * Gets the add icon button.
      *

@@ -25,7 +25,7 @@ public class ViewFacade {
 
     private Project project;
 
-    private LanguageStrategy languageStrategy;
+    private final LanguageStrategy languageStrategy;
 
     private final MainApplicationWindow mainApplicationWindow;
 
