@@ -18,6 +18,6 @@ class ExportTypeTest {
     @ParameterizedTest
     @ValueSource(strings = { "Choicoption", "", "Hmtl"})
     void testFromStringFalse(String string) {
-        assertThrows(IllegalArgumentException.class, () -> ExportType.fromString(string));
+        assertNull(ExportType.fromString(string));
     }
 }

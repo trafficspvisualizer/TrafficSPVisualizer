@@ -15,6 +15,6 @@ class FileFormatTest {
     @ParameterizedTest
     @ValueSource(strings = { "png ", "HTML", "SVG"})
     void testFromStringFalse(String string) {
-        assertThrows(IllegalArgumentException.class, () -> FileFormat.fromString(string));
+        assertNull(FileFormat.fromString(string));
     }
 }
