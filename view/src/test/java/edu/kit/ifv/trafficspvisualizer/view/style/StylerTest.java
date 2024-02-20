@@ -20,8 +20,7 @@ import org.junit.jupiter.api.BeforeAll;
 import javafx.embed.swing.JFXPanel;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Unit tests for the {@link Styler} class.
