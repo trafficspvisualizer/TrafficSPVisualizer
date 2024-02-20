@@ -77,7 +77,7 @@ public abstract class AbstractSaver {
      * @return A JSONObject representing the abstract attribute.
      * @throws IllegalArgumentException If the attribute type is unknown.
      */
-    protected JSONObject createJsonAbstractAttribute(AbstractAttribute attribute) {
+    private JSONObject createJsonAbstractAttribute(AbstractAttribute attribute) {
         Objects.requireNonNull(attribute, "Attribute cannot be null");
 
         if (attribute instanceof Attribute attribute1) {
@@ -97,7 +97,7 @@ public abstract class AbstractSaver {
      * @param exportSettings The export settings to be represented.
      * @return A JSONObject representing the export settings.
      */
-    protected JSONObject createJsonExportSettings(ExportSettings exportSettings) {
+    private JSONObject createJsonExportSettings(ExportSettings exportSettings) {
         Objects.requireNonNull(exportSettings, "Export settings cannot be null");
 
         JSONObject jsonObject = new JSONObject();
@@ -115,7 +115,7 @@ public abstract class AbstractSaver {
      *
      * @return A JSONObject representing a line separator.
      */
-    protected JSONObject createJsonLineSeparator(){
+    private JSONObject createJsonLineSeparator(){
         return new JSONObject().put(JsonKeys.KEY_LINE_SEPARATOR.getKey(), "");
     }
 
@@ -127,7 +127,7 @@ public abstract class AbstractSaver {
      * @param lineType The line type of the route section.
      * @return A JSONObject representing the route section.
      */
-    protected JSONObject createJsonRouteSection(Icon icon, String choiceDataKey, LineType lineType) {
+    private JSONObject createJsonRouteSection(Icon icon, String choiceDataKey, LineType lineType) {
         Objects.requireNonNull(icon, "Icon cannot be null");
         Objects.requireNonNull(choiceDataKey, "Choice data key cannot be null");
         Objects.requireNonNull(lineType, "Line type cannot be null");
@@ -152,7 +152,7 @@ public abstract class AbstractSaver {
      * @param choiceOptionMappings The mappings of choice options for the attribute.
      * @return A JSONObject representing the attribute.
      */
-    protected JSONObject createJsonAttributes(String name, Icon icon, String prefix, String suffix,
+    private JSONObject createJsonAttributes(String name, Icon icon, String prefix, String suffix,
                                               boolean permanentlyVisible, int decimalPlaces, Map<ChoiceOption,
             List<String>> choiceOptionMappings) {
         Objects.requireNonNull(name, "Name cannot be null");
@@ -179,7 +179,7 @@ public abstract class AbstractSaver {
      * @param choiceOptionMappings The mappings of choice options.
      * @return A JSONArray representing the choice option mappings.
      */
-    protected JSONArray createChoiceOptionMappingsJson(Map<ChoiceOption, List<String>> choiceOptionMappings) {
+    private JSONArray createChoiceOptionMappingsJson(Map<ChoiceOption, List<String>> choiceOptionMappings) {
         JSONArray choiceOptionMappingsJson = new JSONArray();
         for (Map.Entry<ChoiceOption, List<String>> entry : choiceOptionMappings.entrySet()) {
             ChoiceOption choiceOption = entry.getKey();
@@ -204,7 +204,7 @@ public abstract class AbstractSaver {
      * @param color The color of the choice option.
      * @return A JSONObject representing the choice option.
      */
-    protected JSONObject createJsonChoiceOption(String name, List<RouteSection> routeSections,
+    private JSONObject createJsonChoiceOption(String name, List<RouteSection> routeSections,
                                                 String title, Color color) {
         Objects.requireNonNull(name, "Name cannot be null");
         Objects.requireNonNull(routeSections, "Route sections cannot be null");

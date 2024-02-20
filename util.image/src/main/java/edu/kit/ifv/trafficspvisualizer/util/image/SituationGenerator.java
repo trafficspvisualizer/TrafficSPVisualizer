@@ -22,6 +22,7 @@ public class SituationGenerator extends ImageCollectionGenerator {
             BufferedImage situationBufferedImage = createSituationImage(i);
             currentSituationImage.setImage(situationBufferedImage);
             currentSituationImage.setBlockNumber(dataObject.getBlockNumber(i));
+            currentSituationImage.setScenarioNumber(i);
             situationImages[i] = currentSituationImage;
         }
         return situationImages;

@@ -25,11 +25,14 @@ public class ImageExporter extends Exporter {
      */
     @Override
     public void export(ChoiceOptionImage[] images, File file, String name) throws IOException {
-        File newDirectory = createDirectory(file);
         this.directoryName = name;
+        File newDirectory = createDirectory(file);
+
         for (ChoiceOptionImage image : images) {
             Path imagePath = Paths.get(newDirectory.getPath() + File.separator + constructImagePath(image));
-            Files.createDirectories(imagePath.getParent());
+            if (!imagePath.getParent().toFile().exists()) {
+                Files.createDirectories(imagePath.getParent());
+            }
             try {
                 ImageIO.write(image.getImage(), IMAGE_FORMAT, imagePath.toFile());
             } catch (IOException e) {

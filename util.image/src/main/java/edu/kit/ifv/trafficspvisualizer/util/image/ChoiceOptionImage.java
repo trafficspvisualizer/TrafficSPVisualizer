@@ -8,20 +8,21 @@ import java.util.Objects;
 
 public class ChoiceOptionImage {
 
-    private static final int SCENARIO_NUMBER_KEY = 0;
-    private static final int BLOCK_NUMBER_KEY = 1;
-    private static final int CHOICE_OPTION_NUMBER_KEY = 2;
-    private static final int TITLE_KEY = 3;
+    private static final int SCENARIO_NUMBER_KEY = 1;
+    private static final int BLOCK_NUMBER_KEY = 2;
+    private static final int CHOICE_OPTION_NUMBER_KEY = 3;
+    private static final int TITLE_KEY = 0;
 
     private BufferedImage image;
     private final Map<Integer, String> infos;
 
     public ChoiceOptionImage() {
         infos = new HashMap<>();
+        infos.put(TITLE_KEY, "-1");
         infos.put(SCENARIO_NUMBER_KEY, "-1");
         infos.put(BLOCK_NUMBER_KEY, "-1");
         infos.put(CHOICE_OPTION_NUMBER_KEY, "-1");
-        infos.put(TITLE_KEY, "-1");
+
     }
     public void setImage(BufferedImage image) {
         this.image = image;
