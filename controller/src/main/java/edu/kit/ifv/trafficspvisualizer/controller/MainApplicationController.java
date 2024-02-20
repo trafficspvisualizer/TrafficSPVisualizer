@@ -97,6 +97,7 @@ class MainApplicationController {
         try {
             new StandardProjectSaver().saveProject(controllerFacade.getProject(),
                     controllerFacade.getProject().getProjectPath());
+            //TODO: show success alert
         } catch (IOException | IllegalArgumentException e) {
             controllerFacade.getViewFacade().getMainApplicationWindow().showSaveProjectErrorAlert();
         }
@@ -180,6 +181,7 @@ class MainApplicationController {
             ChoiceOptionImage[] images = imageCollectionGenerator.createImage(controllerFacade.getProject());
 
             exporter.export(images, controllerFacade.getProject().getExportSettings().getExportPath().toFile(), controllerFacade.getProject().getName());
+            //TODO: show success alert
         } catch (NullPointerException | IOException | InvalidDataKeyException e) {
             controllerFacade.getViewFacade().getMainApplicationWindow().showExportErrorAlert();
         }

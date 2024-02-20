@@ -4,13 +4,13 @@ import edu.kit.ifv.trafficspvisualizer.model.Project;
 import edu.kit.ifv.trafficspvisualizer.model.icon.Icon;
 import edu.kit.ifv.trafficspvisualizer.view.ViewFacade;
 import edu.kit.ifv.trafficspvisualizer.view.window.IconSelectionStage;
+
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
-
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -133,7 +133,6 @@ class IconSelectionControllerTest {
                 fail();
             }
 
-
             verify(mockIconSelectionStage, never()).updateStage();
         });
     }
@@ -143,7 +142,6 @@ class IconSelectionControllerTest {
         Platform.runLater(() -> {
             File selectedFile = new File("testIconFile");
             when(mockIconSelectionStage.showFileChooserDialog()).thenReturn(selectedFile);
-
 
             try {
                 doThrow(IOException.class).when(mockControllerFacade.getProject().getIconManager()).createIcon(ArgumentMatchers.any(Path.class));

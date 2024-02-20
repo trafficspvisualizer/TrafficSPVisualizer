@@ -11,8 +11,6 @@ import javafx.scene.control.ButtonType;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-
 import java.lang.reflect.Method;
 import java.util.Optional;
 
@@ -24,6 +22,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 class AttributeControllerTest {
+
     private AttributeController attributeController;
     private ControllerFacade mockControllerFacade;
     private Project mockProject;
@@ -38,61 +37,61 @@ class AttributeControllerTest {
     @BeforeEach
     void setUp() {
         Platform.runLater(() -> {
-        mockControllerFacade = mock(ControllerFacade.class);
-        mockProject = mock(Project.class);
-        mockViewFacade = mock(ViewFacade.class);
-        mockAttributeStage = mock(AttributeStage.class);
+            mockControllerFacade = mock(ControllerFacade.class);
+            mockProject = mock(Project.class);
+            mockViewFacade = mock(ViewFacade.class);
+            mockAttributeStage = mock(AttributeStage.class);
 
-        when(mockControllerFacade.getProject()).thenReturn(mockProject);
-        when(mockControllerFacade.getViewFacade()).thenReturn(mockViewFacade);
-        when(mockViewFacade.getAttributeStage()).thenReturn(mockAttributeStage);
+            when(mockControllerFacade.getProject()).thenReturn(mockProject);
+            when(mockControllerFacade.getViewFacade()).thenReturn(mockViewFacade);
+            when(mockViewFacade.getAttributeStage()).thenReturn(mockAttributeStage);
 
-        attributeController = new AttributeController(mockControllerFacade);
+            attributeController = new AttributeController(mockControllerFacade);
         });
     }
 
     @Test
     void testActionOnRemoveButtonConfirmed() {
         Platform.runLater(() -> {
-        int indexToRemove = 0;
-        AbstractAttribute mockAttribute = mock(AbstractAttribute.class);
+            int indexToRemove = 0;
+            AbstractAttribute mockAttribute = mock(AbstractAttribute.class);
 
-        when(mockAttributeStage.showRemoveAttributeProjectConfirmationAlert())
+            when(mockAttributeStage.showRemoveAttributeProjectConfirmationAlert())
                 .thenReturn(Optional.of(ButtonType.OK));
 
-        when(mockProject.getAbstractAttributes().get(indexToRemove)).thenReturn(mockAttribute);
+            when(mockProject.getAbstractAttributes().get(indexToRemove)).thenReturn(mockAttribute);
 
-        try {
-            Method method = attributeController.getClass().getMethod("actionOnRemoveButton", int.class);
-            method.setAccessible(true);
-            method.invoke(attributeController, indexToRemove);
-        } catch (Exception e) {
-            fail();
-        }
+            try {
+                Method method = attributeController.getClass().getMethod("actionOnRemoveButton", int.class);
+                method.setAccessible(true);
+                method.invoke(attributeController, indexToRemove);
+            } catch (Exception e) {
+                fail();
+            }
 
-        verify(mockProject).removeAbstractAttribute(indexToRemove);
-        verify(attributeController).update();
+            verify(mockProject).removeAbstractAttribute(indexToRemove);
+            verify(attributeController).update();
         });
     }
 
     @Test
     void testActionOnRemoveButtonCancelled() {
         Platform.runLater(() -> {
-        int indexToRemove = 0;
+            int indexToRemove = 0;
 
-        when(mockAttributeStage.showRemoveAttributeProjectConfirmationAlert())
-                .thenReturn(Optional.of(ButtonType.CANCEL));
+            when(mockAttributeStage.showRemoveAttributeProjectConfirmationAlert())
+                    .thenReturn(Optional.of(ButtonType.CANCEL));
 
-        try {
-            Method method = attributeController.getClass().getMethod("actionOnRemoveButton", int.class);
-            method.setAccessible(true);
-            method.invoke(attributeController, indexToRemove);
-        } catch (Exception e) {
-            fail();
-        }
+            try {
+                Method method = attributeController.getClass().getMethod("actionOnRemoveButton", int.class);
+                method.setAccessible(true);
+                method.invoke(attributeController, indexToRemove);
+            } catch (Exception e) {
+                fail();
+            }
 
-        verify(mockProject, never()).removeAbstractAttribute(anyInt());
-        verify(attributeController, never()).update();
+            verify(mockProject, never()).removeAbstractAttribute(anyInt());
+            verify(attributeController, never()).update();
         });
     }
 }

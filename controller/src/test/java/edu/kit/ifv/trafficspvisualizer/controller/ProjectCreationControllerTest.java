@@ -5,6 +5,7 @@ import edu.kit.ifv.trafficspvisualizer.model.data.DataObject;
 import edu.kit.ifv.trafficspvisualizer.util.parse.NGDParser;
 import edu.kit.ifv.trafficspvisualizer.view.ViewFacade;
 import edu.kit.ifv.trafficspvisualizer.view.window.ProjectCreationStage;
+
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import org.junit.jupiter.api.BeforeAll;
@@ -143,7 +144,6 @@ class ProjectCreationControllerTest {
                 fail();
             }
 
-
             try {
                 Method method = projectCreationController.getClass().getMethod("actionOnCreateNewProjectButton");
                 method.setAccessible(true);
@@ -151,7 +151,6 @@ class ProjectCreationControllerTest {
             } catch (Exception e) {
                 fail();
             }
-
 
             verify(mockControllerFacade).setProject(mockProject);
             verify(mockControllerFacade).deleteProjectCreationController();
@@ -176,13 +175,11 @@ class ProjectCreationControllerTest {
             when(mockControllerFacade.getMainApplicationController()).thenReturn(mock(MainApplicationController.class));
             when(mockControllerFacade.getProject()).thenReturn(mockProject);
 
-
             try {
                 when(mockParser.parse(inputFile)).thenThrow(new ParseException("test", 1));
             } catch (IOException | ParseException e) {
                 fail();
             }
-
 
             try {
                 Method method = projectCreationController.getClass().getMethod("actionOnCreateNewProjectButton");
@@ -211,13 +208,11 @@ class ProjectCreationControllerTest {
             when(mockControllerFacade.getMainApplicationController()).thenReturn(mock(MainApplicationController.class));
             when(mockControllerFacade.getProject()).thenReturn(mockProject);
 
-
             try {
                 when(mockParser.parse(inputFile)).thenThrow(new IOException("test"));
             } catch (IOException | ParseException e) {
                 fail();
             }
-
 
             try {
                 Method method = projectCreationController.getClass().getMethod("actionOnCreateNewProjectButton");
@@ -234,8 +229,6 @@ class ProjectCreationControllerTest {
     @Test
     void testValidateInputValidInput() {
         Platform.runLater(() -> {
-
-
             String projectName = "TestProject";
             File projectFolder = new File("/path/to/project");
             File inputFile = new File("/path/to/inputFile");
