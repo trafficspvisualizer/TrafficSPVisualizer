@@ -9,5 +9,4 @@ module edu.kit.ifv.trafficspvisualizer.controller {
     requires edu.kit.ifv.trafficspvisualizer.util.image;
     requires edu.kit.ifv.trafficspvisualizer.util.export;
     requires edu.kit.ifv.trafficspvisualizer.util.parse;
-    opens edu.kit.ifv.trafficspvisualizer.controller to org.testfx.junit5;
 }

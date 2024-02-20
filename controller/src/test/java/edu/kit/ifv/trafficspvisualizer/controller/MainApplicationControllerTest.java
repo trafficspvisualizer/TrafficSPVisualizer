@@ -2,25 +2,26 @@ package edu.kit.ifv.trafficspvisualizer.controller;
 
 
 import edu.kit.ifv.trafficspvisualizer.model.Project;
-import edu.kit.ifv.trafficspvisualizer.util.project.StandardProjectLoader;
+import edu.kit.ifv.trafficspvisualizer.model.settings.ExportSettings;
+import edu.kit.ifv.trafficspvisualizer.model.settings.ExportType;
+import edu.kit.ifv.trafficspvisualizer.model.settings.FileFormat;
 import edu.kit.ifv.trafficspvisualizer.util.project.StandardProjectSaver;
 import edu.kit.ifv.trafficspvisualizer.view.ViewFacade;
 import edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow;
+
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
+import javafx.event.Event;
+import javafx.scene.control.ButtonType;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
-import java.text.ParseException;
+import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.fail;
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -28,7 +29,7 @@ import static org.mockito.Mockito.when;
 
 class MainApplicationControllerTest {
 
-    private MainApplicationController mainApplicationController;
+    private MainApplicationController mockMainApplicationController;
     private ControllerFacade mockControllerFacade;
     private MainApplicationWindow mockMainApplicationWindow;
 
@@ -47,7 +48,7 @@ class MainApplicationControllerTest {
             mockMainApplicationWindow = mock(MainApplicationWindow.class);
 
             when(mockControllerFacade.getViewFacade().getMainApplicationWindow()).thenReturn(mockMainApplicationWindow);
-            mainApplicationController = new MainApplicationController(mockControllerFacade);
+            mockMainApplicationController = new MainApplicationController(mockControllerFacade);
 
             mockProject = mock(Project.class);
             mockViewFacade = mock(ViewFacade.class);
@@ -66,7 +67,7 @@ class MainApplicationControllerTest {
             try {
                 Method method = MainApplicationController.class.getDeclaredMethod("actionOnLoadProjectMenuItem");
                 method.setAccessible(true);
-                method.invoke(mainApplicationController);
+                method.invoke(mockMainApplicationController);
             } catch (Exception e) {
                 fail();
             }
@@ -74,87 +75,42 @@ class MainApplicationControllerTest {
             verify(mockControllerFacade).setProject(mockProject);
             verify(mockViewFacade).setProject(mockProject);
 
-            verify(mainApplicationController).updateChoiceOptions();
-            verify(mainApplicationController).updatePreview();
+            verify(mockMainApplicationController).updateChoiceOptions();
+            verify(mockMainApplicationController).updatePreview();
         });
     }
 
     @Test
     void testActionOnLoadProjectMenuItemNull() {
         Platform.runLater(() -> {
-
-
             when(mockMainApplicationWindow.showDirectoryChooserDialog()).thenReturn(null);
-
 
             try {
                 Method method = MainApplicationController.class.getDeclaredMethod("actionOnLoadProjectMenuItem");
                 method.setAccessible(true);
-                method.invoke(mainApplicationController);
+                method.invoke(mockMainApplicationController);
             } catch (Exception e) {
                 fail();
             }
-
 
             verify(mockControllerFacade, never()).setProject(mockProject);
             verify(mockViewFacade, never()).setProject(mockProject);
-
-
-            verify(mainApplicationController, never()).updateChoiceOptions();
-            verify(mainApplicationController, never()).updatePreview();
+            verify(mockMainApplicationController, never()).updateChoiceOptions();
+            verify(mockMainApplicationController, never()).updatePreview();
         });
     }
 
     @Test
-    void testActionOnLoadProjectMenuItemParseException() {
+    void testActionOnLoadProjectMenuItemInvalidDirectory() {
         Platform.runLater(() -> {
-
+            // not a valid directory
             File selectedFile = new File("testFile");
-
-
             when(mockMainApplicationWindow.showDirectoryChooserDialog()).thenReturn(selectedFile);
-
-            StandardProjectLoader mockStandardProjectLoader = mock(StandardProjectLoader.class);
-            try {
-                when(mockStandardProjectLoader.loadProject(any(File.class))).thenThrow(new ParseException("", 1));
-            } catch (Exception e) {
-                fail();
-            }
-
 
             try {
                 Method method = MainApplicationController.class.getDeclaredMethod("actionOnLoadProjectMenuItem");
                 method.setAccessible(true);
-                method.invoke(mainApplicationController);
-            } catch (Exception e) {
-                fail();
-            }
-
-            verify(mockControllerFacade.getViewFacade().getMainApplicationWindow()).showPreviewErrorAlert();
-        });
-    }
-
-    @Test
-    void testActionOnLoadProjectMenuItemIOException() {
-        Platform.runLater(() -> {
-
-            File selectedFile = new File("testFile");
-
-
-            when(mockMainApplicationWindow.showDirectoryChooserDialog()).thenReturn(selectedFile);
-
-            StandardProjectLoader mockStandardProjectLoader = mock(StandardProjectLoader.class);
-            try {
-                when(mockStandardProjectLoader.loadProject(any(File.class))).thenThrow(new IOException());
-            } catch (Exception e) {
-                fail();
-            }
-
-
-            try {
-                Method method = MainApplicationController.class.getDeclaredMethod("actionOnLoadProjectMenuItem");
-                method.setAccessible(true);
-                method.invoke(mainApplicationController);
+                method.invoke(mockMainApplicationController);
             } catch (Exception e) {
                 fail();
             }
@@ -166,7 +122,6 @@ class MainApplicationControllerTest {
     @Test
     void testActionOnSaveProjectMenuItem() {
         Platform.runLater(() -> {
-
             Project mockProject = mock(Project.class);
             when(mockControllerFacade.getProject()).thenReturn(mockProject);
             when(mockProject.getProjectPath()).thenReturn(new File("test").toPath());
@@ -175,7 +130,7 @@ class MainApplicationControllerTest {
             try {
                 Method method = MainApplicationController.class.getDeclaredMethod("actionOnSaveProjectMenuItem");
                 method.setAccessible(true);
-                method.invoke(mainApplicationController);
+                method.invoke(mockMainApplicationController);
             } catch (Exception e) {
                 fail();
             }
@@ -196,7 +151,7 @@ class MainApplicationControllerTest {
             try {
                 Method method = MainApplicationController.class.getDeclaredMethod("actionOnSaveProjectMenuItem");
                 method.setAccessible(true);
-                method.invoke(mainApplicationController);
+                method.invoke(mockMainApplicationController);
             } catch (Exception e) {
                 fail();
             }
@@ -206,55 +161,268 @@ class MainApplicationControllerTest {
     }
 
     @Test
-    void testActionOnSaveProjectMenuItemIOException() {
+    void testActionOnSaveProjectMenuItemIllegalArgumentException() {
         Platform.runLater(() -> {
             Project mockProject = mock(Project.class);
             when(mockControllerFacade.getProject()).thenReturn(mockProject);
-            when(mockProject.getProjectPath()).thenReturn(new File("test").toPath());
+            //return path as null
+            when(mockProject.getProjectPath()).thenReturn(null);
             StandardProjectSaver mockStandardProjectSaver = mock(StandardProjectSaver.class);
 
             try {
                 Method method = MainApplicationController.class.getDeclaredMethod("actionOnSaveProjectMenuItem");
                 method.setAccessible(true);
-                method.invoke(mainApplicationController);
+                method.invoke(mockMainApplicationController);
             } catch (Exception e) {
                 fail();
             }
 
+            verify(mockMainApplicationWindow).showSaveProjectErrorAlert();
+        });
+    }
+
+    @Test
+    void testActionOnExportButton() {
+        Platform.runLater(() -> {
+            when(mockControllerFacade.getProject()).thenReturn(mockProject);
+            ExportSettings mockExportSettings = mock(ExportSettings.class);
+            when(mockProject.getExportSettings()).thenReturn(mockExportSettings);
+            when(mockExportSettings.getExportPath()).thenReturn(Path.of("test"));
+            when(mockExportSettings.getExportType()).thenReturn(ExportType.CHOICE_OPTION);
+            when(mockExportSettings.getFileFormat()).thenReturn(FileFormat.PNG);
+
             try {
-                doThrow(new IOException()).when(mockStandardProjectSaver).saveProject(any(), any());
-            } catch (IOException e) {
+                Method method = MainApplicationController.class.getDeclaredMethod("actionOnExportButton");
+                method.setAccessible(true);
+                method.invoke(mockMainApplicationController);
+            } catch (Exception e) {
                 fail();
             }
 
-            verify(mockMainApplicationWindow).showSaveProjectErrorAlert();
+            verify(mockMainApplicationWindow, never()).showNoProjectErrorAlert();
+        });
+    }
+
+    @Test
+    void testActionOnExportButtonProjectNull() {
+        Platform.runLater(() -> {
+            when(mockControllerFacade.getProject()).thenReturn(null);
+
+            try {
+                Method method = MainApplicationController.class.getDeclaredMethod("actionOnExportButton");
+                method.setAccessible(true);
+                method.invoke(mockMainApplicationController);
+            } catch (Exception e) {
+                fail();
+            }
+
+            verify(mockMainApplicationWindow).showNoProjectErrorAlert();
+        });
+    }
+
+    @Test
+    void testActionOnExportButtonExportSettingsNotFullyConfigured() {
+        Platform.runLater(() -> {
+            when(mockControllerFacade.getProject()).thenReturn(mockProject);
+            ExportSettings mockExportSettings = mock(ExportSettings.class);
+            when(mockProject.getExportSettings()).thenReturn(mockExportSettings);
+            when(mockExportSettings.getExportPath()).thenReturn(null);
+            when(mockExportSettings.getExportType()).thenReturn(null);
+            when(mockExportSettings.getFileFormat()).thenReturn(null);
+
+            try {
+                Method method = MainApplicationController.class.getDeclaredMethod("actionOnExportButton");
+                method.setAccessible(true);
+                method.invoke(mockMainApplicationController);
+            } catch (Exception e) {
+                fail();
+            }
+            verify(mockMainApplicationWindow).showExportErrorAlert();
+        });
+    }
+
+    @Test
+    void testActionOnExportButtonException() {
+        Platform.runLater(() -> {
+            when(mockControllerFacade.getProject()).thenReturn(mockProject);
+            ExportSettings mockExportSettings = mock(ExportSettings.class);
+            when(mockProject.getExportSettings()).thenReturn(mockExportSettings);
+            when(mockExportSettings.getExportPath()).thenReturn(Path.of("test///:/test/test/test/")); //invalid
+            when(mockExportSettings.getExportType()).thenReturn(ExportType.CHOICE_OPTION);
+            when(mockExportSettings.getFileFormat()).thenReturn(FileFormat.PNG);
+
+            try {
+                Method method = MainApplicationController.class.getDeclaredMethod("actionOnExportButton");
+                method.setAccessible(true);
+                method.invoke(mockMainApplicationController);
+            } catch (Exception e) {
+                fail();
+            }
+            verify(mockMainApplicationWindow).showExportErrorAlert();
+        });
+    }
+
+    @Test
+    void testActionOnExportSettingsButton() {
+        Platform.runLater(() -> {
+            when(mockControllerFacade.getProject()).thenReturn(mockProject);
+            try {
+                Method method = MainApplicationController.class.getDeclaredMethod("actionOnExportSettingsButton");
+                method.setAccessible(true);
+                method.invoke(mockMainApplicationController);
+            } catch (Exception e) {
+                fail();
+            }
+
+            verify(mockControllerFacade).createExportSettingsController();
         });
     }
     @Test
-    void testActionOnSaveProjectMenuItemParseException() {
+    void testActionOnExportSettingsButtonNull() {
         Platform.runLater(() -> {
-            Project mockProject = mock(Project.class);
-            when(mockControllerFacade.getProject()).thenReturn(mockProject);
-            when(mockProject.getProjectPath()).thenReturn(new File("test").toPath());
-            StandardProjectSaver mockStandardProjectSaver = mock(StandardProjectSaver.class);
-
+            when(mockControllerFacade.getProject()).thenReturn(null);
             try {
-                Method method = MainApplicationController.class.getDeclaredMethod("actionOnSaveProjectMenuItem");
+                Method method = MainApplicationController.class.getDeclaredMethod("actionOnExportSettingsButton");
                 method.setAccessible(true);
-                method.invoke(mainApplicationController);
+                method.invoke(mockMainApplicationController);
             } catch (Exception e) {
                 fail();
             }
 
+            verify(mockControllerFacade.getViewFacade().getMainApplicationWindow()).showNoProjectErrorAlert();
+            });
+    }
 
+    @Test
+    void testActionOnAttributesButton() {
+        Platform.runLater(() -> {
+            when(mockControllerFacade.getProject()).thenReturn(mockProject);
             try {
-                doThrow(new ParseException("", 0)).when(mockStandardProjectSaver).saveProject(any(), any());
-            } catch (IOException e) {
+                Method method = MainApplicationController.class.getDeclaredMethod("actionOnAttributesButton");
+                method.setAccessible(true);
+                method.invoke(mockMainApplicationController);
+            } catch (Exception e) {
                 fail();
             }
 
-            verify(mockMainApplicationWindow).showSaveProjectErrorAlert();
+            verify(mockControllerFacade).createAttributeController();
+        });
+    }
+    @Test
+    void testActionOnAttributesButtonNull() {
+        Platform.runLater(() -> {
+            when(mockControllerFacade.getProject()).thenReturn(null);
+            try {
+                Method method = MainApplicationController.class.getDeclaredMethod("actionOnAttributesButton");
+                method.setAccessible(true);
+                method.invoke(mockMainApplicationController);
+            } catch (Exception e) {
+                fail();
+            }
+
+            verify(mockControllerFacade.getViewFacade().getMainApplicationWindow()).showNoProjectErrorAlert();
         });
     }
 
+    @Test
+    void testActionOnRightSwitchPreviewButton() {
+        Platform.runLater(() -> {
+            when(mockControllerFacade.getProject()).thenReturn(mockProject);
+            try {
+                Method method = MainApplicationController.class.getDeclaredMethod("actionOnRightSwitchPreviewButton");
+                method.setAccessible(true);
+                method.invoke(mockMainApplicationController);
+            } catch (Exception e) {
+                fail();
+            }
+
+            verify(mockControllerFacade.getProject()).incrementPreview();
+            verify(mockMainApplicationController).updatePreview();
+        });
+    }
+    @Test
+    void testActionOnRightSwitchPreviewButtonNull() {
+        Platform.runLater(() -> {
+            when(mockControllerFacade.getProject()).thenReturn(null);
+            try {
+                Method method = MainApplicationController.class.getDeclaredMethod("actionOnRightSwitchPreviewButton");
+                method.setAccessible(true);
+                method.invoke(mockMainApplicationController);
+            } catch (Exception e) {
+                fail();
+            }
+
+            verify(mockControllerFacade.getProject(), never()).incrementPreview();
+            verify(mockMainApplicationController, never()).updatePreview();
+        });
+    }
+
+    @Test
+    void testActionOnLeftSwitchPreviewButton() {
+        Platform.runLater(() -> {
+            when(mockControllerFacade.getProject()).thenReturn(mockProject);
+            try {
+                Method method = MainApplicationController.class.getDeclaredMethod("actionOnLeftSwitchPreviewButton");
+                method.setAccessible(true);
+                method.invoke(mockMainApplicationController);
+            } catch (Exception e) {
+                fail();
+            }
+
+            verify(mockControllerFacade.getProject()).decrementPreview();
+            verify(mockMainApplicationController).updatePreview();
+        });
+    }
+    @Test
+    void testActionOnLeftSwitchPreviewButtonNull() {
+        Platform.runLater(() -> {
+            when(mockControllerFacade.getProject()).thenReturn(null);
+            try {
+                Method method = MainApplicationController.class.getDeclaredMethod("actionOnLeftSwitchPreviewButton");
+                method.setAccessible(true);
+                method.invoke(mockMainApplicationController);
+            } catch (Exception e) {
+                fail();
+            }
+
+            verify(mockControllerFacade.getProject(), never()).decrementPreview();
+            verify(mockMainApplicationController, never()).updatePreview();
+        });
+    }
+
+    @Test
+    void testActionOnCloseRequestCloseConfirmed() {
+        Platform.runLater(() -> {
+            when(mockMainApplicationWindow.showCloseProjectConfirmationAlert()).thenReturn(java.util.Optional.of(ButtonType.OK));
+            Event mockEvent = mock(Event.class);
+
+            try {
+                Method method = MainApplicationController.class.getDeclaredMethod("actionOnCloseRequest", Event.class);
+                method.setAccessible(true);
+                method.invoke(mockMainApplicationController, mockEvent);
+            } catch (Exception e) {
+                fail();
+            }
+
+            verify(mockMainApplicationWindow).close();
+        });
+    }
+
+    @Test
+    void testActionOnCloseRequestCloseCancelled() {
+        Platform.runLater(() -> {
+            when(mockMainApplicationWindow.showCloseProjectConfirmationAlert()).thenReturn(java.util.Optional.of(ButtonType.CANCEL));
+            Event mockEvent = mock(Event.class);
+
+            try {
+                Method method = MainApplicationController.class.getDeclaredMethod("actionOnCloseRequest", Event.class);
+                method.setAccessible(true);
+                method.invoke(mockMainApplicationController, mockEvent);
+            } catch (Exception e) {
+                fail();
+            }
+
+            verify(mockMainApplicationWindow, never()).close();
+        });
+    }
 }
