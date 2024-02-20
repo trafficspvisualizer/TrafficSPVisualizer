@@ -3,7 +3,10 @@ package edu.kit.ifv.trafficspvisualizer.model.data;
 import java.util.Set;
 
 /**
- * //TODO.
+ * The {@link DataObject} class hold and manages all data from an input file (e.g. a .ngd file)
+ * that is parsed by a Parser.
+ * The {@link DataObject} is designed to immutable. Once constructed it is not possible to add, remove or change any
+ * values. The only available operations are for reading data from the {@link DataObject}.
  */
 public class DataObject {
     private final SituationData[] situationData;

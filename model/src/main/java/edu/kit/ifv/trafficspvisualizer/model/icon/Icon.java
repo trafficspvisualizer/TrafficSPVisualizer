@@ -27,11 +27,11 @@ public abstract class Icon implements BufferedImageConvertible {
     /**
      * Creates a new icon.
      *
-     * @param iconPath the path where the icons data is stored
-     * @param identifier the identifier of the icon
+     * @param iconPath       the path where the icons data is stored
+     * @param identifier     the identifier of the icon
      * @param fileNameFormat the name format of the icons file (e.g. "%s.png"). Has to be a format string containing
      *                       exactly one string specifier
-     * @param converter the converter to convert the {@link Icon}
+     * @param converter      the converter to convert the {@link Icon}
      */
     protected Icon(Path iconPath, int identifier, String fileNameFormat, ImageToBufferedImageConverter converter) {
         this.identifier = identifier;
