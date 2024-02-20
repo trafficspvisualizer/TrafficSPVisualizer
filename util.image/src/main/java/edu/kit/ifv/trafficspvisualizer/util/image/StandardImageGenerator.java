@@ -51,7 +51,7 @@ public class StandardImageGenerator extends ImageGenerator{
         this.attributes = attributes;
         this.dataObject = dataObject;
         this.situationIndex = situationIndex;
-        int attributeFontSize = (int) (height * 8.33333 / 100);
+        int attributeFontSize = (int) (height / 10);
         this.attributeFont = new Font("Arial", Font.BOLD, attributeFontSize);
         javafx.scene.paint.Color fxColor = choiceOption.getColor();
         this.color = new java.awt.Color((float) fxColor.getRed(),
@@ -116,12 +116,12 @@ public class StandardImageGenerator extends ImageGenerator{
                         attributeImage = createOneAttributeImage((Attribute) attribute);
                     }
                     graphics2DChoiceOption.drawImage(attributeImage, currentXCoordinate, attributeDrawingHeight, null);
-                    currentXCoordinate += attributeWidth;
+                    currentXCoordinate += attributeWidth + 2;
                 } else if (attribute instanceof SeparatorLine) {
                     currentXCoordinate += (int) separatorLineStrokeWidth / 2;
                     Stroke separatorLineStroke = new BasicStroke(separatorLineStrokeWidth);
                     graphics2DChoiceOption.setStroke(separatorLineStroke);
-                    graphics2DChoiceOption.setColor(Color.GRAY);
+                    graphics2DChoiceOption.setColor(Color.LIGHT_GRAY);
                     graphics2DChoiceOption.drawLine(currentXCoordinate, attributeDrawingHeight, currentXCoordinate, attributeDrawingHeight + attributeHeight);
                     currentXCoordinate += (int) separatorLineStrokeWidth / 2 + 1;
                 }
@@ -174,6 +174,7 @@ public class StandardImageGenerator extends ImageGenerator{
 
             String subText = (getRoundedString(0, lengthOfRouteSection)) + " min";
             graphics2DChoiceOption.setFont(attributeFont);
+            makeStringFit(graphics2DChoiceOption, imageLengthOfRouteSection, subText);
             FontMetrics fontMetrics = graphics2DChoiceOption.getFontMetrics();
             int textWidth = fontMetrics.stringWidth(subText);
             int x = currentXCoordinate + (imageLengthOfRouteSection - textWidth) / 2;
@@ -183,7 +184,7 @@ public class StandardImageGenerator extends ImageGenerator{
 
             BufferedImage iconImage = routeSection.getIcon().toBufferedImage(iconHeight, iconWidth);
             BufferedImage copyImage = copyImage(iconImage); //copy needed, else image would be saved with color
-            changeImageColor(copyImage, Color.black, color);
+            changeImageColor(copyImage, color);
             graphics2DChoiceOption.drawImage(copyImage, currentXCoordinate + (imageLengthOfRouteSection - iconWidth) / 2, attributeDrawingHeight, null);
             currentXCoordinate += imageLengthOfRouteSection;
             graphics2DChoiceOption.setStroke(solidTimeLineStroke);
@@ -208,6 +209,10 @@ public class StandardImageGenerator extends ImageGenerator{
         BufferedImage attributeImage = new BufferedImage(attributeWidth, attributeHeight, BufferedImage.TYPE_INT_RGB);
         Graphics2D g2DAttribute = attributeImage.createGraphics();
         fillGraphicWhite(g2DAttribute, attributeWidth, attributeHeight);
+        int alphaValue = 150;
+        if (imageAttributeValue == 0) {
+            g2DAttribute.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) alphaValue / 255));
+        }
         g2DAttribute.setColor(color);
         BufferedImage iconImage;
         g2DAttribute.setFont(attributeFont);
@@ -230,11 +235,13 @@ public class StandardImageGenerator extends ImageGenerator{
 
 
             int x = (attributeWidth - prefixWidth) / 2;
-            g2DAttribute.drawString(prefix, x, (5 * attributeHeight) / 9);
+            int y = 8 * attributeHeight / 9 - g2DAttribute.getFontMetrics().getHeight();
+            g2DAttribute.drawString(prefix, x, y);
             x = (attributeWidth - secondLineStringWidth) / 2;
-            g2DAttribute.drawString(secondLineString, x, (8 * attributeHeight) / 9);
+            y = 8 * attributeHeight / 9;
+            g2DAttribute.drawString(secondLineString, x, y);
 
-            iconHeight = (int) (height * 0.15);
+            iconHeight = (int) (height * 0.2);
         } else {
             makeStringFit(g2DAttribute, maxTextWidth, attributeText);
             int attributeTextWidth = g2DAttribute.getFontMetrics().stringWidth(attributeText);
@@ -244,7 +251,10 @@ public class StandardImageGenerator extends ImageGenerator{
         }
         iconImage = (attribute.getIcon().toBufferedImage(iconHeight, attributeWidth));
         BufferedImage copyImage = copyImage(iconImage);
-        changeImageColor(copyImage, Color.BLACK, color);
+        changeImageColor(copyImage, color);
+        if (imageAttributeValue == 0) {
+            makeImageTransparent(copyImage);
+        }
         g2DAttribute.drawImage(copyImage, 0, 0, null);
         g2DAttribute.dispose();
         return attributeImage;
@@ -309,16 +319,43 @@ public class StandardImageGenerator extends ImageGenerator{
         return String.format(("%." + decimalPlaces + "f"), value);
     }
 
-    private static void changeImageColor(BufferedImage image, Color oldColor, Color newColor) {
-        int width = image.getWidth();
-        int height = image.getHeight();
+    //inspired by ChatGPT
+    public static void changeImageColor(BufferedImage image, Color newColor) {
+        // Iterate through every pixel
+        for (int y = 0; y < image.getHeight(); y++) {
+            for (int x = 0; x < image.getWidth(); x++) {
+                int argb = image.getRGB(x, y);
 
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                Color pixelColor = new Color(image.getRGB(x, y), true);
-                if (pixelColor.equals(oldColor)) {
-                    image.setRGB(x, y, newColor.getRGB());
-                }
+                // Extract alpha value
+                int alpha = (argb >> 24) & 0xFF;
+
+                // Modify color based on alpha
+                Color oldColor = new Color(argb, true);
+                Color modifiedColor = new Color(
+                        (oldColor.getRed() * (255 - alpha) + newColor.getRed() * alpha) / 255,
+                        (oldColor.getGreen() * (255 - alpha) + newColor.getGreen() * alpha) / 255,
+                        (oldColor.getBlue() * (255 - alpha) + newColor.getBlue() * alpha) / 255,
+                        oldColor.getAlpha());
+
+                // Set the new color
+                image.setRGB(x, y, modifiedColor.getRGB());
+            }
+        }
+    }
+
+    //inspired by ChatGPT
+    private static void makeImageTransparent(BufferedImage image) {
+        int alphaValue = 150;
+        for (int y = 0; y < image.getHeight(); y++) {
+            for (int x = 0; x < image.getWidth(); x++) {
+                int rgba = image.getRGB(x, y);
+                // Set the alpha value to the desired level
+                int alpha = (rgba >> 24) & 0xFF;
+                // Blend the original alpha with the desired alpha value
+                alpha = (alpha * alphaValue) / 255;
+                // Set the blended alpha value
+                rgba = (alpha << 24) | (rgba & 0x00FFFFFF);
+                image.setRGB(x, y, rgba);
             }
         }
     }
