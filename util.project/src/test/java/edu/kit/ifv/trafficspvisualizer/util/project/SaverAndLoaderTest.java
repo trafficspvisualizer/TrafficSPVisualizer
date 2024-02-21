@@ -33,13 +33,13 @@ class SaverAndLoaderTest {
         try {
             project = new Project("name", files,parser.parse(ngd),ngd);
             project.addAbstractAttribute(new SeparatorLine());
-            Attribute attribut = new Attribute("je",project.getIconManager().getDefaultIcon(),"","",true,0);
+            Attribute attribute = new Attribute("je",project.getIconManager().getDefaultIcon(),"","",true,0);
             RouteSection routeSection = new RouteSection(project.getIconManager().getDefaultIcon(),"cfd", LineType.DASHED);
             ArrayList<RouteSection> routeSections = new ArrayList<>();
             routeSections.add(routeSection);
             ChoiceOption choiceOption = new ChoiceOption("ds","sfd", routeSections, Color.ALICEBLUE);
-            attribut.setMapping(choiceOption, new ArrayList<>());
-            project.addAbstractAttribute(attribut);
+            attribute.setMapping(choiceOption, new ArrayList<>());
+            project.addAbstractAttribute(attribute);
 
         } catch (IOException | ParseException e) {
             fail();
@@ -48,7 +48,7 @@ class SaverAndLoaderTest {
         StandardProjectLoader standardProjectLoader = new StandardProjectLoader();
         try {
             standardProjectSaver.saveProject(project,files);
-            File f = new File(files.toString()+"\\name");
+            File f = new File(files.toString(), "name");
             standardProjectLoader.loadProject(f);
         } catch (IOException | ParseException e) {
             fail();
