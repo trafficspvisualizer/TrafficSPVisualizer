@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  */
 public class HTMLExporter extends Exporter { //todo aufteilen in einzelen Situationen
     private String directoryName = "TrafficSPVisualizer";
-    private String var = "";
+    private String var = "v_";
 
 
     /**
@@ -30,7 +30,8 @@ public class HTMLExporter extends Exporter { //todo aufteilen in einzelen Situat
      */
     @Override
     public void export(ChoiceOptionImage[] images, File file, String name, String var) throws IOException {
-        this.var = var;
+        if (!var.isEmpty())this.var = var;
+
         var imageExporter = new ImageExporter();
         this.directoryName = name;
         imageExporter.export(images, file, directoryName,null);
@@ -100,7 +101,7 @@ public class HTMLExporter extends Exporter { //todo aufteilen in einzelen Situat
      * @throws IOException If an error occurs while writing to the file.
      */
     private void writeHtmlHeader(BufferedWriter writer) throws IOException {
-        writer.write("""
+        writer.write(String.format("""
             <head>
                 <meta charset="utf-8">
                 <link rel="stylesheet" href="https://something.online.com/example.css" />
@@ -109,7 +110,7 @@ public class HTMLExporter extends Exporter { //todo aufteilen in einzelen Situat
                 
                 <script>
                       function change(value){
-                        document.getElementById("v_42").value= value;
+                        document.getElementById("%s").value= value;
                       }
                     </script>
                     
@@ -132,7 +133,7 @@ public class HTMLExporter extends Exporter { //todo aufteilen in einzelen Situat
                       }
                     </style>
             </head>
-            """);
+            """,var));
     }
 
     /**
@@ -153,12 +154,12 @@ public class HTMLExporter extends Exporter { //todo aufteilen in einzelen Situat
             var encodedPath = java.net.URLEncoder.encode(imagePath, StandardCharsets.UTF_8);
             writer.write(String.format("""
                 <li>
-                <input  id="%s%d" type="radio" name="%s" value="%d" class="input-hidden" onclick="change('%s')">
-                    <label for="%s%d" id="%s%d-label">
+                <input  id="%sx%d" type="radio" name="%s" value="%d" class="input-hidden" onclick="change('%s')">
+                    <label for="%sx%d" id="%sx%d-label">
                             <img src="%s" alt="%s" />
                           </label>
                 </li>
-                """,var, i + 1, var ,i + 1, image.getTitle(),var, i + 1, var,i + 1, encodedPath, image.getTitle()));
+                """,var, i + 1, var ,i + 1, image.getTitle(),var, i + 1, var, i + 1, encodedPath, image.getTitle()));
         }
         writer.write("""
                 </ul>
