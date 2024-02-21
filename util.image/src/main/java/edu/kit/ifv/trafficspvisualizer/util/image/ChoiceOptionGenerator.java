@@ -6,8 +6,13 @@ import edu.kit.ifv.trafficspvisualizer.model.Project;
 import java.awt.image.BufferedImage;
 import java.util.Map;
 
+/**
+ * ChoiceOptionGenerator inherits from the ImageCollectionGenerator class.
+ * The controller calls this class to create the images for each choice option.
+ * It is not necessary to combine the choice options here, as only the individual
+ * choice options are required and not the situations.
+ */
 public class ChoiceOptionGenerator extends ImageCollectionGenerator {
-    private Map<ChoiceOption, java.util.List<String>> choiceOptionMappings;
     @Override
     public ChoiceOptionImage[] createImage(Project project) throws InvalidDataKeyException {
         setUpImageCreation(project);
@@ -23,7 +28,8 @@ public class ChoiceOptionGenerator extends ImageCollectionGenerator {
                 currentChoiceOptionImage.setBlockNumber(dataObject.getBlockNumber(i));
                 double lengthOfLongestRouteSectionsOfSituation = calculateLongestRouteSection(i);
                 BufferedImage bufferedImage = standardImageGenerator.createChoiceOption(currentChoiceOption,
-                        dataObject, attributeList, choiceOptionHeight, choiceOptionWidth, 0, lengthOfLongestRouteSectionsOfSituation, i);
+                        dataObject, attributeList, choiceOptionHeight, choiceOptionWidth, 0,
+                        lengthOfLongestRouteSectionsOfSituation, i);
                 currentChoiceOptionImage.setImage(bufferedImage);
                 currentChoiceOptionImage.setTitle(currentChoiceOption.getTitle());
                 images[j + i * numberOfChoiceOptions] = currentChoiceOptionImage;
