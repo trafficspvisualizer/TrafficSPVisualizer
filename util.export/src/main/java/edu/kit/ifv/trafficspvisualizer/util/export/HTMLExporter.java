@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  */
 public class HTMLExporter extends Exporter { //todo aufteilen in einzelen Situationen
     private String directoryName = "TrafficSPVisualizer";
-    private String var = "v_42x";
+    private String var = "";
 
 
     /**
@@ -29,22 +29,13 @@ public class HTMLExporter extends Exporter { //todo aufteilen in einzelen Situat
      * @throws IOException If an error occurs while writing to the file.
      */
     @Override
-    public void export(ChoiceOptionImage[] images, File file, String name) throws IOException {
-        var imageExporter = new ImageExporter();
-        this.directoryName = name;
-        imageExporter.export(images, file, directoryName);
-        this.directoryName += "_export";
-        var groupedImages = groupImagesByScenario(images);
-        for (var imageGroup : groupedImages) {
-            exportGroup(imageGroup, file);
-        }
-    }
-
     public void export(ChoiceOptionImage[] images, File file, String name, String var) throws IOException {
-        var imageExporter = new ImageExporter();
         this.var = var;
+        var imageExporter = new ImageExporter();
         this.directoryName = name;
-        imageExporter.export(images, file, directoryName);
+        imageExporter.export(images, file, directoryName,null);
+
+        this.directoryName += "_export";
         var groupedImages = groupImagesByScenario(images);
         for (var imageGroup : groupedImages) {
             exportGroup(imageGroup, file);

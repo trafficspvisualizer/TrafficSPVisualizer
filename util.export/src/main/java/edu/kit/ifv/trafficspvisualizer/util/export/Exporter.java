@@ -29,7 +29,7 @@ public abstract class  Exporter {
         return new ImageExporter();
     }
 
-    public abstract void export(ChoiceOptionImage[] images, File file, String name) throws IOException;
+    public abstract void export(ChoiceOptionImage[] images, File file, String name, String var) throws IOException;
 
     /**
      * Constructs the image path.
