@@ -1,6 +1,6 @@
 package edu.kit.ifv.trafficspvisualizer.util.project;
 
-import edu.kit.ifv.trafficspvisualizer.model.*;
+import edu.kit.ifv.trafficspvisualizer.model.Project;
 import edu.kit.ifv.trafficspvisualizer.model.icon.Icon;
 import edu.kit.ifv.trafficspvisualizer.model.settings.AbstractAttribute;
 import edu.kit.ifv.trafficspvisualizer.model.settings.Attribute;
@@ -22,9 +22,6 @@ import java.util.Objects;
  * This abstract class represents a saver that can save a project and create a JSON representation of a project.
  */
 public abstract class AbstractSaver {
-
-
-
     /**
      * Save a project to a specified path.
      *
