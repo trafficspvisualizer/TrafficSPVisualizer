@@ -153,12 +153,12 @@ public class HTMLExporter extends Exporter { //todo aufteilen in einzelen Situat
             var encodedPath = java.net.URLEncoder.encode(imagePath, StandardCharsets.UTF_8);
             writer.write(String.format("""
                 <li>
-                <input  id="%s%d" type="radio" name="v_42" value="%d" class="input-hidden" onclick="change('%s')">
-                    <label for="v_42x%d" id="v_42x%d-label">
+                <input  id="%s%d" type="radio" name="%s" value="%d" class="input-hidden" onclick="change('%s')">
+                    <label for="%s%d" id="%s%d-label">
                             <img src="%s" alt="%s" />
                           </label>
                 </li>
-                """,var, i + 1, i + 1, image.getTitle(), i + 1, i + 1, encodedPath, image.getTitle()));
+                """,var, i + 1, var ,i + 1, image.getTitle(),var, i + 1, var,i + 1, encodedPath, image.getTitle()));
         }
         writer.write("""
                 </ul>
@@ -173,12 +173,12 @@ public class HTMLExporter extends Exporter { //todo aufteilen in einzelen Situat
      * @throws IOException If an error occurs while writing to the file.
      */
     private void writeHiddenForm(BufferedWriter writer) throws IOException {
-        writer.write("""
+        writer.write(String.format("""
                 <form>
                 <div>
-                    <input id="v_42" name="v_42" value="#v_42#" readonly />
+                    <input id="%s" name="%s" value="#%s#" readonly />
                 </div>
                 </form>
-            """);
+            """,var,var,var));
     }
 }
