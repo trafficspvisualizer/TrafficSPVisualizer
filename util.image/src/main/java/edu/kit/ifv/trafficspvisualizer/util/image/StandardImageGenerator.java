@@ -202,25 +202,26 @@ public class StandardImageGenerator extends ImageGenerator {
 
 
     private BufferedImage createOneAttributeImage(Attribute attribute) throws InvalidDataKeyException {
-        double imageAttributeValue = calculateValueOfAttribute(attribute);
+        double attributeValue = calculateValueOfAttribute(attribute);
         String prefix = attribute.getPrefix();
         String suffix = attribute.getSuffix();
-        String attributeText = attribute.getPrefix() + getRoundedString(attribute.getDecimalPlaces(), imageAttributeValue) + attribute.getSuffix();
-        int iconHeight;
+        String attributeText = prefix + getRoundedString(attribute.getDecimalPlaces(), attributeValue) + suffix;
+
         BufferedImage attributeImage = new BufferedImage(attributeWidth, attributeHeight, BufferedImage.TYPE_INT_RGB);
         Graphics2D g2DAttribute = attributeImage.createGraphics();
         fillGraphicWhite(g2DAttribute, attributeWidth, attributeHeight);
-        int alphaValue = 150;
-        if (imageAttributeValue == 0) {
-            g2DAttribute.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) alphaValue / 255));
+
+        if (attributeValue == 0) {
+            g2DAttribute.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) ALPHA_MODIFIER));
         }
+
         g2DAttribute.setColor(color);
-        BufferedImage iconImage;
         g2DAttribute.setFont(attributeFont);
-        String secondLineString = getRoundedString(attribute.getDecimalPlaces(), imageAttributeValue) + suffix;
+        String secondLineString = getRoundedString(attribute.getDecimalPlaces(), attributeValue) + suffix;
         int maxTextWidth = attributeWidth - attributeWidth / 4;
 
 
+        int iconHeight;
         if (attribute.getPrefix().length() > 2) { // draw font in two lines
             String longerString;
             if (prefix.length() > secondLineString.length()) {
@@ -250,12 +251,14 @@ public class StandardImageGenerator extends ImageGenerator {
             g2DAttribute.drawString(attributeText, x, (8 * attributeHeight) / 9);
             iconHeight = (int) (height * 0.25);
         }
-        iconImage = (attribute.getIcon().toBufferedImage(iconHeight, attributeWidth));
+
+        BufferedImage iconImage = (attribute.getIcon().toBufferedImage(iconHeight, attributeWidth));
         BufferedImage copyImage = copyImage(iconImage);
         changeImageColor(copyImage, color);
-        if (imageAttributeValue == 0) {
+        if (attributeValue == 0) {
             makeImageTransparent(copyImage);
         }
+
         g2DAttribute.drawImage(copyImage, 0, 0, null);
         g2DAttribute.dispose();
         return attributeImage;
@@ -298,8 +301,8 @@ public class StandardImageGenerator extends ImageGenerator {
     private double calculateValueOfAttribute(Attribute attribute) throws InvalidDataKeyException {
         List<String> choiceOptionMappings = attribute.getMapping(choiceOption);
         double attributeValue = 0;
-        for (String string : choiceOptionMappings) {
-            attributeValue += dataObject.getValue(situationIndex, choiceOption.getName(), string);
+        for (String mapping : choiceOptionMappings) {
+            attributeValue += dataObject.getValue(situationIndex, choiceOption.getName(), mapping);
         }
         return attributeValue;
     }
@@ -326,16 +329,22 @@ public class StandardImageGenerator extends ImageGenerator {
         for (int y = 0; y < image.getHeight(); y++) {
             for (int x = 0; x < image.getWidth(); x++) {
                 Color oldColor = new Color(image.getRGB(x, y), true);
+                int alpha = oldColor.getAlpha();
                 Color modifiedColor = new Color(
-                        newColor.getRed(),
-                        newColor.getGreen(),
-                        newColor.getBlue(),
+                        alphaBlend(oldColor.getRed(), newColor.getRed(), alpha),
+                        alphaBlend(oldColor.getGreen(), newColor.getGreen(), alpha),
+                        alphaBlend(oldColor.getBlue(), newColor.getBlue(), alpha),
                         oldColor.getAlpha()
                 );
 
                 image.setRGB(x, y, modifiedColor.getRGB());
             }
         }
+    }
+
+    private static int alphaBlend(int firstColor, int secondColor, int alpha) {
+        // alpha blending is used to correctly display transparent icons on the white background
+        return (firstColor * (255 - alpha) + secondColor * alpha) / 255;
     }
 
     private static void makeImageTransparent(BufferedImage image) {
