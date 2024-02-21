@@ -354,10 +354,9 @@ public class StandardImageGenerator extends ImageGenerator {
                 Color color = new Color(image.getRGB(x, y), true);
                 int alpha = color.getAlpha();
                 int newAlpha = (int) (alpha * ALPHA_MODIFIER);
-                Color newColor = new Color(color.getRed(), color.getGreen(), color.getRed(), newAlpha);
+                Color newColor = new Color(color.getRed(), color.getGreen(), color.getBlue(), newAlpha);
                 image.setRGB(x, y, newColor.getRGB());
             }
         }
     }
-
 }
