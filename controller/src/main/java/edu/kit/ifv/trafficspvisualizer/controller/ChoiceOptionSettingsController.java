@@ -115,7 +115,7 @@ class ChoiceOptionSettingsController implements IconDisplayingController {
     }
 
     /**
-     * Scrapes selected choiceDataKey of {@link RouteSection} with given index from
+     * Scrapes selected route section value name of {@link RouteSection} with given index from
      * {@link edu.kit.ifv.trafficspvisualizer.view.window.ChoiceOptionSettingsStage} and updates
      * {@link RouteSection} accordingly.
      *
@@ -123,31 +123,31 @@ class ChoiceOptionSettingsController implements IconDisplayingController {
      */
     private void actionOnRouteSectionValueNameChoiceBox(int routeSectionIndex) {
         //should  be called when option is selected
-        String choiceDataKey = controllerFacade.getViewFacade().getChoiceOptionSettingsStage()
+        String routeSectionValueName = controllerFacade.getViewFacade().getChoiceOptionSettingsStage()
                 .getRouteSectionValueNameSelection(routeSectionIndex);
 
         controllerFacade.getProject().getChoiceOptions().get(choiceOptionId).getRouteSections()
-                .get(routeSectionIndex).setChoiceDataKey(choiceDataKey);
+                .get(routeSectionIndex).setChoiceDataKey(routeSectionValueName);
         updateRouteSections();
     }
 
     /**
-     * Scrapes selected column name of {@link Attribute} with given index from
+     * Scrapes selected value names of {@link Attribute} with given index from
      * {@link edu.kit.ifv.trafficspvisualizer.view.window.ChoiceOptionSettingsStage} and updates mappings
      * in {@link Attribute} accordingly.
      *
-     * @param attributeIndex the index of the attribute which column mappings are updated
+     * @param attributeIndex the index of the attribute which mapping is updated
      */
     private void actionOnAttributeValueNamesCheckBox(int attributeIndex) {
         //should  be called when option is selected
-        List<String> attributeValueSelection = controllerFacade.getViewFacade().getChoiceOptionSettingsStage()
+        List<String> attributeValueNames = controllerFacade.getViewFacade().getChoiceOptionSettingsStage()
                 .getAttributeValueNamesSelection(attributeIndex);
 
         Attribute attribute = controllerFacade.getProject().getAttributes().get(attributeIndex);
         ChoiceOption choiceOption = controllerFacade.getProject().getChoiceOptions().get(choiceOptionId);
 
         // set new mapping
-        attribute.setMapping(choiceOption, attributeValueSelection);
+        attribute.setMapping(choiceOption, attributeValueNames);
 
     }
 
