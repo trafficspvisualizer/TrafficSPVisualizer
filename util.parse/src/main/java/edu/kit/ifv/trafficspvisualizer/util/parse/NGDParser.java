@@ -23,11 +23,6 @@ public class NGDParser extends Parser {
     private static final String DATA_END_MARKER = "|";
     private static final String DATA_SEPARATOR = "\t";
 
-    private record ChoiceTitle(String choiceOptionName, String valueName) {}
-    private record ParsedData(String[] columnNames, double[][] values, int[] blockNumbers) {}
-
-
-
     @Override
     public DataObject parse(File file) throws IOException, ParseException {
         List<String[]> data = new ArrayList<>();
@@ -115,6 +110,9 @@ public class NGDParser extends Parser {
 
         return titles;
     }
+
+    private record ChoiceTitle(String choiceOptionName, String valueName) {}
+    private record ParsedData(String[] columnNames, double[][] values, int[] blockNumbers) {}
 }
 
 
