@@ -25,11 +25,11 @@ public class ImageExporter extends Exporter {
      */
     @Override
     public void export(ChoiceOptionImage[] images, File file, String name) throws IOException {
-        this.directoryName = name;
+        this.directoryName = name + "_export";
         File newDirectory = createDirectory(file);
 
         for (ChoiceOptionImage image : images) {
-            Path imagePath = Paths.get(newDirectory.getPath() + File.separator + constructImagePath(image));
+            Path imagePath = Paths.get(newDirectory.getPath(), constructImagePath(image));
             if (!imagePath.getParent().toFile().exists()) {
                 Files.createDirectories(imagePath.getParent());
             }
@@ -67,7 +67,7 @@ public class ImageExporter extends Exporter {
      * @throws IOException If the directory cannot be created.
      */
     private File createDirectory(File file) throws IOException {
-        File newDirectory = new File(file.getPath() + File.separator + directoryName);
+        File newDirectory = new File(file.getPath(), directoryName);
         if (newDirectory.exists()) {
             deleteFileOrDirectory(newDirectory);
         }

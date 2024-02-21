@@ -34,6 +34,7 @@ public class HTMLExporter extends Exporter { //todo aufteilen in einzelen Situat
         var imageExporter = new ImageExporter();
         this.directoryName = name;
         imageExporter.export(images, file, directoryName);
+        this.directoryName += "_export";
         var groupedImages = groupImagesByScenario(images);
         for (var imageGroup : groupedImages) {
             exportGroup(imageGroup, file);
@@ -79,12 +80,12 @@ public class HTMLExporter extends Exporter { //todo aufteilen in einzelen Situat
         try (var writer = Files.newBufferedWriter(tempFilePath)) {
             writeHtmlContent(imageGroup, writer);
         }
-        Path path = Paths.get(file + "\\" + directoryName);
+        Path path = Paths.get(file.toString() , directoryName);
         if (!path.toFile().exists()) {
             boolean created = path.toFile().mkdir();
             if (!created) throw new IOException("Could not create the directory");
         }
-        Path finalFilePath = Paths.get(file + "\\" + directoryName , directoryName + name + ".html");
+        Path finalFilePath = Paths.get(file.getPath(),directoryName , directoryName + name + ".html");
         name++;
         Files.move(tempFilePath, finalFilePath, StandardCopyOption.REPLACE_EXISTING);
     }
@@ -156,8 +157,8 @@ public class HTMLExporter extends Exporter { //todo aufteilen in einzelen Situat
                   <ul>
                 """);
         for (int i = 0; i < imageGroup.size(); i++) {
-            var image = imageGroup.get(i);
-            var imagePath = "\\"+constructImagePath(image);
+            ChoiceOptionImage image = imageGroup.get(i);
+            String imagePath = "./" + constructImagePath(image);
             var encodedPath = java.net.URLEncoder.encode(imagePath, StandardCharsets.UTF_8);
             writer.write(String.format("""
                 <li>
@@ -166,7 +167,7 @@ public class HTMLExporter extends Exporter { //todo aufteilen in einzelen Situat
                             <img src="%s" alt="%s" />
                           </label>
                 </li>
-                """,var, i + 1, i + 1, image.getTitle(),i + 1,i + 1,imagePath, image.getTitle()));
+                """,var, i + 1, i + 1, image.getTitle(), i + 1, i + 1, imagePath, image.getTitle()));
         }
         writer.write("""
                 </ul>
