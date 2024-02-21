@@ -47,13 +47,12 @@ class MainApplicationController {
         this.controllerFacade = controllerFacade;
         // MainApplicationWindow is created when starting application
         setActionListeners();
-
     }
 
     /**
      * Creates a new {@link ProjectCreationController}.
      */
-    private void actionOnNewProjectMenuItem(){
+    private void actionOnNewProjectMenuItem() {
         controllerFacade.createProjectCreationController();
     }
 
@@ -62,9 +61,10 @@ class MainApplicationController {
      * {@link javafx.stage.FileChooser} and if possible loads project from selected file.
      * Updates {@link edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow}.
      */
-    private void actionOnLoadProjectMenuItem(){
+    private void actionOnLoadProjectMenuItem() {
         File selectedFile = controllerFacade.getViewFacade().getMainApplicationWindow().showDirectoryChooserDialog();
 
+        // if no file was selected
         if (selectedFile == null) return;
 
         Project newProject;
@@ -75,6 +75,7 @@ class MainApplicationController {
             return;
         }
 
+        // setting project in ViewFacade and ControllerFacade
         controllerFacade.setProject(newProject);
         controllerFacade.getViewFacade().setProject(newProject);
 
@@ -97,7 +98,6 @@ class MainApplicationController {
         try {
             new StandardProjectSaver().saveProject(controllerFacade.getProject(),
                     controllerFacade.getProject().getProjectPath());
-            //TODO: show success alert
         } catch (IOException | IllegalArgumentException e) {
             controllerFacade.getViewFacade().getMainApplicationWindow().showSaveProjectErrorAlert();
         }
@@ -106,7 +106,7 @@ class MainApplicationController {
     /**
      * Creates new instance of {@link InstructionStage}.
      */
-    private void actionOnInstructionMenuItem(){
+    private void actionOnInstructionMenuItem() {
         new InstructionStage(controllerFacade.getViewFacade());
     }
 
@@ -115,7 +115,7 @@ class MainApplicationController {
      *
      * @param choiceOptionIndex index of choice option which should be edited
      */
-    private void actionOnChoiceOptionSettingsButton(int choiceOptionIndex){
+    private void actionOnChoiceOptionSettingsButton(int choiceOptionIndex) {
         controllerFacade.createChoiceOptionSettingsController(choiceOptionIndex);
     }
 
@@ -127,7 +127,7 @@ class MainApplicationController {
      *
      * @param choiceOptionIndex index of choice option which should be moved up
      */
-    private void actionOnUpSwitchChoiceOptionButton(int choiceOptionIndex){
+    private void actionOnUpSwitchChoiceOptionButton(int choiceOptionIndex) {
         controllerFacade.getProject().swapChoiceOptionUp(choiceOptionIndex);
 
         // Update MainApplicationWindow
@@ -143,7 +143,7 @@ class MainApplicationController {
      *
      * @param choiceOptionIndex index of choice option which should be moved down
      */
-    private void actionOnDownSwitchChoiceOptionButton(int choiceOptionIndex){
+    private void actionOnDownSwitchChoiceOptionButton(int choiceOptionIndex) {
         controllerFacade.getProject().swapChoiceOptionDown(choiceOptionIndex);
 
         // Update MainApplicationWindow
@@ -155,7 +155,7 @@ class MainApplicationController {
      * Creates subclass of {@link ImageCollectionGenerator} and instructs it to create images.
      * Then creates subclass {@link Exporter} to export the generated images.
      */
-    private void actionOnExportButton(){
+    private void actionOnExportButton() {
 
         // if no project is currently loaded
         if (controllerFacade.getProject() == null) {
@@ -165,7 +165,7 @@ class MainApplicationController {
 
         // check if exportSettings are fully configured
         ExportSettings exportSettings = controllerFacade.getProject().getExportSettings();
-        if(exportSettings.getExportPath() == null || exportSettings.getExportType() == null
+        if (exportSettings.getExportPath() == null || exportSettings.getExportType() == null
                 || exportSettings.getFileFormat() == null) {
             controllerFacade.getViewFacade().getMainApplicationWindow().showExportErrorAlert();
             return;
@@ -174,14 +174,15 @@ class MainApplicationController {
         ExportType exportType = controllerFacade.getProject().getExportSettings().getExportType();
 
         ImageCollectionGenerator imageCollectionGenerator = ImageCollectionGenerator
-                                                                            .getImageCollectionGenerator(exportType);
+                .getImageCollectionGenerator(exportType);
         Exporter exporter = Exporter.getExporter(exportType);
 
         try {
             ChoiceOptionImage[] images = imageCollectionGenerator.createImage(controllerFacade.getProject());
-
-            exporter.export(images, controllerFacade.getProject().getExportSettings().getExportPath().toFile(), controllerFacade.getProject().getName());
-            //TODO: show success alert
+            exporter.export(
+                    images, controllerFacade.getProject().getExportSettings().getExportPath().toFile(),
+                    controllerFacade.getProject().getName()
+            );
         } catch (NullPointerException | IOException | InvalidDataKeyException e) {
             controllerFacade.getViewFacade().getMainApplicationWindow().showExportErrorAlert();
         }
@@ -190,7 +191,7 @@ class MainApplicationController {
     /**
      * Instructs creation of {@link ExportSettingsController}.
      */
-    private void actionOnExportSettingsButton(){
+    private void actionOnExportSettingsButton() {
         // if no project is currently loaded
         if (controllerFacade.getProject() == null) {
             controllerFacade.getViewFacade().getMainApplicationWindow().showNoProjectErrorAlert();
@@ -202,7 +203,7 @@ class MainApplicationController {
     /**
      * Instructs creation of {@link AttributeController}.
      */
-    private void actionOnAttributesButton(){
+    private void actionOnAttributesButton() {
         // if no project is currently loaded
         if (controllerFacade.getProject() == null) {
             controllerFacade.getViewFacade().getMainApplicationWindow().showNoProjectErrorAlert();
@@ -215,7 +216,7 @@ class MainApplicationController {
      * Instructs {@link Project} to increment preview counter and
      * instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow} to update preview.
      */
-    private void actionOnRightSwitchPreviewButton(){
+    private void actionOnRightSwitchPreviewButton() {
         // if no project is currently loaded
         if (controllerFacade.getProject() == null) return;
         controllerFacade.getProject().incrementPreview();
@@ -229,7 +230,7 @@ class MainApplicationController {
      * Instructs {@link Project} to decrement preview counter and
      * instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow} to update preview.
      */
-    private void actionOnLeftSwitchPreviewButton(){
+    private void actionOnLeftSwitchPreviewButton() {
         // if no project is currently loaded
         if (controllerFacade.getProject() == null) return;
         controllerFacade.getProject().decrementPreview();
@@ -237,12 +238,13 @@ class MainApplicationController {
         // Update Preview
         updatePreview();
     }
+
     /**
      * Asks user for confirmation to close application without saving and closes application if user confirms.
      *
      * @param event the close event that is consumed
      */
-    private void actionOnCloseRequest(Event event){
+    private void actionOnCloseRequest(Event event) {
         event.consume();
         controllerFacade.getViewFacade().getMainApplicationWindow()
                 .showCloseProjectConfirmationAlert()
@@ -270,13 +272,17 @@ class MainApplicationController {
     }
 
     /**
-     * Instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow} to update choice options.
+     * Instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow} to update choice options
+     * and sets action listeners of choice option ui components.
      */
     void updateChoiceOptions() {
         controllerFacade.getViewFacade().getMainApplicationWindow().updateChoiceOptions();
         setChoiceOptionActionListeners();
     }
 
+    /**
+     * Sets action listeners of ui components in MainApplicationWindow concerning choice options.
+     */
     private void setChoiceOptionActionListeners() {
 
         MainApplicationWindow mainApplicationWindow = controllerFacade.getViewFacade().getMainApplicationWindow();
@@ -289,7 +295,7 @@ class MainApplicationController {
         // Switch-Down-Buttons
         List<Button> downSwitchChoiceOptionButtonList = mainApplicationWindow.getDownSwitchChoiceOptionButtonList();
 
-        for(int i = 0; i < choiceOptionSettingsButtonList.size(); i++) {
+        for (int i = 0; i < choiceOptionSettingsButtonList.size(); i++) {
             // index in view is same as index in attribute list of project
             final int index = i;
             choiceOptionSettingsButtonList.get(i).setOnAction(e -> actionOnChoiceOptionSettingsButton(index));
@@ -298,7 +304,10 @@ class MainApplicationController {
         }
     }
 
-    private void setActionListeners(){
+    /**
+     * Sets initial action listeners of ui components in MainApplicationWindow.
+     */
+    private void setActionListeners() {
 
         MainApplicationWindow mainApplicationWindow = controllerFacade.getViewFacade().getMainApplicationWindow();
 

@@ -33,17 +33,20 @@ class AttributeSettingsController implements IconDisplayingController {
      * Constructs the AttributeSettingsController. Creates new {@link AttributeSettingsStage},
      * saves it in ViewFacade and sets its ActionListeners.
      *
-     * @param controllerFacade the front-facing interface for the controller package
+     * @param controllerFacade       the front-facing interface for the controller package
      * @param abstractAttributeIndex the index of the attribute on which the controller is working
+     * @param workingOnNewAttribute  whether the attribute with the abstractAttributeIndex was newly created or not
      */
-    AttributeSettingsController(ControllerFacade controllerFacade, int abstractAttributeIndex, boolean workingOnNewAttribute) {
+    AttributeSettingsController(ControllerFacade controllerFacade, int abstractAttributeIndex,
+                                boolean workingOnNewAttribute) {
         this.controllerFacade = controllerFacade;
         this.abstractAttributeIndex = abstractAttributeIndex;
         this.workingOnNewAttribute = workingOnNewAttribute;
 
         //creates and shows new stage
-        controllerFacade.getViewFacade().
-                setAttributeSettingsStage(new AttributeSettingsStage(controllerFacade.getViewFacade(), abstractAttributeIndex));
+        controllerFacade.getViewFacade().setAttributeSettingsStage(
+                new AttributeSettingsStage(controllerFacade.getViewFacade(), abstractAttributeIndex)
+        );
         setActionListeners();
     }
 
@@ -51,7 +54,7 @@ class AttributeSettingsController implements IconDisplayingController {
      * Creates new {@link IconSelectionController}.
      * Sets AttributeSettingsController as parentController of IconSelectionController and attributeIndex as index.
      */
-    private void actionOnIconButton(){
+    private void actionOnIconButton() {
         controllerFacade.createIconSelectionController(this, abstractAttributeIndex);
     }
 
@@ -62,15 +65,15 @@ class AttributeSettingsController implements IconDisplayingController {
      * Closes the stage/controller afterward and instructs {@link AttributeController} to update.
      */
     private void actionOnSaveButton() {
-        //scraping data from view
+        // scraping data from view
         String name = controllerFacade.getViewFacade().getAttributeSettingsStage().getName();
         int iconId = controllerFacade.getViewFacade().getAttributeSettingsStage().getIconId();
         String prefix = controllerFacade.getViewFacade().getAttributeSettingsStage().getPrefix();
         String suffix = controllerFacade.getViewFacade().getAttributeSettingsStage().getSuffix();
         boolean isPermanentlyVisible = controllerFacade.getViewFacade().getAttributeSettingsStage()
-                                                                                                .isPermanentlyVisible();
+                .isPermanentlyVisible();
         String decimalPlacesString = controllerFacade.getViewFacade().
-                                            getAttributeSettingsStage().getNumberOfDecimalPlaces();
+                getAttributeSettingsStage().getNumberOfDecimalPlaces();
 
         // converting decimal places to integer
         int decimalPlaces;
@@ -81,6 +84,7 @@ class AttributeSettingsController implements IconDisplayingController {
             return;
         }
 
+        // if decimal places is a number but less than zero
         if (decimalPlaces < 0) {
             controllerFacade.getViewFacade().getAttributeSettingsStage().showSaveErrorAlert();
             return;
@@ -91,7 +95,8 @@ class AttributeSettingsController implements IconDisplayingController {
 
         // type casting should be no problem cause index is given by AttributeController which ensures
         // only indexes of non-separator-line Attributes are given
-        Attribute attribute = (Attribute) controllerFacade.getProject().getAbstractAttributes().get(abstractAttributeIndex);
+        Attribute attribute = (Attribute) controllerFacade.getProject().getAbstractAttributes()
+                .get(abstractAttributeIndex);
         attribute.setName(name);
         attribute.setIcon(icon);
         attribute.setPrefix(prefix);
@@ -111,7 +116,7 @@ class AttributeSettingsController implements IconDisplayingController {
      * deletes its reference in the {@link edu.kit.ifv.trafficspvisualizer.view.ViewFacade}.
      * Deletes AttributeSettingsController from {@link ControllerFacade}.
      */
-    private void actionOnCancelButton(){
+    private void actionOnCancelButton() {
         // if user created new attribute and pressed cancel
         if (workingOnNewAttribute) {
             controllerFacade.getProject().removeAbstractAttribute(abstractAttributeIndex);
@@ -122,23 +127,26 @@ class AttributeSettingsController implements IconDisplayingController {
     }
 
     @Override
-    public void updateIcon(Icon icon, int index){
+    public void updateIcon(Icon icon, int index) {
         controllerFacade.getViewFacade().getAttributeSettingsStage().setIcon(icon.getIdentifier());
     }
 
-    private void setActionListeners(){
+    /**
+     * Sets initial action listeners of ui components in AttributeSettingsStage.
+     */
+    private void setActionListeners() {
         AttributeSettingsStage attributeSettingsStage = controllerFacade.getViewFacade().getAttributeSettingsStage();
+
+        // Icon-Button
+        attributeSettingsStage.getIconButton().setOnAction(e -> actionOnIconButton());
+
+        // Save-Button
+        attributeSettingsStage.getSaveButton().setOnAction(e -> actionOnSaveButton());
+
+        // Cancel-Button
+        attributeSettingsStage.getCancelButton().setOnAction(e -> actionOnCancelButton());
 
         // Close Request - same event handler as cancel button
         attributeSettingsStage.setOnCloseRequest(e -> actionOnCancelButton());
-
-        // Icon Button
-        attributeSettingsStage.getIconButton().setOnAction(e -> actionOnIconButton());
-
-        // Save Button
-        attributeSettingsStage.getSaveButton().setOnAction(e -> actionOnSaveButton());
-
-        // Cancel Button
-        attributeSettingsStage.getCancelButton().setOnAction(e -> actionOnCancelButton());
     }
 }
