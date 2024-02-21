@@ -89,6 +89,8 @@ public class IconManager {
             return;
         }
 
+        // File::listFiles doesn't guarantee any order, so we sort them manually by name to ensure
+        // that every icon gets the same identifier as before when reloading a project
         File[] sortedFiles = sortFiles(iconFiles);
         for (File icon : sortedFiles) {
             createIcon(icon.toPath());

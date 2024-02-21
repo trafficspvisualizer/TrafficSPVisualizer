@@ -16,12 +16,17 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * NGDParser inherits from the Parser class. The NGDParser class is responsible for parsing NGD files.
+ */
 public class NGDParser extends Parser {
     private static final String DATA_END_MARKER = "|";
     private static final String DATA_SEPARATOR = "\t";
 
     private record ChoiceTitle(String choiceOptionName, String valueName) {}
     private record ParsedData(String[] columnNames, double[][] values, int[] blockNumbers) {}
+
+
 
     @Override
     public DataObject parse(File file) throws IOException, ParseException {
@@ -61,8 +66,8 @@ public class NGDParser extends Parser {
 
             // First 2 columns are filled with design and situation number
             parsedData[i] = Arrays.stream(trimmedData[i], 2, trimmedData[i].length - 1)
-                .mapToDouble(Double::parseDouble)
-                .toArray();
+                    .mapToDouble(Double::parseDouble)
+                    .toArray();
         }
 
         return new ParsedData(columnNames, parsedData, blockNumbers);

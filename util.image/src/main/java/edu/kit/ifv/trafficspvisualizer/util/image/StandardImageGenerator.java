@@ -20,7 +20,7 @@ public class StandardImageGenerator extends ImageGenerator{
     private int heightOfHeadline;
     private int width;
     private int height;
-    private  int attributeWidth;
+    private int attributeWidth;
     private int attributeHeight;
     private double lengthOfLongestRouteSectionOfSituation;
     private int attributeDrawingHeight;
@@ -37,7 +37,7 @@ public class StandardImageGenerator extends ImageGenerator{
     SVGToBufferedImageConverter svgToBufferedImageConverter;
     @Override
     public BufferedImage createChoiceOption(ChoiceOption choiceOption, DataObject dataObject,
-                                            List<AbstractAttribute> attributes, int height, int width, double min, double max, int situationIndex) throws InvalidDataKeyException {
+                                            List<AbstractAttribute> attributes, int height, int width, double max, int situationIndex) throws InvalidDataKeyException {
         BufferedImage choiceOptionImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         this.heightOfHeadline = (int) (height * HEIGHT_OF_HEADLINE_CONSTANT);
         this.height = height;
@@ -83,7 +83,7 @@ public class StandardImageGenerator extends ImageGenerator{
         int maxHeadlineWidth = width - 2 * distanceToSide;
         makeStringFit(graphics2DHeadline, maxHeadlineWidth, headline);
         graphics2DHeadline.setColor(color);
-        graphics2DHeadline.drawString(headline, distanceToSide,  3 * heightOfHeadline / 4);
+        graphics2DHeadline.drawString(headline, distanceToSide, 3 * heightOfHeadline / 4);
         graphics2DHeadline.dispose();
         graphics2DChoiceOption.drawImage(headlineImage,0,0,null);
     }
@@ -174,7 +174,6 @@ public class StandardImageGenerator extends ImageGenerator{
 
             String subText = (getRoundedString(0, lengthOfRouteSection)) + " min";
             graphics2DChoiceOption.setFont(attributeFont);
-            makeStringFit(graphics2DChoiceOption, imageLengthOfRouteSection, subText);
             FontMetrics fontMetrics = graphics2DChoiceOption.getFontMetrics();
             int textWidth = fontMetrics.stringWidth(subText);
             int x = currentXCoordinate + (imageLengthOfRouteSection - textWidth) / 2;
