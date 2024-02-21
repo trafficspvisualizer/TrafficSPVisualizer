@@ -7,10 +7,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class SituationGenerator extends ImageCollectionGenerator {
-    private static final int STANDARD_PREVIEW_WIDTH = 1920;
-    private static final int STANDARD_PREVIEW_CHOICE_OPTION_HEIGHT = 270;
-
-
 
     @Override
     public ChoiceOptionImage[] createImage(Project project) throws InvalidDataKeyException {
