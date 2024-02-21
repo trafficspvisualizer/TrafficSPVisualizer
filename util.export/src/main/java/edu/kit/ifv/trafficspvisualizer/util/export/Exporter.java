@@ -39,7 +39,7 @@ public abstract class  Exporter {
      */
     protected String constructImagePath(ChoiceOptionImage image) {
         //TODO: Maybe set info to null instead of "-1" in ChoiceOptionImage
-        return String.format("%s/%s.%s",image.getScenarioNumber(),
+        return String.format("%s.%s",
                 image.getInfos().stream()
                         .map(info -> {
                             List<String> infoList = new ArrayList<>(Collections.singletonList(info));
@@ -53,5 +53,16 @@ public abstract class  Exporter {
                         })
                         .collect(Collectors.joining()),
                 IMAGE_FORMAT);
+    }
+
+    /**
+     * Constructs the image path.
+     *
+     * @param image The image for which the path will be constructed.
+     * @return The constructed image path.
+     */
+    protected String constructImagePathWithDir(ChoiceOptionImage image) {
+
+        return String.format("%s/%s",image.getScenarioNumber(), constructImagePath(image));
     }
 }

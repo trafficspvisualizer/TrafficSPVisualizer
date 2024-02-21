@@ -29,7 +29,7 @@ public class ImageExporter extends Exporter {
         File newDirectory = createDirectory(file);
 
         for (ChoiceOptionImage image : images) {
-            Path imagePath = Paths.get(newDirectory.getPath(), constructImagePath(image));
+            Path imagePath = Paths.get(newDirectory.getPath(), constructImagePathWithDir(image));
             if (!imagePath.getParent().toFile().exists()) {
                 Files.createDirectories(imagePath.getParent());
             }

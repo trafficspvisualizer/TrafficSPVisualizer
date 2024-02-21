@@ -19,7 +19,6 @@ import java.util.stream.Collectors;
 public class HTMLExporter extends Exporter { //todo aufteilen in einzelen Situationen
     private String directoryName = "TrafficSPVisualizer";
     private String var = "v_42x";
-    private int name = 1;
 
 
     /**
@@ -85,8 +84,8 @@ public class HTMLExporter extends Exporter { //todo aufteilen in einzelen Situat
             boolean created = path.toFile().mkdir();
             if (!created) throw new IOException("Could not create the directory");
         }
-        Path finalFilePath = Paths.get(file.getPath(),directoryName , directoryName + name + ".html");
-        name++;
+        Path finalFilePath = Paths.get(file.getPath(),directoryName ,imageGroup.getFirst().getScenarioNumber() , directoryName + "_" + imageGroup.getFirst().getScenarioNumber() + ".html");
+
         Files.move(tempFilePath, finalFilePath, StandardCopyOption.REPLACE_EXISTING);
     }
 
@@ -112,6 +111,7 @@ public class HTMLExporter extends Exporter { //todo aufteilen in einzelen Situat
     private void writeHtmlHeader(BufferedWriter writer) throws IOException {
         writer.write("""
             <head>
+                <meta charset="utf-8">
                 <link rel="stylesheet" href="https://something.online.com/example.css" />
                 <script src="https://test.com/example-lib.js" ></script>
                 <script type='text/javascript' src='images/local_script.js'></script>
@@ -158,7 +158,7 @@ public class HTMLExporter extends Exporter { //todo aufteilen in einzelen Situat
                 """);
         for (int i = 0; i < imageGroup.size(); i++) {
             ChoiceOptionImage image = imageGroup.get(i);
-            String imagePath = "./" + constructImagePath(image);
+            String imagePath = constructImagePath(image);
             var encodedPath = java.net.URLEncoder.encode(imagePath, StandardCharsets.UTF_8);
             writer.write(String.format("""
                 <li>
@@ -167,7 +167,7 @@ public class HTMLExporter extends Exporter { //todo aufteilen in einzelen Situat
                             <img src="%s" alt="%s" />
                           </label>
                 </li>
-                """,var, i + 1, i + 1, image.getTitle(), i + 1, i + 1, imagePath, image.getTitle()));
+                """,var, i + 1, i + 1, image.getTitle(), i + 1, i + 1, encodedPath, image.getTitle()));
         }
         writer.write("""
                 </ul>
