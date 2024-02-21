@@ -8,7 +8,6 @@ import edu.kit.ifv.trafficspvisualizer.model.settings.ChoiceOption;
 import edu.kit.ifv.trafficspvisualizer.model.settings.ExportSettings;
 import edu.kit.ifv.trafficspvisualizer.model.settings.LineType;
 import edu.kit.ifv.trafficspvisualizer.model.settings.RouteSection;
-import edu.kit.ifv.trafficspvisualizer.model.settings.SeparatorLine;
 import javafx.scene.paint.Color;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -71,21 +70,22 @@ public abstract class AbstractSaver {
     /**
      * Create a JSON object representing an abstract attribute.
      *
-     * @param attribute The abstract attribute to be represented.
+     * @param abstractAttribute The abstract attribute to be represented.
      * @return A JSONObject representing the abstract attribute.
      * @throws IllegalArgumentException If the attribute type is unknown.
      */
-    private JSONObject createJsonAbstractAttribute(AbstractAttribute attribute) {
-        Objects.requireNonNull(attribute, "Attribute cannot be null");
+    private JSONObject createJsonAbstractAttribute(AbstractAttribute abstractAttribute) {
+        Objects.requireNonNull(abstractAttribute, "Attribute cannot be null");
 
-        if (attribute instanceof Attribute attribute1) {
-            return createJsonAttributes(attribute1.getName(), attribute1.getIcon(), attribute1.getPrefix(),
-                    attribute1.getSuffix(), attribute1.isPermanentlyVisible(), attribute1.getDecimalPlaces(),
-                    attribute1.getChoiceOptionMappings());
-        } else if (attribute instanceof SeparatorLine) {
+        if (abstractAttribute.hasValues()) {
+            Attribute attribute = (Attribute) abstractAttribute;
+            return createJsonAttributes(attribute.getName(), attribute.getIcon(), attribute.getPrefix(),
+                    attribute.getSuffix(), attribute.isPermanentlyVisible(), attribute.getDecimalPlaces(),
+                    attribute.getChoiceOptionMappings());
+        } else if (!abstractAttribute.hasValues()) {
             return createJsonLineSeparator();
         } else {
-            throw new IllegalArgumentException("Unknown attribute type: " + attribute.getClass());
+            throw new IllegalArgumentException("Unknown attribute type: " + abstractAttribute.getClass());
         }
     }
 

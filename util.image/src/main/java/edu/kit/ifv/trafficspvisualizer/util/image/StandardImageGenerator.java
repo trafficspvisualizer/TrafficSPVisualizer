@@ -146,7 +146,7 @@ public class StandardImageGenerator extends ImageGenerator{
         currentXCoordinate += (int) centralSeparatorStrokeWidth;
     }
 
-    private void drawRouteSections() throws InvalidDataKeyException {
+    private void drawRouteSections() {
         float widthOfTimeLineStroke = (float) (height / 100);
         Stroke solidTimeLineStroke = new BasicStroke(widthOfTimeLineStroke);
         Stroke dashedTimeLineStroke = new BasicStroke(widthOfTimeLineStroke, BasicStroke.CAP_BUTT,
@@ -163,7 +163,14 @@ public class StandardImageGenerator extends ImageGenerator{
                 currentXCoordinate, routeSectionDrawingHeight - 3);
         for (RouteSection routeSection : routeSections) {
             String key = routeSection.getChoiceDataKey();
-            double lengthOfRouteSection = dataObject.getValue(situationIndex, choiceOption.getName(), key);
+
+            double lengthOfRouteSection;
+            try {
+                lengthOfRouteSection = dataObject.getValue(situationIndex, choiceOption.getName(), key);
+            } catch (InvalidDataKeyException e) {
+                lengthOfRouteSection = 0;
+            }
+
             if (lengthOfRouteSection == 0) {
                 continue;
             }
