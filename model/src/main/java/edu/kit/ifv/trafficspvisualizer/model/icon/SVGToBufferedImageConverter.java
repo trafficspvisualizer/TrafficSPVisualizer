@@ -128,7 +128,7 @@ public class SVGToBufferedImageConverter implements ImageToBufferedImageConverte
             width = Float.parseFloat(widthValue);
             height = Float.parseFloat(heightValue);
         } catch (NumberFormatException e) {
-            throw new IllegalStateException();
+            throw new IllegalStateException(e);
         }
 
         return width / height;
