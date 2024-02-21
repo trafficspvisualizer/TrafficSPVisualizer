@@ -19,7 +19,7 @@ import java.text.ParseException;
  * @author ughhz
  * @version 1.0
  */
-public class ProjectCreationController {
+class ProjectCreationController {
 
     /**
      * Front-facing interface for the controller package.
@@ -32,9 +32,9 @@ public class ProjectCreationController {
      *
      * @param controllerFacade the front-facing interface for the controller package
      */
-    public ProjectCreationController(ControllerFacade controllerFacade) {
+    ProjectCreationController(ControllerFacade controllerFacade) {
         this.controllerFacade = controllerFacade;
-        //creates and shows new stage
+        // creates and shows new stage
         controllerFacade.getViewFacade().
                 setProjectCreationStage(new ProjectCreationStage(controllerFacade.getViewFacade()));
         setActionListeners();
@@ -44,9 +44,10 @@ public class ProjectCreationController {
      * Instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.ProjectCreationStage} to open
      * {@link javafx.stage.DirectoryChooser} and sets returned value as project folder path.
      */
-    private void actionOnProjectFolderButton() {
+    private void actionOnSaveProjectDirectoryButton() {
         File selectedFile = controllerFacade.getViewFacade().getProjectCreationStage().showDirectoryChooserDialog();
 
+        // if no file was selected
         if (selectedFile == null) return;
 
         controllerFacade.getViewFacade().getProjectCreationStage().setSaveProjectDirectory(selectedFile);
@@ -56,9 +57,10 @@ public class ProjectCreationController {
      * Instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.ProjectCreationStage} to open
      * {@link javafx.stage.FileChooser} and sets returned value as input file path.
      */
-    private void actionOnInputFileButton() {
+    private void actionOnInputDataFileButton() {
         File selectedFile = controllerFacade.getViewFacade().getProjectCreationStage().showFileChooserDialog();
 
+        // if no file was selected
         if (selectedFile == null) return;
 
         controllerFacade.getViewFacade().getProjectCreationStage().setInputDataFile(selectedFile);
@@ -69,9 +71,8 @@ public class ProjectCreationController {
      * if possible creates a new {@link Project} based on scraped data.
      * If creation was successful references to new project are set in
      * {@link edu.kit.ifv.trafficspvisualizer.view.ViewFacade} and {@link ControllerFacade};
-     *
      */
-    private void actionOnSaveButton(){
+    private void actionOnCreateNewProjectButton() {
         DataObject dataObject;
 
         //Scrape data
@@ -80,7 +81,7 @@ public class ProjectCreationController {
         File inputFile = controllerFacade.getViewFacade().getProjectCreationStage().getInputDataFile();
 
         // validate input
-        if(!validateInput(projectName, projectFolder, inputFile)) {
+        if (!validateInput(projectName, projectFolder, inputFile)) {
             controllerFacade.getViewFacade().getProjectCreationStage().showNewProjectErrorAlert();
             return;
         }
@@ -93,6 +94,7 @@ public class ProjectCreationController {
             return;
         }
 
+        // try to construct project
         Project newProject;
         try {
             newProject = new Project(projectName, projectFolder.toPath(), dataObject, inputFile);
@@ -101,14 +103,15 @@ public class ProjectCreationController {
             return;
         }
 
+        // set project in ViewFacade and ControllerFacade
         controllerFacade.getViewFacade().setProject(newProject);
         controllerFacade.setProject(newProject);
 
-        // Update/initialize MainApplicationWindow
+        // initialize MainApplicationWindow
         controllerFacade.getMainApplicationController().updateChoiceOptions();
-        // Update Preview
         controllerFacade.getMainApplicationController().updatePreview();
 
+        // close ProjectCreationStage
         actionOnCancelButton();
     }
 
@@ -117,31 +120,37 @@ public class ProjectCreationController {
      * deletes its reference in the {@link edu.kit.ifv.trafficspvisualizer.view.ViewFacade}.
      * Deletes ProjectCreationController from {@link ControllerFacade}.
      */
-    private void actionOnCancelButton(){
+    private void actionOnCancelButton() {
         controllerFacade.getViewFacade().getProjectCreationStage().close();
         controllerFacade.getViewFacade().setProjectCreationStage(null);
         controllerFacade.deleteProjectCreationController();
     }
 
-    private void setActionListeners(){
+    /**
+     * Sets initial action listeners of ui components in ProjectCreationStage.
+     */
+    private void setActionListeners() {
         ProjectCreationStage projectCreationStage = controllerFacade.getViewFacade().getProjectCreationStage();
 
-        // ProjectFolder-Button
-        projectCreationStage.getSaveProjectDirectoryButton().setOnAction(e -> actionOnProjectFolderButton());
+        // ProjectDirectory-Button
+        projectCreationStage.getSaveProjectDirectoryButton().setOnAction(e -> actionOnSaveProjectDirectoryButton());
 
-        // InputFile-Button
-        projectCreationStage.getInputDataFileButton().setOnAction(e -> actionOnInputFileButton());
+        // InputDataFile-Button
+        projectCreationStage.getInputDataFileButton().setOnAction(e -> actionOnInputDataFileButton());
 
-        // Save-Button
-        projectCreationStage.getCreateNewProjectButton().setOnAction(e -> actionOnSaveButton());
+        // Create New Project-Button
+        projectCreationStage.getCreateNewProjectButton().setOnAction(e -> actionOnCreateNewProjectButton());
 
         // Cancel-Button
         projectCreationStage.getCancelButton().setOnAction(e -> actionOnCancelButton());
+
+        // Close Request - same event handler as cancel button
+        projectCreationStage.setOnCloseRequest(e -> actionOnCancelButton());
     }
 
     private boolean validateInput(String projectName, File projectFolder, File inputFile) {
         // check if files are not null
-        if(projectFolder == null || inputFile == null) {
+        if (projectFolder == null || inputFile == null) {
             return false;
         }
 
@@ -159,12 +168,12 @@ public class ProjectCreationController {
         // check if folder with given name already exists in directory
         File[] files = projectFolder.listFiles();
         if (files != null) {
-            for(File file: files) {
-                if(file.isDirectory() && file.getName().equals(projectName)) {
-                    return false;                }
+            for (File file : files) {
+                if (file.isDirectory() && file.getName().equals(projectName)) {
+                    return false;
+                }
             }
         }
-
         return true;
     }
 }

@@ -30,8 +30,7 @@ public abstract class LanguageStrategy {
     }
 
 
-        // Application Alerts
-
+    // Application Alerts
     /**
      * Gets the title for the confirmation dialog shown when attempting to close a project.
      *
@@ -180,6 +179,28 @@ public abstract class LanguageStrategy {
     public abstract String getSaveProjectErrorAlertContentText();
 
     /**
+     * Gets the title for the alert shown when an error occurs while trying to update preview.
+     *
+     * @return The title of the preview error alert.
+     */
+    public abstract String getPreviewErrorAlertTitle();
+
+    /**
+     * Gets the header text for the alert shown when an error occurs while trying to update preview.
+     *
+     * @return The header text of the preview error alert.
+     */
+    public abstract String getPreviewErrorAlertHeaderText();
+
+    /**
+     * Gets the content text for the alert shown when an error occurs while trying to update preview.
+     *
+     * @return The content text of the preview error alert.
+     */
+    public abstract String getPreviewErrorAlertContentText();
+
+
+    /**
      * Gets the title for the alert shown when an error occurs while creating a new project.
      *
      * @return The title of the new project error alert.
@@ -219,7 +240,7 @@ public abstract class LanguageStrategy {
      *
      * @return The content text of the save attribute settings error alert.
      */
-    public abstract String  getSaveAttributeSettingsErrorAlertContentText();
+    public abstract String getSaveAttributeSettingsErrorAlertContentText();
 
     /**
      * Gets the title for the alert shown when an error occurs while saving export settings.
@@ -263,8 +284,29 @@ public abstract class LanguageStrategy {
      */
     public abstract String getAddIconErrorAlertContentText();
 
+    /**
+     * Gets the title for the alert shown when an error occurs while selecting an icon.
+     *
+     * @return The title of the add select error alert.
+     */
+    public abstract String getSelectIconErrorAlertTitle();
 
-        // ENUMS
+    /**
+     * Gets the header text for the alert shown when an error occurs while adding an icon.
+     *
+     * @return The header text of the add icon error alert.
+     */
+    public abstract String getSelectIconErrorAlertHeaderText();
+
+    /**
+     * Gets the content text for the alert shown when an error occurs while selecting an icon.
+     *
+     * @return The content text of the select icon error alert
+     */
+    public abstract String getSelectIconErrorAlertContentText();
+
+
+    // ENUMS
     /**
      * Gets the text representation of the specified export type. This method is intended to convert
      * an {@link ExportType} enum into a user-friendly string that can be displayed in the view.
@@ -555,6 +597,14 @@ public abstract class LanguageStrategy {
     public abstract String getExportSettingsExportTypeText();
 
     /**
+     * Gets the text for the html variable name in the
+     * {@link edu.kit.ifv.trafficspvisualizer.view.window.ExportSettingsStage}.
+     *
+     * @return A {@code String} representing the text for the html variable name.
+     */
+    public abstract String getExportSettingsHtmlVariableNameText();
+
+    /**
      * Gets the text for the save button in the
      * {@link edu.kit.ifv.trafficspvisualizer.view.window.ExportSettingsStage}.
      *
@@ -820,4 +870,216 @@ public abstract class LanguageStrategy {
      */
     public abstract String getChoiceOptionSettingsCloseButtonText();
 
+
+
+    // InstructionStage
+    /**
+     * Gets the title for the {@link edu.kit.ifv.trafficspvisualizer.view.window.InstructionStage}
+     * in the application.
+     *
+     * @return A {@code String} representing the title for the instruction stage.
+     */
+    public abstract String getInstructionTitle();
+
+    /**
+     * Gets the "project" section header text for the
+     * {@link edu.kit.ifv.trafficspvisualizer.view.window.InstructionStage}.
+     *
+     * @return A {@code String} representing the "project" section header text.
+     */
+    public abstract String getInstructionProjectHeaderText();
+
+    /**
+     * Gets the "project" section content text for the
+     * {@link edu.kit.ifv.trafficspvisualizer.view.window.InstructionStage}.
+     *
+     * @return A {@code String} representing the "project" section content text.
+     */
+    public abstract String getInstructionProjectContentText();
+
+    /**
+     * Gets the "creating new project" section header text for the
+     * {@link edu.kit.ifv.trafficspvisualizer.view.window.InstructionStage}.
+     *
+     * @return A {@code String} representing the "creating new project" section header text.
+     */
+    public abstract String getInstructionCreatingNewProjectHeaderText();
+
+    /**
+     * Gets the "creating new project" section content text for the
+     * {@link edu.kit.ifv.trafficspvisualizer.view.window.InstructionStage}.
+     *
+     * @return A {@code String} representing the "creating new project" section content text.
+     */
+    public abstract String getInstructionCreatingNewProjectContentText();
+
+    /**
+     * Gets the "saving project" section header text for the
+     * {@link edu.kit.ifv.trafficspvisualizer.view.window.InstructionStage}.
+     *
+     * @return A {@code String} representing the "saving project" section header text.
+     */
+    public abstract String getInstructionSavingProjectHeaderText();
+
+    /**
+     * Gets the "saving project" section content text for the
+     * {@link edu.kit.ifv.trafficspvisualizer.view.window.InstructionStage}.
+     *
+     * @return A {@code String} representing the "saving project" section content text.
+     */
+    public abstract String getInstructionSavingProjectContentText();
+
+    /**
+     * Gets the "loading project" section header text for the
+     * {@link edu.kit.ifv.trafficspvisualizer.view.window.InstructionStage}.
+     *
+     * @return A {@code String} representing the "loading project" section header text.
+     */
+    public abstract String getInstructionLoadingProjectHeaderText();
+
+
+    /**
+     * Gets the "loading project" section content text for the
+     * {@link edu.kit.ifv.trafficspvisualizer.view.window.InstructionStage}.
+     *
+     * @return A {@code String} representing the "loading project" section content text.
+     */
+    public abstract String getInstructionLoadingProjectContentText();
+
+    /**
+     * Gets the "preview" section header text for the
+     * {@link edu.kit.ifv.trafficspvisualizer.view.window.InstructionStage}.
+     *
+     * @return A {@code String} representing the "preview" section header text.
+     */
+    public abstract String getInstructionPreviewHeaderText();
+
+    /**
+     * Gets the "preview" section content text for the
+     * {@link edu.kit.ifv.trafficspvisualizer.view.window.InstructionStage}.
+     *
+     * @return A {@code String} representing the "preview" section content text.
+     */
+    public abstract String getInstructionPreviewContentText();
+
+    /**
+     * Gets the "attributes window" section header text for the
+     * {@link edu.kit.ifv.trafficspvisualizer.view.window.InstructionStage}.
+     *
+     * @return A {@code String} representing the "attributes window" section header text.
+     */
+    public abstract String getInstructionAttributesWindowHeaderText();
+
+    /**
+     * Gets the first part of the "attributes window" section content text for the
+     * {@link edu.kit.ifv.trafficspvisualizer.view.window.InstructionStage}.
+     *
+     * @return A {@code String} representing the first part of the "attributes window" section content text.
+     */
+    public abstract String getInstructionAttributesWindowFirstContentText();
+
+    /**
+     * Gets the second part of the "attributes window" section content text for the
+     * {@link edu.kit.ifv.trafficspvisualizer.view.window.InstructionStage}.
+     *
+     * @return A {@code String} representing the second part of the "attributes window" section content text.
+     */
+    public abstract String getInstructionAttributesWindowSecondContentText();
+
+    /**
+     * Gets the "attributes settings window" section header text for the
+     * {@link edu.kit.ifv.trafficspvisualizer.view.window.InstructionStage}.
+     *
+     * @return A {@code String} representing the "attributes settings window" section header text.
+     */
+    public abstract String getInstructionAttributeSettingsWindowHeaderText();
+
+    /**
+     * Gets the "attributes settings window" section content text for the
+     * {@link edu.kit.ifv.trafficspvisualizer.view.window.InstructionStage}.
+     *
+     * @return A {@code String} representing the "attributes settings window" section content text.
+     */
+    public abstract String getInstructionAttributeSettingsWindowContentText();
+
+    /**
+     * Gets the "choice options" section header text for the
+     * {@link edu.kit.ifv.trafficspvisualizer.view.window.InstructionStage}.
+     *
+     * @return A {@code String} representing the "choice options" section header text.
+     */
+    public abstract String getInstructionChoiceOptionsHeaderText();
+
+    /**
+     * Gets the "choice options" section content text for the
+     * {@link edu.kit.ifv.trafficspvisualizer.view.window.InstructionStage}.
+     *
+     * @return A {@code String} representing the "choice options" section content text.
+     */
+    public abstract String getInstructionChoiceOptionsContentText();
+
+    /**
+     * Gets the "choice option settings window" section header text for the
+     * {@link edu.kit.ifv.trafficspvisualizer.view.window.InstructionStage}.
+     *
+     * @return A {@code String} representing the "choice option settings window" section header text.
+     */
+    public abstract String getInstructionChoiceOptionSettingsWindowHeaderText();
+
+    /**
+     * Gets the first part of the "choice option settings window" section content text for the
+     * {@link edu.kit.ifv.trafficspvisualizer.view.window.InstructionStage}.
+     *
+     * @return A {@code String} representing the first part of the "choice option settings window" section content text.
+     */
+    public abstract String getInstructionChoiceOptionSettingsWindowFirstContentText();
+
+    /**
+     * Gets the second part of the "choice option settings window" section content text for the
+     * {@link edu.kit.ifv.trafficspvisualizer.view.window.InstructionStage}.
+     *
+     * @return A {@code String} representing the second part of the "choice option settings window"
+     * section content text.
+     */
+    public abstract String getInstructionChoiceOptionSettingsWindowSecondContentText();
+
+    /**
+     * Gets the third part of the "choice option settings window" section content text for the
+     * {@link edu.kit.ifv.trafficspvisualizer.view.window.InstructionStage}.
+     *
+     * @return A {@code String} representing the third part of the "choice option settings window" section content text.
+     */
+    public abstract String getInstructionChoiceOptionSettingsWindowThirdContentText();
+
+    /**
+     * Gets the "export settings" section header text for the
+     * {@link edu.kit.ifv.trafficspvisualizer.view.window.InstructionStage}.
+     *
+     * @return A {@code String} representing the "export settings" section header text.
+     */
+    public abstract String getInstructionExportSettingsHeaderText();
+
+    /**
+     * Gets the "export settings" section content text for the
+     * {@link edu.kit.ifv.trafficspvisualizer.view.window.InstructionStage}.
+     *
+     * @return A {@code String} representing the "export settings" section content text.
+     */
+    public abstract String getInstructionExportSettingsContentText();
+
+    /**
+     * Gets the "export" section header text for the
+     * {@link edu.kit.ifv.trafficspvisualizer.view.window.InstructionStage}.
+     *
+     * @return A {@code String} representing the "export" section header text.
+     */
+    public abstract String getInstructionExportHeaderText();
+
+    /**
+     * Gets the "export" section content text for the
+     * {@link edu.kit.ifv.trafficspvisualizer.view.window.InstructionStage}.
+     *
+     * @return A {@code String} representing the "export" section content text.
+     */
+    public abstract String getInstructionExportContentText();
 }

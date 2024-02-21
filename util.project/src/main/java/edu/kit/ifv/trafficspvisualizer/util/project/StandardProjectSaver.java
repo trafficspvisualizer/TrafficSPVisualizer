@@ -6,6 +6,8 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Comparator;
+import java.io.File;
 
 /**
  * StandardProjectSaver is a class that saves a project to a directory.
@@ -24,11 +26,9 @@ public class StandardProjectSaver extends AbstractSaver {
     @Override
     public void saveProject(Project project, Path path) throws IOException, IllegalArgumentException {
         Path dir = makeDir(project.getName(), path);
-        JSONObject jsonObject = createJsonProject(project.getName(), project.getAbstractAttributes(),
-                project.getExportSettings(), project.getChoiceOptions());
-
+        JSONObject jsonObject = createJsonProject(project.getName(), project.getAbstractAttributes(),project.getExportSettings(), project.getChoiceOptions());
         writeJsonToFile(dir, jsonObject);
-        copyCacheDirectory(project, dir);
+        copyCacheDirectory(project, dir); //todo mache dir zu zip
     }
 
     /**
@@ -54,20 +54,36 @@ public class StandardProjectSaver extends AbstractSaver {
     }
 
     /**
-     * Creates a directory with the given name at the specified path.
+     * Deletes all files and subdirectories under the specified directory.
+     *
+     * @param path The path to the directory to delete.
+     * @throws IOException If an I/O error occurs.
+     */
+    private void deleteDirectoryStream(Path path) throws IOException {
+        Files.walk(path)
+                .sorted(Comparator.reverseOrder())
+                .map(Path::toFile)
+                .forEach(File::delete);
+    }
+
+    /**
+     * Creates a directory with the given name at the specified path. If a directory with the same name already exists,
+     * it deletes the directory and all its contents before creating the new directory.
      *
      * @param name The name of the directory to create.
      * @param path The path where the directory should be created.
      * @return The Path of the created directory.
-     * @throws IllegalArgumentException If an illegal argument is passed.
+     * @throws IllegalArgumentException If an illegal argument is passed or if the directory cannot be created.
      */
     private Path makeDir(String name, Path path) throws IllegalArgumentException {
         Path dir = path.resolve(name);
-        int count = 0;
 
-        while (Files.exists(dir)) {
-            count++;
-            dir = path.resolve(name + count);
+        if (Files.exists(dir)) {
+            try {
+                deleteDirectoryStream(dir);
+            } catch (IOException e) {
+                throw new IllegalArgumentException("Failed to delete directory " + name + " at " + path, e);
+            }
         }
 
         try {
@@ -76,5 +92,6 @@ public class StandardProjectSaver extends AbstractSaver {
             throw new IllegalArgumentException("Failed to create directory " + name + " at " + path, e);
         }
     }
+
 }
 

@@ -3,15 +3,11 @@ package edu.kit.ifv.trafficspvisualizer.view.window;
 import edu.kit.ifv.trafficspvisualizer.model.icon.Icon;
 import edu.kit.ifv.trafficspvisualizer.model.Project;
 import edu.kit.ifv.trafficspvisualizer.view.ViewFacade;
-import edu.kit.ifv.trafficspvisualizer.view.data.font.FontLibrary;
 import edu.kit.ifv.trafficspvisualizer.view.data.image.ImageLibrary;
 import edu.kit.ifv.trafficspvisualizer.view.data.language.LanguageStrategy;
-import edu.kit.ifv.trafficspvisualizer.view.util.javafx.ListFlowPane;
+import edu.kit.ifv.trafficspvisualizer.view.javafx.ListFlowPane;
+import edu.kit.ifv.trafficspvisualizer.view.style.Styler;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.geometry.HPos;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -36,7 +32,7 @@ import java.io.File;
  */
 public class IconSelectionStage extends Stage {
 
-    private ViewFacade viewFacade;
+    private final ViewFacade viewFacade;
 
 
     private ListFlowPane iconListFlowPane;
@@ -99,49 +95,25 @@ public class IconSelectionStage extends Stage {
         initModality(Modality.APPLICATION_MODAL);
         getIcons().add(ImageLibrary.getApplicationIcon());
     }
-    private void styleStage() {
-        // iconListFlowPane
-        GridPane.setHgrow(iconListFlowPane, Priority.ALWAYS);
-        iconListFlowPane.prefWidthProperty().bind(scene.widthProperty().subtract(17));
-        iconListFlowPane.setPadding(new Insets(15));
-        iconListFlowPane.setHgap(15);
-        iconListFlowPane.setVgap(15);
 
-        // iconScrollPane
+    private void styleStage() {
+        GridPane.setHgrow(iconListFlowPane, Priority.ALWAYS);
+        Styler.midHVGabMidPaddingFlowPane(iconListFlowPane);
+        iconListFlowPane.prefWidthProperty().bind(scene.widthProperty().subtract(17));
+
         iconScrollPane.prefHeightProperty().bind(
                 scene.heightProperty().subtract(selectAndCancelGridPane.heightProperty()));
 
-        // addIconButton
-        GridPane.setHalignment(addIconButton, HPos.LEFT);
-        GridPane.setValignment(addIconButton, VPos.CENTER);
-        addIconButton.setFont(FontLibrary.getSmallFont());
+        Styler.leftCenterSmallFontButtonInGridPane(addIconButton);
 
-        // selectButton
-        GridPane.setHalignment(selectButton, HPos.LEFT);
-        GridPane.setValignment(selectButton, VPos.CENTER);
-        selectButton.setFont(FontLibrary.getSmallFont());
+        Styler.leftCenterSmallFontButtonInGridPane(selectButton);
 
-        // cancelButton
-        GridPane.setHalignment(cancelButton, HPos.LEFT);
-        GridPane.setValignment(cancelButton, VPos.CENTER);
-        cancelButton.setFont(FontLibrary.getSmallFont());
+        Styler.leftCenterSmallFontButtonInGridPane(cancelButton);
 
-        // selectAndCancelGridPane
-        BorderPane.setAlignment(selectAndCancelGridPane, Pos.BOTTOM_LEFT);
-        selectAndCancelGridPane.setPadding(new Insets(15));
-        selectAndCancelGridPane.setHgap(15);
-        selectAndCancelGridPane.setVgap(15);
-
-        // bodyBorderPane
+        Styler.midHVGabMidPaddingGridPane(selectAndCancelGridPane);
 
 
-        // scene
-
-        // stage
-        setMinWidth(540);
-        setMinHeight(540);
-        setWidth(540);
-        setHeight(540);
+        Styler.smallStage(this);
     }
 
     /**
@@ -154,9 +126,7 @@ public class IconSelectionStage extends Stage {
             ImageView iconButtonImageView = new ImageView(SwingFXUtils.toFXImage(icon.toBufferedImage(), null));
             iconButtonImageView.setUserData(icon.getIdentifier());
 
-            iconButtonImageView.setFitWidth(50);
-            iconButtonImageView.setFitHeight(50);
-            iconButtonImageView.setPreserveRatio(true);
+            Styler.bigImageView(iconButtonImageView);
 
             Button iconButton = new Button();
             iconButton.setGraphic(iconButtonImageView);
@@ -196,8 +166,21 @@ public class IconSelectionStage extends Stage {
         alert.showAndWait();
     }
 
-    // getter-methods
+    /**
+     * Shows an error alert indicating that an error occurred during adding of an icon.
+     */
+    public void showSelectIconErrorAlert() {
+        LanguageStrategy languageStrategy = viewFacade.getLanguageStrategy();
 
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(languageStrategy.getSelectIconErrorAlertTitle());
+        alert.setHeaderText(languageStrategy.getSelectIconErrorAlertHeaderText());
+        alert.setContentText(languageStrategy.getSelectIconErrorAlertContentText());
+
+        alert.showAndWait();
+    }
+
+    // getter-methods
     /**
      * Gets the add icon button.
      *

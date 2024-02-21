@@ -4,14 +4,10 @@ import edu.kit.ifv.trafficspvisualizer.model.settings.Attribute;
 import edu.kit.ifv.trafficspvisualizer.model.icon.Icon;
 import edu.kit.ifv.trafficspvisualizer.model.Project;
 import edu.kit.ifv.trafficspvisualizer.view.ViewFacade;
-import edu.kit.ifv.trafficspvisualizer.view.data.font.FontLibrary;
 import edu.kit.ifv.trafficspvisualizer.view.data.image.ImageLibrary;
 import edu.kit.ifv.trafficspvisualizer.view.data.language.LanguageStrategy;
+import edu.kit.ifv.trafficspvisualizer.view.style.Styler;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.geometry.HPos;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -20,7 +16,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -34,9 +29,9 @@ import javafx.stage.Stage;
  */
 public class AttributeSettingsStage extends Stage {
 
-    private ViewFacade viewFacade;
+    private final ViewFacade viewFacade;
 
-    private int attributeIndex;
+    private final int attributeIndex;
 
     private Text nameText;
 
@@ -84,6 +79,7 @@ public class AttributeSettingsStage extends Stage {
      *
      * @param viewFacade The {@link ViewFacade} through which this class can access
      *                   the {@link Project} and the {@link LanguageStrategy}.
+     * @param abstractAttributeIndex The abstract attribute index used to get selected attribute from model.
      */
     public AttributeSettingsStage(ViewFacade viewFacade, int abstractAttributeIndex) {
         this.viewFacade = viewFacade;
@@ -162,105 +158,43 @@ public class AttributeSettingsStage extends Stage {
 
     // style-methods
     private void styleStage() {
-        // nameText
-        GridPane.setHalignment(nameText, HPos.LEFT);
-        GridPane.setValignment(nameText, VPos.CENTER);
-        nameText.setFont(FontLibrary.getMidFont());
+        Styler.leftCenterMidFontTextInGridPane(nameText);
 
-        // nameTextField
-        GridPane.setHalignment(nameTextField, HPos.LEFT);
-        GridPane.setValignment(nameTextField, VPos.CENTER);
-        GridPane.setHgrow(nameTextField, Priority.ALWAYS);
-        nameTextField.setFont(FontLibrary.getSmallFont());
+        Styler.leftCenterHGrowSmallFontTextFieldInGridPane(nameTextField);
 
-        // iconText
-        GridPane.setHalignment(iconText, HPos.LEFT);
-        GridPane.setValignment(iconText, VPos.CENTER);
-        iconText.setFont(FontLibrary.getMidFont());
+        Styler.leftCenterMidFontTextInGridPane(iconText);
 
 
-        // iconButtonImageView
-        iconButtonImageView.setFitWidth(50);
-        iconButtonImageView.setFitHeight(50);
-        iconButtonImageView.setPreserveRatio(true);
+        Styler.bigImageView(iconButtonImageView);
 
-        // iconButton
-        GridPane.setHalignment(iconButton, HPos.LEFT);
-        GridPane.setValignment(iconButton, VPos.CENTER);
+        Styler.leftCenterSmallFontButtonInGridPane(iconButton);
 
-        // prefixText
-        GridPane.setHalignment(prefixText, HPos.LEFT);
-        GridPane.setValignment(prefixText, VPos.CENTER);
-        prefixText.setFont(FontLibrary.getMidFont());
+        Styler.leftCenterMidFontTextInGridPane(prefixText);
 
-        // prefixTextField
-        GridPane.setHalignment(prefixTextField, HPos.LEFT);
-        GridPane.setValignment(prefixTextField, VPos.CENTER);
-        GridPane.setHgrow(prefixTextField, Priority.ALWAYS);
-        prefixTextField.setFont(FontLibrary.getSmallFont());
+        Styler.leftCenterHGrowSmallFontTextFieldInGridPane(prefixTextField);
 
-        // suffixText
-        GridPane.setHalignment(suffixText, HPos.LEFT);
-        GridPane.setValignment(suffixText, VPos.CENTER);
-        suffixText.setFont(FontLibrary.getMidFont());
+        Styler.leftCenterMidFontTextInGridPane(suffixText);
 
-        // suffixTextField
-        GridPane.setHalignment(suffixTextField, HPos.LEFT);
-        GridPane.setValignment(suffixTextField, VPos.CENTER);
-        GridPane.setHgrow(suffixTextField, Priority.ALWAYS);
-        suffixTextField.setFont(FontLibrary.getSmallFont());
+        Styler.leftCenterHGrowSmallFontTextFieldInGridPane(suffixTextField);
 
-        // numberOfDecimalPlacesText
-        GridPane.setHalignment(numberOfDecimalPlacesText, HPos.LEFT);
-        GridPane.setValignment(numberOfDecimalPlacesText, VPos.CENTER);
-        numberOfDecimalPlacesText.setFont(FontLibrary.getMidFont());
+        Styler.leftCenterMidFontTextInGridPane(numberOfDecimalPlacesText);
 
-        // numberOfDecimalPlacesTextField
-        GridPane.setHalignment(numberOfDecimalPlacesTextField, HPos.LEFT);
-        GridPane.setValignment(numberOfDecimalPlacesTextField, VPos.CENTER);
-        GridPane.setHgrow(numberOfDecimalPlacesTextField, Priority.ALWAYS);
-        numberOfDecimalPlacesTextField.setFont(FontLibrary.getSmallFont());
+        Styler.leftCenterHGrowSmallFontTextFieldInGridPane(numberOfDecimalPlacesTextField);
 
-        // alwaysVisibleText
-        GridPane.setHalignment(permanentlyVisibleText, HPos.LEFT);
-        GridPane.setValignment(permanentlyVisibleText, VPos.CENTER);
-        permanentlyVisibleText.setFont(FontLibrary.getMidFont());
+        Styler.leftCenterMidFontTextInGridPane(permanentlyVisibleText);
 
-        // alwaysVisibleCheckBox
-        GridPane.setHalignment(permanentlyVisibleCheckBox, HPos.LEFT);
-        GridPane.setValignment(permanentlyVisibleCheckBox, VPos.CENTER);
+        Styler.leftCenterInGridPane(permanentlyVisibleCheckBox);
 
-        // configGridPane
-        BorderPane.setAlignment(configGridPane, Pos.TOP_LEFT);
-        configGridPane.setPadding(new Insets(15));
-        configGridPane.setHgap(15);
-        configGridPane.setVgap(15);
+        Styler.midHVGabMidPaddingGridPane(configGridPane);
 
-        // saveButton
-        GridPane.setHalignment(saveButton, HPos.LEFT);
-        GridPane.setValignment(saveButton, VPos.CENTER);
-        saveButton.setFont(FontLibrary.getSmallFont());
+        Styler.leftCenterSmallFontButtonInGridPane(saveButton);
 
-        // cancelButton
-        GridPane.setHalignment(cancelButton, HPos.LEFT);
-        GridPane.setValignment(cancelButton, VPos.CENTER);
-        cancelButton.setFont(FontLibrary.getSmallFont());
+        Styler.leftCenterSmallFontButtonInGridPane(cancelButton);
 
-        // saveAndCancelGridPane
-        BorderPane.setAlignment(saveAndCancelGridPane, Pos.BOTTOM_LEFT);
-        saveAndCancelGridPane.setPadding(new Insets(15));
-        saveAndCancelGridPane.setHgap(15);
-        saveAndCancelGridPane.setVgap(15);
+        Styler.midHVGabMidPaddingGridPane(saveAndCancelGridPane);
 
-        // bodyBorderPane
 
-        // scene
-
-        // stage
-        setMinWidth(960);
-        setMinHeight(540);
-        setWidth(960);
-        setHeight(540);
+        Styler.midStage(this);
     }
 
     // update-methods
@@ -287,7 +221,6 @@ public class AttributeSettingsStage extends Stage {
 
 
     // setter-methods
-
     /**
      * Sets the new attribute icon.
      *

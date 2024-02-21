@@ -30,7 +30,8 @@ public enum JsonKeys {
     KEY_LINE_SEPARATOR("LineSeparator"),
     KEY_CHOICE_OPTIONS("ChoiceOptions"),
     KEY_CHOICE_OPTION("ChoiceOption"),
-    KEY_LIST("List");
+    KEY_LIST("List"),
+    KEY_HTML_VARIABLE("HtmlVariable");
     private final String key;
 
     JsonKeys(String key) {

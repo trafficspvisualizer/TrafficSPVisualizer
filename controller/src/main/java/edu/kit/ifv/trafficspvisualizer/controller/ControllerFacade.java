@@ -62,9 +62,9 @@ public class ControllerFacade {
      * Constructs the ControllerFacade and creates {@link MainApplicationController}.
      *
      * @param viewFacade the front-facing interface of the view package
-     * @param project the project on which the user is currently working
+     * @param project    the project on which the user is currently working
      */
-    public ControllerFacade(ViewFacade viewFacade, Project project){
+    public ControllerFacade(ViewFacade viewFacade, Project project) {
         this.viewFacade = viewFacade;
         this.project = project;
 
@@ -77,7 +77,7 @@ public class ControllerFacade {
      *
      * @return The project on which the user is currently working
      */
-    public Project getProject() {
+    Project getProject() {
         return project;
     }
 
@@ -86,7 +86,7 @@ public class ControllerFacade {
      *
      * @param project the project on which the user wants to work
      */
-    public void setProject(Project project) {
+    void setProject(Project project) {
         this.project = project;
     }
 
@@ -95,7 +95,7 @@ public class ControllerFacade {
      *
      * @return the front-facing interface of the view package
      */
-    public ViewFacade getViewFacade() {
+    ViewFacade getViewFacade() {
         return viewFacade;
     }
 
@@ -104,7 +104,7 @@ public class ControllerFacade {
      *
      * @return the MainApplicationController
      */
-    public MainApplicationController getMainApplicationController() {
+    MainApplicationController getMainApplicationController() {
         return mainApplicationController;
     }
 
@@ -113,24 +113,27 @@ public class ControllerFacade {
      *
      * @return the AttributeController
      */
-    public AttributeController getAttributeController() {
+    AttributeController getAttributeController() {
         return attributeController;
     }
 
     /**
      * Creates a new {@link AttributeController} and saves a reference of it.
      */
-    public void createAttributeController() {
+    void createAttributeController() {
         this.attributeController = new AttributeController(this);
     }
 
     /**
      * Creates a new {@link AttributeSettingsController} and saves a reference of it.
      *
-     * @param attributeIndex the index of the attribute which settings should be adjusted
+     * @param attributeIndex        the index of the attribute which settings should be adjusted
+     * @param workingOnNewAttribute whether the attribute with the abstractAttributeIndex was newly created or not
      */
-    public void createAttributeSettingsController(int attributeIndex, boolean workingOnNewAttribute) {
-        this.attributeSettingsController = new AttributeSettingsController(this, attributeIndex, workingOnNewAttribute);
+    void createAttributeSettingsController(int attributeIndex, boolean workingOnNewAttribute) {
+        this.attributeSettingsController = new AttributeSettingsController(
+                this, attributeIndex, workingOnNewAttribute
+        );
     }
 
     /**
@@ -138,14 +141,14 @@ public class ControllerFacade {
      *
      * @param choiceOptionNumber the number of the choiceOption which settings should be adjusted
      */
-    public void createChoiceOptionSettingsController(int choiceOptionNumber) {
+    void createChoiceOptionSettingsController(int choiceOptionNumber) {
         this.choiceOptionSettingsController = new ChoiceOptionSettingsController(choiceOptionNumber, this);
     }
 
     /**
      * Creates a new {@link ExportSettingsController} and saves a reference of it.
      */
-    public void createExportSettingsController() {
+    void createExportSettingsController() {
         this.exportSettingsController = new ExportSettingsController(this);
     }
 
@@ -153,65 +156,65 @@ public class ControllerFacade {
      * Creates a new {@link IconSelectionController} and saves a reference of it.
      *
      * @param parentController the controller which called the method
-     * @param index the index of the model/ui component for which an icon is selected
+     * @param index            the index of the model/ui component for which an icon is selected
      */
-    public void createIconSelectionController(IconDisplayingController parentController, int index) {
+    void createIconSelectionController(IconDisplayingController parentController, int index) {
         this.iconSelectionController = new IconSelectionController(this, parentController, index);
     }
 
     /**
      * Creates a new {@link MainApplicationController}.
      */
-    public void createMainApplicationController() {
+    void createMainApplicationController() {
         this.mainApplicationController = new MainApplicationController(this);
     }
 
     /**
      * Creates a new {@link ProjectCreationController}.
      */
-    public void createProjectCreationController() {
+    void createProjectCreationController() {
         this.projectCreationController = new ProjectCreationController(this);
     }
 
     /**
      * Removes the reference to the {@link AttributeController}.
      */
-    public void deleteAttributeController() {
+    void deleteAttributeController() {
         this.attributeController = null;
     }
 
     /**
      * Removes the reference to the {@link AttributeSettingsController}.
      */
-    public void deleteAttributeSettingsController() {
+    void deleteAttributeSettingsController() {
         this.attributeSettingsController = null;
     }
 
     /**
      * Removes the reference to the {@link ChoiceOptionSettingsController}.
      */
-    public void deleteChoiceOptionSettingsController() {
+    void deleteChoiceOptionSettingsController() {
         this.choiceOptionSettingsController = null;
     }
 
     /**
      * Removes the reference to the {@link ExportSettingsController}.
      */
-    public void deleteExportSettingsController() {
+    void deleteExportSettingsController() {
         this.exportSettingsController = null;
     }
 
     /**
      * Removes the reference to the {@link IconSelectionController}.
      */
-    public void deleteIconSelectionController() {
+    void deleteIconSelectionController() {
         this.iconSelectionController = null;
     }
 
     /**
      * Removes the reference to the {@link ProjectCreationController}.
      */
-    public void deleteProjectCreationController() {
+    void deleteProjectCreationController() {
         this.projectCreationController = null;
     }
 

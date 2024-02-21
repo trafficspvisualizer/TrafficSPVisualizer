@@ -16,7 +16,11 @@ import java.util.stream.Collectors;
  * A class for exporting images in HTML format.
  * Inherits from the Exporter class.
  */
-public class HTMLExporter extends Exporter {
+public class HTMLExporter extends Exporter { //todo aufteilen in einzelen Situationen
+    private String directoryName = "TrafficSPVisualizer";
+    private String var = "v_42x";
+    private int name = 1;
+
 
     /**
      * Exports an array of ChoiceOptionImage objects as an HTML file.
@@ -26,7 +30,22 @@ public class HTMLExporter extends Exporter {
      * @throws IOException If an error occurs while writing to the file.
      */
     @Override
-    public void export(ChoiceOptionImage[] images, File file) throws IOException {
+    public void export(ChoiceOptionImage[] images, File file, String name) throws IOException {
+        var imageExporter = new ImageExporter();
+        this.directoryName = name;
+        imageExporter.export(images, file, directoryName);
+        this.directoryName += "_export";
+        var groupedImages = groupImagesByScenario(images);
+        for (var imageGroup : groupedImages) {
+            exportGroup(imageGroup, file);
+        }
+    }
+
+    public void export(ChoiceOptionImage[] images, File file, String name, String var) throws IOException {
+        var imageExporter = new ImageExporter();
+        this.var = var;
+        this.directoryName = name;
+        imageExporter.export(images, file, directoryName);
         var groupedImages = groupImagesByScenario(images);
         for (var imageGroup : groupedImages) {
             exportGroup(imageGroup, file);
@@ -56,13 +75,18 @@ public class HTMLExporter extends Exporter {
      * @throws IOException If an error occurs while writing to the file.
      */
     private void exportGroup(List<ChoiceOptionImage> imageGroup, File file) throws IOException {
-        var imageExporter = new ImageExporter();
-        imageExporter.export(imageGroup.toArray(new ChoiceOptionImage[0]), file);
+
         var tempFilePath = Files.createTempFile(file.toPath(), "datei", ".html");
         try (var writer = Files.newBufferedWriter(tempFilePath)) {
             writeHtmlContent(imageGroup, writer);
         }
-        Path finalFilePath = Paths.get(file.toString() + "\\images\\", "trafficSPVisualizer.html");
+        Path path = Paths.get(file.toString() , directoryName);
+        if (!path.toFile().exists()) {
+            boolean created = path.toFile().mkdir();
+            if (!created) throw new IOException("Could not create the directory");
+        }
+        Path finalFilePath = Paths.get(file.getPath(),directoryName , directoryName + name + ".html");
+        name++;
         Files.move(tempFilePath, finalFilePath, StandardCopyOption.REPLACE_EXISTING);
     }
 
@@ -133,17 +157,17 @@ public class HTMLExporter extends Exporter {
                   <ul>
                 """);
         for (int i = 0; i < imageGroup.size(); i++) {
-            var image = imageGroup.get(i);
-            var imagePath = constructImagePath(image);
+            ChoiceOptionImage image = imageGroup.get(i);
+            String imagePath = "./" + constructImagePath(image);
             var encodedPath = java.net.URLEncoder.encode(imagePath, StandardCharsets.UTF_8);
             writer.write(String.format("""
                 <li>
-                <input  id="v_42x%d" type="radio" name="v_42" value="%d" class="input-hidden" onclick="change('%s')">
+                <input  id="%s%d" type="radio" name="v_42" value="%d" class="input-hidden" onclick="change('%s')">
                     <label for="v_42x%d" id="v_42x%d-label">
                             <img src="%s" alt="%s" />
                           </label>
                 </li>
-                """, i + 1, i + 1, image.getTitle(),i + 1,i + 1,encodedPath, image.getTitle()));
+                """,var, i + 1, i + 1, image.getTitle(), i + 1, i + 1, imagePath, image.getTitle()));
         }
         writer.write("""
                 </ul>

@@ -29,7 +29,7 @@ public abstract class  Exporter {
         return new ImageExporter();
     }
 
-    public abstract void export(ChoiceOptionImage[] images, File file) throws IOException;
+    public abstract void export(ChoiceOptionImage[] images, File file, String name) throws IOException;
 
     /**
      * Constructs the image path.
@@ -38,7 +38,8 @@ public abstract class  Exporter {
      * @return The constructed image path.
      */
     protected String constructImagePath(ChoiceOptionImage image) {
-        return String.format("%s.%s",
+        //TODO: Maybe set info to null instead of "-1" in ChoiceOptionImage
+        return String.format("%s/%s.%s",image.getScenarioNumber(),
                 image.getInfos().stream()
                         .map(info -> {
                             List<String> infoList = new ArrayList<>(Collections.singletonList(info));

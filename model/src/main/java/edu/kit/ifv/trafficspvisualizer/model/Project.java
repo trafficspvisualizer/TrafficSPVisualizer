@@ -75,7 +75,7 @@ public class Project {
         this.projectPath = projectPath;
         this.dataObject = dataObject;
         this.attributes = new ArrayList<>(attributes);
-        this.choiceOptions = choiceOptions.isEmpty() ? initializeChoiceOptions() : List.copyOf(choiceOptions);
+        this.choiceOptions = choiceOptions.isEmpty() ? initializeChoiceOptions() : new ArrayList<>(choiceOptions);
         this.exportSettings = exportSettings;
         this.cacheDirectory = createCache(ngdFile);
         this.iconManager = new IconManager(cacheDirectory, iconDirectory);

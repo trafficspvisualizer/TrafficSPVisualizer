@@ -7,8 +7,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class SituationGenerator extends ImageCollectionGenerator {
-    private static final int PREVIEW_WIDTH = 2220;
-    private static final int PREVIEW_HEIGHT = 1400;
+    private static final int STANDARD_PREVIEW_WIDTH = 1920;
+    private static final int STANDARD_PREVIEW_CHOICE_OPTION_HEIGHT = 270;
 
 
 
@@ -22,6 +22,7 @@ public class SituationGenerator extends ImageCollectionGenerator {
             BufferedImage situationBufferedImage = createSituationImage(i);
             currentSituationImage.setImage(situationBufferedImage);
             currentSituationImage.setBlockNumber(dataObject.getBlockNumber(i));
+            currentSituationImage.setScenarioNumber(i);
             situationImages[i] = currentSituationImage;
         }
         return situationImages;
@@ -30,10 +31,6 @@ public class SituationGenerator extends ImageCollectionGenerator {
     public BufferedImage createPreviewImage(Project project) throws InvalidDataKeyException {
         int situationIndex = project.getCurrentPreviewSituation();
         setUpImageCreation(project);
-        this.exportWidth = PREVIEW_WIDTH;
-        this.exportHeight = PREVIEW_HEIGHT;
-        this.choiceOptionHeight = exportHeight / numberOfChoiceOptions;
-        this.choiceOptionWidth = exportWidth;
         return createSituationImage(situationIndex);
     }
 
@@ -47,7 +44,7 @@ public class SituationGenerator extends ImageCollectionGenerator {
             ChoiceOption currentChoiceOption = project.getChoiceOptions().get(j);
             BufferedImage bufferedImage = standardImageGenerator.createChoiceOption(currentChoiceOption,
                     dataObject, attributeList, choiceOptionHeight,
-                    choiceOptionWidth, 0,longestRouteSectionOfSituation, situationIndex);
+                    choiceOptionWidth, longestRouteSectionOfSituation, situationIndex);
             choiceOptionImages[j] = bufferedImage;
         }
         return combineChoiceOptionImages(choiceOptionImages);

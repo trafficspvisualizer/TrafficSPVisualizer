@@ -11,6 +11,7 @@ import edu.kit.ifv.trafficspvisualizer.util.image.ImageCollectionGenerator;
 import edu.kit.ifv.trafficspvisualizer.util.image.SituationGenerator;
 import edu.kit.ifv.trafficspvisualizer.util.project.StandardProjectLoader;
 import edu.kit.ifv.trafficspvisualizer.util.project.StandardProjectSaver;
+import edu.kit.ifv.trafficspvisualizer.view.window.InstructionStage;
 import edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow;
 import javafx.event.Event;
 import javafx.scene.control.Button;
@@ -30,7 +31,7 @@ import java.util.List;
  * @author ughhz
  * @version 1.0
  */
-public class MainApplicationController {
+class MainApplicationController {
 
     /**
      * Front-facing interface for the controller package.
@@ -42,17 +43,16 @@ public class MainApplicationController {
      *
      * @param controllerFacade the front-facing interface for the controller package
      */
-    public MainApplicationController(ControllerFacade controllerFacade) {
+    MainApplicationController(ControllerFacade controllerFacade) {
         this.controllerFacade = controllerFacade;
         // MainApplicationWindow is created when starting application
         setActionListeners();
-
     }
 
     /**
      * Creates a new {@link ProjectCreationController}.
      */
-    private void actionOnNewProjectButton(){
+    private void actionOnNewProjectMenuItem() {
         controllerFacade.createProjectCreationController();
     }
 
@@ -61,9 +61,10 @@ public class MainApplicationController {
      * {@link javafx.stage.FileChooser} and if possible loads project from selected file.
      * Updates {@link edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow}.
      */
-    private void actionOnLoadProject(){
+    private void actionOnLoadProjectMenuItem() {
         File selectedFile = controllerFacade.getViewFacade().getMainApplicationWindow().showDirectoryChooserDialog();
 
+        // if no file was selected
         if (selectedFile == null) return;
 
         Project newProject;
@@ -74,6 +75,7 @@ public class MainApplicationController {
             return;
         }
 
+        // setting project in ViewFacade and ControllerFacade
         controllerFacade.setProject(newProject);
         controllerFacade.getViewFacade().setProject(newProject);
 
@@ -86,7 +88,7 @@ public class MainApplicationController {
     /**
      * Instructs {@link StandardProjectSaver} to save project.
      */
-    private void actionOnSaveButton() {
+    private void actionOnSaveProjectMenuItem() {
         // if no project is currently loaded
         if (controllerFacade.getProject() == null) {
             controllerFacade.getViewFacade().getMainApplicationWindow().showNoProjectErrorAlert();
@@ -102,12 +104,10 @@ public class MainApplicationController {
     }
 
     /**
-     * Instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow} to show help dialog.
+     * Creates new instance of {@link InstructionStage}.
      */
-    private void actionOnHelpButton(){
-        //TODO: missing help dialog
-        //controllerFacade.getViewFacade().getMainApplicationWindow().showHelpDialog();
-
+    private void actionOnInstructionMenuItem() {
+        new InstructionStage(controllerFacade.getViewFacade());
     }
 
     /**
@@ -115,7 +115,7 @@ public class MainApplicationController {
      *
      * @param choiceOptionIndex index of choice option which should be edited
      */
-    private void actionOnChoiceOptionSettingsButton(int choiceOptionIndex){
+    private void actionOnChoiceOptionSettingsButton(int choiceOptionIndex) {
         controllerFacade.createChoiceOptionSettingsController(choiceOptionIndex);
     }
 
@@ -127,7 +127,7 @@ public class MainApplicationController {
      *
      * @param choiceOptionIndex index of choice option which should be moved up
      */
-    private void actionOnMoveChoiceOptionUpButton(int choiceOptionIndex){
+    private void actionOnUpSwitchChoiceOptionButton(int choiceOptionIndex) {
         controllerFacade.getProject().swapChoiceOptionUp(choiceOptionIndex);
 
         // Update MainApplicationWindow
@@ -143,7 +143,7 @@ public class MainApplicationController {
      *
      * @param choiceOptionIndex index of choice option which should be moved down
      */
-    private void actionOnMoveChoiceOptionDownButton(int choiceOptionIndex){
+    private void actionOnDownSwitchChoiceOptionButton(int choiceOptionIndex) {
         controllerFacade.getProject().swapChoiceOptionDown(choiceOptionIndex);
 
         // Update MainApplicationWindow
@@ -155,7 +155,7 @@ public class MainApplicationController {
      * Creates subclass of {@link ImageCollectionGenerator} and instructs it to create images.
      * Then creates subclass {@link Exporter} to export the generated images.
      */
-    private void actionOnExportButton(){
+    private void actionOnExportButton() {
 
         // if no project is currently loaded
         if (controllerFacade.getProject() == null) {
@@ -165,7 +165,7 @@ public class MainApplicationController {
 
         // check if exportSettings are fully configured
         ExportSettings exportSettings = controllerFacade.getProject().getExportSettings();
-        if(exportSettings.getExportPath() == null || exportSettings.getExportType() == null
+        if (exportSettings.getExportPath() == null || exportSettings.getExportType() == null
                 || exportSettings.getFileFormat() == null) {
             controllerFacade.getViewFacade().getMainApplicationWindow().showExportErrorAlert();
             return;
@@ -174,12 +174,15 @@ public class MainApplicationController {
         ExportType exportType = controllerFacade.getProject().getExportSettings().getExportType();
 
         ImageCollectionGenerator imageCollectionGenerator = ImageCollectionGenerator
-                                                                            .getImageCollectionGenerator(exportType);
+                .getImageCollectionGenerator(exportType);
         Exporter exporter = Exporter.getExporter(exportType);
 
         try {
             ChoiceOptionImage[] images = imageCollectionGenerator.createImage(controllerFacade.getProject());
-            exporter.export(images, controllerFacade.getProject().getExportSettings().getExportPath().toFile());
+            exporter.export(
+                    images, controllerFacade.getProject().getExportSettings().getExportPath().toFile(),
+                    controllerFacade.getProject().getName()
+            );
         } catch (NullPointerException | IOException | InvalidDataKeyException e) {
             controllerFacade.getViewFacade().getMainApplicationWindow().showExportErrorAlert();
         }
@@ -188,7 +191,7 @@ public class MainApplicationController {
     /**
      * Instructs creation of {@link ExportSettingsController}.
      */
-    private void actionOnExportSettingsButton(){
+    private void actionOnExportSettingsButton() {
         // if no project is currently loaded
         if (controllerFacade.getProject() == null) {
             controllerFacade.getViewFacade().getMainApplicationWindow().showNoProjectErrorAlert();
@@ -200,7 +203,7 @@ public class MainApplicationController {
     /**
      * Instructs creation of {@link AttributeController}.
      */
-    private void actionOnAttributeButton(){
+    private void actionOnAttributesButton() {
         // if no project is currently loaded
         if (controllerFacade.getProject() == null) {
             controllerFacade.getViewFacade().getMainApplicationWindow().showNoProjectErrorAlert();
@@ -213,7 +216,7 @@ public class MainApplicationController {
      * Instructs {@link Project} to increment preview counter and
      * instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow} to update preview.
      */
-    private void actionOnNextPreviewButton(){
+    private void actionOnRightSwitchPreviewButton() {
         // if no project is currently loaded
         if (controllerFacade.getProject() == null) return;
         controllerFacade.getProject().incrementPreview();
@@ -227,7 +230,7 @@ public class MainApplicationController {
      * Instructs {@link Project} to decrement preview counter and
      * instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow} to update preview.
      */
-    private void actionOnPreviousPreviewButton(){
+    private void actionOnLeftSwitchPreviewButton() {
         // if no project is currently loaded
         if (controllerFacade.getProject() == null) return;
         controllerFacade.getProject().decrementPreview();
@@ -235,12 +238,13 @@ public class MainApplicationController {
         // Update Preview
         updatePreview();
     }
+
     /**
      * Asks user for confirmation to close application without saving and closes application if user confirms.
      *
      * @param event the close event that is consumed
      */
-    private void actionOnCloseRequest(Event event){
+    private void actionOnCloseRequest(Event event) {
         event.consume();
         controllerFacade.getViewFacade().getMainApplicationWindow()
                 .showCloseProjectConfirmationAlert()
@@ -254,27 +258,31 @@ public class MainApplicationController {
     /**
      * Instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow} to update preview.
      */
-    public void updatePreview() {
+    void updatePreview() {
         SituationGenerator situationGenerator = new SituationGenerator();
         try {
             controllerFacade.getViewFacade().getMainApplicationWindow()
                     .setPreviewImage(situationGenerator.createPreviewImage(controllerFacade.getProject()));
         } catch (InvalidDataKeyException e) {
-            //TODO: placeholder
-            e.printStackTrace();
+            controllerFacade.getViewFacade().getMainApplicationWindow().showPreviewErrorAlert();
+            return;
         }
 
         controllerFacade.getViewFacade().getMainApplicationWindow().updateCurrentPreviewSituation();
     }
 
     /**
-     * Instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow} to update choice options.
+     * Instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow} to update choice options
+     * and sets action listeners of choice option ui components.
      */
-    public void updateChoiceOptions() {
+    void updateChoiceOptions() {
         controllerFacade.getViewFacade().getMainApplicationWindow().updateChoiceOptions();
         setChoiceOptionActionListeners();
     }
 
+    /**
+     * Sets action listeners of ui components in MainApplicationWindow concerning choice options.
+     */
     private void setChoiceOptionActionListeners() {
 
         MainApplicationWindow mainApplicationWindow = controllerFacade.getViewFacade().getMainApplicationWindow();
@@ -287,42 +295,45 @@ public class MainApplicationController {
         // Switch-Down-Buttons
         List<Button> downSwitchChoiceOptionButtonList = mainApplicationWindow.getDownSwitchChoiceOptionButtonList();
 
-        for(int i = 0; i < choiceOptionSettingsButtonList.size(); i++) {
+        for (int i = 0; i < choiceOptionSettingsButtonList.size(); i++) {
             // index in view is same as index in attribute list of project
             final int index = i;
             choiceOptionSettingsButtonList.get(i).setOnAction(e -> actionOnChoiceOptionSettingsButton(index));
-            upSwitchChoiceOptionButtonList.get(i).setOnAction(e -> actionOnMoveChoiceOptionUpButton(index));
-            downSwitchChoiceOptionButtonList.get(i).setOnAction(e -> actionOnMoveChoiceOptionDownButton(index));
+            upSwitchChoiceOptionButtonList.get(i).setOnAction(e -> actionOnUpSwitchChoiceOptionButton(index));
+            downSwitchChoiceOptionButtonList.get(i).setOnAction(e -> actionOnDownSwitchChoiceOptionButton(index));
         }
     }
 
-    private void setActionListeners(){
+    /**
+     * Sets initial action listeners of ui components in MainApplicationWindow.
+     */
+    private void setActionListeners() {
 
         MainApplicationWindow mainApplicationWindow = controllerFacade.getViewFacade().getMainApplicationWindow();
 
         // Close Request
-        mainApplicationWindow.setOnCloseRequest(event -> actionOnCloseRequest(event));
+        mainApplicationWindow.setOnCloseRequest(this::actionOnCloseRequest);
 
         // File Menu
-        mainApplicationWindow.getNewProjectMenuItem().setOnAction(e -> actionOnNewProjectButton());
-        mainApplicationWindow.getLoadProjectMenuItem().setOnAction(e -> actionOnLoadProject());
-        mainApplicationWindow.getSaveProjectMenuItem().setOnAction(e -> actionOnSaveButton());
+        mainApplicationWindow.getNewProjectMenuItem().setOnAction(e -> actionOnNewProjectMenuItem());
+        mainApplicationWindow.getLoadProjectMenuItem().setOnAction(e -> actionOnLoadProjectMenuItem());
+        mainApplicationWindow.getSaveProjectMenuItem().setOnAction(e -> actionOnSaveProjectMenuItem());
 
         //Help Menu
-        mainApplicationWindow.getInstructionMenuItem().setOnAction(e -> actionOnHelpButton());
+        mainApplicationWindow.getInstructionMenuItem().setOnAction(e -> actionOnInstructionMenuItem());
 
         //Export Buttons
         mainApplicationWindow.getExportButton().setOnAction(e -> actionOnExportButton());
         mainApplicationWindow.getExportSettingsButton().setOnAction(e -> actionOnExportSettingsButton());
 
         //Attributes Button
-        mainApplicationWindow.getAttributesButton().setOnAction(e -> actionOnAttributeButton());
+        mainApplicationWindow.getAttributesButton().setOnAction(e -> actionOnAttributesButton());
 
         //Choice Options Buttons
         setChoiceOptionActionListeners();
 
         // Preview arrows
-        mainApplicationWindow.getLeftSwitchPreviewButton().setOnAction(e -> actionOnPreviousPreviewButton());
-        mainApplicationWindow.getRightSwitchPreviewButton().setOnAction(e -> actionOnNextPreviewButton());
+        mainApplicationWindow.getLeftSwitchPreviewButton().setOnAction(e -> actionOnLeftSwitchPreviewButton());
+        mainApplicationWindow.getRightSwitchPreviewButton().setOnAction(e -> actionOnRightSwitchPreviewButton());
     }
 }

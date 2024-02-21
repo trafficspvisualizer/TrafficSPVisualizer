@@ -16,9 +16,8 @@ import java.io.File;
  *
  * @author ughhz
  * @version 1.0
- *
  */
-public class ExportSettingsController {
+class ExportSettingsController {
 
     /**
      * Front-facing interface for the controller package.
@@ -31,7 +30,7 @@ public class ExportSettingsController {
      *
      * @param controllerFacade the front-facing interface for the controller package
      */
-    public ExportSettingsController(ControllerFacade controllerFacade) {
+    ExportSettingsController(ControllerFacade controllerFacade) {
         this.controllerFacade = controllerFacade;
         //creates and shows new stage
         controllerFacade.getViewFacade().
@@ -43,7 +42,7 @@ public class ExportSettingsController {
      * Instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.ExportSettingsStage} to open
      * {@link javafx.stage.FileChooser} and sets returned value as export folder path.
      */
-    private void actionOnExportFolderButton(){
+    private void actionOnExportDirectoryButton() {
         File selectedFile = controllerFacade.getViewFacade().getExportSettingsStage().showDirectoryChooserDialog();
         if (selectedFile == null) return;
         controllerFacade.getViewFacade().getExportSettingsStage().setExportDirectory(selectedFile);
@@ -53,14 +52,14 @@ public class ExportSettingsController {
      * Scrapes data from {@link edu.kit.ifv.trafficspvisualizer.view.window.ExportSettingsStage}
      * and checks validity of it. If valid, the {@link ExportSettings} are updated.
      */
-    private void actionOnSaveButton(){
+    private void actionOnSaveButton() {
 
         // scraping data from view in String format
         String heightString = controllerFacade.getViewFacade().getExportSettingsStage().getHeightString();
         String widthString = controllerFacade.getViewFacade().getExportSettingsStage().getWidthString();
-        File exportPath = controllerFacade.getViewFacade().getExportSettingsStage().
-                getExportDirectory();
+        File exportPath = controllerFacade.getViewFacade().getExportSettingsStage().getExportDirectory();
         ExportType exportType = controllerFacade.getViewFacade().getExportSettingsStage().getExportType();
+        String htmlVariableName = controllerFacade.getViewFacade().getExportSettingsStage().getHtmlVariableName();
 
         // check validity of input
         if (heightString.isEmpty() || widthString.isEmpty() || exportPath == null
@@ -82,11 +81,12 @@ public class ExportSettingsController {
         }
 
         // setting new export settings in model, png as default because we currently only support png export
-        ExportSettings exportSettings = new ExportSettings(height, width, exportPath.toPath(),
-                                                                                            FileFormat.PNG, exportType);
+        ExportSettings exportSettings = new ExportSettings(
+                height, width, exportPath.toPath(), FileFormat.PNG, exportType, htmlVariableName
+        );
 
         controllerFacade.getProject().setExportSettings(exportSettings);
-
+        controllerFacade.getMainApplicationController().updatePreview();
         actionOnCancelButton();
     }
 
@@ -95,23 +95,29 @@ public class ExportSettingsController {
      * in the {@link edu.kit.ifv.trafficspvisualizer.view.ViewFacade}. Deletes ExportSettingsController
      * from {@link ControllerFacade}.
      */
-    private void actionOnCancelButton(){
+    private void actionOnCancelButton() {
         controllerFacade.getViewFacade().getExportSettingsStage().close();
         controllerFacade.getViewFacade().setExportSettingsStage(null);
         controllerFacade.deleteExportSettingsController();
     }
 
-    private void setActionListeners(){
+    /**
+     * Sets initial action listeners of ui components in ExportSettingsStage.
+     */
+    private void setActionListeners() {
 
         ExportSettingsStage exportSettingsStage = controllerFacade.getViewFacade().getExportSettingsStage();
 
-        //ExportFolder
-        exportSettingsStage.getExportDirectoryButton().setOnAction(e -> actionOnExportFolderButton());
+        // Export Directory-Button
+        exportSettingsStage.getExportDirectoryButton().setOnAction(e -> actionOnExportDirectoryButton());
 
-        //Save
+        // Save-Button
         exportSettingsStage.getSaveButton().setOnAction(e -> actionOnSaveButton());
 
-        //Cancel
+        // Cancel-Button
         exportSettingsStage.getCancelButton().setOnAction(e -> actionOnCancelButton());
+
+        // Close Request - same event handler as cancel button
+        exportSettingsStage.setOnCloseRequest(e -> actionOnCancelButton());
     }
 }

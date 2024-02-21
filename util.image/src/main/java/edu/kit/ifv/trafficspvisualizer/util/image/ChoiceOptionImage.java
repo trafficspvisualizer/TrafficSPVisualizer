@@ -1,76 +1,76 @@
 package edu.kit.ifv.trafficspvisualizer.util.image;
 
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class ChoiceOptionImage {
+
+    private static final int SCENARIO_NUMBER_KEY = 1;
+    private static final int BLOCK_NUMBER_KEY = 2;
+    private static final int CHOICE_OPTION_NUMBER_KEY = 3;
+    private static final int TITLE_KEY = 0;
+
     private BufferedImage image;
-    //todo to hashmap
-    private final List<String> infos = new ArrayList<>();
+    private final Map<Integer, String> infos;
 
     public ChoiceOptionImage() {
-        infos.add("-1");    //Scenario Number
-        infos.add("-1");    //Block Number
-        infos.add("-1");    //Choice Option Number
-        infos.add("-1");    //title
+        infos = new HashMap<>();
+        infos.put(TITLE_KEY, "-1");
+        infos.put(SCENARIO_NUMBER_KEY, "-1");
+        infos.put(BLOCK_NUMBER_KEY, "-1");
+        infos.put(CHOICE_OPTION_NUMBER_KEY, "-1");
+
     }
     public void setImage(BufferedImage image) {
         this.image = image;
     }
 
     public void add(String info) {
-        infos.add(info);
+        infos.put(infos.size(), info);
     }
 
-
     public List<String> getInfos() {
-        return List.copyOf(infos);
+        return List.copyOf(infos.values());
     }
 
     public BufferedImage getImage() {
         return image;
     }
 
-    public String getBlockNumber() {
-        return infos.get(1);
-    }
-
-    public String getChoiceOptionNumber() {
-        return infos.get(2);
-    }
     public String getTitle() {
-        return infos.get(3);
+        return infos.get(TITLE_KEY);
     }
 
     public String getScenarioNumber() {
-        return infos.getFirst();
+        return infos.get(SCENARIO_NUMBER_KEY);
     }
 
     public void setBlockNumber(int blockNumber) {
         if (blockNumber < 0) {
             throw new IllegalArgumentException("Scenario Number must be greater than 0");
         }
-        infos.set(1,String.valueOf(blockNumber));
+        infos.put(BLOCK_NUMBER_KEY, String.valueOf(blockNumber));
     }
 
     public void setChoiceOptionNumber(int choiceOptionNumber) {
         if (choiceOptionNumber < 0) {
             throw new IllegalArgumentException("Scenario Number must be greater than 0");
         }
-        infos.set(2,String.valueOf(choiceOptionNumber));
+        infos.put(CHOICE_OPTION_NUMBER_KEY, String.valueOf(choiceOptionNumber));
     }
 
     public void setScenarioNumber(int scenarioNumber) {
         if (scenarioNumber < 0) {
             throw new IllegalArgumentException("Scenario Number must be greater than 0");
         }
-        infos.set(0,String.valueOf(scenarioNumber));
+        infos.put(SCENARIO_NUMBER_KEY, String.valueOf(scenarioNumber));
     }
 
     public void setTitle(String title) {
         Objects.requireNonNull(title);
-        infos.set(3,title);
+        infos.put(TITLE_KEY, title);
     }
 }

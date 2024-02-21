@@ -4,13 +4,9 @@ import edu.kit.ifv.trafficspvisualizer.model.settings.ExportSettings;
 import edu.kit.ifv.trafficspvisualizer.model.settings.ExportType;
 import edu.kit.ifv.trafficspvisualizer.model.Project;
 import edu.kit.ifv.trafficspvisualizer.view.ViewFacade;
-import edu.kit.ifv.trafficspvisualizer.view.data.font.FontLibrary;
 import edu.kit.ifv.trafficspvisualizer.view.data.image.ImageLibrary;
 import edu.kit.ifv.trafficspvisualizer.view.data.language.LanguageStrategy;
-import javafx.geometry.HPos;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.geometry.VPos;
+import edu.kit.ifv.trafficspvisualizer.view.style.Styler;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -35,7 +31,7 @@ import java.io.File;
  */
 public class ExportSettingsStage extends Stage {
 
-    private ViewFacade viewFacade;
+    private final ViewFacade viewFacade;
 
 
     private Text choiceOptionSizeText;
@@ -59,6 +55,10 @@ public class ExportSettingsStage extends Stage {
     private Text exportTypeText;
 
     private ChoiceBox<String> exportTypeChoiceBox;
+
+    private Text htmlVariableNameText;
+
+    private TextField htmlVariableNameTextField;
 
     private GridPane
             configGridPane;
@@ -118,6 +118,10 @@ public class ExportSettingsStage extends Stage {
             exportTypeChoiceBox.getItems().add(languageStrategy.getExportTypeText(exportType));
         }
 
+        htmlVariableNameText = new Text(languageStrategy.getExportSettingsHtmlVariableNameText());
+
+        htmlVariableNameTextField = new TextField();
+
         configGridPane = new GridPane();
         configGridPane.add(choiceOptionSizeText, 0,0);
         configGridPane.add(heightText, 1,0);
@@ -129,6 +133,8 @@ public class ExportSettingsStage extends Stage {
         configGridPane.add(exportDirectoryButton, 3,2);
         configGridPane.add(exportTypeText, 0,3);
         configGridPane.add(exportTypeChoiceBox, 1,3,2,1);
+        configGridPane.add(htmlVariableNameText, 0,4);
+        configGridPane.add(htmlVariableNameTextField, 1,4);
 
 
         saveButton = new Button(languageStrategy.getExportSettingsSaveButtonText());
@@ -154,94 +160,43 @@ public class ExportSettingsStage extends Stage {
 
     // style-methods
     private void styleStage() {
-        // choiceOptionSizeText
-        GridPane.setHalignment(choiceOptionSizeText, HPos.LEFT);
-        GridPane.setValignment(choiceOptionSizeText, VPos.CENTER);
-        choiceOptionSizeText.setFont(FontLibrary.getMidFont());
+        Styler.leftCenterMidFontTextInGridPane(choiceOptionSizeText);
 
-        // heightText
-        GridPane.setHalignment(heightText, HPos.LEFT);
-        GridPane.setValignment(heightText, VPos.CENTER);
-        heightText.setFont(FontLibrary.getSmallFont());
+        Styler.leftCenterSmallFontTextInGridPane(heightText);
 
-        // heightTextField
-        GridPane.setHalignment(heightTextField, HPos.LEFT);
-        GridPane.setValignment(heightTextField, VPos.CENTER);
-        GridPane.setHgrow(heightTextField, Priority.ALWAYS);
-        heightTextField.setFont(FontLibrary.getSmallFont());
+        Styler.leftCenterHGrowSmallFontTextFieldInGridPane(heightTextField);
 
-        // widthText
-        GridPane.setHalignment(widthText, HPos.LEFT);
-        GridPane.setValignment(widthText, VPos.CENTER);
-        widthText.setFont(FontLibrary.getSmallFont());
+        Styler.leftCenterSmallFontTextInGridPane(widthText);
 
-        // widthTextField
-        GridPane.setHalignment(widthTextField, HPos.LEFT);
-        GridPane.setValignment(widthTextField, VPos.CENTER);
-        GridPane.setHgrow(widthTextField, Priority.ALWAYS);
-        widthTextField.setFont(FontLibrary.getSmallFont());
+        Styler.leftCenterHGrowSmallFontTextFieldInGridPane(widthTextField);
 
-        // exportDirectoryText
-        GridPane.setHalignment(exportDirectoryText, HPos.LEFT);
-        GridPane.setValignment(exportDirectoryText, VPos.CENTER);
-        exportDirectoryText.setFont(FontLibrary.getMidFont());
+        Styler.leftCenterMidFontTextInGridPane(exportDirectoryText);
 
-        // exportDirectoryTextField
-        GridPane.setHalignment(exportDirectoryTextField, HPos.LEFT);
-        GridPane.setValignment(exportDirectoryTextField, VPos.CENTER);
-        GridPane.setHgrow(exportDirectoryTextField, Priority.ALWAYS);
-        exportDirectoryTextField.setFont(FontLibrary.getSmallFont());
+        Styler.leftCenterHGrowSmallFontTextFieldInGridPane(exportDirectoryTextField);
 
-        // exportDirectoryButtonImageView
-        exportDirectoryButtonImageView.setFitWidth(25);
-        exportDirectoryButtonImageView.setFitHeight(25);
-        exportDirectoryButtonImageView.setPreserveRatio(true);
+        Styler.midImageView(exportDirectoryButtonImageView);
 
-        // exportDirectoryButton
-        GridPane.setHalignment(exportDirectoryButton, HPos.CENTER);
-        GridPane.setValignment(exportDirectoryButton, VPos.CENTER);
+        Styler.centerCenterInGridPane(exportDirectoryButton);
 
-        // exportTypeText
-        GridPane.setHalignment(exportTypeText, HPos.LEFT);
-        GridPane.setValignment(exportTypeText, VPos.CENTER);
-        exportTypeText.setFont(FontLibrary.getMidFont());
+        Styler.leftCenterMidFontTextInGridPane(exportTypeText);
 
-        // exportTypeChoiceBox
-        GridPane.setHalignment(exportTypeChoiceBox, HPos.LEFT);
-        GridPane.setValignment(exportTypeChoiceBox, VPos.CENTER);
+        Styler.leftCenterInGridPane(exportTypeChoiceBox);
         GridPane.setHgrow(exportTypeChoiceBox, Priority.ALWAYS);
 
-        // configGridPane
-        BorderPane.setAlignment(configGridPane, Pos.TOP_LEFT);
-        configGridPane.setPadding(new Insets(15));
-        configGridPane.setHgap(15);
-        configGridPane.setVgap(15);
+        Styler.leftCenterMidFontTextInGridPane(htmlVariableNameText);
 
-        // saveButton
-        GridPane.setHalignment(saveButton, HPos.LEFT);
-        GridPane.setValignment(saveButton, VPos.CENTER);
-        saveButton.setFont(FontLibrary.getSmallFont());
+        Styler.leftCenterHGrowSmallFontTextFieldInGridPane(htmlVariableNameTextField);
 
-        // cancelButton
-        GridPane.setHalignment(cancelButton, HPos.LEFT);
-        GridPane.setValignment(cancelButton, VPos.CENTER);
-        cancelButton.setFont(FontLibrary.getSmallFont());
+        Styler.midHVGabMidPaddingGridPane(configGridPane);
 
-        // saveAndCancelGridPane
-        BorderPane.setAlignment(saveAndCancelGridPane, Pos.BOTTOM_LEFT);
-        saveAndCancelGridPane.setPadding(new Insets(15));
-        saveAndCancelGridPane.setHgap(15);
-        saveAndCancelGridPane.setVgap(15);
+        Styler.leftCenterSmallFontButtonInGridPane(saveButton);
 
-        // bodyBorderPane
+        Styler.leftCenterSmallFontButtonInGridPane(cancelButton);
 
-        // scene
+        Styler.midHVGabMidPaddingGridPane(saveAndCancelGridPane);
 
-        // stage
-        setMinWidth(960);
-        setMinHeight(540);
-        setWidth(960);
-        setHeight(540);
+
+        Styler.midStage(this);
     }
 
     // update-methods
@@ -258,12 +213,13 @@ public class ExportSettingsStage extends Stage {
 
         exportTypeChoiceBox.setValue(viewFacade.getLanguageStrategy()
                 .getExportTypeText(exportSettings.getExportType()));
+
+        htmlVariableNameTextField.setText(exportSettings.getHtmlVariableName());
     }
 
 
 
     // setter-methods
-
     /**
      * Sets the export folder path.
      *
@@ -300,9 +256,7 @@ public class ExportSettingsStage extends Stage {
     }
 
     // getter-methods
-
     // buttons
-
     /**
      * Gets the save button.
      *
@@ -365,6 +319,10 @@ public class ExportSettingsStage extends Stage {
 
         // default value, method should never reach this point
         return ExportType.CHOICE_OPTION;
+    }
+
+    public String getHtmlVariableName() {
+        return htmlVariableNameTextField.getText();
     }
 
     /**

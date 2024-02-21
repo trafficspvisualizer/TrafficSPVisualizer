@@ -17,6 +17,7 @@ public class ExportSettings {
     private Path exportPath;
     private FileFormat fileFormat;
     private ExportType exportType;
+    private String htmlVariableName;
 
     /**
      * Constructs a new {@link ExportSettings} object with default values.
@@ -29,24 +30,27 @@ public class ExportSettings {
         this.exportPath = exportPath;
         this.fileFormat = FileFormat.PNG;
         this.exportType = ExportType.CHOICE_OPTION;
+        this.htmlVariableName = "var";
     }
 
     /**
      * Constructs a new {@link ExportSettings} object.
      *
-     * @param imageHeight the height of the exported images
-     * @param imageWidth  the width of the exported images
-     * @param exportPath  the path where the images are exported to
-     * @param fileFormat  the {@link FileFormat} in which the images are exported
-     * @param exportType  the {@link ExportType} to use when exporting
+     * @param imageHeight      the height of the exported images
+     * @param imageWidth       the width of the exported images
+     * @param exportPath       the path where the images are exported to
+     * @param fileFormat       the {@link FileFormat} in which the images are exported
+     * @param exportType       the {@link ExportType} to use when exporting
+     * @param htmlVariableName a name for the variable that is used in the HTML export
      */
     public ExportSettings(int imageHeight, int imageWidth, Path exportPath, FileFormat fileFormat,
-                          ExportType exportType) {
+                          ExportType exportType, String htmlVariableName) {
         this.imageHeight = imageHeight;
         this.imageWidth = imageWidth;
         this.exportPath = exportPath;
         this.fileFormat = fileFormat;
         this.exportType = exportType;
+        this.htmlVariableName = htmlVariableName;
     }
 
     /**
@@ -137,5 +141,21 @@ public class ExportSettings {
      */
     public void setExportType(ExportType exportType) {
         this.exportType = exportType;
+    }
+
+    /**
+     * Returns the name of the HTML variable.
+     * @return the name of the HTML variable
+     */
+    public String getHtmlVariableName() {
+        return htmlVariableName;
+    }
+
+    /**
+     * Sets the HTML variable
+     * @param htmlVariableName the new name for the variable
+     */
+    public void setHtmlVariableName(String htmlVariableName) {
+        this.htmlVariableName = htmlVariableName;
     }
 }

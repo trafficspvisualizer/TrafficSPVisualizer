@@ -26,9 +26,14 @@ public class ChoiceData {
      *
      * @param valueName the name of the value
      * @return the value
+     * @throws InvalidDataKeyException if there is no value with the given key
      */
-    public double getValue(String valueName) {
-        return this.values.get(valueName);
+    public double getValue(String valueName) throws InvalidDataKeyException {
+        if (!values.containsKey(valueName)) {
+            throw new InvalidDataKeyException();
+        }
+
+        return values.get(valueName);
     }
 
     /**
