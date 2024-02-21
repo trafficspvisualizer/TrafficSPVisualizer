@@ -10,13 +10,17 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.text.ParseException;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -24,11 +28,19 @@ class AbstractSaverTest {
 
     @Test
     void testCreateJsonProject() throws IOException, ParseException {
+        // creating new project - choice option order is not deterministic due to HashMap
         Parser parser = new NGDParser();
         File ngdFile = new File(Objects.requireNonNull(this.getClass().getClassLoader().getResource("Beispiel_ngene.ngd")).getPath());
         DataObject dataObject = parser.parse(ngdFile);
         Path projectPath = Files.createTempDirectory("AbstractSaverTestProjectFolder");
-        Project project = new Project("test", projectPath, dataObject, ngdFile);
+        Comparator<ChoiceOption> comparator = Comparator.comparing(ChoiceOption::getName);
+        Project temp = new Project("test", projectPath, dataObject, ngdFile);
+
+        // creating project with same values as before but with alphabetically sorted choice options
+        List<ChoiceOption> choiceOptions = temp.getChoiceOptions().stream().sorted(comparator).collect(Collectors.toList());
+        Project project = new Project(temp.getName(), temp.getProjectPath(), temp.getDataObject(),
+                temp.getAbstractAttributes(), choiceOptions,
+                temp.getExportSettings(), null ,ngdFile);
 
         // adding abstract attributes
         Attribute attribute = new Attribute(project.getIconManager().getDefaultIcon());
@@ -39,20 +51,20 @@ class AbstractSaverTest {
         attribute.setSuffix("testSuffix");
         attribute.setDecimalPlaces(2);
         attribute.setPermanentlyVisible(true);
-        attribute.setMapping(project.getChoiceOptions().getFirst(), List.of("fz_fuss"));
+        // "car" is first in alphabetical list
+        attribute.setMapping(project.getChoiceOptions().getFirst(), List.of("cost_car"));
 
         separatorLine.setActive(false);
 
         project.addAbstractAttribute(attribute);
         project.addAbstractAttribute(separatorLine);
 
-        // editing choice options
+        // editing choice options - "car" is first in alphabetical list
         project.getChoiceOptions().getFirst().setTitle("ChoiceOptionTestTitle");
         project.getChoiceOptions().getFirst().setColor(Color.BLUE);
         project.swapChoiceOptionDown(0);
-        //assuming first is "fuss"
         project.getChoiceOptions().getFirst().addRouteSection(
-                new RouteSection(project.getIconManager().getDefaultIcon(), "fz_fuss", LineType.DASHED));
+                new RouteSection(project.getIconManager().getDefaultIcon(), "zugang", LineType.DASHED));
 
         // export Settings
         Path exportPath = Files.createTempDirectory("AbstractSaverTestExportFolder");
@@ -60,6 +72,7 @@ class AbstractSaverTest {
                 100, 200, exportPath, FileFormat.PNG, ExportType.CHOICE_OPTION, "testVar")
         );
 
+        // save
         AbstractSaver saver = new StandardProjectSaver();
         JSONObject jsonObject = saver.createJsonProject(
                 project.getName(), project.getAbstractAttributes(), project.getExportSettings(), project.getChoiceOptions()
