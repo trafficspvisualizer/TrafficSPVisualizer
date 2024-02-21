@@ -7,7 +7,6 @@ import edu.kit.ifv.trafficspvisualizer.model.data.DataObject;
 import edu.kit.ifv.trafficspvisualizer.model.data.InvalidDataKeyException;
 import edu.kit.ifv.trafficspvisualizer.model.settings.LineType;
 import edu.kit.ifv.trafficspvisualizer.model.settings.RouteSection;
-import edu.kit.ifv.trafficspvisualizer.model.icon.SVGToBufferedImageConverter;
 import edu.kit.ifv.trafficspvisualizer.model.settings.SeparatorLine;
 
 import java.awt.*;
@@ -41,7 +40,8 @@ public class StandardImageGenerator extends ImageGenerator{
     private Font attributeFont;
     @Override
     public BufferedImage createChoiceOption(ChoiceOption choiceOption, DataObject dataObject,
-                                            List<AbstractAttribute> attributes, int height, int width, double max, int situationIndex) throws InvalidDataKeyException {
+                                            List<AbstractAttribute> attributes, int height, int width, double max,
+                                            int situationIndex) throws InvalidDataKeyException {
         BufferedImage choiceOptionImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         this.heightOfHeadline = (int) (height * HEIGHT_OF_HEADLINE_CONSTANT);
         this.height = height;

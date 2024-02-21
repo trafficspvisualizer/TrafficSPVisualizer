@@ -17,16 +17,50 @@ import java.util.List;
  */
 
 public abstract class ImageCollectionGenerator {
+    /**
+     * The height of the export.
+     * It is protected so subclasses can access it.
+     */
     protected int exportHeight;
+    /**
+     * The width of the export.
+     */
     protected int exportWidth;
+    /**
+     * The height of one choice option BufferedImage.
+     */
     protected int choiceOptionHeight;
+    /**
+     * The width of one choice option BufferedImage.
+     */
     protected int choiceOptionWidth;
+    /**
+     * The number of choice options in the project.
+     */
     protected int numberOfChoiceOptions;
+    /**
+     * A list containing all the choice options.
+     */
+    protected List<ChoiceOption> choiceOptions;
+    /**
+     * A List containing all the {@link AbstractAttribute} of the project.
+     */
     protected List<AbstractAttribute> attributeList;
+    /**
+     * The number of situations of the project.
+     */
     protected int numberOfSituations;
+    /**
+     * The data object containing the data from the file.
+     */
     protected DataObject dataObject;
+    /**
+     * The export settings of the project.
+     */
     protected ExportSettings exportSettings;
-    protected Project project;
+    /**
+     * A {@link StandardImageGenerator} object.
+     */
     protected StandardImageGenerator standardImageGenerator;
 
     /**
@@ -67,7 +101,7 @@ public abstract class ImageCollectionGenerator {
         this.dataObject = project.getDataObject();
         this.numberOfSituations = dataObject.getSituationCount();
         this.attributeList = project.getAbstractAttributes();
-        this.project = project;
+        this.choiceOptions = project.getChoiceOptions();
         this.standardImageGenerator = new StandardImageGenerator();
     }
 
@@ -101,7 +135,7 @@ public abstract class ImageCollectionGenerator {
         double lengthOfCurrentRouteSection;
         ChoiceOption currentChoiceOption;
         for (int m = 0; m < numberOfChoiceOptions; m++) {
-            currentChoiceOption = project.getChoiceOptions().get(m);
+            currentChoiceOption = choiceOptions.get(m);
             lengthOfCurrentRouteSection = calculateLengthOfRouteSection(currentChoiceOption, situationIndex);
             if (lengthOfCurrentRouteSection > lengthOfLongestRouteSection) {
                 lengthOfLongestRouteSection = lengthOfCurrentRouteSection;

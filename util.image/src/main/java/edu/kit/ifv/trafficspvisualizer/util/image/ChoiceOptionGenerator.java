@@ -4,7 +4,6 @@ import edu.kit.ifv.trafficspvisualizer.model.settings.ChoiceOption;
 import edu.kit.ifv.trafficspvisualizer.model.data.InvalidDataKeyException;
 import edu.kit.ifv.trafficspvisualizer.model.Project;
 import java.awt.image.BufferedImage;
-import java.util.Map;
 
 /**
  * ChoiceOptionGenerator inherits from the ImageCollectionGenerator class.
