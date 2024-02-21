@@ -26,9 +26,10 @@ public class StandardProjectSaver extends AbstractSaver {
     @Override
     public void saveProject(Project project, Path path) throws IOException, IllegalArgumentException {
         Path dir = makeDir(project.getName(), path);
-        JSONObject jsonObject = createJsonProject(project.getName(), project.getAbstractAttributes(),project.getExportSettings(), project.getChoiceOptions());
+        JSONObject jsonObject = createJsonProject(project.getName(), project.getAbstractAttributes(),
+                project.getExportSettings(), project.getChoiceOptions());
         writeJsonToFile(dir, jsonObject);
-        copyCacheDirectory(project, dir); //todo mache dir zu zip
+        copyCacheDirectory(project, dir);
     }
 
     /**

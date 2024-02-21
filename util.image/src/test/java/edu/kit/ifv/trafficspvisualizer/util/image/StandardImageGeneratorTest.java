@@ -36,7 +36,7 @@ class StandardImageGeneratorTest {
 
         try {
             // Call the method under test
-            BufferedImage result = standardImageGenerator.createChoiceOption(choiceOption, dataObject, attributes, height, width, min, max, situationIndex);
+            BufferedImage result = standardImageGenerator.createChoiceOption(choiceOption, dataObject, attributes, height, width, max, situationIndex);
             assertNotNull(result);
             assertEquals(height, result.getHeight());
             assertEquals(width, result.getWidth());

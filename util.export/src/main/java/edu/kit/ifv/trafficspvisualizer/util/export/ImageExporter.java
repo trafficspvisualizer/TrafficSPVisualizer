@@ -14,7 +14,7 @@ import java.util.Objects;
  * Exporter class for exporting images.
  */
 public class ImageExporter extends Exporter {
-        private String directoryName = "TrafficSPVisualizer";
+    private String directoryName = "TrafficSPVisualizer";
 
     /**
      * Exports an array of images to a specified file.
@@ -24,12 +24,12 @@ public class ImageExporter extends Exporter {
      * @throws IOException If an I/O error occurs.
      */
     @Override
-    public void export(ChoiceOptionImage[] images, File file, String name) throws IOException {
-        this.directoryName = name;
+    public void export(ChoiceOptionImage[] images, File file, String name, String HTMLvar) throws IOException {
+        this.directoryName = name + "_export";
         File newDirectory = createDirectory(file);
 
         for (ChoiceOptionImage image : images) {
-            Path imagePath = Paths.get(newDirectory.getPath() + File.separator + constructImagePath(image));
+            Path imagePath = Paths.get(newDirectory.getPath(), constructImagePathWithDir(image));
             if (!imagePath.getParent().toFile().exists()) {
                 Files.createDirectories(imagePath.getParent());
             }
@@ -67,7 +67,7 @@ public class ImageExporter extends Exporter {
      * @throws IOException If the directory cannot be created.
      */
     private File createDirectory(File file) throws IOException {
-        File newDirectory = new File(file.getPath() + File.separator + directoryName);
+        File newDirectory = new File(file.getPath(), directoryName);
         if (newDirectory.exists()) {
             deleteFileOrDirectory(newDirectory);
         }
@@ -77,6 +77,4 @@ public class ImageExporter extends Exporter {
         }
         return newDirectory;
     }
-
-
 }

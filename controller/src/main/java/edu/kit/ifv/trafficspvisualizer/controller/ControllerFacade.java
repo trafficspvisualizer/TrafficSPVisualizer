@@ -62,9 +62,9 @@ public class ControllerFacade {
      * Constructs the ControllerFacade and creates {@link MainApplicationController}.
      *
      * @param viewFacade the front-facing interface of the view package
-     * @param project the project on which the user is currently working
+     * @param project    the project on which the user is currently working
      */
-    public ControllerFacade(ViewFacade viewFacade, Project project){
+    public ControllerFacade(ViewFacade viewFacade, Project project) {
         this.viewFacade = viewFacade;
         this.project = project;
 
@@ -127,10 +127,13 @@ public class ControllerFacade {
     /**
      * Creates a new {@link AttributeSettingsController} and saves a reference of it.
      *
-     * @param attributeIndex the index of the attribute which settings should be adjusted
+     * @param attributeIndex        the index of the attribute which settings should be adjusted
+     * @param workingOnNewAttribute whether the attribute with the abstractAttributeIndex was newly created or not
      */
     void createAttributeSettingsController(int attributeIndex, boolean workingOnNewAttribute) {
-        this.attributeSettingsController = new AttributeSettingsController(this, attributeIndex, workingOnNewAttribute);
+        this.attributeSettingsController = new AttributeSettingsController(
+                this, attributeIndex, workingOnNewAttribute
+        );
     }
 
     /**
@@ -153,7 +156,7 @@ public class ControllerFacade {
      * Creates a new {@link IconSelectionController} and saves a reference of it.
      *
      * @param parentController the controller which called the method
-     * @param index the index of the model/ui component for which an icon is selected
+     * @param index            the index of the model/ui component for which an icon is selected
      */
     void createIconSelectionController(IconDisplayingController parentController, int index) {
         this.iconSelectionController = new IconSelectionController(this, parentController, index);

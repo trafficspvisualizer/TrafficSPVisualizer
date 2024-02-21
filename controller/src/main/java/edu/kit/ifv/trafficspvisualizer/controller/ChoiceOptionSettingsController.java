@@ -37,8 +37,8 @@ class ChoiceOptionSettingsController implements IconDisplayingController {
      * Constructs the ChoiceOptionSettingsController. Creates new {@link ChoiceOptionSettingsStage},
      * saves it in ViewFacade and sets its ActionListeners.
      *
-     * @param choiceOptionId the ID of the {@link ChoiceOption}
-     *                       on which the controller is working
+     * @param choiceOptionId   the ID of the {@link ChoiceOption}
+     *                         on which the controller is working
      * @param controllerFacade the front-facing interface for the controller package
      */
     ChoiceOptionSettingsController(int choiceOptionId, ControllerFacade controllerFacade) {
@@ -46,9 +46,9 @@ class ChoiceOptionSettingsController implements IconDisplayingController {
         this.controllerFacade = controllerFacade;
 
         //creates and shows new stage
-        controllerFacade.getViewFacade().
-                setChoiceOptionSettingsStage(new ChoiceOptionSettingsStage(controllerFacade.getViewFacade(),
-                        choiceOptionId));
+        controllerFacade.getViewFacade().setChoiceOptionSettingsStage(
+                new ChoiceOptionSettingsStage(controllerFacade.getViewFacade(), choiceOptionId)
+        );
         setActionListeners();
     }
 
@@ -58,7 +58,7 @@ class ChoiceOptionSettingsController implements IconDisplayingController {
      * Deletes ChoiceOptionSettingsController from {@link ControllerFacade}.
      * Instructs {@link MainApplicationController} to update the preview.
      */
-    private void actionOnCloseButton(){
+    private void actionOnCloseButton() {
         controllerFacade.getViewFacade().getChoiceOptionSettingsStage().close();
         controllerFacade.getViewFacade().setChoiceOptionSettingsStage(null);
         controllerFacade.deleteChoiceOptionSettingsController();
@@ -73,7 +73,7 @@ class ChoiceOptionSettingsController implements IconDisplayingController {
      * {@link javafx.scene.control.ColorPicker} and updates {@link ChoiceOption}
      * at index {@link ChoiceOptionSettingsController#choiceOptionId} with given color.
      */
-    private void actionOnColorPicker(){
+    private void actionOnColorPicker() {
         Color newColor = controllerFacade.getViewFacade().getChoiceOptionSettingsStage().getSelectedColor();
         controllerFacade.getProject().getChoiceOptions().get(choiceOptionId).setColor(newColor);
     }
@@ -82,7 +82,7 @@ class ChoiceOptionSettingsController implements IconDisplayingController {
      * Scrapes title from text field and updates {@link ChoiceOption}
      * at index {@link ChoiceOptionSettingsController#choiceOptionId} with given color.
      */
-    private void actionOnTitleTextField(){
+    private void actionOnTitleTextField() {
         String newTitle = controllerFacade.getViewFacade().getChoiceOptionSettingsStage().getTitleString();
         controllerFacade.getProject().getChoiceOptions().get(choiceOptionId).setTitle(newTitle);
     }
@@ -94,7 +94,7 @@ class ChoiceOptionSettingsController implements IconDisplayingController {
      *
      * @param routeSectionIndex the index of the route section for which an icon is selected
      */
-    private void actionOnRouteSectionIconButton(int routeSectionIndex){
+    private void actionOnRouteSectionIconButton(int routeSectionIndex) {
         controllerFacade.createIconSelectionController(this, routeSectionIndex);
     }
 
@@ -105,50 +105,49 @@ class ChoiceOptionSettingsController implements IconDisplayingController {
      *
      * @param routeSectionIndex the index of the route section which LineType is updated
      */
-    private void actionOnLineTypeChoiceBox(int routeSectionIndex){
+    private void actionOnLineTypeChoiceBox(int routeSectionIndex) {
         //should  be called when option is selected
-
         LineType newLineType = controllerFacade.getViewFacade().getChoiceOptionSettingsStage()
                 .getRouteSectionLineTypeChoiceBoxSelection(routeSectionIndex);
         controllerFacade.getProject().getChoiceOptions().get(choiceOptionId).getRouteSections()
-                                                                    .get(routeSectionIndex).setLineType(newLineType);
+                .get(routeSectionIndex).setLineType(newLineType);
         updateRouteSections();
     }
 
     /**
-     * Scrapes selected choiceDataKey of {@link RouteSection} with given index from
+     * Scrapes selected route section value name of {@link RouteSection} with given index from
      * {@link edu.kit.ifv.trafficspvisualizer.view.window.ChoiceOptionSettingsStage} and updates
      * {@link RouteSection} accordingly.
      *
      * @param routeSectionIndex the index of the route section which choiceDataKey is updated
      */
-    private void actionOnRouteSectionValueNameChoiceBox(int routeSectionIndex){
+    private void actionOnRouteSectionValueNameChoiceBox(int routeSectionIndex) {
         //should  be called when option is selected
-
-        String choiceDataKey = controllerFacade.getViewFacade().getChoiceOptionSettingsStage()
-                                                            .getRouteSectionValueNameSelection(routeSectionIndex);
+        String routeSectionValueName = controllerFacade.getViewFacade().getChoiceOptionSettingsStage()
+                .getRouteSectionValueNameSelection(routeSectionIndex);
 
         controllerFacade.getProject().getChoiceOptions().get(choiceOptionId).getRouteSections()
-                                                                .get(routeSectionIndex).setChoiceDataKey(choiceDataKey);
+                .get(routeSectionIndex).setChoiceDataKey(routeSectionValueName);
         updateRouteSections();
     }
 
     /**
-     * Scrapes selected column name of {@link Attribute} with given index from
+     * Scrapes selected value names of {@link Attribute} with given index from
      * {@link edu.kit.ifv.trafficspvisualizer.view.window.ChoiceOptionSettingsStage} and updates mappings
      * in {@link Attribute} accordingly.
      *
-     * @param attributeIndex the index of the attribute which column mappings are updated
+     * @param attributeIndex the index of the attribute which mapping is updated
      */
-    private void actionOnAttributeValueNamesCheckBox(int attributeIndex){
+    private void actionOnAttributeValueNamesCheckBox(int attributeIndex) {
         //should  be called when option is selected
-        List<String> attributeValueSelection = controllerFacade.getViewFacade().getChoiceOptionSettingsStage()
+        List<String> attributeValueNames = controllerFacade.getViewFacade().getChoiceOptionSettingsStage()
                 .getAttributeValueNamesSelection(attributeIndex);
 
         Attribute attribute = controllerFacade.getProject().getAttributes().get(attributeIndex);
         ChoiceOption choiceOption = controllerFacade.getProject().getChoiceOptions().get(choiceOptionId);
 
-        attribute.setMapping(choiceOption, attributeValueSelection);
+        // set new mapping
+        attribute.setMapping(choiceOption, attributeValueNames);
 
     }
 
@@ -157,7 +156,7 @@ class ChoiceOptionSettingsController implements IconDisplayingController {
      * {@link ChoiceOption} with
      * index {@link ChoiceOptionSettingsController#choiceOptionId}.
      */
-    private void actionOnAddRouteSectionButton(){
+    private void actionOnAddRouteSectionButton() {
         controllerFacade.getProject().getChoiceOptions().get(choiceOptionId)
                 .addRouteSection(new RouteSection(controllerFacade.getProject().getIconManager().getDefaultIcon()));
         updateRouteSections();
@@ -171,7 +170,7 @@ class ChoiceOptionSettingsController implements IconDisplayingController {
      * @param routeSectionIndex index of route section which should be deleted
      */
     private void actionOnRouteSectionRemoveButton(int routeSectionIndex) {
-        // show confirmation and alert and delete route section only if user did click ok
+        // show confirmation alert and remove route section only if user  click 'ok'
         controllerFacade.getViewFacade().getChoiceOptionSettingsStage()
                 .showRemoveRouteSectionConfirmationAlert()
                 .ifPresent(response -> {
@@ -185,84 +184,97 @@ class ChoiceOptionSettingsController implements IconDisplayingController {
     }
 
     @Override
-    public void updateIcon(Icon icon, int routeSectionIndex){
+    public void updateIcon(Icon icon, int routeSectionIndex) {
         controllerFacade.getProject().getChoiceOptions().get(choiceOptionId)
-                                                    .getRouteSections().get(routeSectionIndex).setIcon(icon);
+                .getRouteSections().get(routeSectionIndex).setIcon(icon);
         updateRouteSections();
     }
 
+    /**
+     * Instructs ChoiceOptionSettingsStage to update {@link RouteSection} ui components and
+     * updates their action listeners.
+     */
     private void updateRouteSections() {
         controllerFacade.getViewFacade().getChoiceOptionSettingsStage().updateRouteSectionScrollPane();
         updateRouteSectionActionListeners();
     }
 
-    private void setActionListeners(){
+    /**
+     * Sets initial action listeners of ui components in ChoiceOptionsSettingsStage.
+     */
+    private void setActionListeners() {
 
         ChoiceOptionSettingsStage choiceOptionSettingsStage = controllerFacade.getViewFacade()
-                                                                                        .getChoiceOptionSettingsStage();
+                .getChoiceOptionSettingsStage();
 
-        // New Route Section
+        // Add Route Section-Button
         choiceOptionSettingsStage.getAddRouteSectionButton().setOnAction(e -> actionOnAddRouteSectionButton());
 
-        // Route Section
+        // set route section action listeners
         updateRouteSectionActionListeners();
 
         // ColorPicker
         choiceOptionSettingsStage.getColorPicker().setOnAction(e -> actionOnColorPicker());
 
-        // Attribute values
+        // set attribute action listeners
         updateAttributeActionListeners();
 
-        // Complete
+        // Close-Button
         choiceOptionSettingsStage.getCloseButton().setOnAction(e -> actionOnCloseButton());
 
-        // Title - when text field loses focus
+        // TitleTextField - listens to text field losing focus
         choiceOptionSettingsStage.getTitleTextField().focusedProperty().addListener(e -> actionOnTitleTextField());
 
         // Close Request - same event handler as complete button
         choiceOptionSettingsStage.setOnCloseRequest(e -> actionOnCloseButton());
     }
 
+    /**
+     * Updates action listeners of ui components concerning {@link RouteSection}s in ChoiceOptionSettingsStage.
+     */
     private void updateRouteSectionActionListeners() {
 
         ChoiceOptionSettingsStage choiceOptionSettingsStage = controllerFacade.getViewFacade()
-                                                                                        .getChoiceOptionSettingsStage();
+                .getChoiceOptionSettingsStage();
 
-        for(int i = 0; i < choiceOptionSettingsStage.getRouteSectionRemoveButtonList().size(); i++) {
+        for (int i = 0; i < choiceOptionSettingsStage.getRouteSectionRemoveButtonList().size(); i++) {
             final int index = i;
 
-            // Delete Route Section
+            // Remove Route Section-Button
             choiceOptionSettingsStage.getRouteSectionRemoveButtonList().get(index)
-                                                                        .setOnAction(e -> actionOnRouteSectionRemoveButton(index));
+                    .setOnAction(e -> actionOnRouteSectionRemoveButton(index));
 
-            // Icon button
+            // Route Section Icon-Button
             choiceOptionSettingsStage.getRouteSectionIconButtonList().get(index)
-                                                                        .setOnAction(e -> actionOnRouteSectionIconButton(index));
+                    .setOnAction(e -> actionOnRouteSectionIconButton(index));
 
-            // LineType - when checkbox value is picked
+            // LineType - listens to selected item changing
             choiceOptionSettingsStage.getRouteSectionLineTypeChoiceBoxList()
-                                                .get(index).getSelectionModel().selectedItemProperty()
-                                                .addListener(e -> actionOnLineTypeChoiceBox(index));
+                    .get(index).getSelectionModel().selectedItemProperty()
+                    .addListener(e -> actionOnLineTypeChoiceBox(index));
 
 
-            // Column - when checkbox value is picked
+            // Route Section Value Names - listens to selected item changing
             choiceOptionSettingsStage.getRouteSectionValueNameChoiceBoxList()
-                                                .get(index).getSelectionModel().selectedItemProperty()
-                                                .addListener(e -> actionOnRouteSectionValueNameChoiceBox(index));
+                    .get(index).getSelectionModel().selectedItemProperty()
+                    .addListener(e -> actionOnRouteSectionValueNameChoiceBox(index));
         }
     }
 
+    /**
+     * Updates action listeners of ui components concerning {@link Attribute}s in ChoiceOptionSettingsStage.
+     */
     private void updateAttributeActionListeners() {
         ChoiceOptionSettingsStage choiceOptionSettingsStage = controllerFacade.getViewFacade()
-                                                                                        .getChoiceOptionSettingsStage();
+                .getChoiceOptionSettingsStage();
         // iterate over attributes
-        for(int i = 0; i < choiceOptionSettingsStage.getAttributesValueNamesCheckBoxList().size(); i++) {
+        for (int i = 0; i < choiceOptionSettingsStage.getAttributesValueNamesCheckBoxList().size(); i++) {
             // iterate over checkboxes
-            for(int j = 0; j < choiceOptionSettingsStage.getAttributesValueNamesCheckBoxList().getFirst().size(); j++) {
+            for (int j = 0; j < choiceOptionSettingsStage.getAttributesValueNamesCheckBoxList().getFirst().size(); j++) {
                 int index = i;
                 // set listener for when checkbox is clicked
                 choiceOptionSettingsStage.getAttributesValueNamesCheckBoxList().get(index).get(j)
-                                            .selectedProperty().addListener(e -> actionOnAttributeValueNamesCheckBox(index));
+                        .selectedProperty().addListener(e -> actionOnAttributeValueNamesCheckBox(index));
             }
         }
     }

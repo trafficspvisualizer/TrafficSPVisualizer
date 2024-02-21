@@ -1,6 +1,6 @@
 package edu.kit.ifv.trafficspvisualizer.util.project;
 
-import edu.kit.ifv.trafficspvisualizer.model.*;
+import edu.kit.ifv.trafficspvisualizer.model.Project;
 import edu.kit.ifv.trafficspvisualizer.model.icon.Icon;
 import edu.kit.ifv.trafficspvisualizer.model.settings.AbstractAttribute;
 import edu.kit.ifv.trafficspvisualizer.model.settings.Attribute;
@@ -22,9 +22,6 @@ import java.util.Objects;
  * This abstract class represents a saver that can save a project and create a JSON representation of a project.
  */
 public abstract class AbstractSaver {
-
-
-
     /**
      * Save a project to a specified path.
      *
@@ -40,6 +37,7 @@ public abstract class AbstractSaver {
      * @param name The name of the project.
      * @param attributes The attributes of the project.
      * @param exportSettings The export settings of the project.
+     * @param choiceOptions A List of ChoiceOptions to create a Json File from them.
      * @return A JSONObject representing the project.
      */
     protected JSONObject createJsonProject(String name, List<AbstractAttribute> attributes,
@@ -168,7 +166,8 @@ public abstract class AbstractSaver {
         jsonObject.put(JsonKeys.KEY_SUFFIX.getKey(), suffix);
         jsonObject.put(JsonKeys.KEY_PERMANENTLY_VISIBLE.getKey(), permanentlyVisible);
         jsonObject.put(JsonKeys.KEY_DECIMAL_PLACES.getKey(), decimalPlaces);
-        jsonObject.put(JsonKeys.KEY_CHOICE_OPTION_MAPPINGS.getKey(), createChoiceOptionMappingsJson(choiceOptionMappings));
+        jsonObject.put(JsonKeys.KEY_CHOICE_OPTION_MAPPINGS.getKey(),
+                createChoiceOptionMappingsJson(choiceOptionMappings));
         JSONObject attribute = new JSONObject();
         return attribute.put(JsonKeys.KEY_ATTRIBUTE.getKey(),jsonObject);
     }
@@ -213,7 +212,8 @@ public abstract class AbstractSaver {
 
         JSONArray routeSectionsJsonArray = new JSONArray();
         for (RouteSection routeSection : routeSections) {
-            JSONObject jsonRouteSection = createJsonRouteSection(routeSection.getIcon(), routeSection.getChoiceDataKey(), routeSection.getLineType());
+            JSONObject jsonRouteSection = createJsonRouteSection(routeSection.getIcon(),
+                    routeSection.getChoiceDataKey(), routeSection.getLineType());
             routeSectionsJsonArray.put(jsonRouteSection);
         }
 

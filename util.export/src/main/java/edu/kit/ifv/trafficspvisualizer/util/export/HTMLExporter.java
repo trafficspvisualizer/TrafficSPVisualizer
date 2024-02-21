@@ -8,18 +8,19 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
 import java.nio.file.StandardCopyOption;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
  * A class for exporting images in HTML format.
  * Inherits from the Exporter class.
  */
-public class HTMLExporter extends Exporter { //todo aufteilen in einzelen Situationen
+public class HTMLExporter extends Exporter {
     private String directoryName = "TrafficSPVisualizer";
-    private String var = "v_42x";
-    private int name = 1;
+    private String HTMLvar = "v_";
 
 
     /**
@@ -30,21 +31,14 @@ public class HTMLExporter extends Exporter { //todo aufteilen in einzelen Situat
      * @throws IOException If an error occurs while writing to the file.
      */
     @Override
-    public void export(ChoiceOptionImage[] images, File file, String name) throws IOException {
-        var imageExporter = new ImageExporter();
-        this.directoryName = name;
-        imageExporter.export(images, file, directoryName);
-        var groupedImages = groupImagesByScenario(images);
-        for (var imageGroup : groupedImages) {
-            exportGroup(imageGroup, file);
-        }
-    }
+    public void export(ChoiceOptionImage[] images, File file, String name, String HTMLvar) throws IOException {
+        if (!HTMLvar.isEmpty())this.HTMLvar = HTMLvar;
 
-    public void export(ChoiceOptionImage[] images, File file, String name, String var) throws IOException {
         var imageExporter = new ImageExporter();
-        this.var = var;
         this.directoryName = name;
-        imageExporter.export(images, file, directoryName);
+        imageExporter.export(images, file, directoryName,null);
+
+        this.directoryName += "_export";
         var groupedImages = groupImagesByScenario(images);
         for (var imageGroup : groupedImages) {
             exportGroup(imageGroup, file);
@@ -79,13 +73,14 @@ public class HTMLExporter extends Exporter { //todo aufteilen in einzelen Situat
         try (var writer = Files.newBufferedWriter(tempFilePath)) {
             writeHtmlContent(imageGroup, writer);
         }
-        Path path = Paths.get(file + "\\" + directoryName);
+        Path path = Paths.get(file.toString(), directoryName);
         if (!path.toFile().exists()) {
             boolean created = path.toFile().mkdir();
             if (!created) throw new IOException("Could not create the directory");
         }
-        Path finalFilePath = Paths.get(file + "\\" + directoryName , directoryName + name + ".html");
-        name++;
+        Path finalFilePath = Paths.get(file.getPath(),directoryName, imageGroup.getFirst().getScenarioNumber(),
+                directoryName + "_" + imageGroup.getFirst().getScenarioNumber() + ".html");
+
         Files.move(tempFilePath, finalFilePath, StandardCopyOption.REPLACE_EXISTING);
     }
 
@@ -109,15 +104,16 @@ public class HTMLExporter extends Exporter { //todo aufteilen in einzelen Situat
      * @throws IOException If an error occurs while writing to the file.
      */
     private void writeHtmlHeader(BufferedWriter writer) throws IOException {
-        writer.write("""
+        writer.write(String.format("""
             <head>
+                <meta charset="utf-8">
                 <link rel="stylesheet" href="https://something.online.com/example.css" />
                 <script src="https://test.com/example-lib.js" ></script>
                 <script type='text/javascript' src='images/local_script.js'></script>
                 
                 <script>
                       function change(value){
-                        document.getElementById("v_42").value= value;
+                        document.getElementById("%s").value= value;
                       }
                     </script>
                     
@@ -140,7 +136,7 @@ public class HTMLExporter extends Exporter { //todo aufteilen in einzelen Situat
                       }
                     </style>
             </head>
-            """);
+            """, HTMLvar));
     }
 
     /**
@@ -156,17 +152,18 @@ public class HTMLExporter extends Exporter { //todo aufteilen in einzelen Situat
                   <ul>
                 """);
         for (int i = 0; i < imageGroup.size(); i++) {
-            var image = imageGroup.get(i);
-            var imagePath = "\\"+constructImagePath(image);
+            ChoiceOptionImage image = imageGroup.get(i);
+            String imagePath = constructImagePath(image);
             var encodedPath = java.net.URLEncoder.encode(imagePath, StandardCharsets.UTF_8);
             writer.write(String.format("""
                 <li>
-                <input  id="%s%d" type="radio" name="v_42" value="%d" class="input-hidden" onclick="change('%s')">
-                    <label for="v_42x%d" id="v_42x%d-label">
+                <input  id="%sx%d" type="radio" name="%s" value="%d" class="input-hidden" onclick="change('%s')">
+                    <label for="%sx%d" id="%sx%d-label">
                             <img src="%s" alt="%s" />
                           </label>
                 </li>
-                """,var, i + 1, i + 1, image.getTitle(),i + 1,i + 1,imagePath, image.getTitle()));
+                """, HTMLvar, i + 1, HTMLvar,i + 1, image.getTitle(), HTMLvar, i + 1, HTMLvar, i + 1,
+                    encodedPath, image.getTitle()));
         }
         writer.write("""
                 </ul>
@@ -181,12 +178,12 @@ public class HTMLExporter extends Exporter { //todo aufteilen in einzelen Situat
      * @throws IOException If an error occurs while writing to the file.
      */
     private void writeHiddenForm(BufferedWriter writer) throws IOException {
-        writer.write("""
+        writer.write(String.format("""
                 <form>
                 <div>
-                    <input id="v_42" name="v_42" value="#v_42#" readonly />
+                    <input id="%s" name="%s" value="#%s#" readonly />
                 </div>
                 </form>
-            """);
+            """, HTMLvar, HTMLvar, HTMLvar));
     }
 }

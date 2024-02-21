@@ -41,8 +41,7 @@ public class StandardImageGenerator extends ImageGenerator{
     private Font attributeFont;
     @Override
     public BufferedImage createChoiceOption(ChoiceOption choiceOption, DataObject dataObject,
-                                            List<AbstractAttribute> attributes, int height, int width,
-                                            double min, double max, int situationIndex) throws InvalidDataKeyException {
+                                            List<AbstractAttribute> attributes, int height, int width, double max, int situationIndex) throws InvalidDataKeyException {
         BufferedImage choiceOptionImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         this.heightOfHeadline = (int) (height * HEIGHT_OF_HEADLINE_CONSTANT);
         this.height = height;
