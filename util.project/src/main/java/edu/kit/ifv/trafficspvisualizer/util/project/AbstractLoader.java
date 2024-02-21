@@ -1,6 +1,6 @@
 package edu.kit.ifv.trafficspvisualizer.util.project;
 
-import edu.kit.ifv.trafficspvisualizer.model.*;
+import edu.kit.ifv.trafficspvisualizer.model.Project;
 import edu.kit.ifv.trafficspvisualizer.model.data.DataObject;
 import edu.kit.ifv.trafficspvisualizer.model.settings.AbstractAttribute;
 import edu.kit.ifv.trafficspvisualizer.model.settings.Attribute;
@@ -20,10 +20,17 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.text.ParseException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+/**
+ * The AbstractLoader creates the Project from a Json File.
+ * @author uhtfz
+ */
 public abstract class AbstractLoader {
     /**
      * Loads a project from a file.
@@ -31,6 +38,7 @@ public abstract class AbstractLoader {
      * @param file The file to load the project from.
      * @return The loaded project.
      * @throws IOException If an I/O error occurs.
+     * @throws ParseException If a parse error occurs in the parser
      */
     public abstract Project loadProject(File file) throws IOException, ParseException;
 
@@ -40,11 +48,12 @@ public abstract class AbstractLoader {
      * @param file The file to create the DataObject from.
      * @return The created DataObject.
      * @throws IOException If an I/O error occurs.
+     * @throws ParseException If a parse error occurs in the parser
      */
     private DataObject createDataObject(File file) throws IOException, ParseException {
         String extension = FilenameUtils.getExtension(file.toString());
         if (!extension.equals("ngd")){
-            throw new IllegalArgumentException("The given File is not accepted");
+            throw new IOException("The given File is not accepted");
         }
         return new NGDParser().parse(file);
     }
@@ -53,6 +62,7 @@ public abstract class AbstractLoader {
      * Creates a list of AbstractAttribute from a JSONArray.
      *
      * @param attributes The JSONArray to create the AbstractAttribute from.
+     * @param choiceOptions The List of ChoiceOption to add them in the Attribute.
      * @return The created list of AbstractAttribute.
      */
     private List<AbstractAttribute> createAttributes(JSONArray attributes, List<ChoiceOption> choiceOptions) {
@@ -68,6 +78,7 @@ public abstract class AbstractLoader {
      * Creates an AbstractAttribute from a JSONObject.
      *
      * @param jsonObject The JSONObject to create the AbstractAttribute from.
+     * @param choiceOptions The List of ChoiceOption to add them in the Attribute.
      * @return The created AbstractAttribute, or null if the JSONObject does not represent an attribute.
      */
     private AbstractAttribute createAttribute(JSONObject jsonObject, List<ChoiceOption> choiceOptions) {
@@ -83,6 +94,7 @@ public abstract class AbstractLoader {
      * Creates an Attribute from a JSONObject.
      *
      * @param attributeJSON The JSONObject to create the Attribute from.
+     * @param choiceOptions The List of ChoiceOption to add them in the Attribute.
      * @return The created Attribute.
      */
     private Attribute createAttributeFromJson(JSONObject attributeJSON, List<ChoiceOption> choiceOptions) {
@@ -100,12 +112,15 @@ public abstract class AbstractLoader {
      * Creates a map of ChoiceOption to list of strings from a JSONArray.
      *
      * @param choiceOptions The JSONArray to create the map from.
+     * @param choiceOption The List of ChoiceOption to add them in the Attribute.
      * @return The created map.
      */
-    private Map<ChoiceOption,List<String>> createChoiceOptions(JSONArray choiceOptions, List<ChoiceOption> choiceOption) {
+    private Map<ChoiceOption,List<String>> createChoiceOptions(JSONArray choiceOptions,
+                                                               List<ChoiceOption> choiceOption) {
         return IntStream.range(0, choiceOptions.length())
                 .mapToObj(choiceOptions::getJSONObject)
-                .collect(Collectors.toMap(jsonObject -> this.createOneChoiceOption(jsonObject, choiceOption), this::createList));
+                .collect(Collectors.toMap(jsonObject -> this.createOneChoiceOption(jsonObject, choiceOption),
+                        this::createList));
     }
 
     /**
@@ -125,6 +140,7 @@ public abstract class AbstractLoader {
      * Creates a ChoiceOption from a JSONObject.
      *
      * @param jsonObject The JSONObject to create the ChoiceOption from.
+     * @param choiceOptions The List of ChoiceOption to add them in the Attribute.
      * @return The created ChoiceOption.
      */
     private ChoiceOption createOneChoiceOption(JSONObject jsonObject, List<ChoiceOption> choiceOptions) {
@@ -134,11 +150,11 @@ public abstract class AbstractLoader {
         String colour = choiceOption.optString(JsonKeys.KEY_COLOR.getKey());
         JSONArray routeSection = choiceOption.optJSONArray(JsonKeys.KEY_ROUTE_SECTIONS.getKey());
         if (choiceOptions != null) {
-           for (ChoiceOption choiceOption1: choiceOptions) {
-               if (choiceOption1.getName().equals(name)) return choiceOption1;
-           }
+            for (ChoiceOption choiceOption1: choiceOptions) {
+                if (choiceOption1.getName().equals(name)) return choiceOption1;
+            }
         }
-        return new ChoiceOption(name,title,createRouteSectionList(routeSection) ,Color.valueOf(colour));
+        return new ChoiceOption(name,title,createRouteSectionList(routeSection), Color.valueOf(colour));
     }
 
     /**
@@ -162,24 +178,9 @@ public abstract class AbstractLoader {
      * @return The created RouteSection.
      */
     private RouteSection createRouteSection(JSONObject routeSection) {
-        String choiceDataKey  = routeSection.optString(JsonKeys.KEY_CHOICE_DATA_KEY.getKey());
+        String choiceDataKey = routeSection.optString(JsonKeys.KEY_CHOICE_DATA_KEY.getKey());
         String lineType = routeSection.optString(JsonKeys.KEY_LINE_TYPE.getKey());
         return new RouteSection(null,choiceDataKey, LineType.fromString(lineType));
-    }
-
-    /**
-     * Creates a list of ChoiceOption from a list of AbstractAttribute.
-     *
-     * @param attributes The list of AbstractAttribute to create the ChoiceOption from.
-     * @return The created list of ChoiceOption.
-     */
-    protected List<ChoiceOption> createChoiceOptionList(List<AbstractAttribute> attributes) {
-        return attributes.stream()
-                .filter(Attribute.class::isInstance)
-                .map(Attribute.class::cast)
-                .flatMap(attribute -> attribute.getChoiceOptionMappings().keySet().stream())
-                .distinct()
-                .collect(Collectors.toList());
     }
 
     /**
@@ -191,8 +192,10 @@ public abstract class AbstractLoader {
      * @param projectDir The Path to the directory containing the project.
      * @return The created Project.
      * @throws IOException If an I/O error occurs.
+     * @throws ParseException If a parse error occurs in the parser
      */
-    protected Project createProject(JSONObject jsonProject,File ngdFile, Path iconDir, Path projectDir) throws IOException, ParseException {
+    protected Project createProject(JSONObject jsonProject,File ngdFile, Path iconDir, Path projectDir)
+            throws IOException, ParseException {
         DataObject dataObject = createDataObject(ngdFile);
         String name = jsonProject.optString(JsonKeys.KEY_NAME.getKey());
         JSONArray jsonAttributes = jsonProject.optJSONArray(JsonKeys.KEY_ATTRIBUTES.getKey());
@@ -223,9 +226,10 @@ public abstract class AbstractLoader {
                     }
                 }
                 for (int j = 0; j < Objects.requireNonNull(choiceOption).getRouteSections().size(); j++) {
-                    if (!routeSectionJSON.isEmpty() &&  !routeSectionJSON.getJSONObject(j).isEmpty()) {
+                    if (!routeSectionJSON.isEmpty() && !routeSectionJSON.getJSONObject(j).isEmpty()) {
                         JSONObject route = routeSectionJSON.getJSONObject(j);
-                        choiceOption.getRouteSections().get(j).setIcon(project.getIconManager().getIcons().get(route.optInt(JsonKeys.KEY_ICON.getKey())));
+                        choiceOption.getRouteSections().get(j).setIcon(project.getIconManager().
+                                getIcons().get(route.optInt(JsonKeys.KEY_ICON.getKey())));
                     }
                 }
             }

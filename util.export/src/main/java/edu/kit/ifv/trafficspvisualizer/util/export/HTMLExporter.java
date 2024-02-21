@@ -8,17 +8,19 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
 import java.nio.file.StandardCopyOption;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
  * A class for exporting images in HTML format.
  * Inherits from the Exporter class.
  */
-public class HTMLExporter extends Exporter { //todo aufteilen in einzelen Situationen
+public class HTMLExporter extends Exporter {
     private String directoryName = "TrafficSPVisualizer";
-    private String var = "v_";
+    private String HTMLvar = "v_";
 
 
     /**
@@ -29,8 +31,8 @@ public class HTMLExporter extends Exporter { //todo aufteilen in einzelen Situat
      * @throws IOException If an error occurs while writing to the file.
      */
     @Override
-    public void export(ChoiceOptionImage[] images, File file, String name, String var) throws IOException {
-        if (!var.isEmpty())this.var = var;
+    public void export(ChoiceOptionImage[] images, File file, String name, String HTMLvar) throws IOException {
+        if (!HTMLvar.isEmpty())this.HTMLvar = HTMLvar;
 
         var imageExporter = new ImageExporter();
         this.directoryName = name;
@@ -71,12 +73,13 @@ public class HTMLExporter extends Exporter { //todo aufteilen in einzelen Situat
         try (var writer = Files.newBufferedWriter(tempFilePath)) {
             writeHtmlContent(imageGroup, writer);
         }
-        Path path = Paths.get(file.toString() , directoryName);
+        Path path = Paths.get(file.toString(), directoryName);
         if (!path.toFile().exists()) {
             boolean created = path.toFile().mkdir();
             if (!created) throw new IOException("Could not create the directory");
         }
-        Path finalFilePath = Paths.get(file.getPath(),directoryName ,imageGroup.getFirst().getScenarioNumber() , directoryName + "_" + imageGroup.getFirst().getScenarioNumber() + ".html");
+        Path finalFilePath = Paths.get(file.getPath(),directoryName, imageGroup.getFirst().getScenarioNumber(),
+                directoryName + "_" + imageGroup.getFirst().getScenarioNumber() + ".html");
 
         Files.move(tempFilePath, finalFilePath, StandardCopyOption.REPLACE_EXISTING);
     }
@@ -133,7 +136,7 @@ public class HTMLExporter extends Exporter { //todo aufteilen in einzelen Situat
                       }
                     </style>
             </head>
-            """,var));
+            """, HTMLvar));
     }
 
     /**
@@ -159,7 +162,8 @@ public class HTMLExporter extends Exporter { //todo aufteilen in einzelen Situat
                             <img src="%s" alt="%s" />
                           </label>
                 </li>
-                """,var, i + 1, var ,i + 1, image.getTitle(),var, i + 1, var, i + 1, encodedPath, image.getTitle()));
+                """, HTMLvar, i + 1, HTMLvar,i + 1, image.getTitle(), HTMLvar, i + 1, HTMLvar, i + 1,
+                    encodedPath, image.getTitle()));
         }
         writer.write("""
                 </ul>
@@ -180,6 +184,6 @@ public class HTMLExporter extends Exporter { //todo aufteilen in einzelen Situat
                     <input id="%s" name="%s" value="#%s#" readonly />
                 </div>
                 </form>
-            """,var,var,var));
+            """, HTMLvar, HTMLvar, HTMLvar));
     }
 }

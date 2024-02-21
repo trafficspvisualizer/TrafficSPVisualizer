@@ -13,17 +13,21 @@ import java.util.Objects;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-public abstract class  Exporter {
-    protected static final String INFO_PREFIX = "#c_";
-    protected static final String INFO_SUFFIX = "#";
+/**
+ * The abstract Class is uses for further uses of Exporter.
+ * @author uhtfz
+ */
+public abstract class Exporter {
+    private static final String INFO_PREFIX = "#c_";
+    private static final String INFO_SUFFIX = "#";
     protected static final String IMAGE_FORMAT = "png";
 
-    private static final Map<ExportType, Supplier<Exporter>> exporterMap = new HashMap<>();
+    private static final Map<ExportType, Supplier<Exporter>> EXPORTER_MAP = new HashMap<>();
 
     static {
-        exporterMap.put(ExportType.HTML, HTMLExporter::new);
-        exporterMap.put(ExportType.CHOICE_OPTION, ImageExporter::new);
-        exporterMap.put(ExportType.SITUATION, ImageExporter::new);
+        EXPORTER_MAP.put(ExportType.HTML, HTMLExporter::new);
+        EXPORTER_MAP.put(ExportType.CHOICE_OPTION, ImageExporter::new);
+        EXPORTER_MAP.put(ExportType.SITUATION, ImageExporter::new);
     }
 
     /**
@@ -31,9 +35,10 @@ public abstract class  Exporter {
      *
      * @param exportType the given export type
      * @return a concrete implementation of Exporter
+     * @throws IllegalArgumentException When the exportType is wrong.
      */
     public static Exporter getExporter(ExportType exportType) {
-        Supplier<Exporter> exporter = exporterMap.get(exportType);
+        Supplier<Exporter> exporter = EXPORTER_MAP.get(exportType);
         if (exporter == null) {
             throw new IllegalArgumentException("The exportType is wrong");
         }
@@ -41,7 +46,16 @@ public abstract class  Exporter {
     }
 
 
-    public abstract void export(ChoiceOptionImage[] images, File file, String name, String var) throws IOException;
+    /**
+     * This method exports the given images to a specified file.
+     *
+     * @param images An array of ChoiceOptionImage objects to be exported.
+     * @param file The destination file where the images will be exported.
+     * @param name The name to be associated with the exported content.
+     * @param HTMLvar A string representing an HTML variable associated with the export operation.
+     * @throws IOException If an input or output exception occurred.
+     */
+    public abstract void export(ChoiceOptionImage[] images, File file, String name, String HTMLvar) throws IOException;
 
     /**
      * Constructs the image path.
@@ -60,7 +74,8 @@ public abstract class  Exporter {
                                 }
                             }
                             infoList.removeAll(Collections.singleton(null));
-                            return INFO_PREFIX + infoList.stream().map(Object::toString).collect(Collectors.joining()) + INFO_SUFFIX;
+                            return INFO_PREFIX + infoList.stream().map(Object::toString).collect(Collectors.joining())
+                                    + INFO_SUFFIX;
                         })
                         .collect(Collectors.joining()),
                 IMAGE_FORMAT);
