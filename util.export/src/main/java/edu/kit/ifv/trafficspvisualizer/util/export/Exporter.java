@@ -38,11 +38,10 @@ public abstract class  Exporter {
      * @return The constructed image path.
      */
     protected String constructImagePath(ChoiceOptionImage image) {
-        //TODO: Maybe set info to null instead of "-1" in ChoiceOptionImage
         return String.format("%s.%s",
                 image.getInfos().stream()
                         .map(info -> {
-                            List<String> infoList = new ArrayList<>(Collections.singletonList(info));
+                            List<String> infoList = new ArrayList<>(Collections.singletonList(info.replace(" ", "_")));
                             for (int i = 0; i < Math.min(3, infoList.size()); i++) {
                                 if (Objects.equals(infoList.get(i), "-1")) {
                                     infoList.set(i, null);
@@ -55,8 +54,9 @@ public abstract class  Exporter {
                 IMAGE_FORMAT);
     }
 
+
     /**
-     * Constructs the image path.
+     * Constructs the image path with the directory.
      *
      * @param image The image for which the path will be constructed.
      * @return The constructed image path.
