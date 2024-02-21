@@ -43,20 +43,20 @@ class AttributeController {
      * Sets its attributeIndex to the length of the list of attributes in the model to
      * assure no existing {@link Attribute} is edited.
      */
-    private void actionOnAddAttributeButton(){
-
+    private void actionOnAddAttributeButton() {
         // Creating and adding new default Attribute and opening AttributeSettingsStage to edit it
         Attribute newAttribute = new Attribute(controllerFacade.getProject().getIconManager().getDefaultIcon());
         controllerFacade.getProject().addAbstractAttribute(newAttribute);
-        controllerFacade.createAttributeSettingsController(controllerFacade.getProject().getAbstractAttributes().size() - 1,
-                                                                                            true);
+        controllerFacade.createAttributeSettingsController(
+                controllerFacade.getProject().getAbstractAttributes().size() - 1, true
+        );
     }
 
     /**
      * Instructs model to add new separator line and notifies
      * {@link edu.kit.ifv.trafficspvisualizer.view.window.AttributeStage} of change.
      */
-    private void actionOnAddSeparatorLineButton(){
+    private void actionOnAddSeparatorLineButton() {
         controllerFacade.getProject().addAbstractAttribute(new SeparatorLine());
         update();
     }
@@ -67,8 +67,8 @@ class AttributeController {
      *
      * @param abstractAttributeIndex the index of the attribute which should be deleted
      */
-    private void actionOnRemoveButton(int abstractAttributeIndex){
-
+    private void actionOnRemoveButton(int abstractAttributeIndex) {
+        // show confirmation alert and remove attribute only if user  click 'ok'
         controllerFacade.getViewFacade().getAttributeStage()
                 .showRemoveAttributeProjectConfirmationAlert()
                 .ifPresent(response -> {
@@ -77,7 +77,6 @@ class AttributeController {
                         update();
                     }
                 });
-
     }
 
     /**
@@ -86,7 +85,7 @@ class AttributeController {
      *
      * @param abstractAttributeIndex the index of the attribute which should be edited
      */
-    private void actionOnSettingsButton(int abstractAttributeIndex){
+    private void actionOnSettingsButton(int abstractAttributeIndex) {
         controllerFacade.createAttributeSettingsController(abstractAttributeIndex, false);
     }
 
@@ -95,8 +94,9 @@ class AttributeController {
      *
      * @param abstractAttributeIndex the index of the attribute for which the active status should be inverted
      */
-    private void actionOnActiveCheckbox(int abstractAttributeIndex){
+    private void actionOnActiveCheckbox(int abstractAttributeIndex) {
         AbstractAttribute attribute = controllerFacade.getProject().getAbstractAttributes().get(abstractAttributeIndex);
+        // inverting active attribute
         attribute.setActive(!attribute.isActive());
         update();
     }
@@ -120,7 +120,7 @@ class AttributeController {
      *
      * @param abstractAttributeIndex the index of the attribute which should be moved down
      */
-    private void actionOnDownSwitchButton(int abstractAttributeIndex){
+    private void actionOnDownSwitchButton(int abstractAttributeIndex) {
         controllerFacade.getProject().swapAttributeDown(abstractAttributeIndex);
         update();
     }
@@ -130,7 +130,7 @@ class AttributeController {
      * {@link edu.kit.ifv.trafficspvisualizer.view.ViewFacade}. Deletes AttributeController from
      * {@link ControllerFacade}. Instructs {@link MainApplicationController} to update the preview.
      */
-    private void actionOnCloseButton(){
+    private void actionOnCloseButton() {
         controllerFacade.getViewFacade().getAttributeStage().close();
         controllerFacade.getViewFacade().setAttributeStage(null);
         controllerFacade.deleteAttributeController();
@@ -147,51 +147,51 @@ class AttributeController {
         updateActionListeners();
     }
 
+    /**
+     * Updates action listeners of ui components in AttributeStage.
+     */
     private void updateActionListeners() {
-
         AttributeStage attributeStage = controllerFacade.getViewFacade().getAttributeStage();
 
-
-
-        // Move Up
-        for(int i = 0; i < attributeStage.getUpSwitchAttributeButtonList().size(); i++) {
+        for (int i = 0; i < attributeStage.getUpSwitchAttributeButtonList().size(); i++) {
             // index in view is same as index in attribute list of project
             final int index = i;
-            // Move up & down
-            attributeStage.getUpSwitchAttributeButtonList().get(index)
-                                                                .setOnAction(e -> actionOnUpSwitchButton(index));
+            // Switch up & down
+            attributeStage.getUpSwitchAttributeButtonList().get(index).setOnAction(e -> actionOnUpSwitchButton(index));
             attributeStage.getDownSwitchAttributeButtonList().get(index)
-                                                            .setOnAction(e -> actionOnDownSwitchButton(index));
+                    .setOnAction(e -> actionOnDownSwitchButton(index));
 
             // Settings-Button
             attributeStage.getAttributeSettingsButtonList().get(index).setOnAction(e -> actionOnSettingsButton(index));
 
             // Active-Checkbox
             attributeStage.getAttributeActiveCheckBoxList().get(index)
-                                                    .selectedProperty().addListener(e -> actionOnActiveCheckbox(index));
+                    .selectedProperty().addListener(e -> actionOnActiveCheckbox(index));
 
-            // Delete-Button
+            // Remove-Button
             attributeStage.getAttributeRemoveButtonList().get(index).setOnAction(e -> actionOnRemoveButton(index));
         }
     }
 
-    private void setActionListeners(){
+    /**
+     * Sets initial action listeners of ui components in AttributeStage.
+     */
+    private void setActionListeners() {
         AttributeStage attributeStage = controllerFacade.getViewFacade().getAttributeStage();
 
-        // action listeners which can change when order is changed
+        // set action listeners which can change when order is changed
         updateActionListeners();
 
-        // Non-changing action listeners
-        // New Attribute
+        // Add Attribute-Button
         attributeStage.getAddAttributeButton().setOnAction(e -> actionOnAddAttributeButton());
 
-        // New Separator Line
+        // Add Separator Line-Button
         attributeStage.getAddSeparatorLineButton().setOnAction(e -> actionOnAddSeparatorLineButton());
 
         // Close-Button
         attributeStage.getCloseButton().setOnAction(e -> actionOnCloseButton());
 
-        // Close Request - same event handler as complete button
+        // Close Request - same event handler as close button
         attributeStage.setOnCloseRequest(e -> actionOnCloseButton());
     }
 }
