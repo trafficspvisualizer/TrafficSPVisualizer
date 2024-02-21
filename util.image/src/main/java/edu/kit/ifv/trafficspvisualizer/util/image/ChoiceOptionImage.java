@@ -1,39 +1,26 @@
 package edu.kit.ifv.trafficspvisualizer.util.image;
 
 import java.awt.image.BufferedImage;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 public class ChoiceOptionImage {
-
-    private static final int SCENARIO_NUMBER_KEY = 1;
-    private static final int BLOCK_NUMBER_KEY = 2;
-    private static final int CHOICE_OPTION_NUMBER_KEY = 3;
-    private static final int TITLE_KEY = 0;
-
+    private int situationNumber;
+    private int blockNumber;
+    private int choiceOptionNumber;
+    private String title;
     private BufferedImage image;
-    private final Map<Integer, String> infos;
 
-    public ChoiceOptionImage() {
-        infos = new HashMap<>();
-        infos.put(TITLE_KEY, "-1");
-        infos.put(SCENARIO_NUMBER_KEY, "-1");
-        infos.put(BLOCK_NUMBER_KEY, "-1");
-        infos.put(CHOICE_OPTION_NUMBER_KEY, "-1");
-
-    }
-    public void setImage(BufferedImage image) {
+    public ChoiceOptionImage(String title, int blockNumber, int situationNumber, int choiceOptionNumber,
+                             BufferedImage image) {
+        this.title = title;
+        this.situationNumber = situationNumber;
+        this.blockNumber = blockNumber;
+        this.choiceOptionNumber = choiceOptionNumber;
         this.image = image;
     }
 
-    public void add(String info) {
-        infos.put(infos.size(), info);
-    }
-
-    public List<String> getInfos() {
-        return List.copyOf(infos.values());
+    public void setImage(BufferedImage image) {
+        this.image = image;
     }
 
     public BufferedImage getImage() {
@@ -41,36 +28,26 @@ public class ChoiceOptionImage {
     }
 
     public String getTitle() {
-        return infos.get(TITLE_KEY);
+        return title;
     }
 
-    public String getScenarioNumber() {
-        return infos.get(SCENARIO_NUMBER_KEY);
+    public int getSituationNumber() {
+        return situationNumber;
     }
 
     public void setBlockNumber(int blockNumber) {
-        if (blockNumber < 0) {
-            throw new IllegalArgumentException("Scenario Number must be greater than 0");
-        }
-        infos.put(BLOCK_NUMBER_KEY, String.valueOf(blockNumber));
+        this.blockNumber = blockNumber;
     }
 
     public void setChoiceOptionNumber(int choiceOptionNumber) {
-        if (choiceOptionNumber < 0) {
-            throw new IllegalArgumentException("Scenario Number must be greater than 0");
-        }
-        infos.put(CHOICE_OPTION_NUMBER_KEY, String.valueOf(choiceOptionNumber));
+        this.choiceOptionNumber = choiceOptionNumber;
     }
 
-    public void setScenarioNumber(int scenarioNumber) {
-        if (scenarioNumber < 0) {
-            throw new IllegalArgumentException("Scenario Number must be greater than 0");
-        }
-        infos.put(SCENARIO_NUMBER_KEY, String.valueOf(scenarioNumber));
+    public void setSituationNumber(int situationNumber) {
+        this.situationNumber = situationNumber;
     }
 
     public void setTitle(String title) {
-        Objects.requireNonNull(title);
-        infos.put(TITLE_KEY, title);
+        this.title = title;
     }
 }

@@ -1,22 +1,24 @@
 package edu.kit.ifv.trafficspvisualizer.util.image;
 
+import edu.kit.ifv.trafficspvisualizer.model.data.DataObject;
+import edu.kit.ifv.trafficspvisualizer.model.data.InvalidDataKeyException;
 import edu.kit.ifv.trafficspvisualizer.model.settings.AbstractAttribute;
 import edu.kit.ifv.trafficspvisualizer.model.settings.Attribute;
 import edu.kit.ifv.trafficspvisualizer.model.settings.ChoiceOption;
-import edu.kit.ifv.trafficspvisualizer.model.data.DataObject;
-import edu.kit.ifv.trafficspvisualizer.model.data.InvalidDataKeyException;
 import edu.kit.ifv.trafficspvisualizer.model.settings.LineType;
 import edu.kit.ifv.trafficspvisualizer.model.settings.RouteSection;
-import edu.kit.ifv.trafficspvisualizer.model.icon.SVGToBufferedImageConverter;
 import edu.kit.ifv.trafficspvisualizer.model.settings.SeparatorLine;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
-public class StandardImageGenerator extends ImageGenerator{
-    private static final double ATTRIBUTE_DRAWING_HEIGHT_CONSTANT = 0.39;
-    private static final double HEIGHT_OF_HEADLINE_CONSTANT = 0.25;
+public class StandardImageGenerator extends ImageGenerator {
+    private static final String FONT_DEFAULT = "Arial";
+    private static final String FONT_BOLD = "Arial Bold";
+    private static final double ATTRIBUTE_DRAWING_HEIGHT_FACTOR = 0.39;
+    private static final double HEIGHT_OF_HEADLINE_FACTOR = 0.25;
+    private static final double ALPHA_MODIFIER = (double) 150 / 255;
     private int heightOfHeadline;
     private int width;
     private int height;
@@ -32,18 +34,18 @@ public class StandardImageGenerator extends ImageGenerator{
     private List<AbstractAttribute> attributes;
     private java.awt.Color color;
     private int currentXCoordinate;
-    private Font headlineFont;
     private Font attributeFont;
-    SVGToBufferedImageConverter svgToBufferedImageConverter;
+
     @Override
     public BufferedImage createChoiceOption(ChoiceOption choiceOption, DataObject dataObject,
-                                            List<AbstractAttribute> attributes, int height, int width, double max, int situationIndex) throws InvalidDataKeyException {
+                                            List<AbstractAttribute> attributes, int height, int width, double max,
+                                            int situationIndex) throws InvalidDataKeyException {
         BufferedImage choiceOptionImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-        this.heightOfHeadline = (int) (height * HEIGHT_OF_HEADLINE_CONSTANT);
+        this.heightOfHeadline = (int) (height * HEIGHT_OF_HEADLINE_FACTOR);
         this.height = height;
         this.width = width;
         this.lengthOfLongestRouteSectionOfSituation = max;
-        this.attributeDrawingHeight = (int) (height * ATTRIBUTE_DRAWING_HEIGHT_CONSTANT);
+        this.attributeDrawingHeight = (int) (height * ATTRIBUTE_DRAWING_HEIGHT_FACTOR);
         this.attributeWidth = width / 17;
         this.attributeHeight = (int) (height * 0.47);
         this.distanceToSide = width / 20;
@@ -51,14 +53,15 @@ public class StandardImageGenerator extends ImageGenerator{
         this.attributes = attributes;
         this.dataObject = dataObject;
         this.situationIndex = situationIndex;
-        int attributeFontSize = (int) (height / 10);
-        this.attributeFont = new Font("Arial", Font.BOLD, attributeFontSize);
+        int attributeFontSize = height / 10;
+        this.attributeFont = new Font(FONT_DEFAULT, Font.BOLD, attributeFontSize);
         javafx.scene.paint.Color fxColor = choiceOption.getColor();
-        this.color = new java.awt.Color((float) fxColor.getRed(),
+        this.color = new java.awt.Color(
+                (float) fxColor.getRed(),
                 (float) fxColor.getGreen(),
                 (float) fxColor.getBlue(),
-                (float) fxColor.getOpacity());
-        svgToBufferedImageConverter = new SVGToBufferedImageConverter();
+                (float) fxColor.getOpacity()
+        );
         graphics2DChoiceOption = choiceOptionImage.createGraphics();
 
         fillGraphicWhite(graphics2DChoiceOption, width, height);
@@ -77,7 +80,7 @@ public class StandardImageGenerator extends ImageGenerator{
         fillGraphicWhite(graphics2DHeadline, width, heightOfHeadline);
 
         int sizeOfFont = heightOfHeadline / 2;
-        headlineFont = new Font("Arial Bold", Font.BOLD, sizeOfFont);
+        Font headlineFont = new Font(FONT_BOLD, Font.BOLD, sizeOfFont);
         graphics2DHeadline.setFont(headlineFont);
         String headline = choiceOption.getTitle();
         int maxHeadlineWidth = width - 2 * distanceToSide;
@@ -85,7 +88,7 @@ public class StandardImageGenerator extends ImageGenerator{
         graphics2DHeadline.setColor(color);
         graphics2DHeadline.drawString(headline, distanceToSide, 3 * heightOfHeadline / 4);
         graphics2DHeadline.dispose();
-        graphics2DChoiceOption.drawImage(headlineImage,0,0,null);
+        graphics2DChoiceOption.drawImage(headlineImage, 0, 0, null);
     }
 
     private void drawAttributeImages() throws InvalidDataKeyException {
@@ -111,7 +114,7 @@ public class StandardImageGenerator extends ImageGenerator{
                     BufferedImage attributeImage;
                     double attributeValue = calculateValueOfAttribute((Attribute) attribute);
                     if (!((Attribute) attribute).isPermanentlyVisible() && attributeValue == 0) {
-                        attributeImage = createEmptyAttributeImage((Attribute) attribute);
+                        attributeImage = createEmptyAttributeImage();
                     } else {
                         attributeImage = createOneAttributeImage((Attribute) attribute);
                     }
@@ -198,7 +201,6 @@ public class StandardImageGenerator extends ImageGenerator{
     }
 
 
-
     private BufferedImage createOneAttributeImage(Attribute attribute) throws InvalidDataKeyException {
         double imageAttributeValue = calculateValueOfAttribute(attribute);
         String prefix = attribute.getPrefix();
@@ -259,7 +261,7 @@ public class StandardImageGenerator extends ImageGenerator{
         return attributeImage;
     }
 
-    private BufferedImage createEmptyAttributeImage(Attribute attribute) {
+    private BufferedImage createEmptyAttributeImage() {
         BufferedImage emptyAttributeImage = new BufferedImage(attributeWidth, attributeHeight, BufferedImage.TYPE_INT_RGB);
         Graphics2D graphics2D = emptyAttributeImage.createGraphics();
         fillGraphicWhite(graphics2D, attributeWidth, attributeHeight);
@@ -267,7 +269,7 @@ public class StandardImageGenerator extends ImageGenerator{
         return emptyAttributeImage;
     }
 
-    private void makeStringFit (Graphics2D graphics2D, int maxWidth, String string) {
+    private void makeStringFit(Graphics2D graphics2D, int maxWidth, String string) {
         Font font;
         int sizeOfFont = graphics2D.getFontMetrics().getFont().getSize();
         int widthOfString = graphics2D.getFontMetrics().stringWidth(string);
@@ -280,20 +282,20 @@ public class StandardImageGenerator extends ImageGenerator{
     }
 
     //code from stackoverflow: https://stackoverflow.com/questions/3514158/how-do-you-clone-a-bufferedimage
-    private static BufferedImage copyImage(BufferedImage source){
-        BufferedImage b = new BufferedImage(source.getWidth(), source.getHeight(), source.getType());
-        Graphics g = b.getGraphics();
-        g.drawImage(source, 0, 0, null);
-        g.dispose();
-        return b;
+    private static BufferedImage copyImage(BufferedImage source) {
+        BufferedImage image = new BufferedImage(source.getWidth(), source.getHeight(), source.getType());
+        Graphics graphics = image.getGraphics();
+        graphics.drawImage(source, 0, 0, null);
+        graphics.dispose();
+        return image;
     }
 
-    private void fillGraphicWhite(Graphics2D graphics2D,int width, int height) {
+    private void fillGraphicWhite(Graphics2D graphics2D, int width, int height) {
         graphics2D.setColor(Color.WHITE);
-        graphics2D.fillRect(0,0, width, height);
+        graphics2D.fillRect(0, 0, width, height);
     }
 
-    private double calculateValueOfAttribute (Attribute attribute) throws InvalidDataKeyException {
+    private double calculateValueOfAttribute(Attribute attribute) throws InvalidDataKeyException {
         List<String> choiceOptionMappings = attribute.getMapping(choiceOption);
         double attributeValue = 0;
         for (String string : choiceOptionMappings) {
@@ -301,9 +303,10 @@ public class StandardImageGenerator extends ImageGenerator{
         }
         return attributeValue;
     }
+
     private int calculateNumberOfAttributes() {
         int numberOfAttributes = 0;
-        for(AbstractAttribute attribute : attributes) {
+        for (AbstractAttribute attribute : attributes) {
             if (attribute instanceof Attribute) {
                 numberOfAttributes++;
             }
@@ -318,43 +321,32 @@ public class StandardImageGenerator extends ImageGenerator{
         return String.format(("%." + decimalPlaces + "f"), value);
     }
 
-    //inspired by ChatGPT
-    public static void changeImageColor(BufferedImage image, Color newColor) {
+    private static void changeImageColor(BufferedImage image, Color newColor) {
         // Iterate through every pixel
         for (int y = 0; y < image.getHeight(); y++) {
             for (int x = 0; x < image.getWidth(); x++) {
-                int argb = image.getRGB(x, y);
-
-                // Extract alpha value
-                int alpha = (argb >> 24) & 0xFF;
-
-                // Modify color based on alpha
-                Color oldColor = new Color(argb, true);
+                Color oldColor = new Color(image.getRGB(x, y), true);
                 Color modifiedColor = new Color(
-                        (oldColor.getRed() * (255 - alpha) + newColor.getRed() * alpha) / 255,
-                        (oldColor.getGreen() * (255 - alpha) + newColor.getGreen() * alpha) / 255,
-                        (oldColor.getBlue() * (255 - alpha) + newColor.getBlue() * alpha) / 255,
-                        oldColor.getAlpha());
+                        newColor.getRed(),
+                        newColor.getGreen(),
+                        newColor.getBlue(),
+                        oldColor.getAlpha()
+                );
 
-                // Set the new color
                 image.setRGB(x, y, modifiedColor.getRGB());
             }
         }
     }
 
-    //inspired by ChatGPT
     private static void makeImageTransparent(BufferedImage image) {
-        int alphaValue = 150;
+        // Iterate through every pixel
         for (int y = 0; y < image.getHeight(); y++) {
             for (int x = 0; x < image.getWidth(); x++) {
-                int rgba = image.getRGB(x, y);
-                // Set the alpha value to the desired level
-                int alpha = (rgba >> 24) & 0xFF;
-                // Blend the original alpha with the desired alpha value
-                alpha = (alpha * alphaValue) / 255;
-                // Set the blended alpha value
-                rgba = (alpha << 24) | (rgba & 0x00FFFFFF);
-                image.setRGB(x, y, rgba);
+                Color color = new Color(image.getRGB(x, y), true);
+                int alpha = color.getAlpha();
+                int newAlpha = (int) (alpha * ALPHA_MODIFIER);
+                Color newColor = new Color(color.getRed(), color.getGreen(), color.getRed(), newAlpha);
+                image.setRGB(x, y, newColor.getRGB());
             }
         }
     }

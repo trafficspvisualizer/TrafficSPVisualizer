@@ -60,7 +60,7 @@ public class HTMLExporter extends Exporter { //todo aufteilen in einzelen Situat
      */
     private List<List<ChoiceOptionImage>> groupImagesByScenario(ChoiceOptionImage[] images) {
         return Arrays.stream(images)
-                .collect(Collectors.groupingBy(ChoiceOptionImage::getScenarioNumber))
+                .collect(Collectors.groupingBy(ChoiceOptionImage::getSituationNumber))
                 .values()
                 .stream()
                 .map(ArrayList::new)

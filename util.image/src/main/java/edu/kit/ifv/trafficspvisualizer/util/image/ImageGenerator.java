@@ -11,5 +11,6 @@ import java.util.List;
 public abstract class ImageGenerator {
 
     public abstract BufferedImage createChoiceOption(ChoiceOption choiceOption, DataObject dataObject,
-                                                     List<AbstractAttribute> attributes, int height, int width, double max, int situationIndex) throws InvalidDataKeyException;
+                                                     List<AbstractAttribute> attributes, int height, int width,
+                                                     double max, int situationIndex) throws InvalidDataKeyException;
 }

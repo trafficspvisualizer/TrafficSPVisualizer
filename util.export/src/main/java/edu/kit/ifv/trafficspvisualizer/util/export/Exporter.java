@@ -38,8 +38,10 @@ public abstract class  Exporter {
      * @return The constructed image path.
      */
     protected String constructImagePath(ChoiceOptionImage image) {
+        return image.getTitle();
+        /*
         //TODO: Maybe set info to null instead of "-1" in ChoiceOptionImage
-        return String.format("%s/%s.%s",image.getScenarioNumber(),
+        return String.format("%s/%s.%s", image.getSituationNumber(),
                 image.getInfos().stream()
                         .map(info -> {
                             List<String> infoList = new ArrayList<>(Collections.singletonList(info));
@@ -53,5 +55,7 @@ public abstract class  Exporter {
                         })
                         .collect(Collectors.joining()),
                 IMAGE_FORMAT);
+
+         */
     }
 }
