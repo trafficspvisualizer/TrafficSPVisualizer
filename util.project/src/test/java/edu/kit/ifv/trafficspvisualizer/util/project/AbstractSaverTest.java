@@ -82,21 +82,20 @@ class AbstractSaverTest {
                 project.getName(), project.getAbstractAttributes(), project.getExportSettings(), project.getChoiceOptions()
         );
 
-        final String expectedJsonString = "{\"exportSettings\":{\"imageWidth\":200,\"exportType\":\"ChoiceOpt" +
-                "ion\",\"HtmlVariable\":\"testVar\",\"imageHeight\":100,\"fileFormat\":\"PNG\"},\"ChoiceOptio" +
-                "ns\":[{\"ChoiceOption\":{\"routeSections\":[{\"lineType\":\"dashed\",\"icon\":0,\"choiceData" +
-                "Key\":\"zugang\"}],\"color\":\"0x00000000\",\"name\":\"fuss\",\"title\":\"fuss\"}},{\"Choice" +
-                "Option\":{\"routeSections\":[],\"color\":\"0x03030303\",\"name\":\"car\",\"title\":\"ChoiceO" +
-                "ptionTestTitle\"}},{\"ChoiceOption\":{\"routeSections\":[],\"color\":\"0x05050505\",\"name\"" +
-                ":\"oev_fuss\",\"title\":\"oev_fuss\"}},{\"ChoiceOption\":{\"routeSections\":[],\"color\":\"0" +
-                "x08080808\",\"name\":\"rad\",\"title\":\"rad\"}},{\"ChoiceOption\":{\"routeSections\":[],\"c" +
-                "olor\":\"0x0a0a0a0a\",\"name\":\"shuttle_od\",\"title\":\"shuttle_od\"}},{\"ChoiceOption\":" +
-                "{\"routeSections\":[],\"color\":\"0x0d0d0d0d\",\"name\":\"shuttle_tb\",\"title\":\"shuttle_t" +
-                "b\"}}],\"name\":\"test\",\"attributes\":[{\"Attribute\":{\"decimalPlaces\":2,\"prefix\":\"t" +
-                "estPrefix\",\"name\":\"TestAttribute\",\"icon\":0,\"suffix\":\"testSuffix\",\"choiceOptionMa" +
-                "ppings\":[{\"List\":[\"cost_car\"],\"ChoiceOption\":{\"routeSections\":[],\"color\":\"0x0303" +
-                "0303\",\"name\":\"car\",\"title\":\"ChoiceOptionTestTitle\"}}],\"permanentlyVisible\":true" +
-                "}},{\"LineSeparator\":\"\"}]}";
+        final String expectedJsonString = "{\"exportSettings\":{\"imageWidth\":200,\"exportType\":\"ChoiceOption\"," +
+                "\"HtmlVariable\":\"testVar\",\"imageHeight\":100,\"fileFormat\":\"PNG\"},\"ChoiceOptions\":" +
+                "[{\"ChoiceOption\":{\"routeSections\":[{\"lineType\":\"dashed\",\"icon\":0,\"choiceDataKey\":" +
+                "\"zugang\"}],\"color\":\"0x00000000\",\"name\":\"fuss\",\"title\":\"fuss\"}},{\"ChoiceOption\":" +
+                "{\"routeSections\":[],\"color\":\"0x03030303\",\"name\":\"car\",\"title\":\"ChoiceOptionTestTitle\"}}," +
+                "{\"ChoiceOption\":{\"routeSections\":[],\"color\":\"0x05050505\",\"name\":\"oev_fuss\",\"title\":" +
+                "\"oev_fuss\"}},{\"ChoiceOption\":{\"routeSections\":[],\"color\":\"0x08080808\",\"name\":\"rad\"," +
+                "\"title\":\"rad\"}},{\"ChoiceOption\":{\"routeSections\":[],\"color\":\"0x0a0a0a0a\",\"name\":" +
+                "\"shuttle_od\",\"title\":\"shuttle_od\"}},{\"ChoiceOption\":{\"routeSections\":[],\"color\":" +
+                "\"0x0d0d0d0d\",\"name\":\"shuttle_tb\",\"title\":\"shuttle_tb\"}}],\"name\":\"test\",\"attributes\":[" +
+                "{\"Attribute\":{\"Active\":true,\"decimalPlaces\":2,\"prefix\":\"testPrefix\",\"name\":" +
+                "\"TestAttribute\",\"icon\":0,\"suffix\":\"testSuffix\",\"choiceOptionMappings\":[{\"List\":" +
+                "[\"cost_car\"],\"ChoiceOption\":{\"routeSections\":[],\"color\":\"0x03030303\",\"name\":\"car\"," +
+                "\"title\":\"ChoiceOptionTestTitle\"}}],\"permanentlyVisible\":true}},{\"LineSeparator\":\"\"}]}";
 
 
         assertEquals(jsonObject.toString(), expectedJsonString);
