@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
  */
 public class HTMLExporter extends Exporter {
     private String directoryName = "TrafficSPVisualizer";
-    private String HTMLvar = "v_";
+    private String html = "v_";
 
 
     /**
@@ -31,8 +31,8 @@ public class HTMLExporter extends Exporter {
      * @throws IOException If an error occurs while writing to the file.
      */
     @Override
-    public void export(ChoiceOptionImage[] images, File file, String name, String HTMLvar) throws IOException {
-        if (!HTMLvar.isEmpty())this.HTMLvar = HTMLvar;
+    public void export(ChoiceOptionImage[] images, File file, String name, String html) throws IOException {
+        if (html != null) this.html = html;
 
         var imageExporter = new ImageExporter();
         this.directoryName = name;
@@ -53,7 +53,7 @@ public class HTMLExporter extends Exporter {
      */
     private List<List<ChoiceOptionImage>> groupImagesByScenario(ChoiceOptionImage[] images) {
         return Arrays.stream(images)
-                .collect(Collectors.groupingBy(ChoiceOptionImage::getScenarioNumber))
+                .collect(Collectors.groupingBy(ChoiceOptionImage::getSituationNumber))
                 .values()
                 .stream()
                 .map(ArrayList::new)
@@ -78,8 +78,8 @@ public class HTMLExporter extends Exporter {
             boolean created = path.toFile().mkdir();
             if (!created) throw new IOException("Could not create the directory");
         }
-        Path finalFilePath = Paths.get(file.getPath(),directoryName, imageGroup.getFirst().getScenarioNumber(),
-                directoryName + "_" + imageGroup.getFirst().getScenarioNumber() + ".html");
+        Path finalFilePath = Paths.get(file.getPath(),directoryName, imageGroup.getFirst().getSituationNumber(),
+                directoryName + "_" + imageGroup.getFirst().getSituationNumber() + ".html");
 
         Files.move(tempFilePath, finalFilePath, StandardCopyOption.REPLACE_EXISTING);
     }
@@ -110,18 +110,15 @@ public class HTMLExporter extends Exporter {
                 <link rel="stylesheet" href="https://something.online.com/example.css" />
                 <script src="https://test.com/example-lib.js" ></script>
                 <script type='text/javascript' src='images/local_script.js'></script>
-                
                 <script>
                       function change(value){
                         document.getElementById("%s").value= value;
                       }
                     </script>
-                    
                     <style type="text/css">
                       .radio-toolbar input[type="radio"] {
                         display: none;
                       }
-                    
                       .radio-toolbar label {
                         display: inline-block;
                         background-color: #ddd;
@@ -130,13 +127,12 @@ public class HTMLExporter extends Exporter {
                         font-size: 16px;
                         cursor: pointer;
                       }
-                    
                       .radio-toolbar input[type="radio"]:checked+label {
                         background-color: #bbb;
                       }
                     </style>
             </head>
-            """, HTMLvar));
+            """, html));
     }
 
     /**
@@ -162,7 +158,7 @@ public class HTMLExporter extends Exporter {
                             <img src="%s" alt="%s" />
                           </label>
                 </li>
-                """, HTMLvar, i + 1, HTMLvar,i + 1, image.getTitle(), HTMLvar, i + 1, HTMLvar, i + 1,
+                """, html, i + 1, html,i + 1, image.getTitle(), html, i + 1, html, i + 1,
                     encodedPath, image.getTitle()));
         }
         writer.write("""
@@ -184,6 +180,6 @@ public class HTMLExporter extends Exporter {
                     <input id="%s" name="%s" value="#%s#" readonly />
                 </div>
                 </form>
-            """, HTMLvar, HTMLvar, HTMLvar));
+            """, html, html, html));
     }
 }

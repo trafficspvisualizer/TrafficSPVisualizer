@@ -81,7 +81,7 @@ public abstract class AbstractSaver {
             Attribute attribute = (Attribute) abstractAttribute;
             return createJsonAttributes(attribute.getName(), attribute.getIcon(), attribute.getPrefix(),
                     attribute.getSuffix(), attribute.isPermanentlyVisible(), attribute.getDecimalPlaces(),
-                    attribute.getChoiceOptionMappings());
+                    attribute.getChoiceOptionMappings(),attribute.isActive());
         } else if (!abstractAttribute.hasValues()) {
             return createJsonLineSeparator();
         } else {
@@ -148,11 +148,12 @@ public abstract class AbstractSaver {
      * @param permanentlyVisible The visibility status of the attribute.
      * @param decimalPlaces The number of decimal places for the attribute value.
      * @param choiceOptionMappings The mappings of choice options for the attribute.
+     * @param active The visibility status of the attribute.
      * @return A JSONObject representing the attribute.
      */
     private JSONObject createJsonAttributes(String name, Icon icon, String prefix, String suffix,
                                               boolean permanentlyVisible, int decimalPlaces, Map<ChoiceOption,
-            List<String>> choiceOptionMappings) {
+            List<String>> choiceOptionMappings, boolean active) {
         Objects.requireNonNull(name, "Name cannot be null");
         Objects.requireNonNull(icon, "Icon cannot be null");
         Objects.requireNonNull(prefix, "Prefix cannot be null");
@@ -168,6 +169,7 @@ public abstract class AbstractSaver {
         jsonObject.put(JsonKeys.KEY_DECIMAL_PLACES.getKey(), decimalPlaces);
         jsonObject.put(JsonKeys.KEY_CHOICE_OPTION_MAPPINGS.getKey(),
                 createChoiceOptionMappingsJson(choiceOptionMappings));
+        jsonObject.put(JsonKeys.KEY_ACTIVE.getKey(),active);
         JSONObject attribute = new JSONObject();
         return attribute.put(JsonKeys.KEY_ATTRIBUTE.getKey(),jsonObject);
     }

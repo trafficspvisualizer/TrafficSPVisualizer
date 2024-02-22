@@ -22,6 +22,7 @@ public enum JsonKeys {
     KEY_DECIMAL_PLACES("decimalPlaces"),
     KEY_ATTRIBUTES("attributes"),
     KEY_ATTRIBUTE("Attribute"),
+    KEY_ACTIVE("Active"),
 
     // Choice Options
     KEY_TITLE("title"),
