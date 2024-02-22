@@ -80,6 +80,7 @@ public class ChoiceOptionImage {
     /**
      * Sets the blockNumber.
      * @param blockNumber the blockNumber
+     * @throws IllegalArgumentException when the blockNumber lower than 0
      */
     public void setBlockNumber(int blockNumber) {
         if (blockNumber < 0) {
@@ -91,6 +92,7 @@ public class ChoiceOptionImage {
     /**
      * Sets the choiceOptionNumber.
      * @param choiceOptionNumber the choiceOptionNumber
+     * @throws IllegalArgumentException when the choiceOptionNumber lower than 0
      */
     public void setChoiceOptionNumber(int choiceOptionNumber) {
         if (choiceOptionNumber < 0) {
@@ -102,6 +104,7 @@ public class ChoiceOptionImage {
     /**
      * Sets the scenarioNumber.
      * @param scenarioNumber the scenarioNumber
+     * @throws IllegalArgumentException when the Scenario Number lower than 0
      */
     public void setScenarioNumber(int scenarioNumber) {
         if (scenarioNumber < 0) {

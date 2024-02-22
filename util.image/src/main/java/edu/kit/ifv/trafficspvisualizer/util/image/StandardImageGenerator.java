@@ -8,10 +8,18 @@ import edu.kit.ifv.trafficspvisualizer.model.data.InvalidDataKeyException;
 import edu.kit.ifv.trafficspvisualizer.model.settings.LineType;
 import edu.kit.ifv.trafficspvisualizer.model.settings.RouteSection;
 import edu.kit.ifv.trafficspvisualizer.model.settings.SeparatorLine;
-
-import java.awt.*;
+import java.awt.Stroke;
+import java.awt.Graphics2D;
+import java.awt.Graphics;
+import java.awt.BasicStroke;
+import java.awt.AlphaComposite;
+import java.awt.Color;
+import java.awt.FontMetrics;
+import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.util.List;
+
+
 
 /**
  * StandardImageGenerator inherits from ImageGenerator. It creates a choice option according to the standard template.

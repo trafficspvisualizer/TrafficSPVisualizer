@@ -24,7 +24,7 @@ public class ImageExporter extends Exporter {
      * @throws IOException If an I/O error occurs.
      */
     @Override
-    public void export(ChoiceOptionImage[] images, File file, String name, String HTMLvar) throws IOException {
+    public void export(ChoiceOptionImage[] images, File file, String name, String html) throws IOException {
         this.directoryName = name + "_export";
         File newDirectory = createDirectory(file);
 
