@@ -35,6 +35,14 @@ public class ChoiceOptionImage {
         return situationNumber;
     }
 
+    public int getBlockNumber() {
+        return blockNumber;
+    }
+
+    public int getChoiceOptionNumber() {
+        return choiceOptionNumber;
+    }
+
     public void setBlockNumber(int blockNumber) {
         this.blockNumber = blockNumber;
     }

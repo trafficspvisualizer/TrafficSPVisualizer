@@ -14,7 +14,8 @@ import java.util.Objects;
  * Exporter class for exporting images.
  */
 public class ImageExporter extends Exporter {
-        private String directoryName = "TrafficSPVisualizer";
+    private static final String EXPORT_FOLDER = "%s_export";
+    private String directoryName = "TrafficSPVisualizer";
 
     /**
      * Exports an array of images to a specified file.
@@ -25,7 +26,7 @@ public class ImageExporter extends Exporter {
      */
     @Override
     public void export(ChoiceOptionImage[] images, File file, String name) throws IOException {
-        this.directoryName = name + "_export";
+        this.directoryName = EXPORT_FOLDER.formatted(name);
         File newDirectory = createDirectory(file);
 
         for (ChoiceOptionImage image : images) {

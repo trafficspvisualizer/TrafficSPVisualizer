@@ -11,9 +11,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public abstract class  Exporter {
-    protected static final String INFO_PREFIX = "#c_";
-    protected static final String INFO_SUFFIX = "#";
+public abstract class Exporter {
+    protected static final String NAMING_SCHEME = "#c_%04d##c_%04d#_#c_%04d#_%s.%s";
     protected static final String IMAGE_FORMAT = "png";
 
     /**
@@ -38,24 +37,12 @@ public abstract class  Exporter {
      * @return The constructed image path.
      */
     protected String constructImagePath(ChoiceOptionImage image) {
-        return image.getTitle();
-        /*
-        //TODO: Maybe set info to null instead of "-1" in ChoiceOptionImage
-        return String.format("%s/%s.%s", image.getSituationNumber(),
-                image.getInfos().stream()
-                        .map(info -> {
-                            List<String> infoList = new ArrayList<>(Collections.singletonList(info));
-                            for (int i = 0; i < Math.min(3, infoList.size()); i++) {
-                                if (Objects.equals(infoList.get(i), "-1")) {
-                                    infoList.set(i, null);
-                                }
-                            }
-                            infoList.removeAll(Collections.singleton(null));
-                            return INFO_PREFIX + infoList.stream().map(Object::toString).collect(Collectors.joining()) + INFO_SUFFIX;
-                        })
-                        .collect(Collectors.joining()),
-                IMAGE_FORMAT);
-
-         */
+        return NAMING_SCHEME.formatted(
+            image.getSituationNumber(),
+            image.getBlockNumber(),
+            image.getChoiceOptionNumber(),
+            image.getTitle(),
+            IMAGE_FORMAT
+        );
     }
 }

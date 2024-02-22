@@ -186,12 +186,13 @@ public class StandardImageGenerator extends ImageGenerator {
                     currentXCoordinate + imageLengthOfRouteSection, routeSectionDrawingHeight);
 
             String subText = getRoundedString(0, routeSectionLength) + " min";
-            graphics2DChoiceOption.setFont(attributeFont);
-            FontMetrics fontMetrics = graphics2DChoiceOption.getFontMetrics();
+            FontMetrics fontMetrics = graphics2DChoiceOption.getFontMetrics(attributeFont);
+            int textHeight = fontMetrics.getHeight();
             int textWidth = fontMetrics.stringWidth(subText);
             int x = currentXCoordinate + (imageLengthOfRouteSection - textWidth) / 2;
-            int textHeight = fontMetrics.getHeight();
             int y = routeSectionDrawingHeight + textHeight + 1;
+
+            graphics2DChoiceOption.setFont(attributeFont);
             graphics2DChoiceOption.drawString(subText, x, y);
 
             //copy needed, else image would be saved with color

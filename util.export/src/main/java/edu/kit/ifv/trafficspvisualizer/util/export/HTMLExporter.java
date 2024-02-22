@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  */
 public class HTMLExporter extends Exporter { //todo aufteilen in einzelen Situationen
     private String directoryName = "TrafficSPVisualizer";
-    private String var = "v_42x";
+    private String htmlVar = "v_42x";
     private int name = 1;
 
 
@@ -43,7 +43,7 @@ public class HTMLExporter extends Exporter { //todo aufteilen in einzelen Situat
 
     public void export(ChoiceOptionImage[] images, File file, String name, String var) throws IOException {
         var imageExporter = new ImageExporter();
-        this.var = var;
+        this.htmlVar = var;
         this.directoryName = name;
         imageExporter.export(images, file, directoryName);
         var groupedImages = groupImagesByScenario(images);
@@ -76,16 +76,16 @@ public class HTMLExporter extends Exporter { //todo aufteilen in einzelen Situat
      */
     private void exportGroup(List<ChoiceOptionImage> imageGroup, File file) throws IOException {
 
-        var tempFilePath = Files.createTempFile(file.toPath(), "datei", ".html");
+        var tempFilePath = Files.createTempFile(file.toPath(), "file", ".html");
         try (var writer = Files.newBufferedWriter(tempFilePath)) {
             writeHtmlContent(imageGroup, writer);
         }
-        Path path = Paths.get(file.toString() , directoryName);
+        Path path = Paths.get(file.toString(), directoryName);
         if (!path.toFile().exists()) {
             boolean created = path.toFile().mkdir();
             if (!created) throw new IOException("Could not create the directory");
         }
-        Path finalFilePath = Paths.get(file.getPath(),directoryName , directoryName + name + ".html");
+        Path finalFilePath = Paths.get(file.getPath(),directoryName, directoryName + name + ".html");
         name++;
         Files.move(tempFilePath, finalFilePath, StandardCopyOption.REPLACE_EXISTING);
     }
@@ -167,7 +167,7 @@ public class HTMLExporter extends Exporter { //todo aufteilen in einzelen Situat
                             <img src="%s" alt="%s" />
                           </label>
                 </li>
-                """,var, i + 1, i + 1, image.getTitle(), i + 1, i + 1, imagePath, image.getTitle()));
+                """, htmlVar, i + 1, i + 1, image.getTitle(), i + 1, i + 1, imagePath, image.getTitle()));
         }
         writer.write("""
                 </ul>
