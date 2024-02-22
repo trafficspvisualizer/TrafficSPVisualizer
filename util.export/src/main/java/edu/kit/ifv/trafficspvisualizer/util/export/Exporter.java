@@ -90,6 +90,6 @@ public abstract class Exporter {
      * @return The constructed image path.
      */
     protected String constructImagePathWithDir(ChoiceOptionImage image) {
-        return String.format("%s/%s",image.getScenarioNumber(), constructImagePath(image));
+        return String.format("%s/%s",image.getSituationNumber(), constructImagePath(image));
     }
 }

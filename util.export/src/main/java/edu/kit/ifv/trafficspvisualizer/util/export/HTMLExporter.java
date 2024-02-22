@@ -53,7 +53,7 @@ public class HTMLExporter extends Exporter {
      */
     private List<List<ChoiceOptionImage>> groupImagesByScenario(ChoiceOptionImage[] images) {
         return Arrays.stream(images)
-                .collect(Collectors.groupingBy(ChoiceOptionImage::getScenarioNumber))
+                .collect(Collectors.groupingBy(ChoiceOptionImage::getSituationNumber))
                 .values()
                 .stream()
                 .map(ArrayList::new)
@@ -78,8 +78,8 @@ public class HTMLExporter extends Exporter {
             boolean created = path.toFile().mkdir();
             if (!created) throw new IOException("Could not create the directory");
         }
-        Path finalFilePath = Paths.get(file.getPath(),directoryName, imageGroup.getFirst().getScenarioNumber(),
-                directoryName + "_" + imageGroup.getFirst().getScenarioNumber() + ".html");
+        Path finalFilePath = Paths.get(file.getPath(),directoryName, imageGroup.getFirst().getSituationNumber(),
+                directoryName + "_" + imageGroup.getFirst().getSituationNumber() + ".html");
 
         Files.move(tempFilePath, finalFilePath, StandardCopyOption.REPLACE_EXISTING);
     }

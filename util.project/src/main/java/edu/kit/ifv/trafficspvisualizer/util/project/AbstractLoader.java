@@ -105,9 +105,12 @@ public abstract class AbstractLoader {
         String suffix = attributeJSON.optString(JsonKeys.KEY_SUFFIX.getKey());
         boolean vis = attributeJSON.optBoolean(JsonKeys.KEY_PERMANENTLY_VISIBLE.getKey());
         int dec = attributeJSON.optInt(JsonKeys.KEY_DECIMAL_PLACES.getKey());
+        boolean active = attributeJSON.optBoolean(JsonKeys.KEY_ACTIVE.getKey());
         Map<ChoiceOption,List<String>> choiceOptionMap = createChoiceOptions(attributeJSON.optJSONArray
                 (JsonKeys.KEY_CHOICE_OPTION_MAPPINGS.getKey()), choiceOptions);
-        return new Attribute(name,null, prefix, suffix, vis, dec, choiceOptionMap, true);
+        Attribute attribute = new Attribute(name,null, prefix, suffix, vis, dec, choiceOptionMap, true);
+        attribute.setActive(active);
+        return attribute;
     }
 
     /**
