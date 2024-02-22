@@ -51,6 +51,15 @@ public class StandardImageGenerator extends ImageGenerator{
     private static final int ALPHA_VALUE_DIVISOR = 255;
     private static final double MAX_TEXT_WIDTH_OF_ATTRIBUTE = 0.75;
     private static final int CUT_FOR_TEXT_IN_TWO_LINES = 2;
+    private static final double ATTRIBUTE_TEXT_HEIGHT = (double) 8 / 9;
+    private static final double ICON_HEIGHT_FOR_TWO_LINE_TEXT = 0.2;
+    private static final double ICON_HEIGHT_FOR_ONE_LINE_TEXT = 0.25;
+    private static final int NUMBER_OF_SHIFTS = 24;
+    private static final int BIT_MASK = 0xFF;
+    private static final int MINUEND = 255;
+    private static final int BIG_BIT_MASK = 0x00FFFFFF;
+
+
     private int heightOfHeadline;
     private int width;
     private int height;
@@ -282,20 +291,20 @@ public class StandardImageGenerator extends ImageGenerator{
             int secondLineStringWidth = g2DAttribute.getFontMetrics().stringWidth(secondLineString);
 
 
-            int x = (attributeWidth - prefixWidth) / 2;
-            int y = 8 * attributeHeight / 9 - g2DAttribute.getFontMetrics().getHeight();
+            int x = (attributeWidth - prefixWidth) / 2; //centralise text
+            int y = (int) (attributeHeight * ATTRIBUTE_TEXT_HEIGHT - g2DAttribute.getFontMetrics().getHeight());
             g2DAttribute.drawString(prefix, x, y);
             x = (attributeWidth - secondLineStringWidth) / 2;
-            y = 8 * attributeHeight / 9;
+            y = (int) (attributeHeight * ATTRIBUTE_TEXT_HEIGHT);
             g2DAttribute.drawString(secondLineString, x, y);
 
-            iconHeight = (int) (height * 0.2);
+            iconHeight = (int) (height * ICON_HEIGHT_FOR_TWO_LINE_TEXT);
         } else { //draw text in one line
             makeStringFit(g2DAttribute, maxTextWidth, attributeText);
             int attributeTextWidth = g2DAttribute.getFontMetrics().stringWidth(attributeText);
             int x = (attributeWidth - attributeTextWidth) / 2;
-            g2DAttribute.drawString(attributeText, x, (8 * attributeHeight) / 9);
-            iconHeight = (int) (height * 0.25);
+            g2DAttribute.drawString(attributeText, x, (int) (attributeHeight * ATTRIBUTE_TEXT_HEIGHT));
+            iconHeight = (int) (height * ICON_HEIGHT_FOR_ONE_LINE_TEXT);
         }
         iconImage = (attribute.getIcon().toBufferedImage(iconHeight, attributeWidth));
         BufferedImage copyImage = copyImage(iconImage);
@@ -370,20 +379,19 @@ public class StandardImageGenerator extends ImageGenerator{
     }
 
     private static void changeImageColor(BufferedImage image, Color newColor) {
-        // Iterate through every pixel
         for (int y = 0; y < image.getHeight(); y++) {
             for (int x = 0; x < image.getWidth(); x++) {
                 int argb = image.getRGB(x, y);
 
                 // Extract alpha value
-                int alpha = (argb >> 24) & 0xFF;
+                int alpha = (argb >> NUMBER_OF_SHIFTS) & BIT_MASK;
 
                 // Modify color based on alpha
                 Color oldColor = new Color(argb, true);
                 Color modifiedColor = new Color(
-                        (oldColor.getRed() * (255 - alpha) + newColor.getRed() * alpha) / 255,
-                        (oldColor.getGreen() * (255 - alpha) + newColor.getGreen() * alpha) / 255,
-                        (oldColor.getBlue() * (255 - alpha) + newColor.getBlue() * alpha) / 255,
+                        (oldColor.getRed() * (MINUEND - alpha) + newColor.getRed() * alpha) / MINUEND,
+                        (oldColor.getGreen() * (MINUEND - alpha) + newColor.getGreen() * alpha) / MINUEND,
+                        (oldColor.getBlue() * (MINUEND - alpha) + newColor.getBlue() * alpha) / MINUEND,
                         oldColor.getAlpha());
 
                 // Set the new color
@@ -393,16 +401,15 @@ public class StandardImageGenerator extends ImageGenerator{
     }
 
     private static void makeImageTransparent(BufferedImage image) {
-        int alphaValue = 150;
         for (int y = 0; y < image.getHeight(); y++) {
             for (int x = 0; x < image.getWidth(); x++) {
                 int rgba = image.getRGB(x, y);
                 // Set the alpha value to the desired level
-                int alpha = (rgba >> 24) & 0xFF;
+                int alpha = (rgba >> NUMBER_OF_SHIFTS) & BIT_MASK;
                 // Blend the original alpha with the desired alpha value
-                alpha = (alpha * alphaValue) / 255;
+                alpha = (alpha * ALPHA_VALUE_FOR_SLIGHTLY_TRANSPARENT_ICONS) / MINUEND;
                 // Set the blended alpha value
-                rgba = (alpha << 24) | (rgba & 0x00FFFFFF);
+                rgba = (alpha << NUMBER_OF_SHIFTS) | (rgba & BIG_BIT_MASK);
                 image.setRGB(x, y, rgba);
             }
         }
