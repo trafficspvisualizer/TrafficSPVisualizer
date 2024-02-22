@@ -18,12 +18,13 @@ import java.util.stream.Collectors;
  * @author uhtfz
  */
 public abstract class Exporter {
+    /**
+     * Represents the image format.
+     */
+    protected static final String IMAGE_FORMAT = "png";
     private static final String INFO_PREFIX = "#c_";
     private static final String INFO_SUFFIX = "#";
-    protected static final String IMAGE_FORMAT = "png";
-
     private static final Map<ExportType, Supplier<Exporter>> EXPORTER_MAP = new HashMap<>();
-
     static {
         EXPORTER_MAP.put(ExportType.HTML, HTMLExporter::new);
         EXPORTER_MAP.put(ExportType.CHOICE_OPTION, ImageExporter::new);
@@ -52,10 +53,10 @@ public abstract class Exporter {
      * @param images An array of ChoiceOptionImage objects to be exported.
      * @param file The destination file where the images will be exported.
      * @param name The name to be associated with the exported content.
-     * @param HTMLvar A string representing an HTML variable associated with the export operation.
+     * @param  html string representing a variable associated with the export operation.
      * @throws IOException If an input or output exception occurred.
      */
-    public abstract void export(ChoiceOptionImage[] images, File file, String name, String HTMLvar) throws IOException;
+    public abstract void export(ChoiceOptionImage[] images, File file, String name, String html) throws IOException;
 
     /**
      * Constructs the image path.
@@ -89,6 +90,6 @@ public abstract class Exporter {
      * @return The constructed image path.
      */
     protected String constructImagePathWithDir(ChoiceOptionImage image) {
-        return String.format("%s/%s",image.getScenarioNumber(), constructImagePath(image));
+        return String.format("%s/%s",image.getSituationNumber(), constructImagePath(image));
     }
 }

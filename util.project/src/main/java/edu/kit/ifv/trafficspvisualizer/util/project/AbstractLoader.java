@@ -20,12 +20,14 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.text.ParseException;
-import java.util.ArrayList;
+
+import java.util.AbstractMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.StreamSupport;
 
 /**
  * The AbstractLoader creates the Project from a Json File.
@@ -85,7 +87,9 @@ public abstract class AbstractLoader {
         if (jsonObject.has(JsonKeys.KEY_ATTRIBUTE.getKey())) {
             return createAttributeFromJson(jsonObject.getJSONObject(JsonKeys.KEY_ATTRIBUTE.getKey()),choiceOptions);
         } else if (jsonObject.has(JsonKeys.KEY_LINE_SEPARATOR.getKey())) {
-            return new SeparatorLine();
+            SeparatorLine separatorLine = new SeparatorLine();
+            separatorLine.setActive(jsonObject.optBoolean(JsonKeys.KEY_LINE_SEPARATOR.getKey()));
+            return separatorLine;
         }
         return null;
     }
@@ -103,9 +107,12 @@ public abstract class AbstractLoader {
         String suffix = attributeJSON.optString(JsonKeys.KEY_SUFFIX.getKey());
         boolean vis = attributeJSON.optBoolean(JsonKeys.KEY_PERMANENTLY_VISIBLE.getKey());
         int dec = attributeJSON.optInt(JsonKeys.KEY_DECIMAL_PLACES.getKey());
+        boolean active = attributeJSON.optBoolean(JsonKeys.KEY_ACTIVE.getKey());
         Map<ChoiceOption,List<String>> choiceOptionMap = createChoiceOptions(attributeJSON.optJSONArray
                 (JsonKeys.KEY_CHOICE_OPTION_MAPPINGS.getKey()), choiceOptions);
-        return new Attribute(name,null, prefix, suffix, vis, dec, choiceOptionMap, true);
+        Attribute attribute = new Attribute(name,null, prefix, suffix, vis, dec, choiceOptionMap, true);
+        attribute.setActive(active);
+        return attribute;
     }
 
     /**
@@ -192,58 +199,98 @@ public abstract class AbstractLoader {
      * @param projectDir The Path to the directory containing the project.
      * @return The created Project.
      * @throws IOException If an I/O error occurs.
-     * @throws ParseException If a parse error occurs in the parser
+     * @throws ParseException If a parse error occurs in the parser.
      */
-    protected Project createProject(JSONObject jsonProject,File ngdFile, Path iconDir, Path projectDir)
+    protected Project createProject(JSONObject jsonProject, File ngdFile, Path iconDir, Path projectDir)
             throws IOException, ParseException {
         DataObject dataObject = createDataObject(ngdFile);
         String name = jsonProject.optString(JsonKeys.KEY_NAME.getKey());
         JSONArray jsonAttributes = jsonProject.optJSONArray(JsonKeys.KEY_ATTRIBUTES.getKey());
         JSONArray jsonChoiceOptions = jsonProject.optJSONArray(JsonKeys.KEY_CHOICE_OPTIONS.getKey());
         JSONObject jsonExportSettings = jsonProject.optJSONObject(JsonKeys.KEY_EXPORT_SETTINGS.getKey());
-        List<ChoiceOption> choiceOptions = allChoiceOptions(jsonChoiceOptions);
-        List<AbstractAttribute> attributes = createAttributes(jsonAttributes,choiceOptions);
 
+        List<ChoiceOption> choiceOptions = createChoiceOptions(jsonChoiceOptions);
+        List<AbstractAttribute> attributes = createAttributes(jsonAttributes, choiceOptions);
         ExportSettings exportSettings = createExportSettings(jsonExportSettings);
+
         Project project = new Project(name, projectDir, dataObject, attributes, choiceOptions, exportSettings,
                 iconDir, ngdFile);
+
         updateProjectAttributes(project, jsonAttributes);
-        updateProjectRouteSection(project, jsonChoiceOptions);
+        updateProjectRouteSections(project, jsonChoiceOptions);
+
         return project;
     }
 
-    private void updateProjectRouteSection(Project project, JSONArray jsonChoiceOptions) {
-        for (int i = 0; i < project.getChoiceOptions().size(); i++) {
-            JSONObject obj = jsonChoiceOptions.optJSONObject(i);
-            if (obj != null) {
-                ChoiceOption choiceOption = null;
-                JSONObject ch = obj.optJSONObject(JsonKeys.KEY_CHOICE_OPTION.getKey());
-                JSONArray routeSectionJSON = ch.optJSONArray(JsonKeys.KEY_ROUTE_SECTIONS.getKey());
-                for (ChoiceOption co: project.getChoiceOptions()) {
-                    if (ch.get(JsonKeys.KEY_NAME.getKey()).equals(co.getName())) {
-                        choiceOption = co;
-                        break;
+    /**
+     * Updates the RouteSections of each ChoiceOption in the project based on the provided JSONArray.
+     *
+     * @param project The Project whose ChoiceOptions are to be updated.
+     * @param jsonChoiceOptions The JSONArray containing the ChoiceOption data.
+     */
+
+    private void updateProjectRouteSections(Project project, JSONArray jsonChoiceOptions) {
+        IntStream.range(0, project.getChoiceOptions().size())
+                .mapToObj(i -> new AbstractMap.SimpleEntry<>(i, jsonChoiceOptions.optJSONObject(i)))
+                .filter(entry -> entry.getValue() != null)
+                .forEach(entry -> {
+                    JSONObject ch = entry.getValue().optJSONObject(JsonKeys.KEY_CHOICE_OPTION.getKey());
+                    JSONArray routeSectionJSON = ch.optJSONArray(JsonKeys.KEY_ROUTE_SECTIONS.getKey());
+
+                    ChoiceOption choiceOption = findChoiceOptionByName(project.getChoiceOptions(),
+                            ch.get(JsonKeys.KEY_NAME.getKey()));
+
+                    if (choiceOption != null) {
+                        updateChoiceOptionRouteSections(project, routeSectionJSON, choiceOption);
                     }
-                }
-                for (int j = 0; j < Objects.requireNonNull(choiceOption).getRouteSections().size(); j++) {
-                    if (!routeSectionJSON.isEmpty() && !routeSectionJSON.getJSONObject(j).isEmpty()) {
-                        JSONObject route = routeSectionJSON.getJSONObject(j);
-                        choiceOption.getRouteSections().get(j).setIcon(project.getIconManager().
-                                getIcons().get(route.optInt(JsonKeys.KEY_ICON.getKey())));
-                    }
-                }
-            }
-        }
+                });
     }
 
-    private List<ChoiceOption> allChoiceOptions(JSONArray jsonChoiceOptions) {
-        List<ChoiceOption> choiceOptions = new ArrayList<>();
-        for (Object object: jsonChoiceOptions) {
-            JSONObject jsonObject = (JSONObject)object;
-            choiceOptions.add(createOneChoiceOption(jsonObject,null));
-        }
-        return choiceOptions;
+    /**
+     * Finds a ChoiceOption object by its name.
+     *
+     * @param choiceOptions The list of ChoiceOption objects to search in.
+     * @param name The name of the ChoiceOption object to find.
+     * @return The found ChoiceOption object or null if it was not found.
+     */
+    private ChoiceOption findChoiceOptionByName(List<ChoiceOption> choiceOptions, Object name) {
+        return choiceOptions.stream()
+                .filter(co -> name.equals(co.getName()))
+                .findFirst()
+                .orElse(null);
     }
+
+    /**
+     * Updates the RouteSections of a specific ChoiceOption object.
+     *
+     * @param project The Project being updated.
+     * @param routeSectionJSON The JSONArray containing the RouteSections.
+     * @param choiceOption The ChoiceOption object being updated.
+     */
+    private void updateChoiceOptionRouteSections(Project project, JSONArray routeSectionJSON,
+                                                 ChoiceOption choiceOption) {
+        IntStream.range(0, choiceOption.getRouteSections().size())
+                .filter(j -> !routeSectionJSON.isEmpty() && !routeSectionJSON.getJSONObject(j).isEmpty())
+                .forEach(j -> {
+                    JSONObject route = routeSectionJSON.getJSONObject(j);
+                    choiceOption.getRouteSections().get(j).setIcon(project.getIconManager().
+                            getIcons().get(route.optInt(JsonKeys.KEY_ICON.getKey())));
+                });
+    }
+
+    /**
+     * Creates a list of ChoiceOption objects from a JSONArray.
+     *
+     * @param jsonChoiceOptions The JSONArray to create the ChoiceOption objects from.
+     * @return The created list of ChoiceOption objects.
+     */
+    private List<ChoiceOption> createChoiceOptions(JSONArray jsonChoiceOptions) {
+        return StreamSupport.stream(jsonChoiceOptions.spliterator(), false)
+                .map(JSONObject.class::cast)
+                .map(jsonObject -> createOneChoiceOption(jsonObject, null))
+                .collect(Collectors.toList());
+    }
+
 
     /**
      * Updates the attributes of a Project.

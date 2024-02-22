@@ -5,6 +5,7 @@ import edu.kit.ifv.trafficspvisualizer.model.settings.*;
 import edu.kit.ifv.trafficspvisualizer.util.parse.NGDParser;
 import edu.kit.ifv.trafficspvisualizer.util.parse.Parser;
 import javafx.scene.paint.Color;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -49,7 +50,10 @@ class SaverAndLoaderTest {
         try {
             standardProjectSaver.saveProject(project,files);
             File f = new File(files.toString(), "name");
-            standardProjectLoader.loadProject(f);
+            Project p = standardProjectLoader.loadProject(f);
+            Assertions.assertEquals(project.getName(),p.getName());
+            Assertions.assertEquals(project.getChoiceOptions(),p.getChoiceOptions());
+            Assertions.assertEquals(project.getExportSettings().getExportType(),p.getExportSettings().getExportType());
         } catch (IOException | ParseException e) {
             fail();
         }

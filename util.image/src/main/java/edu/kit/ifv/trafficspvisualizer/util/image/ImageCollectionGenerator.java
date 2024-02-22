@@ -1,6 +1,6 @@
 package edu.kit.ifv.trafficspvisualizer.util.image;
 
-import edu.kit.ifv.trafficspvisualizer.model.*;
+import edu.kit.ifv.trafficspvisualizer.model.Project;
 import edu.kit.ifv.trafficspvisualizer.model.data.DataObject;
 import edu.kit.ifv.trafficspvisualizer.model.data.InvalidDataKeyException;
 import edu.kit.ifv.trafficspvisualizer.model.settings.AbstractAttribute;
@@ -110,15 +110,18 @@ public abstract class ImageCollectionGenerator {
      * @param choiceOption of which we want to know the length
      * @param situationNumber of the {@link ChoiceOption}
      * @return the length of all the {@link RouteSection}
-     * @throws InvalidDataKeyException if the length of a {@link RouteSection} cant be read
      */
-    protected double calculateLengthOfRouteSection(ChoiceOption choiceOption, int situationNumber)
-            throws InvalidDataKeyException {
+    protected double calculateLengthOfRouteSection(ChoiceOption choiceOption, int situationNumber) {
         double lengthOfRouteSections = 0;
         double lengthOfCurrentRouteSection;
         for (RouteSection routeSection : choiceOption.getRouteSections()) {
-            lengthOfCurrentRouteSection = dataObject.getValue(situationNumber, choiceOption.getName(),
-                    routeSection.getChoiceDataKey());
+
+            try {
+                lengthOfCurrentRouteSection = dataObject.getValue(situationNumber, choiceOption.getName(),
+                        routeSection.getChoiceDataKey());
+            } catch (InvalidDataKeyException e) {
+                lengthOfCurrentRouteSection = 0;
+            }
             lengthOfRouteSections += lengthOfCurrentRouteSection;
         }
         return lengthOfRouteSections;
@@ -128,9 +131,8 @@ public abstract class ImageCollectionGenerator {
      * Calculates the length of the longest {@link RouteSection} of the situation.
      * @param situationIndex of the situation
      * @return length of longest {@link RouteSection}
-     * @throws InvalidDataKeyException if the length of a {@link RouteSection} cant be read
      */
-    protected double calculateLongestRouteSection(int situationIndex) throws InvalidDataKeyException {
+    protected double calculateLongestRouteSection(int situationIndex) {
         double lengthOfLongestRouteSection = 0;
         double lengthOfCurrentRouteSection;
         ChoiceOption currentChoiceOption;

@@ -270,7 +270,8 @@ class ChoiceOptionSettingsController implements IconDisplayingController {
         // iterate over attributes
         for (int i = 0; i < choiceOptionSettingsStage.getAttributesValueNamesCheckBoxList().size(); i++) {
             // iterate over checkboxes
-            for (int j = 0; j < choiceOptionSettingsStage.getAttributesValueNamesCheckBoxList().getFirst().size(); j++) {
+            for (int j = 0; j < choiceOptionSettingsStage.getAttributesValueNamesCheckBoxList()
+                    .getFirst().size(); j++) {
                 int index = i;
                 // set listener for when checkbox is clicked
                 choiceOptionSettingsStage.getAttributesValueNamesCheckBoxList().get(index).get(j)

@@ -10,7 +10,7 @@ import java.util.Objects;
  * This class contains a bufferedImage and data, which is needed for the export.
  */
 public class ChoiceOptionImage {
-    private static final int SCENARIO_NUMBER_KEY = 1;
+    private static final int SITUATION_NUMBER_KEY = 1;
     private static final int BLOCK_NUMBER_KEY = 2;
     private static final int CHOICE_OPTION_NUMBER_KEY = 3;
     private static final int TITLE_KEY = 0;
@@ -23,7 +23,7 @@ public class ChoiceOptionImage {
     public ChoiceOptionImage() {
         infos = new HashMap<>();
         infos.put(TITLE_KEY, "-1");
-        infos.put(SCENARIO_NUMBER_KEY, "-1");
+        infos.put(SITUATION_NUMBER_KEY, "-1");
         infos.put(BLOCK_NUMBER_KEY, "-1");
         infos.put(CHOICE_OPTION_NUMBER_KEY, "-1");
 
@@ -73,13 +73,14 @@ public class ChoiceOptionImage {
      * Returns the scenario number.
      * @return scenario number
      */
-    public String getScenarioNumber() {
-        return infos.get(SCENARIO_NUMBER_KEY);
+    public String getSituationNumber() {
+        return infos.get(SITUATION_NUMBER_KEY);
     }
 
     /**
      * Sets the blockNumber.
      * @param blockNumber the blockNumber
+     * @throws IllegalArgumentException when the blockNumber lower than 0
      */
     public void setBlockNumber(int blockNumber) {
         if (blockNumber < 0) {
@@ -91,6 +92,7 @@ public class ChoiceOptionImage {
     /**
      * Sets the choiceOptionNumber.
      * @param choiceOptionNumber the choiceOptionNumber
+     * @throws IllegalArgumentException when the choiceOptionNumber lower than 0
      */
     public void setChoiceOptionNumber(int choiceOptionNumber) {
         if (choiceOptionNumber < 0) {
@@ -102,12 +104,13 @@ public class ChoiceOptionImage {
     /**
      * Sets the scenarioNumber.
      * @param scenarioNumber the scenarioNumber
+     * @throws IllegalArgumentException when the Scenario Number lower than 0
      */
     public void setScenarioNumber(int scenarioNumber) {
         if (scenarioNumber < 0) {
             throw new IllegalArgumentException("Scenario Number must be greater than 0");
         }
-        infos.put(SCENARIO_NUMBER_KEY, String.valueOf(scenarioNumber));
+        infos.put(SITUATION_NUMBER_KEY, String.valueOf(scenarioNumber));
     }
 
     /**

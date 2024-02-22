@@ -8,7 +8,6 @@ import edu.kit.ifv.trafficspvisualizer.model.settings.ChoiceOption;
 import edu.kit.ifv.trafficspvisualizer.model.settings.ExportSettings;
 import edu.kit.ifv.trafficspvisualizer.model.settings.LineType;
 import edu.kit.ifv.trafficspvisualizer.model.settings.RouteSection;
-import edu.kit.ifv.trafficspvisualizer.model.settings.SeparatorLine;
 import javafx.scene.paint.Color;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -71,21 +70,22 @@ public abstract class AbstractSaver {
     /**
      * Create a JSON object representing an abstract attribute.
      *
-     * @param attribute The abstract attribute to be represented.
+     * @param abstractAttribute The abstract attribute to be represented.
      * @return A JSONObject representing the abstract attribute.
      * @throws IllegalArgumentException If the attribute type is unknown.
      */
-    private JSONObject createJsonAbstractAttribute(AbstractAttribute attribute) {
-        Objects.requireNonNull(attribute, "Attribute cannot be null");
+    private JSONObject createJsonAbstractAttribute(AbstractAttribute abstractAttribute) {
+        Objects.requireNonNull(abstractAttribute, "Attribute cannot be null");
 
-        if (attribute instanceof Attribute attribute1) {
-            return createJsonAttributes(attribute1.getName(), attribute1.getIcon(), attribute1.getPrefix(),
-                    attribute1.getSuffix(), attribute1.isPermanentlyVisible(), attribute1.getDecimalPlaces(),
-                    attribute1.getChoiceOptionMappings());
-        } else if (attribute instanceof SeparatorLine) {
-            return createJsonLineSeparator();
+        if (abstractAttribute.hasValues()) {
+            Attribute attribute = (Attribute) abstractAttribute;
+            return createJsonAttributes(attribute.getName(), attribute.getIcon(), attribute.getPrefix(),
+                    attribute.getSuffix(), attribute.isPermanentlyVisible(), attribute.getDecimalPlaces(),
+                    attribute.getChoiceOptionMappings(),attribute.isActive());
+        } else if (!abstractAttribute.hasValues()) {
+            return createJsonLineSeparator(abstractAttribute);
         } else {
-            throw new IllegalArgumentException("Unknown attribute type: " + attribute.getClass());
+            throw new IllegalArgumentException("Unknown attribute type: " + abstractAttribute.getClass());
         }
     }
 
@@ -110,11 +110,11 @@ public abstract class AbstractSaver {
 
     /**
      * Create a JSON object representing a line separator.
-     *
+     * @param attribute the lineseperator attribute.
      * @return A JSONObject representing a line separator.
      */
-    private JSONObject createJsonLineSeparator(){
-        return new JSONObject().put(JsonKeys.KEY_LINE_SEPARATOR.getKey(), "");
+    private JSONObject createJsonLineSeparator(AbstractAttribute attribute){
+        return new JSONObject().put(JsonKeys.KEY_LINE_SEPARATOR.getKey(), attribute.isActive());
     }
 
     /**
@@ -148,11 +148,12 @@ public abstract class AbstractSaver {
      * @param permanentlyVisible The visibility status of the attribute.
      * @param decimalPlaces The number of decimal places for the attribute value.
      * @param choiceOptionMappings The mappings of choice options for the attribute.
+     * @param active The visibility status of the attribute.
      * @return A JSONObject representing the attribute.
      */
     private JSONObject createJsonAttributes(String name, Icon icon, String prefix, String suffix,
                                               boolean permanentlyVisible, int decimalPlaces, Map<ChoiceOption,
-            List<String>> choiceOptionMappings) {
+            List<String>> choiceOptionMappings, boolean active) {
         Objects.requireNonNull(name, "Name cannot be null");
         Objects.requireNonNull(icon, "Icon cannot be null");
         Objects.requireNonNull(prefix, "Prefix cannot be null");
@@ -168,6 +169,7 @@ public abstract class AbstractSaver {
         jsonObject.put(JsonKeys.KEY_DECIMAL_PLACES.getKey(), decimalPlaces);
         jsonObject.put(JsonKeys.KEY_CHOICE_OPTION_MAPPINGS.getKey(),
                 createChoiceOptionMappingsJson(choiceOptionMappings));
+        jsonObject.put(JsonKeys.KEY_ACTIVE.getKey(),active);
         JSONObject attribute = new JSONObject();
         return attribute.put(JsonKeys.KEY_ATTRIBUTE.getKey(),jsonObject);
     }
