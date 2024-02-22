@@ -32,7 +32,7 @@ public class HTMLExporter extends Exporter {
      */
     @Override
     public void export(ChoiceOptionImage[] images, File file, String name, String html) throws IOException {
-        if (!html.isEmpty())this.html = html;
+        if (html != null) this.html = html;
 
         var imageExporter = new ImageExporter();
         this.directoryName = name;

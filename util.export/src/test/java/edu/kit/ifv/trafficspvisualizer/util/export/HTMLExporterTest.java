@@ -11,6 +11,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -21,9 +22,9 @@ class HTMLExporterTest {
         URL url = this.getClass().getClassLoader().getResource("Bike.png");
         File file = null;
         try {
-            file = new File(url.toURI());
+            file = new File(Objects.requireNonNull(url).toURI());
         } catch (URISyntaxException e) {
-            file = new File(url.getPath());
+            file = new File(Objects.requireNonNull(url).getPath());
 
         }
         BufferedImage image = null;
@@ -55,7 +56,7 @@ class HTMLExporterTest {
             fail();
         }
         try {
-            imageExporter.export(choiceOptionImages, files.toFile(), "sd",null);
+            imageExporter.export(choiceOptionImages, files.toFile(), "sd","");
         } catch (IOException e) {
             System.out.println(e.getMessage());
             fail();
