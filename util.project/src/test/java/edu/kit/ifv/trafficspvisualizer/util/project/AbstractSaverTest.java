@@ -82,8 +82,6 @@ class AbstractSaverTest {
                 project.getName(), project.getAbstractAttributes(), project.getExportSettings(), project.getChoiceOptions()
         );
 
-        System.out.println(jsonObject);
-
         final String expectedJsonString = "{\"exportSettings\":{\"imageWidth\":200,\"exportType\":\"ChoiceOpt" +
                 "ion\",\"HtmlVariable\":\"testVar\",\"imageHeight\":100,\"fileFormat\":\"PNG\"},\"ChoiceOptio" +
                 "ns\":[{\"ChoiceOption\":{\"routeSections\":[{\"lineType\":\"dashed\",\"icon\":0,\"choiceData" +
