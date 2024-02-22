@@ -87,7 +87,9 @@ public abstract class AbstractLoader {
         if (jsonObject.has(JsonKeys.KEY_ATTRIBUTE.getKey())) {
             return createAttributeFromJson(jsonObject.getJSONObject(JsonKeys.KEY_ATTRIBUTE.getKey()),choiceOptions);
         } else if (jsonObject.has(JsonKeys.KEY_LINE_SEPARATOR.getKey())) {
-            return new SeparatorLine();
+            SeparatorLine separatorLine = new SeparatorLine();
+            separatorLine.setActive(jsonObject.optBoolean(JsonKeys.KEY_LINE_SEPARATOR.getKey()));
+            return separatorLine;
         }
         return null;
     }

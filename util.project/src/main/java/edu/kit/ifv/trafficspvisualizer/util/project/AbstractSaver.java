@@ -83,7 +83,7 @@ public abstract class AbstractSaver {
                     attribute.getSuffix(), attribute.isPermanentlyVisible(), attribute.getDecimalPlaces(),
                     attribute.getChoiceOptionMappings(),attribute.isActive());
         } else if (!abstractAttribute.hasValues()) {
-            return createJsonLineSeparator();
+            return createJsonLineSeparator(abstractAttribute);
         } else {
             throw new IllegalArgumentException("Unknown attribute type: " + abstractAttribute.getClass());
         }
@@ -110,11 +110,11 @@ public abstract class AbstractSaver {
 
     /**
      * Create a JSON object representing a line separator.
-     *
+     * @param attribute the lineseperator attribute.
      * @return A JSONObject representing a line separator.
      */
-    private JSONObject createJsonLineSeparator(){
-        return new JSONObject().put(JsonKeys.KEY_LINE_SEPARATOR.getKey(), "");
+    private JSONObject createJsonLineSeparator(AbstractAttribute attribute){
+        return new JSONObject().put(JsonKeys.KEY_LINE_SEPARATOR.getKey(), attribute.isActive());
     }
 
     /**
