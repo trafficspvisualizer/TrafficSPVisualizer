@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class AbstractLoaderTest {
 
     @Test
-    void createProject() throws IOException, ParseException {
+    void testCreateProject() throws IOException, ParseException {
 
         AbstractLoader loader = new StandardProjectLoader();
 

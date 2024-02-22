@@ -66,6 +66,10 @@ class AbstractSaverTest {
         project.getChoiceOptions().getFirst().addRouteSection(
                 new RouteSection(project.getIconManager().getDefaultIcon(), "zugang", LineType.DASHED));
 
+        for(int i = 0; i < project.getChoiceOptions().size(); i++) {
+            project.getChoiceOptions().get(i).setColor(new Color(0.01*i, 0.01*i,0.01*i,0.01*i));
+        }
+
         // export Settings
         Path exportPath = Files.createTempDirectory("AbstractSaverTestExportFolder");
         project.setExportSettings(new ExportSettings(
@@ -78,17 +82,25 @@ class AbstractSaverTest {
                 project.getName(), project.getAbstractAttributes(), project.getExportSettings(), project.getChoiceOptions()
         );
 
-        // test abstract attributes
-        JSONArray attributesJsonArray = jsonObject.getJSONArray(JsonKeys.KEY_ATTRIBUTES.getKey());
+        System.out.println(jsonObject);
 
-        JSONObject attributeJsonObject = attributesJsonArray.getJSONObject(0).getJSONObject(JsonKeys.KEY_ATTRIBUTE.getKey());
-        assertEquals("TestAttribute", attributeJsonObject.getString(JsonKeys.KEY_NAME.getKey()));
-        assertEquals("testPrefix", attributeJsonObject.getString(JsonKeys.KEY_PREFIX.getKey()));
-        assertEquals("testSuffix", attributeJsonObject.getString(JsonKeys.KEY_SUFFIX.getKey()));
-        assertEquals(2, attributeJsonObject.getInt(JsonKeys.KEY_DECIMAL_PLACES.getKey()));
-        assertTrue(attributeJsonObject.getBoolean(JsonKeys.KEY_PERMANENTLY_VISIBLE.getKey()));
+        final String expectedJsonString = "{\"exportSettings\":{\"imageWidth\":200,\"exportType\":\"ChoiceOpt" +
+                "ion\",\"HtmlVariable\":\"testVar\",\"imageHeight\":100,\"fileFormat\":\"PNG\"},\"ChoiceOptio" +
+                "ns\":[{\"ChoiceOption\":{\"routeSections\":[{\"lineType\":\"dashed\",\"icon\":0,\"choiceData" +
+                "Key\":\"zugang\"}],\"color\":\"0x00000000\",\"name\":\"fuss\",\"title\":\"fuss\"}},{\"Choice" +
+                "Option\":{\"routeSections\":[],\"color\":\"0x03030303\",\"name\":\"car\",\"title\":\"ChoiceO" +
+                "ptionTestTitle\"}},{\"ChoiceOption\":{\"routeSections\":[],\"color\":\"0x05050505\",\"name\"" +
+                ":\"oev_fuss\",\"title\":\"oev_fuss\"}},{\"ChoiceOption\":{\"routeSections\":[],\"color\":\"0" +
+                "x08080808\",\"name\":\"rad\",\"title\":\"rad\"}},{\"ChoiceOption\":{\"routeSections\":[],\"c" +
+                "olor\":\"0x0a0a0a0a\",\"name\":\"shuttle_od\",\"title\":\"shuttle_od\"}},{\"ChoiceOption\":" +
+                "{\"routeSections\":[],\"color\":\"0x0d0d0d0d\",\"name\":\"shuttle_tb\",\"title\":\"shuttle_t" +
+                "b\"}}],\"name\":\"test\",\"attributes\":[{\"Attribute\":{\"decimalPlaces\":2,\"prefix\":\"t" +
+                "estPrefix\",\"name\":\"TestAttribute\",\"icon\":0,\"suffix\":\"testSuffix\",\"choiceOptionMa" +
+                "ppings\":[{\"List\":[\"cost_car\"],\"ChoiceOption\":{\"routeSections\":[],\"color\":\"0x0303" +
+                "0303\",\"name\":\"car\",\"title\":\"ChoiceOptionTestTitle\"}}],\"permanentlyVisible\":true" +
+                "}},{\"LineSeparator\":\"\"}]}";
 
-        //TODO: finish assertions
 
+        assertEquals(jsonObject.toString(), expectedJsonString);
     }
 }
