@@ -148,6 +148,7 @@ public abstract class AbstractSaver {
      * @param permanentlyVisible The visibility status of the attribute.
      * @param decimalPlaces The number of decimal places for the attribute value.
      * @param choiceOptionMappings The mappings of choice options for the attribute.
+     * @param active The visibility status of the attribute.
      * @return A JSONObject representing the attribute.
      */
     private JSONObject createJsonAttributes(String name, Icon icon, String prefix, String suffix,
