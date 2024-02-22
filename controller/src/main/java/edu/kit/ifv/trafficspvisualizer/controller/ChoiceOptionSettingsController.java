@@ -192,7 +192,7 @@ class ChoiceOptionSettingsController implements IconDisplayingController {
     }
 
     private void updateRouteSections() {
-        controllerFacade.getViewFacade().getChoiceOptionSettingsStage().updateRouteSectionScrollPane();
+        controllerFacade.getViewFacade().getChoiceOptionSettingsStage().updateRouteSections();
         updateRouteSectionActionListeners();
     }
 
