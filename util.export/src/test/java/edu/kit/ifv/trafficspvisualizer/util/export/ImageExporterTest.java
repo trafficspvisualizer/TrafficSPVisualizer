@@ -24,7 +24,7 @@ class ImageExporterTest {
                 choiceOptionImage.setImage(new BufferedImage(100,100, BufferedImage.TYPE_INT_RGB));
                 choiceOptionImage.setTitle("test"+i);
                 choiceOptionImage.setChoiceOptionNumber(j);
-                choiceOptionImage.setScenarioNumber(i);
+                choiceOptionImage.setSituationNumber(i);
                 choiceOptionImage.setBlockNumber(i*10);
                 imagesList.add(choiceOptionImage);
             }

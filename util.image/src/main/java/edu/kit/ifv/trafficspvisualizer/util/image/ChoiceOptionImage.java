@@ -102,15 +102,15 @@ public class ChoiceOptionImage {
     }
 
     /**
-     * Sets the scenarioNumber.
-     * @param scenarioNumber the scenarioNumber
-     * @throws IllegalArgumentException when the Scenario Number lower than 0
+     * Sets the situationNumber.
+     * @param situationNumber the situationNumber
+     * @throws IllegalArgumentException when the Situation Number lower than 0
      */
-    public void setScenarioNumber(int scenarioNumber) {
-        if (scenarioNumber < 0) {
-            throw new IllegalArgumentException("Scenario Number must be greater than 0");
+    public void setSituationNumber(int situationNumber) {
+        if (situationNumber < 0) {
+            throw new IllegalArgumentException("Situation Number must be greater than 0");
         }
-        infos.put(SITUATION_NUMBER_KEY, String.valueOf(scenarioNumber));
+        infos.put(SITUATION_NUMBER_KEY, String.valueOf(situationNumber));
     }
 
     /**

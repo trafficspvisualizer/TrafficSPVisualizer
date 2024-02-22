@@ -23,7 +23,7 @@ public class ChoiceOptionGenerator extends ImageCollectionGenerator {
                 currentChoiceOptionImage = new ChoiceOptionImage();
                 currentChoiceOption = project.getChoiceOptions().get(j);
                 currentChoiceOptionImage.setChoiceOptionNumber(j);
-                currentChoiceOptionImage.setScenarioNumber(i);
+                currentChoiceOptionImage.setSituationNumber(i);
                 currentChoiceOptionImage.setBlockNumber(dataObject.getBlockNumber(i));
                 double lengthOfLongestRouteSectionsOfSituation = calculateLongestRouteSection(i);
                 BufferedImage bufferedImage = standardImageGenerator.createChoiceOption(currentChoiceOption,
