@@ -111,7 +111,6 @@ class StandardImageGeneratorTest {
         BufferedImage referenceImage = ImageIO.read(new File(Objects.requireNonNull(this.getClass().getClassLoader().getResource("reference.png")).getPath()));
         StandardImageGenerator standardImageGenerator = new StandardImageGenerator();
         BufferedImage generatedImage = standardImageGenerator.createChoiceOption(carChoiceOption, dataObject, project.getAbstractAttributes(), 300, 2000, 28.0, 1);
-        ImageIO.write(generatedImage, "png", new File(System.getProperty("user.home") + "/Desktop/testbi.png"));
 
         assertTrue(compareImages(referenceImage, generatedImage));
     }
