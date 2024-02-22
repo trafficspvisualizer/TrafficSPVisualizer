@@ -126,9 +126,11 @@ class StandardProjectLoaderTest {
         assertEquals(attribute0.getChoiceOptionMappings().get(project.getChoiceOptions().get(4)), List.of("cost_oev"));
         assertEquals(attribute0.getChoiceOptionMappings().get(project.getChoiceOptions().get(0)), List.of("cost_oev"));
         assertTrue(attribute0.isPermanentlyVisible());
+        assertTrue(project.getAbstractAttributes().get(0).isActive());
 
         // 1 - separator line
         assertInstanceOf(SeparatorLine.class, project.getAbstractAttributes().get(1));
+        assertFalse(project.getAbstractAttributes().get(1).isActive());
 
         // 2
         assertInstanceOf(Attribute.class, project.getAbstractAttributes().get(2));
@@ -141,6 +143,7 @@ class StandardProjectLoaderTest {
         assertEquals(attribute2.getChoiceOptionMappings().get(project.getChoiceOptions().get(0)), List.of("freq_oev"));
         assertEquals(attribute2.getChoiceOptionMappings().get(project.getChoiceOptions().get(5)), List.of("freq_oev"));
         assertFalse(attribute2.isPermanentlyVisible());
+        assertFalse(project.getAbstractAttributes().get(2).isActive());
 
         // 3
         assertInstanceOf(Attribute.class, project.getAbstractAttributes().get(3));
@@ -152,6 +155,7 @@ class StandardProjectLoaderTest {
         assertEquals(attribute3.getSuffix(), " min");
         assertEquals(attribute3.getChoiceOptionMappings().get(project.getChoiceOptions().get(4)), List.of("warten"));
         assertFalse(attribute3.isPermanentlyVisible());
+        assertTrue(project.getAbstractAttributes().get(3).isActive());
 
         // Export Settings
         assertEquals(project.getExportSettings().getImageWidth(), 2000);

@@ -24,11 +24,14 @@ class StandardProjectSaverTest {
         DataObject dataObject = new NGDParser().parse(ngdFile);
         Project project = new Project("Test", projectFolderParentDirectory, dataObject, ngdFile);
 
+
         new StandardProjectSaver().saveProject(project, project.getProjectPath());
 
         Path projectFolder = projectFolderParentDirectory.resolve(project.getName());
         assertTrue(Files.exists(projectFolder));
         assertTrue(Files.exists(projectFolder.resolve("icon")));
+        assertEquals(Objects.requireNonNull(projectFolder.resolve("icon").toFile().listFiles()).length,
+                project.getIconManager().getIcons().size());
         assertTrue(Files.exists(projectFolder.resolve("Beispiel_ngene.ngd")));
         assertTrue(Files.exists(projectFolder.resolve("project.json")));
     }
