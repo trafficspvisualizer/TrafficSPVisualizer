@@ -20,7 +20,7 @@ class HTMLExporterTest {
     @Test
     void export() {
         URL url = this.getClass().getClassLoader().getResource("Bike.png");
-        File file = null;
+        File file;
         try {
             file = new File(Objects.requireNonNull(url).toURI());
         } catch (URISyntaxException e) {
