@@ -36,14 +36,20 @@ class ChoiceOptionImageTest {
     }
 
     @Test
-    void getScenarioNumber() {
+    void setAndGetSituationNumber() {
+        choiceOptionImage.setSituationNumber(1);
+        assertEquals(1, Integer.parseInt(choiceOptionImage.getSituationNumber()));
     }
 
     @Test
     void setBlockNumber() {
+        choiceOptionImage.setBlockNumber(1);
+        assertEquals(1, Integer.parseInt(choiceOptionImage.getInfos().get(2)));
     }
 
     @Test
-    void setScenarioNumber() {
+    void setChoiceOptionNumberTest() {
+        choiceOptionImage.setChoiceOptionNumber(1);
+        assertEquals(1, Integer.parseInt(choiceOptionImage.getInfos().get(3)));
     }
 }
