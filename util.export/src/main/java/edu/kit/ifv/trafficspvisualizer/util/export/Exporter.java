@@ -12,7 +12,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public abstract class Exporter {
-    protected static final String NAMING_SCHEME = "#c_%04d##c_%04d#_#c_%04d#_%s.%s";
+    private static final String NAMING_SCHEME = "#c_%04d##c_%04d#_#c_%04d#_%s.%s";
     protected static final String IMAGE_FORMAT = "png";
 
     /**
