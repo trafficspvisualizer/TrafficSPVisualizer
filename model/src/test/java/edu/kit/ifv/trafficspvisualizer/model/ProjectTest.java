@@ -7,6 +7,7 @@ import edu.kit.ifv.trafficspvisualizer.model.settings.AbstractAttribute;
 import edu.kit.ifv.trafficspvisualizer.model.settings.Attribute;
 import edu.kit.ifv.trafficspvisualizer.model.settings.ChoiceOption;
 import edu.kit.ifv.trafficspvisualizer.model.settings.ExportSettings;
+import edu.kit.ifv.trafficspvisualizer.model.settings.Project;
 import edu.kit.ifv.trafficspvisualizer.model.settings.SeparatorLine;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -47,20 +48,20 @@ class ProjectTest {
         when(testAttribute.hasValues()).thenReturn(true);
         attributes = List.of(testAttribute);
         testNGD = new File(
-            Objects.requireNonNull(ProjectTest.class.getResource("/test.ngd")).getFile()
+                Objects.requireNonNull(ProjectTest.class.getResource("/test.ngd")).getFile()
         );
 
 
         project = new Project(
-            "test",
-            testPath,
-            dataObject,
-            attributes,
-            new ArrayList<>(),
-            exportSettings,
-            null,
-            testNGD
-            );
+                "test",
+                testPath,
+                dataObject,
+                attributes,
+                new ArrayList<>(),
+                exportSettings,
+                null,
+                testNGD
+        );
     }
 
     @Test
@@ -70,8 +71,8 @@ class ProjectTest {
         assertEquals(dataObject, project.getDataObject());
         assertEquals(attributes, project.getAbstractAttributes());
         assertEquals(
-            Set.of(new ChoiceOption("testChoice1"), new ChoiceOption("testChoice2")),
-            new HashSet<>((project.getChoiceOptions()))
+                Set.of(new ChoiceOption("testChoice1"), new ChoiceOption("testChoice2")),
+                new HashSet<>((project.getChoiceOptions()))
         );
         assertEquals(exportSettings, project.getExportSettings());
         assertNotNull(project.getIconManager());

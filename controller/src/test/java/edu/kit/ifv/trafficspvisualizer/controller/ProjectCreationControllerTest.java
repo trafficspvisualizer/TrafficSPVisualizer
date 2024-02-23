@@ -1,6 +1,6 @@
 package edu.kit.ifv.trafficspvisualizer.controller;
 
-import edu.kit.ifv.trafficspvisualizer.model.Project;
+import edu.kit.ifv.trafficspvisualizer.model.settings.Project;
 import edu.kit.ifv.trafficspvisualizer.model.data.DataObject;
 import edu.kit.ifv.trafficspvisualizer.util.parse.NGDParser;
 import edu.kit.ifv.trafficspvisualizer.view.ViewFacade;
@@ -11,6 +11,7 @@ import javafx.embed.swing.JFXPanel;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -192,6 +193,7 @@ class ProjectCreationControllerTest {
             verify(mockControllerFacade.getViewFacade().getProjectCreationStage()).showNewProjectErrorAlert();
         });
     }
+
     @Test
     void testActionOnCreateNewProjectButtonIOException() {
         Platform.runLater(() -> {

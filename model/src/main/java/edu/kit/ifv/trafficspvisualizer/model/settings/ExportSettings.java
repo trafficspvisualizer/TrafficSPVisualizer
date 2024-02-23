@@ -4,7 +4,7 @@ import java.nio.file.Path;
 
 /**
  * This class contains all settings for the export of image defined in a
- * {@link edu.kit.ifv.trafficspvisualizer.model.Project}.
+ * {@link Project}.
  * Among other things this class contains the height of the exported images. That value always represents the height
  * of a single {@link ChoiceOption} in the images, even if the {@link ExportType} is set to {@link ExportType#SITUATION}
  */
@@ -17,7 +17,7 @@ public class ExportSettings {
     private Path exportPath;
     private FileFormat fileFormat;
     private ExportType exportType;
-    private String htmlVariableName;
+    private final String htmlVariableName;
 
     /**
      * Constructs a new {@link ExportSettings} object with default values.
@@ -145,17 +145,10 @@ public class ExportSettings {
 
     /**
      * Returns the name of the HTML variable.
+     *
      * @return the name of the HTML variable
      */
     public String getHtmlVariableName() {
         return htmlVariableName;
-    }
-
-    /**
-     * Sets the HTML variable.
-     * @param htmlVariableName the new name for the variable
-     */
-    public void setHtmlVariableName(String htmlVariableName) {
-        this.htmlVariableName = htmlVariableName;
     }
 }

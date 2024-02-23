@@ -8,6 +8,7 @@ import edu.kit.ifv.trafficspvisualizer.model.settings.ChoiceOption;
 import edu.kit.ifv.trafficspvisualizer.model.settings.LineType;
 import edu.kit.ifv.trafficspvisualizer.model.settings.RouteSection;
 import edu.kit.ifv.trafficspvisualizer.model.settings.SeparatorLine;
+
 import java.awt.Stroke;
 import java.awt.Graphics2D;
 import java.awt.Graphics;
@@ -20,13 +21,12 @@ import java.awt.image.BufferedImage;
 import java.util.List;
 
 
-
 /**
  * StandardImageGenerator inherits from ImageGenerator. It creates a choice option according to the standard template.
  * The individual values are displayed next to each other on the left side and the route sections on the right side.
  */
 
-public class StandardImageGenerator extends ImageGenerator{
+public class StandardImageGenerator extends ImageGenerator {
     private static final double STANDARD_ATTRIBUTE_WIDTH = 0.059;
     private static final double STANDARD_ATTRIBUTE_HEIGHT = 0.47;
     private static final double PADDING = 0.05;
@@ -136,7 +136,7 @@ public class StandardImageGenerator extends ImageGenerator{
         float separatorLineStrokeWidth = (float) (width * SEPARATOR_LINE_STROKE_WIDTH + 1);
 
         double leftHandSideWidth = padding + attributeWidth * attributeCount
-            + separatorLineStrokeWidth * separatorLineCount;
+                + separatorLineStrokeWidth * separatorLineCount;
 
 
         if (leftHandSideWidth > 0.5 * width) { // resizes attributeWidth

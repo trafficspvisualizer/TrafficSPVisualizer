@@ -1,6 +1,6 @@
 package edu.kit.ifv.trafficspvisualizer.util.project;
 
-import edu.kit.ifv.trafficspvisualizer.model.Project;
+import edu.kit.ifv.trafficspvisualizer.model.settings.Project;
 import edu.kit.ifv.trafficspvisualizer.model.settings.*;
 import org.junit.jupiter.api.Test;
 
@@ -164,6 +164,7 @@ class StandardProjectLoaderTest {
         assertEquals(project.getExportSettings().getImageHeight(), 400);
         assertEquals(project.getExportSettings().getFileFormat(), FileFormat.PNG);
     }
+
     @Test
     void testLoadProjectInvalidDirectory() {
         try {

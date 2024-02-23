@@ -1,7 +1,7 @@
 package edu.kit.ifv.trafficspvisualizer.view.window;
 
 import edu.kit.ifv.trafficspvisualizer.model.icon.Icon;
-import edu.kit.ifv.trafficspvisualizer.model.Project;
+import edu.kit.ifv.trafficspvisualizer.model.settings.Project;
 import edu.kit.ifv.trafficspvisualizer.view.ViewFacade;
 import edu.kit.ifv.trafficspvisualizer.view.data.image.ImageLibrary;
 import edu.kit.ifv.trafficspvisualizer.view.data.language.LanguageStrategy;
@@ -80,9 +80,9 @@ public class IconSelectionStage extends Stage {
         cancelButton = new Button(languageStrategy.getIconSelectionCancelButtonText());
 
         selectAndCancelGridPane = new GridPane();
-        selectAndCancelGridPane.add(addIconButton, 0,0,2,1);
-        selectAndCancelGridPane.add(selectButton, 0,1);
-        selectAndCancelGridPane.add(cancelButton, 1,1);
+        selectAndCancelGridPane.add(addIconButton, 0, 0, 2, 1);
+        selectAndCancelGridPane.add(selectButton, 0, 1);
+        selectAndCancelGridPane.add(cancelButton, 1, 1);
 
         bodyBorderPane = new BorderPane();
         bodyBorderPane.setTop(iconScrollPane);
@@ -131,7 +131,7 @@ public class IconSelectionStage extends Stage {
             Button iconButton = new Button();
             iconButton.setGraphic(iconButtonImageView);
 
-            iconButton.setPrefSize(60,60);
+            iconButton.setPrefSize(60, 60);
             iconButton.setFocusTraversable(false);
 
 
@@ -142,6 +142,7 @@ public class IconSelectionStage extends Stage {
     }
 
     // show-methods
+
     /**
      * Shows a file chooser dialog bounded to this {@link IconSelectionStage}.
      *
@@ -181,6 +182,7 @@ public class IconSelectionStage extends Stage {
     }
 
     // getter-methods
+
     /**
      * Gets the add icon button.
      *

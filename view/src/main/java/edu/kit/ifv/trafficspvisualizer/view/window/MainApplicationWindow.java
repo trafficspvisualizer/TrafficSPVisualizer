@@ -2,7 +2,7 @@ package edu.kit.ifv.trafficspvisualizer.view.window;
 
 import edu.kit.ifv.trafficspvisualizer.model.settings.ChoiceOption;
 import edu.kit.ifv.trafficspvisualizer.model.icon.Icon;
-import edu.kit.ifv.trafficspvisualizer.model.Project;
+import edu.kit.ifv.trafficspvisualizer.model.settings.Project;
 import edu.kit.ifv.trafficspvisualizer.model.settings.RouteSection;
 import edu.kit.ifv.trafficspvisualizer.view.ViewFacade;
 import edu.kit.ifv.trafficspvisualizer.view.data.font.FontLibrary;
@@ -86,7 +86,6 @@ public class MainApplicationWindow {
     private GridPane previewGridPane;
 
 
-
     private ImageView exportButtonImageView;
 
     private Button exportButton;
@@ -124,20 +123,18 @@ public class MainApplicationWindow {
     private VBox configVbox;
 
 
-
-
     private BorderPane bodyBorderPane;
 
     private Scene scene;
 
-    private Stage stage;
+    private final Stage stage;
 
     /**
      * Creates the basic structure of the {@link MainApplicationWindow}.
      *
      * @param viewFacade The {@link ViewFacade} through which this class can access the
      *                   {@link Project} and the {@link LanguageStrategy}.
-     * @param stage The primary stage of the application provided by the JavaFX application.
+     * @param stage      The primary stage of the application provided by the JavaFX application.
      */
     public MainApplicationWindow(ViewFacade viewFacade, Stage stage) {
         choiceOptionSettingsButtonList = new ArrayList<>();
@@ -207,14 +204,14 @@ public class MainApplicationWindow {
         rightSwitchPreviewButton.setGraphic(rightSwitchPreviewButtonImageView);
 
         previewGridPane = new GridPane();
-        previewGridPane.add(previewText,0, 0, 1, 1);
-        previewGridPane.add(previewImageView,1, 2, 1, 1);
-        previewGridPane.add(currentPreviewText,2, 0, 2, 1);
-        previewGridPane.add(leftSwitchPreviewButton,2, 1, 1, 1);
-        previewGridPane.add(rightSwitchPreviewButton,3, 1, 1, 1);
+        previewGridPane.add(previewText, 0, 0, 1, 1);
+        previewGridPane.add(previewImageView, 1, 2, 1, 1);
+        previewGridPane.add(currentPreviewText, 2, 0, 2, 1);
+        previewGridPane.add(leftSwitchPreviewButton, 2, 1, 1, 1);
+        previewGridPane.add(rightSwitchPreviewButton, 3, 1, 1, 1);
     }
 
-    private void buildConfigVBox(){
+    private void buildConfigVBox() {
         LanguageStrategy languageStrategy = viewFacade.getLanguageStrategy();
 
         exportButtonImageView
@@ -240,13 +237,13 @@ public class MainApplicationWindow {
         exportAndAttributesGridPane.add(exportButton, 0, 0, 1, 1);
         exportAndAttributesGridPane.add(exportSettingsButton, 1, 0, 1, 1);
         exportAndAttributesGridPane.add(exportText, 0, 1, 2, 1);
-        exportAndAttributesGridPane.add(attributesButton, 4,0,1,1);
-        exportAndAttributesGridPane.add(attributesText, 4,1,1,1);
+        exportAndAttributesGridPane.add(attributesButton, 4, 0, 1, 1);
+        exportAndAttributesGridPane.add(attributesText, 4, 1, 1, 1);
 
         choiceOptionText = new Text(languageStrategy.getMainApplicationChoiceOptionText());
 
         choiceOptionTextGridPane = new GridPane();
-        choiceOptionTextGridPane.add(choiceOptionText,0,0);
+        choiceOptionTextGridPane.add(choiceOptionText, 0, 0);
 
         choiceOptionVBox = new VBox();
 
@@ -294,7 +291,6 @@ public class MainApplicationWindow {
                         .subtract(previewGridPane.vgapProperty().multiply(8)));
 
 
-
         Styler.centerCenterMidFontTextInGridPane(currentPreviewText);
 
         Styler.midImageView(leftSwitchPreviewButtonImageView);
@@ -333,13 +329,13 @@ public class MainApplicationWindow {
 
 
         Styler.centerCenterMidFontTextInGridPane(choiceOptionText);
-        GridPane.setHgrow(choiceOptionText,Priority.ALWAYS);
+        GridPane.setHgrow(choiceOptionText, Priority.ALWAYS);
 
 
         Styler.midHVGabMidPaddingGridPane(choiceOptionTextGridPane);
         choiceOptionTextGridPane.setBorder(new Border(
                 new BorderStroke(Color.LIGHTGRAY, BorderStrokeStyle.SOLID, null,
-                        new BorderWidths(2,0,0,0))));
+                        new BorderWidths(2, 0, 0, 0))));
 
 
         VBox.setVgrow(choiceOptionScrollPane, Priority.SOMETIMES);
@@ -347,13 +343,14 @@ public class MainApplicationWindow {
 
         configVbox.setBorder(new Border(
                 new BorderStroke(Color.LIGHTGRAY, BorderStrokeStyle.SOLID, null,
-                        new BorderWidths(0,2,0,0))));
+                        new BorderWidths(0, 2, 0, 0))));
 
 
     }
 
 
     // setter-methods
+
     /**
      * Sets the new displayed preview image.
      *
@@ -373,6 +370,7 @@ public class MainApplicationWindow {
     }
 
     // update- and add-methods
+
     /**
      * Updates the current displayed preview-situation-number.
      */
@@ -404,7 +402,6 @@ public class MainApplicationWindow {
         if (project == null) return;
 
 
-
         for (ChoiceOption choiceOption : project.getChoiceOptions()) {
             addChoiceOption(choiceOption);
         }
@@ -423,7 +420,6 @@ public class MainApplicationWindow {
         choiceOptionTitleText.setFont(FontLibrary.getMidFont());
 
 
-
         FlowPane routeSectionFlowPane = new FlowPane();
         for (RouteSection routeSection : choiceOption.getRouteSections()) {
             Icon routeSectionIcon = routeSection.getIcon();
@@ -439,7 +435,6 @@ public class MainApplicationWindow {
         GridPane.setValignment(routeSectionFlowPane, VPos.BOTTOM);
         GridPane.setHgrow(routeSectionFlowPane, Priority.ALWAYS);
         Styler.midHVGabFlowPane(routeSectionFlowPane);
-
 
 
         ImageView choiceOptionSettingsButtonImageView = new ImageView(
@@ -484,27 +479,24 @@ public class MainApplicationWindow {
         GridPane choiceOptionButtonGridPane = new GridPane();
         choiceOptionButtonGridPane.add(choiceOptionSettingsButton, 0, 0);
         choiceOptionButtonGridPane.add(upSwitchChoiceOptionButton, 0, 1);
-        choiceOptionButtonGridPane.add(downSwitchChoiceOptionButton, 0,2);
+        choiceOptionButtonGridPane.add(downSwitchChoiceOptionButton, 0, 2);
 
         Styler.midHVGabGridPane(choiceOptionButtonGridPane);
 
 
-
         GridPane choiceOptionGridPane = new GridPane();
-        choiceOptionGridPane.add(choiceOptionTitleText,0,0);
-        choiceOptionGridPane.add(routeSectionFlowPane,0,1);
-        choiceOptionGridPane.add(choiceOptionButtonGridPane,1,0,1,2);
+        choiceOptionGridPane.add(choiceOptionTitleText, 0, 0);
+        choiceOptionGridPane.add(routeSectionFlowPane, 0, 1);
+        choiceOptionGridPane.add(choiceOptionButtonGridPane, 1, 0, 1, 2);
 
         Styler.midHVGabMidPaddingGridPane(choiceOptionGridPane);
         choiceOptionGridPane.prefWidthProperty().bind(configVbox.widthProperty().subtract(17));
         choiceOptionGridPane.setBorder(new Border(
                 new BorderStroke(Color.LIGHTGRAY, BorderStrokeStyle.SOLID, null,
-                        new BorderWidths(0,0,1,0))));
+                        new BorderWidths(0, 0, 1, 0))));
 
         choiceOptionVBox.getChildren().add(choiceOptionGridPane);
     }
-
-
 
 
     // show-methods

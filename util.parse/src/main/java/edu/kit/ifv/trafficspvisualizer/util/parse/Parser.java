@@ -22,7 +22,7 @@ public abstract class Parser {
      *
      * @param file to be parsed
      * @return {@link DataObject} that contains the data from the file
-     * @throws IOException if file is not found
+     * @throws IOException    if file is not found
      * @throws ParseException if data cant be parsed
      */
     public abstract DataObject parse(File file) throws IOException, ParseException;

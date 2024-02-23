@@ -61,8 +61,8 @@ public class SVGToBufferedImageConverter implements ImageToBufferedImageConverte
 
         BufferedImage resultImage;
         try (
-            InputStream inputStream = Files.newInputStream(file.toPath());
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream()
+                InputStream inputStream = Files.newInputStream(file.toPath());
+                ByteArrayOutputStream outputStream = new ByteArrayOutputStream()
         ) {
             TranscoderInput input = new TranscoderInput(inputStream);
             TranscoderOutput output = new TranscoderOutput(outputStream);
@@ -70,7 +70,7 @@ public class SVGToBufferedImageConverter implements ImageToBufferedImageConverte
             byte[] imgData = outputStream.toByteArray();
             resultImage = ImageIO.read(new ByteArrayInputStream(imgData));
         } catch (TranscoderException | IOException e) {
-            //TODO
+            // Should never reach this point
             return null;
         }
 

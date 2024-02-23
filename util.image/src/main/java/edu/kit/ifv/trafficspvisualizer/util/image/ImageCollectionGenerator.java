@@ -1,6 +1,6 @@
 package edu.kit.ifv.trafficspvisualizer.util.image;
 
-import edu.kit.ifv.trafficspvisualizer.model.*;
+import edu.kit.ifv.trafficspvisualizer.model.settings.Project;
 import edu.kit.ifv.trafficspvisualizer.model.data.DataObject;
 import edu.kit.ifv.trafficspvisualizer.model.data.InvalidDataKeyException;
 import edu.kit.ifv.trafficspvisualizer.model.settings.AbstractAttribute;
@@ -81,13 +81,13 @@ public abstract class ImageCollectionGenerator {
      * The abstract method createImage is called by the controller. The controller hands over the project.
      * All important data is extracted from the project and bundled for the individual choice options.
      * This aggregated data is passed to the {@link ImageGenerator} class to create the images of each choice option.
-     * These images are returned as a {@link ChoiceOptionImage} array.
+     * These images are returned as a {@link SurveyImage} array.
      *
      * @param project that contains all the data
-     * @return {@link ChoiceOptionImage} array containing the images and necessary data for the export
+     * @return {@link SurveyImage} array containing the images and necessary data for the export
      * @throws InvalidDataKeyException if the images cant be generated
      */
-    public abstract ChoiceOptionImage[] createImage(Project project) throws InvalidDataKeyException;
+    public abstract SurveyImage[] createImage(Project project) throws InvalidDataKeyException;
 
     /**
      * Reads the data from the project and saves it in the attributes.

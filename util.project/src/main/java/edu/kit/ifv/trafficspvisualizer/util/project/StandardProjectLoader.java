@@ -1,6 +1,6 @@
 package edu.kit.ifv.trafficspvisualizer.util.project;
 
-import edu.kit.ifv.trafficspvisualizer.model.Project;
+import edu.kit.ifv.trafficspvisualizer.model.settings.Project;
 import org.json.JSONObject;
 
 import java.io.File;

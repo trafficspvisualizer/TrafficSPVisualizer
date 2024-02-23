@@ -1,6 +1,6 @@
 package edu.kit.ifv.trafficspvisualizer.controller;
 
-import edu.kit.ifv.trafficspvisualizer.model.Project;
+import edu.kit.ifv.trafficspvisualizer.model.settings.Project;
 import edu.kit.ifv.trafficspvisualizer.view.ViewFacade;
 
 /**
@@ -73,7 +73,7 @@ public class ControllerFacade {
     }
 
     /**
-     * Gets the {@link edu.kit.ifv.trafficspvisualizer.model.Project}.
+     * Gets the {@link Project}.
      *
      * @return The project on which the user is currently working
      */
@@ -82,7 +82,7 @@ public class ControllerFacade {
     }
 
     /**
-     * Gets the {@link edu.kit.ifv.trafficspvisualizer.model.Project}.
+     * Gets the {@link Project}.
      *
      * @param project the project on which the user wants to work
      */

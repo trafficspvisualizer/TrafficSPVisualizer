@@ -1,6 +1,6 @@
 package edu.kit.ifv.trafficspvisualizer.util.project;
 
-import edu.kit.ifv.trafficspvisualizer.model.Project;
+import edu.kit.ifv.trafficspvisualizer.model.settings.Project;
 import edu.kit.ifv.trafficspvisualizer.model.data.DataObject;
 import edu.kit.ifv.trafficspvisualizer.util.parse.NGDParser;
 import org.junit.jupiter.api.Test;
@@ -23,7 +23,6 @@ class StandardProjectSaverTest {
         File ngdFile = new File(Objects.requireNonNull(this.getClass().getClassLoader().getResource("Beispiel_ngene.ngd")).getPath());
         DataObject dataObject = new NGDParser().parse(ngdFile);
         Project project = new Project("Test", projectFolderParentDirectory, dataObject, ngdFile);
-
 
         new StandardProjectSaver().saveProject(project, project.getProjectPath());
 

@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class IconTest {
 
     @ParameterizedTest
-    @ValueSource (ints = { 0, 1, -1, 1000 })
+    @ValueSource(ints = {0, 1, -1, 1000})
     void testGetIdentifier(int id) {
         Icon icon = new SVGIcon(Path.of("test"), id);
         assertEquals(id, icon.getIdentifier());
@@ -20,7 +20,7 @@ class IconTest {
     }
 
     @ParameterizedTest
-    @ValueSource (strings = { "path/test", "", "123", "."})
+    @ValueSource(strings = {"path/test", "", "123", "."})
     void testGetFilePath(String path) {
         Path testPath = Paths.get(path);
         Icon icon = new SVGIcon(testPath, 100);

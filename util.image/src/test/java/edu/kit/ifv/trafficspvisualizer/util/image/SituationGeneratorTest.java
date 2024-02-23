@@ -1,6 +1,6 @@
 package edu.kit.ifv.trafficspvisualizer.util.image;
 
-import edu.kit.ifv.trafficspvisualizer.model.Project;
+import edu.kit.ifv.trafficspvisualizer.model.settings.Project;
 import edu.kit.ifv.trafficspvisualizer.model.data.DataObject;
 import edu.kit.ifv.trafficspvisualizer.model.data.InvalidDataKeyException;
 import edu.kit.ifv.trafficspvisualizer.util.parse.NGDParser;
@@ -40,13 +40,13 @@ class SituationGeneratorTest {
 
     @Test
     void createImage() throws InvalidDataKeyException {
-        ChoiceOptionImage[] result = situationGenerator.createImage(project);
+        SurveyImage[] result = situationGenerator.createImage(project);
 
         assertNotNull(result);
         assertEquals(numberOfSituations, result.length);
         BufferedImage testImage = result[0].image();
         assertEquals(CHOICE_OPTION_HEIGHT * numberOfChoiceOptions, testImage.getHeight());
-        assertEquals(CHOICE_OPTION_WIDTH , testImage.getWidth());
+        assertEquals(CHOICE_OPTION_WIDTH, testImage.getWidth());
     }
 
     @Test

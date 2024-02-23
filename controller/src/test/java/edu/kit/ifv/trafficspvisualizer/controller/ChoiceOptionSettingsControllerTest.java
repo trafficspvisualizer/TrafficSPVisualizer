@@ -7,6 +7,7 @@ import javafx.scene.control.ButtonType;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import java.lang.reflect.Method;
 
 import static org.junit.jupiter.api.Assertions.fail;
@@ -35,6 +36,7 @@ class ChoiceOptionSettingsControllerTest {
             ChoiceOptionSettingsController choiceOptionSettingsController = new ChoiceOptionSettingsController(0, mockControllerFacade);
         });
     }
+
     @Test
     void testActionOnCloseRequestCloseConfirmed() {
         Platform.runLater(() -> {
