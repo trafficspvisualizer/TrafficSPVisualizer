@@ -28,7 +28,7 @@ class ChoiceOptionGeneratorTest {
         DataObject dataObject = new NGDParser().parse(ngdFile);
         Project project = new Project("Test", projectFolderParentDirectory, dataObject, ngdFile);
 
-        ChoiceOptionImage[] result = choiceOptionGenerator.createImage(project);
+        SurveyImage[] result = choiceOptionGenerator.createImage(project);
 
         assertNotNull(result);
         assertEquals(numberOfChoiceOptions * numberOfSituations, result.length);
