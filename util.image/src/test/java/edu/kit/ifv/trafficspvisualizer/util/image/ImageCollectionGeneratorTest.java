@@ -17,11 +17,6 @@ import static org.mockito.Mockito.mock;
 class ImageCollectionGeneratorTest {
 
     @Test
-    void createImage() {
-
-    }
-
-    @Test
     void getImageCollectionGenerator() {
     }
 
