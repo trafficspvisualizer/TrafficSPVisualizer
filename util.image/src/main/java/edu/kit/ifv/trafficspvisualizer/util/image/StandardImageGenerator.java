@@ -27,7 +27,6 @@ import java.util.List;
  */
 
 public class StandardImageGenerator extends ImageGenerator{
-    private static final double ATTRIBUTE_DRAWING_HEIGHT = 0.39;
     private static final double STANDARD_ATTRIBUTE_WIDTH = 0.059;
     private static final double STANDARD_ATTRIBUTE_HEIGHT = 0.47;
     private static final double PADDING = 0.05;
@@ -39,31 +38,21 @@ public class StandardImageGenerator extends ImageGenerator{
     private static final double DRAWING_HEIGHT_OF_CENTRAL_SEPARATOR_LINE = 0.3;
     private static final double LENGTH_OF_CENTRAL_SEPARATOR_LINE = 0.65;
     private static final double TIME_LINE_STROKE_WIDTH = 0.01;
-    private static final int DASHING_PATTERN = 7;
-    private static final int DASH_PHASE = 0;
-    private static final int MITERLIMIT = 0;
-    private static final double ROUTE_SECTION_ICON_HEIGHT = 0.2;
+    private static final double ROUTE_SECTION_ICON_SIZE = 0.2;
     private static final double ROUTE_SECTION_DRAWING_HEIGHT = 0.625;
     private static final int END_OF_ROUTE_SECTION_MARKER_HEIGHT = 3;
     private static final float BOTTOM_LINE_STROKE_WIDTH = 1.0f;
-    private static final int ALPHA_VALUE_FOR_SLIGHTLY_TRANSPARENT_ICONS = 150;
-    private static final int ALPHA_VALUE_DIVISOR = 255;
     private static final double MAX_TEXT_WIDTH_OF_ATTRIBUTE = 0.75;
     private static final int CUT_FOR_TEXT_IN_TWO_LINES = 2;
     private static final double ATTRIBUTE_TEXT_HEIGHT = 8.0 / 9.0;
     private static final double ICON_HEIGHT_FOR_TWO_LINE_TEXT = 0.2;
     private static final double ICON_HEIGHT_FOR_ONE_LINE_TEXT = 0.25;
-    private static final int NUMBER_OF_SHIFTS = 24;
-    private static final int BIT_MASK = 0xFF;
-    private static final int MINUEND = 255;
-    private static final int BIG_BIT_MASK = 0x00FFFFFF;
-
-
     private static final String FONT_DEFAULT = "Arial";
     private static final String FONT_BOLD = "Arial Bold";
     private static final double ATTRIBUTE_DRAWING_HEIGHT_FACTOR = 0.39;
     private static final double HEIGHT_OF_HEADLINE_FACTOR = 0.25;
     private static final double ALPHA_MODIFIER = (double) 150 / 255;
+
     private int headlineHeight;
     private int width;
     private int height;
@@ -134,7 +123,7 @@ public class StandardImageGenerator extends ImageGenerator{
         fitFont(graphics2DHeadline, maxHeadlineWidth, headline);
 
         graphics2DHeadline.setColor(color);
-        graphics2DHeadline.drawString(headline, padding, 3 * headlineHeight / 4);
+        graphics2DHeadline.drawString(headline, padding, (int) (headlineHeight * DRAWING_HEIGHT_OF_HEADLINE));
 
         graphics2DHeadline.dispose();
         graphics2DChoiceOption.drawImage(headlineImage, 0, 0, null);
@@ -144,7 +133,7 @@ public class StandardImageGenerator extends ImageGenerator{
         int attributeCount = calculateNumberOfAttributes();
         int separatorLineCount = attributes.size() - attributeCount;
 
-        float separatorLineStrokeWidth = (float) (width / 400 + 1);
+        float separatorLineStrokeWidth = (float) (width * SEPARATOR_LINE_STROKE_WIDTH + 1);
 
         double leftHandSideWidth = padding + attributeWidth * attributeCount
             + separatorLineStrokeWidth * separatorLineCount;
@@ -167,14 +156,17 @@ public class StandardImageGenerator extends ImageGenerator{
                     } else {
                         attributeImage = createOneAttributeImage(attribute);
                     }
-                    graphics2DChoiceOption.drawImage(attributeImage, currentXCoordinate, attributeDrawingHeight, null);
-                    currentXCoordinate += attributeWidth + 2;
+                    graphics2DChoiceOption.drawImage(
+                            attributeImage, currentXCoordinate, attributeDrawingHeight, null
+                    );
+                    currentXCoordinate += attributeWidth + EXTRA_SPACE_AFTER_ATTRIBUTE;
                 } else if (abstractAttribute instanceof SeparatorLine) {
                     currentXCoordinate += (int) separatorLineStrokeWidth / 2;
                     Stroke separatorLineStroke = new BasicStroke(separatorLineStrokeWidth);
                     graphics2DChoiceOption.setStroke(separatorLineStroke);
                     graphics2DChoiceOption.setColor(Color.LIGHT_GRAY);
-                    graphics2DChoiceOption.drawLine(currentXCoordinate, attributeDrawingHeight, currentXCoordinate, attributeDrawingHeight + attributeHeight);
+                    graphics2DChoiceOption.drawLine(currentXCoordinate, attributeDrawingHeight, currentXCoordinate,
+                            attributeDrawingHeight + attributeHeight);
                     currentXCoordinate += (int) separatorLineStrokeWidth / 2 + 1;
                 }
             }
@@ -182,10 +174,10 @@ public class StandardImageGenerator extends ImageGenerator{
     }
 
     private void drawCentralSeparator() {
-        float strokeWidth = (float) (width / 300 + 1);
-        int yCoordinate = (int) (height * 0.3);
+        float strokeWidth = (float) (width * CENTRAL_SEPARATOR_LINE_STROKE_WIDTH + 1);
+        int yCoordinate = (int) (height * DRAWING_HEIGHT_OF_CENTRAL_SEPARATOR_LINE);
         int xCoordinate = currentXCoordinate + 1;
-        int length = (int) (0.65 * height);
+        int length = (int) (height * LENGTH_OF_CENTRAL_SEPARATOR_LINE);
 
         graphics2DChoiceOption.setColor(Color.GRAY);
         graphics2DChoiceOption.setStroke(new BasicStroke(strokeWidth));
@@ -194,17 +186,19 @@ public class StandardImageGenerator extends ImageGenerator{
     }
 
     private void drawRouteSections() throws InvalidDataKeyException {
-        float timeLineWidth = (float) (height / 100);
+        float timeLineWidth = (float) (height * TIME_LINE_STROKE_WIDTH);
         Stroke solidTimeLineStroke = new BasicStroke(timeLineWidth);
         Stroke dashedTimeLineStroke = new BasicStroke(timeLineWidth, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL,
                 0, new float[]{7}, 0);
-        int iconSize = (int) (height * 0.2);
+        int iconSize = (int) (height * ROUTE_SECTION_ICON_SIZE);
         graphics2DChoiceOption.setStroke(solidTimeLineStroke);
         int longestRouteSectionLength = width - (currentXCoordinate + 2 * padding);
-        int routeSectionDrawingHeight = (int) (height * 0.625);
+        int routeSectionDrawingHeight = (int) (height * ROUTE_SECTION_DRAWING_HEIGHT);
         currentXCoordinate += padding;
         graphics2DChoiceOption.setColor(color);
-        graphics2DChoiceOption.drawLine(currentXCoordinate, routeSectionDrawingHeight + 3, currentXCoordinate, routeSectionDrawingHeight - 3);
+        graphics2DChoiceOption.drawLine(currentXCoordinate,
+                routeSectionDrawingHeight + END_OF_ROUTE_SECTION_MARKER_HEIGHT,
+                currentXCoordinate, routeSectionDrawingHeight - 3);
         for (RouteSection routeSection : choiceOption.getRouteSections()) {
             String key = routeSection.getChoiceDataKey();
             double routeSectionLength = dataObject.getValue(situationIndex, choiceOption.getName(), key);
@@ -236,16 +230,18 @@ public class StandardImageGenerator extends ImageGenerator{
             //copy needed, else image would be saved with color
             BufferedImage icon = copyImage(routeSection.getIcon().toBufferedImage(iconSize, iconSize));
             changeImageColor(icon, color);
-            graphics2DChoiceOption.drawImage(icon, currentXCoordinate + (imageLengthOfRouteSection - iconSize) / 2, attributeDrawingHeight, null);
+            graphics2DChoiceOption.drawImage(icon, currentXCoordinate + (imageLengthOfRouteSection - iconSize) / 2,
+                    attributeDrawingHeight, null);
             currentXCoordinate += imageLengthOfRouteSection;
             graphics2DChoiceOption.setStroke(solidTimeLineStroke);
-            graphics2DChoiceOption.drawLine(currentXCoordinate, routeSectionDrawingHeight + 3, currentXCoordinate, routeSectionDrawingHeight - 3);
+            graphics2DChoiceOption.drawLine(currentXCoordinate, routeSectionDrawingHeight + 3, currentXCoordinate,
+                    routeSectionDrawingHeight - 3);
         }
     }
 
     private void drawBottomLine() {
         graphics2DChoiceOption.setColor(Color.LIGHT_GRAY);
-        graphics2DChoiceOption.setStroke(new BasicStroke(1.0f));
+        graphics2DChoiceOption.setStroke(new BasicStroke(BOTTOM_LINE_STROKE_WIDTH));
         graphics2DChoiceOption.drawLine(0, height - 1, width, height - 1);
     }
 
@@ -267,11 +263,11 @@ public class StandardImageGenerator extends ImageGenerator{
         g2DAttribute.setColor(color);
         g2DAttribute.setFont(attributeFont);
         String secondLineString = getRoundedString(attribute.getDecimalPlaces(), attributeValue) + suffix;
-        int maxTextWidth = attributeWidth - attributeWidth / 4;
+        int maxTextWidth = (int) (attributeWidth * MAX_TEXT_WIDTH_OF_ATTRIBUTE);
 
 
         int iconHeight;
-        if (attribute.getPrefix().length() > 2) { // draw font in two lines
+        if (attribute.getPrefix().length() > CUT_FOR_TEXT_IN_TWO_LINES) { // draw font in two lines
             String longerString;
             if (prefix.length() > secondLineString.length()) {
                 longerString = prefix;
@@ -286,19 +282,19 @@ public class StandardImageGenerator extends ImageGenerator{
 
 
             int x = (attributeWidth - prefixWidth) / 2;
-            int y = 8 * attributeHeight / 9 - g2DAttribute.getFontMetrics().getHeight();
+            int y = (int) (attributeHeight * ATTRIBUTE_TEXT_HEIGHT - g2DAttribute.getFontMetrics().getHeight());
             g2DAttribute.drawString(prefix, x, y);
             x = (attributeWidth - secondLineStringWidth) / 2;
-            y = 8 * attributeHeight / 9;
+            y = (int) (attributeHeight * ATTRIBUTE_TEXT_HEIGHT);
             g2DAttribute.drawString(secondLineString, x, y);
 
-            iconHeight = (int) (height * 0.2);
+            iconHeight = (int) (height * ICON_HEIGHT_FOR_TWO_LINE_TEXT);
         } else {
             fitFont(g2DAttribute, maxTextWidth, attributeText);
             int attributeTextWidth = g2DAttribute.getFontMetrics().stringWidth(attributeText);
             int x = (attributeWidth - attributeTextWidth) / 2;
-            g2DAttribute.drawString(attributeText, x, (8 * attributeHeight) / 9);
-            iconHeight = (int) (height * 0.25);
+            g2DAttribute.drawString(attributeText, x, (int) (attributeHeight * ATTRIBUTE_TEXT_HEIGHT));
+            iconHeight = (int) (height * ICON_HEIGHT_FOR_ONE_LINE_TEXT);
         }
 
         BufferedImage iconImage = (attribute.getIcon().toBufferedImage(iconHeight, attributeWidth));
@@ -314,7 +310,9 @@ public class StandardImageGenerator extends ImageGenerator{
     }
 
     private BufferedImage createEmptyAttributeImage() {
-        BufferedImage emptyAttributeImage = new BufferedImage(attributeWidth, attributeHeight, BufferedImage.TYPE_INT_RGB);
+        BufferedImage emptyAttributeImage = new BufferedImage(
+                attributeWidth, attributeHeight, BufferedImage.TYPE_INT_RGB
+        );
         Graphics2D graphics2D = emptyAttributeImage.createGraphics();
         fillWhite(graphics2D, attributeWidth, attributeHeight);
         graphics2D.dispose();
