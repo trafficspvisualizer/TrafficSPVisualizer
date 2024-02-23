@@ -19,10 +19,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class AbstractSaverTest {
-
     @Test
     void testCreateJsonProject() throws IOException, ParseException {
         // creating new project - choice option order is not deterministic due to HashMap
