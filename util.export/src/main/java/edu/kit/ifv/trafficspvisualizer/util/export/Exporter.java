@@ -14,11 +14,12 @@ import java.util.function.Supplier;
  * @author uhtfz
  */
 public abstract class Exporter {
-    private static final String NAMING_BLOCK = "#c_%04d#";
-    private static final String NAMING_SCHEME = "#c_%04d##c_%04d#_#c_%04d#_%s.%s";
+
+    /**
+     * The format in which the images get exported.
+     */
     protected static final String IMAGE_FORMAT = "png";
-    private static final String INFO_PREFIX = "#c_";
-    private static final String INFO_SUFFIX = "#";
+    private static final String NAMING_BLOCK = "#c_%04d#";
     private static final Map<ExportType, Supplier<Exporter>> EXPORTER_MAP = new HashMap<>();
     static {
         EXPORTER_MAP.put(ExportType.HTML, HTMLExporter::new);
