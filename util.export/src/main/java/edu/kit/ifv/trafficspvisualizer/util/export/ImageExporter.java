@@ -25,12 +25,12 @@ public class ImageExporter extends Exporter {
      * @throws IOException If an I/O error occurs.
      */
     @Override
-    public void export(ChoiceOptionImage[] images, File file, String name) throws IOException {
+    public void export(ChoiceOptionImage[] images, File file, String name, String html) throws IOException {
         this.directoryName = EXPORT_FOLDER.formatted(name);
         File newDirectory = createDirectory(file);
 
         for (ChoiceOptionImage image : images) {
-            Path imagePath = Paths.get(newDirectory.getPath(), constructImagePath(image));
+            Path imagePath = Paths.get(newDirectory.getPath(), constructImagePathWithDir(image));
             if (!imagePath.getParent().toFile().exists()) {
                 Files.createDirectories(imagePath.getParent());
             }
@@ -78,6 +78,4 @@ public class ImageExporter extends Exporter {
         }
         return newDirectory;
     }
-
-
 }

@@ -281,8 +281,8 @@ public class ChoiceOptionSettingsStage extends Stage {
     // update-methods
     private void updateStage() {
         updateTitleAndColorGridPane();
-        updateAttributeScrollPane();
-        updateRouteSectionScrollPane();
+        updateAttributes();
+        updateRouteSections();
 
         setTitle(viewFacade.getLanguageStrategy().getChoiceOptionSettingsTitleFormat().formatted(
             viewFacade.getProject().getChoiceOptions().get(choiceOptionIndex).getName()
@@ -300,7 +300,7 @@ public class ChoiceOptionSettingsStage extends Stage {
     /**
      * Updates the displayed attributes.
      */
-    private void updateAttributeScrollPane() {
+    private void updateAttributes() {
         attributesGridPane.getChildren().removeIf(node -> GridPane.getRowIndex(node) >= 3);
         attributesValueNamesCheckBoxList.clear();
 
@@ -317,7 +317,7 @@ public class ChoiceOptionSettingsStage extends Stage {
     /**
      * Updates the displayed route sections.
      */
-    public void updateRouteSectionScrollPane() {
+    public void updateRouteSections() {
         routeSectionsGridPane.getChildren().removeIf(node -> GridPane.getRowIndex(node) >= 3);
         routeSectionIconButtonList.clear();
         routeSectionLineTypeChoiceBoxList.clear();

@@ -8,8 +8,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
+import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,10 +18,9 @@ import java.util.stream.Collectors;
  * A class for exporting images in HTML format.
  * Inherits from the Exporter class.
  */
-public class HTMLExporter extends Exporter { //todo aufteilen in einzelen Situationen
+public class HTMLExporter extends Exporter {
     private String directoryName = "TrafficSPVisualizer";
-    private String htmlVar = "v_42x";
-    private int name = 1;
+    private String htmlVar = "v_";
 
 
     /**
@@ -32,22 +31,14 @@ public class HTMLExporter extends Exporter { //todo aufteilen in einzelen Situat
      * @throws IOException If an error occurs while writing to the file.
      */
     @Override
-    public void export(ChoiceOptionImage[] images, File file, String name) throws IOException {
-        var imageExporter = new ImageExporter();
-        this.directoryName = name;
-        imageExporter.export(images, file, directoryName);
-        this.directoryName += "_export";
-        var groupedImages = groupImagesByScenario(images);
-        for (var imageGroup : groupedImages) {
-            exportGroup(imageGroup, file);
-        }
-    }
+    public void export(ChoiceOptionImage[] images, File file, String name, String html) throws IOException {
+        if (html != null) this.htmlVar = html;
 
-    public void export(ChoiceOptionImage[] images, File file, String name, String var) throws IOException {
         var imageExporter = new ImageExporter();
-        this.htmlVar = var;
         this.directoryName = name;
-        imageExporter.export(images, file, directoryName);
+        imageExporter.export(images, file, directoryName,null);
+
+        this.directoryName += "_export";
         var groupedImages = groupImagesByScenario(images);
         for (var imageGroup : groupedImages) {
             exportGroup(imageGroup, file);
@@ -87,8 +78,11 @@ public class HTMLExporter extends Exporter { //todo aufteilen in einzelen Situat
             boolean created = path.toFile().mkdir();
             if (!created) throw new IOException("Could not create the directory");
         }
-        Path finalFilePath = Paths.get(file.getPath(),directoryName, directoryName + name + ".html");
-        name++;
+        Path finalFilePath = Paths.get(file.getPath(),
+                directoryName,
+                Integer.toString(imageGroup.getFirst().situationNumber()),
+                directoryName + "_" + imageGroup.getFirst().situationNumber() + ".html");
+
         Files.move(tempFilePath, finalFilePath, StandardCopyOption.REPLACE_EXISTING);
     }
 
@@ -112,23 +106,21 @@ public class HTMLExporter extends Exporter { //todo aufteilen in einzelen Situat
      * @throws IOException If an error occurs while writing to the file.
      */
     private void writeHtmlHeader(BufferedWriter writer) throws IOException {
-        writer.write("""
+        writer.write(String.format("""
             <head>
+                <meta charset="utf-8">
                 <link rel="stylesheet" href="https://something.online.com/example.css" />
                 <script src="https://test.com/example-lib.js" ></script>
                 <script type='text/javascript' src='images/local_script.js'></script>
-                
                 <script>
                       function change(value){
-                        document.getElementById("v_42").value= value;
+                        document.getElementById("%s").value= value;
                       }
                     </script>
-                    
                     <style type="text/css">
                       .radio-toolbar input[type="radio"] {
                         display: none;
                       }
-                    
                       .radio-toolbar label {
                         display: inline-block;
                         background-color: #ddd;
@@ -137,13 +129,12 @@ public class HTMLExporter extends Exporter { //todo aufteilen in einzelen Situat
                         font-size: 16px;
                         cursor: pointer;
                       }
-                    
                       .radio-toolbar input[type="radio"]:checked+label {
                         background-color: #bbb;
                       }
                     </style>
             </head>
-            """);
+            """, htmlVar));
     }
 
     /**
@@ -160,16 +151,17 @@ public class HTMLExporter extends Exporter { //todo aufteilen in einzelen Situat
                 """);
         for (int i = 0; i < imageGroup.size(); i++) {
             ChoiceOptionImage image = imageGroup.get(i);
-            String imagePath = "./" + constructImagePath(image);
+            String imagePath = constructImagePath(image);
             var encodedPath = java.net.URLEncoder.encode(imagePath, StandardCharsets.UTF_8);
             writer.write(String.format("""
                 <li>
-                <input  id="%s%d" type="radio" name="v_42" value="%d" class="input-hidden" onclick="change('%s')">
-                    <label for="v_42x%d" id="v_42x%d-label">
+                <input  id="%sx%d" type="radio" name="%s" value="%d" class="input-hidden" onclick="change('%s')">
+                    <label for="%sx%d" id="%sx%d-label">
                             <img src="%s" alt="%s" />
                           </label>
                 </li>
-                """, htmlVar, i + 1, i + 1, image.title(), i + 1, i + 1, imagePath, image.title()));
+                """, htmlVar, i + 1, htmlVar, i + 1, image.title(), htmlVar, i + 1, htmlVar, i + 1,
+                    encodedPath, image.title()));
         }
         writer.write("""
                 </ul>
@@ -184,12 +176,12 @@ public class HTMLExporter extends Exporter { //todo aufteilen in einzelen Situat
      * @throws IOException If an error occurs while writing to the file.
      */
     private void writeHiddenForm(BufferedWriter writer) throws IOException {
-        writer.write("""
+        writer.write(String.format("""
                 <form>
                 <div>
-                    <input id="v_42" name="v_42" value="#v_42#" readonly />
+                    <input id="%s" name="%s" value="#%s#" readonly />
                 </div>
                 </form>
-            """);
+            """, htmlVar, htmlVar, htmlVar));
     }
 }

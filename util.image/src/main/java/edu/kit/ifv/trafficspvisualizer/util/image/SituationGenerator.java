@@ -6,7 +6,13 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+
+/**
+ * SituationGenerator inherits from the ImageCollectionGenerator class.
+ * It is called by the controller to create the images of the various situations.
+ */
 public class SituationGenerator extends ImageCollectionGenerator {
+
     @Override
     public ChoiceOptionImage[] createImage(Project project) throws InvalidDataKeyException {
         setUpImageCreation(project);
@@ -24,6 +30,15 @@ public class SituationGenerator extends ImageCollectionGenerator {
         return situationImages;
     }
 
+    /**
+     * The createPreviewImage method can be used to create the image of a single situation.
+     * The method gets the entire project because it needs information from all classes. This data processing works in
+     * the same way as the createImage method, but only one situation is created. This method is used
+     * to create the preview in order not to create unnecessarily many BufferedImages.
+     * @param project the current project
+     * @return a bufferedImage, that is used for the preview
+     * @throws InvalidDataKeyException if bufferedImage cannot be generated.
+     */
     public BufferedImage createPreviewImage(Project project) throws InvalidDataKeyException {
         setUpImageCreation(project);
         return createSituationImage(project.getCurrentPreviewSituation());
@@ -36,7 +51,7 @@ public class SituationGenerator extends ImageCollectionGenerator {
         BufferedImage[] choiceOptionImages = new BufferedImage[numberOfChoiceOptions];
         for (int i = 0; i < numberOfChoiceOptions; i++) {
             choiceOptionImages[i] = standardImageGenerator.createChoiceOption(
-                    project.getChoiceOptions().get(i),
+                    choiceOptions.get(i),
                     dataObject,
                     attributeList,
                     choiceOptionHeight,

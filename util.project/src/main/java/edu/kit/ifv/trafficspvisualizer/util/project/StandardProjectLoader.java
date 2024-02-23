@@ -31,7 +31,7 @@ public class StandardProjectLoader extends AbstractLoader {
     @Override
     public Project loadProject(File file) throws IOException, ParseException {
         File ngdFile = findFileWithExtensionInDirectory(file, NGD_EXTENSION);
-        Path iconDir = findDirectoryInDirectory(file.toPath(), ICON_DIRECTORY_NAME);
+        Path iconDir = findDirectoryInDirectory(file.toPath());
         File jsonFile = findFileWithExtensionInDirectory(file, JSON_EXTENSION);
 
         JSONObject json = new JSONObject(Files.readString(jsonFile.toPath()));
@@ -58,15 +58,15 @@ public class StandardProjectLoader extends AbstractLoader {
      * Finds a directory with a specific name in a directory.
      *
      * @param directory The directory to search in.
-     * @param directoryName The name of the directory to find.
      * @return The found directory.
      * @throws IOException If no directory with the specified name is found.
      */
-    private Path findDirectoryInDirectory(Path directory, String directoryName) throws IOException {
+    private Path findDirectoryInDirectory(Path directory) throws IOException {
         return Files.walk(directory)
-                .filter(path -> Files.isDirectory(path) && path.getFileName().toString().equals(directoryName))
+                .filter(path -> Files.isDirectory(path) && path.getFileName().toString().equals(ICON_DIRECTORY_NAME))
                 .findFirst()
-                .orElseThrow(() -> new IOException("No directory named " + directoryName + " found in directory"));
+                .orElseThrow(() -> new IOException("No directory named " + ICON_DIRECTORY_NAME
+                        + " found in directory"));
     }
 }
 

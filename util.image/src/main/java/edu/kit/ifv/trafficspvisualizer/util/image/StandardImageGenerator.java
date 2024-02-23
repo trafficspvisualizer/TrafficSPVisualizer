@@ -8,19 +8,48 @@ import edu.kit.ifv.trafficspvisualizer.model.settings.ChoiceOption;
 import edu.kit.ifv.trafficspvisualizer.model.settings.LineType;
 import edu.kit.ifv.trafficspvisualizer.model.settings.RouteSection;
 import edu.kit.ifv.trafficspvisualizer.model.settings.SeparatorLine;
-
-import java.awt.AlphaComposite;
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Stroke;
+import java.awt.Graphics2D;
+import java.awt.Graphics;
+import java.awt.BasicStroke;
+import java.awt.AlphaComposite;
+import java.awt.Color;
+import java.awt.FontMetrics;
+import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
-public class StandardImageGenerator extends ImageGenerator {
+
+
+/**
+ * StandardImageGenerator inherits from ImageGenerator. It creates a choice option according to the standard template.
+ * The individual values are displayed next to each other on the left side and the route sections on the right side.
+ */
+
+public class StandardImageGenerator extends ImageGenerator{
+    private static final double ATTRIBUTE_DRAWING_HEIGHT = 0.39;
+    private static final double STANDARD_ATTRIBUTE_WIDTH = 0.059;
+    private static final double STANDARD_ATTRIBUTE_HEIGHT = 0.47;
+    private static final double DISTANCE_TO_SIDE = 0.05;
+    private static final double ATTRIBUTE_FONT_SIZE = 0.1;
+    private static final double DRAWING_HEIGHT_OF_HEADLINE = 0.75;
+    private static final double SEPARATOR_LINE_STROKE_WIDTH = 0.0025;
+    private static final double CENTRAL_SEPARATOR_LINE_STROKE_WIDTH = 0.0033;
+    private static final int EXTRA_SPACE_AFTER_ATTRIBUTE = 2;
+    private static final double DRAWING_HEIGHT_OF_CENTRAL_SEPARATOR_LINE = 0.3;
+    private static final double LENGTH_OF_CENTRAL_SEPARATOR_LINE = 0.65;
+    private static final double TIME_LINE_STROKE_WIDTH = 0.01;
+    private static final int DASHING_PATTERN = 7;
+    private static final int DASH_PHASE = 0;
+    private static final int MITERLIMIT = 0;
+    private static final double ROUTE_SECTION_ICON_HEIGHT = 0.2;
+    private static final double ROUTE_SECTION_DRAWING_HEIGHT = 0.625;
+    private static final int END_OF_ROUTE_SECTION_MARKER_HEIGHT = 3;
+    private static final float BOTTOM_LINE_STROKE_WIDTH = 1.0f;
+    private static final int ALPHA_VALUE_FOR_SLIGHTLY_TRANSPARENT_ICONS = 150;
+    private static final int ALPHA_VALUE_DIVISOR = 255;
+    private static final double MAX_TEXT_WIDTH_OF_ATTRIBUTE = 0.75;
+    private static final int CUT_FOR_TEXT_IN_TWO_LINES = 2;
     private static final String FONT_DEFAULT = "Arial";
     private static final String FONT_BOLD = "Arial Bold";
     private static final double ATTRIBUTE_DRAWING_HEIGHT_FACTOR = 0.39;

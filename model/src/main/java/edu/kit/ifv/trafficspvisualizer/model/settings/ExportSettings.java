@@ -152,7 +152,7 @@ public class ExportSettings {
     }
 
     /**
-     * Sets the HTML variable
+     * Sets the HTML variable.
      * @param htmlVariableName the new name for the variable
      */
     public void setHtmlVariableName(String htmlVariableName) {

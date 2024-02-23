@@ -1,6 +1,6 @@
 package edu.kit.ifv.trafficspvisualizer.util.image;
 
-import edu.kit.ifv.trafficspvisualizer.model.Project;
+import edu.kit.ifv.trafficspvisualizer.model.*;
 import edu.kit.ifv.trafficspvisualizer.model.data.DataObject;
 import edu.kit.ifv.trafficspvisualizer.model.data.InvalidDataKeyException;
 import edu.kit.ifv.trafficspvisualizer.model.settings.AbstractAttribute;
@@ -17,16 +17,50 @@ import java.util.List;
  */
 
 public abstract class ImageCollectionGenerator {
+    /**
+     * The height of the export.
+     * It is protected so subclasses can access it.
+     */
     protected int exportHeight;
+    /**
+     * The width of the export.
+     */
     protected int exportWidth;
+    /**
+     * The height of one choice option BufferedImage.
+     */
     protected int choiceOptionHeight;
+    /**
+     * The width of one choice option BufferedImage.
+     */
     protected int choiceOptionWidth;
+    /**
+     * The number of choice options in the project.
+     */
     protected int numberOfChoiceOptions;
+    /**
+     * A list containing all the choice options.
+     */
+    protected List<ChoiceOption> choiceOptions;
+    /**
+     * A List containing all the {@link AbstractAttribute} of the project.
+     */
     protected List<AbstractAttribute> attributeList;
+    /**
+     * The number of situations of the project.
+     */
     protected int numberOfSituations;
+    /**
+     * The data object containing the data from the file.
+     */
     protected DataObject dataObject;
+    /**
+     * The export settings of the project.
+     */
     protected ExportSettings exportSettings;
-    protected Project project;
+    /**
+     * A {@link StandardImageGenerator} object.
+     */
     protected StandardImageGenerator standardImageGenerator;
 
     /**
@@ -70,7 +104,7 @@ public abstract class ImageCollectionGenerator {
         this.dataObject = project.getDataObject();
         this.numberOfSituations = dataObject.getSituationCount();
         this.attributeList = project.getAbstractAttributes();
-        this.project = project;
+        this.choiceOptions = project.getChoiceOptions();
         this.standardImageGenerator = new StandardImageGenerator();
     }
 
@@ -80,13 +114,18 @@ public abstract class ImageCollectionGenerator {
      * @param choiceOption    of which we want to know the length
      * @param situationNumber of the {@link ChoiceOption}
      * @return the length of all the {@link RouteSection}
-     * @throws InvalidDataKeyException if the length of a {@link RouteSection} cant be read
      */
-    protected double calculateLengthOfRouteSection(ChoiceOption choiceOption, int situationNumber) throws InvalidDataKeyException {
+    protected double calculateLengthOfRouteSection(ChoiceOption choiceOption, int situationNumber) {
         double lengthOfRouteSections = 0;
         double lengthOfCurrentRouteSection;
         for (RouteSection routeSection : choiceOption.getRouteSections()) {
-            lengthOfCurrentRouteSection = dataObject.getValue(situationNumber, choiceOption.getName(), routeSection.getChoiceDataKey());
+
+            try {
+                lengthOfCurrentRouteSection = dataObject.getValue(situationNumber, choiceOption.getName(),
+                        routeSection.getChoiceDataKey());
+            } catch (InvalidDataKeyException e) {
+                lengthOfCurrentRouteSection = 0;
+            }
             lengthOfRouteSections += lengthOfCurrentRouteSection;
         }
 
@@ -98,13 +137,12 @@ public abstract class ImageCollectionGenerator {
      *
      * @param situationIndex of the situation
      * @return length of longest {@link RouteSection}
-     * @throws InvalidDataKeyException if the length of a {@link RouteSection} cant be read
      */
-    protected double calculateLongestRouteSection(int situationIndex) throws InvalidDataKeyException {
+    protected double calculateLongestRouteSection(int situationIndex) {
         double lengthOfLongestRouteSection = 0;
         double lengthOfCurrentRouteSection;
         for (int i = 0; i < numberOfChoiceOptions; i++) {
-            ChoiceOption currentChoiceOption = project.getChoiceOptions().get(i);
+            ChoiceOption currentChoiceOption = choiceOptions.get(i);
             lengthOfCurrentRouteSection = calculateLengthOfRouteSection(currentChoiceOption, situationIndex);
             if (lengthOfCurrentRouteSection > lengthOfLongestRouteSection) {
                 lengthOfLongestRouteSection = lengthOfCurrentRouteSection;

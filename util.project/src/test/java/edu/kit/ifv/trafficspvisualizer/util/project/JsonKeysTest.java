@@ -1,13 +1,12 @@
 package edu.kit.ifv.trafficspvisualizer.util.project;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class JsonKeysTest {
     @Test
     void getKey() {
-        Assertions.assertEquals("imageHeight",JsonKeys.KEY_IMAGE_HEIGHT.getKey());
+        assertEquals("imageHeight",JsonKeys.KEY_IMAGE_HEIGHT.getKey());
     }
 }
