@@ -333,6 +333,7 @@ public class ExportSettingsStage extends Stage {
      * @return The export directory.
      */
     public File getExportDirectory() {
+        if (exportDirectoryTextField.getUserData() == null) return null;
         if (exportDirectoryTextField.getUserData().getClass() != File.class) return null;
         return (File) exportDirectoryTextField.getUserData();
     }
