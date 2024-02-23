@@ -3,64 +3,84 @@ package edu.kit.ifv.trafficspvisualizer.util.export;
 import edu.kit.ifv.trafficspvisualizer.util.image.ChoiceOptionImage;
 import org.junit.jupiter.api.Test;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.file.Files;
-import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class HTMLExporterTest {
 
-    /*
     @Test
-    void export() {
-        URL url = this.getClass().getClassLoader().getResource("Bike.png");
-        File file;
-        try {
-            file = new File(Objects.requireNonNull(url).toURI());
-        } catch (URISyntaxException e) {
-            file = new File(Objects.requireNonNull(url).getPath());
-
+    void testExport() throws IOException {
+        List<ChoiceOptionImage> imagesList = new ArrayList<>();
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 5; j++) {
+                ChoiceOptionImage choiceOptionImage = new ChoiceOptionImage();
+                choiceOptionImage.setImage(new BufferedImage(100,100, BufferedImage.TYPE_INT_RGB));
+                choiceOptionImage.setTitle("test"+i);
+                choiceOptionImage.setChoiceOptionNumber(j);
+                choiceOptionImage.setSituationNumber(i);
+                choiceOptionImage.setBlockNumber(i*10);
+                imagesList.add(choiceOptionImage);
+            }
         }
-        BufferedImage image = null;
-        BufferedImage image2 = null;
-        try {
-            image = ImageIO.read(file);
-            image2 = ImageIO.read(file);
-        } catch (IOException e) {
-            fail();
-        }
-        ChoiceOptionImage choiceOptionImage = new ChoiceOptionImage();
-        ChoiceOptionImage choiceOptionImage2 = new ChoiceOptionImage();
-        choiceOptionImage.setImage(image);
-        choiceOptionImage.setTitle("Test1");
-        choiceOptionImage2.setImage(image2);
-        choiceOptionImage2.setTitle("Test2");
-        Exporter imageExporter = new HTMLExporter();
 
-        ChoiceOptionImage[] choiceOptionImages = new ChoiceOptionImage[2];
-        choiceOptionImages[0] = choiceOptionImage;
-        choiceOptionImages[1] = choiceOptionImage2;
-        Path files = null;
-        try {
-            files = Files.createTempDirectory("name");
+        ChoiceOptionImage[] images = imagesList.toArray(new ChoiceOptionImage[0]);
 
-        } catch (IOException e) {
-            fail();
+        File exportFolderParent = new File(String.valueOf(Files.createTempDirectory("ExportFolder")));
+        String name = "test";
+
+        HTMLExporter htmlExporter = new HTMLExporter();
+        htmlExporter.export(images, exportFolderParent, name, "");
+
+        assertEquals(Objects.requireNonNull(exportFolderParent.listFiles()).length, 1);
+        assertTrue(Files.exists(exportFolderParent.toPath().resolve(name+"_export")));
+
+        File exportFolder = exportFolderParent.toPath().resolve(name + "_export").toFile();
+
+        // check situation directories count
+        assertEquals(Objects.requireNonNull(exportFolder.listFiles()).length, 4);
+
+        // check naming of directories
+        for (int i = 0; i < Objects.requireNonNull(exportFolder.listFiles()).length; i++) {
+            //assertEquals(Objects.requireNonNull(exportFolder.toPath().resolve(name + "_export").toFile().listFiles())[i].getName(), String.valueOf(i));
+            boolean found = false;
+            for (int j = 0; j < Objects.requireNonNull(exportFolder.listFiles()).length; j++) {
+                if (Objects.requireNonNull(exportFolder.listFiles())[i].getName().equals(String.valueOf(j))) {
+                    found = true;
+                    break;
+                }
+            }
+            assertTrue(found);
         }
-        try {
-            imageExporter.export(choiceOptionImages, files.toFile(), "sd","");
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-            fail();
+
+        // check image count
+        for(File file: Objects.requireNonNull(exportFolder.listFiles())) {
+            assertEquals(Objects.requireNonNull(file.listFiles()).length, 6);
+        }
+
+        // check naming scheme of images and html file
+        // loops trough directories containing images
+        for (int i = 0; i < Objects.requireNonNull(exportFolder.listFiles()).length; i++) {
+            //loop trough images
+            for(File file: Objects.requireNonNull(exportFolder.toPath().resolve(String.valueOf(i)).toFile().listFiles())) {
+                // loop trough possible names
+                boolean foundName = false;
+                for (int j = 0; j < 5; j++) {
+                    if (file.getName().equals("#c_test" + i + "##c_" + i + "##c_" + i * 10 + "##c_" + j + "#.png")
+                    || file.getName().equals(name + "_export_" + i + ".html")) {
+                        foundName = true;
+                        break;
+                    }
+                }
+                if(!foundName) assertEquals(file.getName(), "");
+            }
         }
     }
-
-     */
 }
