@@ -21,7 +21,7 @@ public class ImageExporter extends Exporter {
      * Exports an array of images to a specified file.
      *
      * @param images The array of images to be exported.
-     * @param file The file to which the images will be exported.
+     * @param file   The file to which the images will be exported.
      * @throws IOException If an I/O error occurs.
      */
     @Override

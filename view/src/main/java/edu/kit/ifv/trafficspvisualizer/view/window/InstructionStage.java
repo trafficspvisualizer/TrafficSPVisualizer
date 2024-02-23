@@ -115,7 +115,6 @@ public class InstructionStage extends Stage {
     private Scene scene;
 
 
-
     /**
      * Creates the {@link InstructionStage}.
      *
@@ -137,8 +136,8 @@ public class InstructionStage extends Stage {
         projectContentText = new Text(languageStrategy.getInstructionProjectContentText());
 
         projectSectionGridPane = new GridPane();
-        projectSectionGridPane.add(projectHeaderText, 0,0);
-        projectSectionGridPane.add(projectContentText, 0,1);
+        projectSectionGridPane.add(projectHeaderText, 0, 0);
+        projectSectionGridPane.add(projectContentText, 0, 1);
 
 
         creatingNewProjectHeaderText = new Text(languageStrategy.getInstructionCreatingNewProjectHeaderText());
@@ -260,6 +259,7 @@ public class InstructionStage extends Stage {
         initModality(Modality.NONE);
         getIcons().add(ImageLibrary.getApplicationIcon());
     }
+
     private void styleStage() {
         Styler.continuousTextWithinGridPane(projectSectionGridPane, projectHeaderText, projectContentText);
         styleContentTexts(projectSectionGridPane, projectContentText);

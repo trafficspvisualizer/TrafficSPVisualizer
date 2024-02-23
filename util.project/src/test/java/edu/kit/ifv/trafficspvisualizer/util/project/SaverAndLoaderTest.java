@@ -31,13 +31,13 @@ class SaverAndLoaderTest {
         }
         Project project = null;
         try {
-            project = new Project("name", files,parser.parse(ngd),ngd);
+            project = new Project("name", files, parser.parse(ngd), ngd);
             project.addAbstractAttribute(new SeparatorLine());
-            Attribute attribute = new Attribute("je",project.getIconManager().getDefaultIcon(),"","",true,0);
-            RouteSection routeSection = new RouteSection(project.getIconManager().getDefaultIcon(),"cfd", LineType.DASHED);
+            Attribute attribute = new Attribute("je", project.getIconManager().getDefaultIcon(), "", "", true, 0);
+            RouteSection routeSection = new RouteSection(project.getIconManager().getDefaultIcon(), "cfd", LineType.DASHED);
             ArrayList<RouteSection> routeSections = new ArrayList<>();
             routeSections.add(routeSection);
-            ChoiceOption choiceOption = new ChoiceOption("ds","sfd", routeSections, Color.ALICEBLUE);
+            ChoiceOption choiceOption = new ChoiceOption("ds", "sfd", routeSections, Color.ALICEBLUE);
             attribute.setMapping(choiceOption, new ArrayList<>());
             project.addAbstractAttribute(attribute);
 
@@ -47,12 +47,12 @@ class SaverAndLoaderTest {
         StandardProjectSaver standardProjectSaver = new StandardProjectSaver();
         StandardProjectLoader standardProjectLoader = new StandardProjectLoader();
         try {
-            standardProjectSaver.saveProject(project,files);
+            standardProjectSaver.saveProject(project, files);
             File f = new File(files.toString(), "name");
             Project p = standardProjectLoader.loadProject(f);
-            Assertions.assertEquals(project.getName(),p.getName());
-            Assertions.assertEquals(project.getChoiceOptions(),p.getChoiceOptions());
-            Assertions.assertEquals(project.getExportSettings().getExportType(),p.getExportSettings().getExportType());
+            Assertions.assertEquals(project.getName(), p.getName());
+            Assertions.assertEquals(project.getChoiceOptions(), p.getChoiceOptions());
+            Assertions.assertEquals(project.getExportSettings().getExportType(), p.getExportSettings().getExportType());
         } catch (IOException | ParseException e) {
             fail();
         }

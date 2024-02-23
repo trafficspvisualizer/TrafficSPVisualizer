@@ -43,7 +43,7 @@ class DataObjectTest {
                 )
         );
 
-        SituationData[] situations = { situation0, situation1 };
+        SituationData[] situations = {situation0, situation1};
         dataObject = new DataObject(situations);
     }
 

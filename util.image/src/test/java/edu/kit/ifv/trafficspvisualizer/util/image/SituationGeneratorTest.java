@@ -45,7 +45,7 @@ class SituationGeneratorTest {
         assertEquals(numberOfSituations, result.length);
         BufferedImage testImage = result[0].image();
         assertEquals(CHOICE_OPTION_HEIGHT * numberOfChoiceOptions, testImage.getHeight());
-        assertEquals(CHOICE_OPTION_WIDTH , testImage.getWidth());
+        assertEquals(CHOICE_OPTION_WIDTH, testImage.getWidth());
     }
 
     @Test

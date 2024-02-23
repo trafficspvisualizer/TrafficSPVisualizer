@@ -39,14 +39,14 @@ public class Project {
      */
     public Project(String name, Path projectPath, DataObject dataObject, File ngdFile) throws IOException {
         this(
-            name,
-            projectPath,
-            dataObject,
-            new ArrayList<>(),
-            new ArrayList<>(),
-            new ExportSettings(projectPath),
-            null,
-            ngdFile
+                name,
+                projectPath,
+                dataObject,
+                new ArrayList<>(),
+                new ArrayList<>(),
+                new ExportSettings(projectPath),
+                null,
+                ngdFile
         );
     }
 
@@ -66,7 +66,7 @@ public class Project {
     public Project(String name, Path projectPath, DataObject dataObject, List<AbstractAttribute> attributes,
                    List<ChoiceOption> choiceOptions, ExportSettings exportSettings,
                    Path iconDirectory, File ngdFile)
-        throws IOException {
+            throws IOException {
         this.name = name;
         this.projectPath = projectPath;
         this.dataObject = dataObject;
@@ -87,8 +87,8 @@ public class Project {
     private List<ChoiceOption> initializeChoiceOptions() {
         List<String> choiceNames = new ArrayList<>(dataObject.getChoiceNames(0));
         return choiceNames.stream()
-            .map(ChoiceOption::new)
-            .collect(Collectors.toList());
+                .map(ChoiceOption::new)
+                .collect(Collectors.toList());
     }
 
     private <T> boolean swap(List<T> data, int index, int offset) {
@@ -192,9 +192,9 @@ public class Project {
      */
     public List<Attribute> getAttributes() {
         return attributes.stream()
-            .filter(AbstractAttribute::hasValues)
-            .map(Attribute.class::cast)
-            .collect(Collectors.toList());
+                .filter(AbstractAttribute::hasValues)
+                .map(Attribute.class::cast)
+                .collect(Collectors.toList());
     }
 
     /**

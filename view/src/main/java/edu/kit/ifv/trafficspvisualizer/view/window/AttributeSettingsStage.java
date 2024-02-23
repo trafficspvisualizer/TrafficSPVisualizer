@@ -73,12 +73,11 @@ public class AttributeSettingsStage extends Stage {
     private Scene scene;
 
 
-
     /**
      * Creates the basic structure of the {@link AttributeSettingsStage}.
      *
-     * @param viewFacade The {@link ViewFacade} through which this class can access
-     *                   the {@link Project} and the {@link LanguageStrategy}.
+     * @param viewFacade             The {@link ViewFacade} through which this class can access
+     *                               the {@link Project} and the {@link LanguageStrategy}.
      * @param abstractAttributeIndex The abstract attribute index used to get selected attribute from model.
      */
     public AttributeSettingsStage(ViewFacade viewFacade, int abstractAttributeIndex) {
@@ -122,18 +121,18 @@ public class AttributeSettingsStage extends Stage {
         permanentlyVisibleCheckBox = new CheckBox();
 
         configGridPane = new GridPane();
-        configGridPane.add(nameText,0,0);
-        configGridPane.add(nameTextField,1,0);
-        configGridPane.add(iconText,0,1);
-        configGridPane.add(iconButton,1,1);
-        configGridPane.add(prefixText,0,2);
-        configGridPane.add(prefixTextField,1,2);
-        configGridPane.add(suffixText,0,3);
-        configGridPane.add(suffixTextField,1,3);
-        configGridPane.add(numberOfDecimalPlacesText,0,4);
-        configGridPane.add(numberOfDecimalPlacesTextField,1,4);
-        configGridPane.add(permanentlyVisibleText,0,5);
-        configGridPane.add(permanentlyVisibleCheckBox,1,5);
+        configGridPane.add(nameText, 0, 0);
+        configGridPane.add(nameTextField, 1, 0);
+        configGridPane.add(iconText, 0, 1);
+        configGridPane.add(iconButton, 1, 1);
+        configGridPane.add(prefixText, 0, 2);
+        configGridPane.add(prefixTextField, 1, 2);
+        configGridPane.add(suffixText, 0, 3);
+        configGridPane.add(suffixTextField, 1, 3);
+        configGridPane.add(numberOfDecimalPlacesText, 0, 4);
+        configGridPane.add(numberOfDecimalPlacesTextField, 1, 4);
+        configGridPane.add(permanentlyVisibleText, 0, 5);
+        configGridPane.add(permanentlyVisibleCheckBox, 1, 5);
 
 
         saveButton = new Button(languageStrategy.getAttributeSettingsSaveButtonText());
@@ -141,8 +140,8 @@ public class AttributeSettingsStage extends Stage {
         cancelButton = new Button(languageStrategy.getAttributeSettingsCancelButtonText());
 
         saveAndCancelGridPane = new GridPane();
-        saveAndCancelGridPane.add(saveButton, 0,0);
-        saveAndCancelGridPane.add(cancelButton,1,0);
+        saveAndCancelGridPane.add(saveButton, 0, 0);
+        saveAndCancelGridPane.add(cancelButton, 1, 0);
 
         bodyBorderPane = new BorderPane();
         bodyBorderPane.setTop(configGridPane);
@@ -204,7 +203,7 @@ public class AttributeSettingsStage extends Stage {
         nameTextField.setText(attribute.getName());
 
         Icon attributeIcon = attribute.getIcon();
-        iconButtonImageView.setImage(SwingFXUtils.toFXImage(attributeIcon.toBufferedImage(),null));
+        iconButtonImageView.setImage(SwingFXUtils.toFXImage(attributeIcon.toBufferedImage(), null));
         iconButtonImageView.setUserData(attributeIcon.getIdentifier());
 
         prefixTextField.setText(attribute.getPrefix());
@@ -219,8 +218,8 @@ public class AttributeSettingsStage extends Stage {
     }
 
 
-
     // setter-methods
+
     /**
      * Sets the new attribute icon.
      *
@@ -234,6 +233,7 @@ public class AttributeSettingsStage extends Stage {
     }
 
     // show-methods
+
     /**
      * Shows an error alert indicating that an error occurred during saving of the attribute.
      */
@@ -249,6 +249,7 @@ public class AttributeSettingsStage extends Stage {
     }
 
     //getter-methods
+
     /**
      * Gets the icon button.
      *

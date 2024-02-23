@@ -11,6 +11,7 @@ import javafx.embed.swing.JFXPanel;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import java.io.File;
 import java.lang.reflect.Method;
 
@@ -29,6 +30,7 @@ class ExportSettingsControllerTest {
     static void setUpClass() {
         new JFXPanel();
     }
+
     @BeforeEach
     void setUp() {
         Platform.runLater(() -> {
@@ -45,23 +47,24 @@ class ExportSettingsControllerTest {
     @Test
     void testActionOnExportFolderButton() {
         Platform.runLater(() -> {
-        ExportSettingsStage exportSettingsStageMock = mock(ExportSettingsStage.class);
-        when(controllerFacadeMock.getViewFacade().getExportSettingsStage()).thenReturn(exportSettingsStageMock);
+            ExportSettingsStage exportSettingsStageMock = mock(ExportSettingsStage.class);
+            when(controllerFacadeMock.getViewFacade().getExportSettingsStage()).thenReturn(exportSettingsStageMock);
 
-        File selectedDirectory = new File("testDirectory");
-        when(exportSettingsStageMock.showDirectoryChooserDialog()).thenReturn(selectedDirectory);
+            File selectedDirectory = new File("testDirectory");
+            when(exportSettingsStageMock.showDirectoryChooserDialog()).thenReturn(selectedDirectory);
 
-        try {
-            Method method = exportSettingsController.getClass().getMethod("actionOnExportFolderButton");
-            method.setAccessible(true);
-            method.invoke(exportSettingsController);
-        } catch (Exception e) {
-            fail();
-        }
+            try {
+                Method method = exportSettingsController.getClass().getMethod("actionOnExportFolderButton");
+                method.setAccessible(true);
+                method.invoke(exportSettingsController);
+            } catch (Exception e) {
+                fail();
+            }
 
-        verify(exportSettingsStageMock).setExportDirectory(selectedDirectory);
-    });
+            verify(exportSettingsStageMock).setExportDirectory(selectedDirectory);
+        });
     }
+
     @Test
     void testActionOnExportFolderButtonNull() {
         Platform.runLater(() -> {
@@ -104,10 +107,11 @@ class ExportSettingsControllerTest {
 
 
             ExportSettings expectedExportSettings = new ExportSettings(100, 200, new File("testDirectory").toPath(),
-                                        FileFormat.PNG, ExportType.CHOICE_OPTION, "testHtmlVariable");
+                    FileFormat.PNG, ExportType.CHOICE_OPTION, "testHtmlVariable");
             verify(controllerFacadeMock.getProject()).setExportSettings(expectedExportSettings);
         });
     }
+
     @Test
     void testActionOnSaveButtonInvalidEmptyInput() {
         Platform.runLater(() -> {
@@ -128,6 +132,7 @@ class ExportSettingsControllerTest {
             verify(controllerFacadeMock.getViewFacade().getExportSettingsStage()).showSaveErrorAlert();
         });
     }
+
     @Test
     void testActionOnSaveButtonInvalidEmptyNoInteger() {
         Platform.runLater(() -> {

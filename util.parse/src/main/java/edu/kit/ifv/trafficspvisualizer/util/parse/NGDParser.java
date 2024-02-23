@@ -22,7 +22,7 @@ import java.util.Map;
 public class NGDParser extends Parser {
     private static final String DATA_END_MARKER = "|";
     private static final String DATA_SEPARATOR = "\t";
-    private static final String DATA_REGEX = "([0-9][0-9]*[.]?[0-9]*)";
+    private static final String DATA_REGEX = "([0-9]+[.]?[0-9]*)";
 
     @Override
     public DataObject parse(File file) throws IOException, ParseException {
@@ -109,7 +109,7 @@ public class NGDParser extends Parser {
         return new DataObject(situations);
     }
 
-    private ChoiceTitle[] getTitles (String[] columnNames) {
+    private ChoiceTitle[] getTitles(String[] columnNames) {
         ChoiceTitle[] titles = new ChoiceTitle[columnNames.length];
         for (int i = 0; i < columnNames.length; i++) {
             String[] splitName = columnNames[i].split("\\.");
@@ -119,8 +119,11 @@ public class NGDParser extends Parser {
         return titles;
     }
 
-    private record ChoiceTitle(String choiceOptionName, String valueName) {}
-    private record ParsedData(String[] columnNames, double[][] values, int[] blockNumbers) {}
+    private record ChoiceTitle(String choiceOptionName, String valueName) {
+    }
+
+    private record ParsedData(String[] columnNames, double[][] values, int[] blockNumbers) {
+    }
 }
 
 

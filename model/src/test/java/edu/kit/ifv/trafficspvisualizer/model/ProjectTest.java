@@ -48,20 +48,20 @@ class ProjectTest {
         when(testAttribute.hasValues()).thenReturn(true);
         attributes = List.of(testAttribute);
         testNGD = new File(
-            Objects.requireNonNull(ProjectTest.class.getResource("/test.ngd")).getFile()
+                Objects.requireNonNull(ProjectTest.class.getResource("/test.ngd")).getFile()
         );
 
 
         project = new Project(
-            "test",
-            testPath,
-            dataObject,
-            attributes,
-            new ArrayList<>(),
-            exportSettings,
-            null,
-            testNGD
-            );
+                "test",
+                testPath,
+                dataObject,
+                attributes,
+                new ArrayList<>(),
+                exportSettings,
+                null,
+                testNGD
+        );
     }
 
     @Test
@@ -71,8 +71,8 @@ class ProjectTest {
         assertEquals(dataObject, project.getDataObject());
         assertEquals(attributes, project.getAbstractAttributes());
         assertEquals(
-            Set.of(new ChoiceOption("testChoice1"), new ChoiceOption("testChoice2")),
-            new HashSet<>((project.getChoiceOptions()))
+                Set.of(new ChoiceOption("testChoice1"), new ChoiceOption("testChoice2")),
+                new HashSet<>((project.getChoiceOptions()))
         );
         assertEquals(exportSettings, project.getExportSettings());
         assertNotNull(project.getIconManager());

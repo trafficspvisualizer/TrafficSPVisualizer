@@ -46,7 +46,7 @@ public class ViewFacade {
      * Creates the view facade by setting necessary attributes and creating the {@link MainApplicationWindow}.
      *
      * @param primaryStage Main stage in the JavaFX application and needed by the {@link MainApplicationWindow}
-     * @param project Initial project
+     * @param project      Initial project
      */
     public ViewFacade(Stage primaryStage, Project project) {
         this.project = project;

@@ -28,12 +28,13 @@ public abstract class ImageGenerator {
      * The method creates the BufferedImage from the given information and returns it.
      * The ImageGenerator and ImageCollectionGenerator classes have been implemented separately
      * to ensure better extensibility.
-     * @param choiceOption the choice option of which the image will be created
-     * @param dataObject the whole data from the file to read the values
-     * @param attributes the current attributes
-     * @param height the height of the choice option image
-     * @param width the width of the choice option image
-     * @param max the length of the longest route section of the situation
+     *
+     * @param choiceOption   the choice option of which the image will be created
+     * @param dataObject     the whole data from the file to read the values
+     * @param attributes     the current attributes
+     * @param height         the height of the choice option image
+     * @param width          the width of the choice option image
+     * @param max            the length of the longest route section of the situation
      * @param situationIndex the current situation, which is needed to read from the data object
      * @return the image of the choice option
      * @throws InvalidDataKeyException if the image cannot be created

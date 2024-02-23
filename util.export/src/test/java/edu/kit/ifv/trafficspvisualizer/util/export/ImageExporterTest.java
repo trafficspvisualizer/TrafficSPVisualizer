@@ -22,11 +22,11 @@ class ImageExporterTest {
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 5; j++) {
                 SurveyImage surveyImage = new SurveyImage(
-                    "test" + i,
-                    new BufferedImage(100,100, BufferedImage.TYPE_INT_RGB),
-                    10 * i,
-                    i,
-                    j
+                        "test" + i,
+                        new BufferedImage(100, 100, BufferedImage.TYPE_INT_RGB),
+                        10 * i,
+                        i,
+                        j
                 );
 
                 imagesList.add(surveyImage);
@@ -42,7 +42,7 @@ class ImageExporterTest {
         imageExporter.export(images, exportFolderParent, name, "");
 
         assertEquals(Objects.requireNonNull(exportFolderParent.listFiles()).length, 1);
-        assertTrue(Files.exists(exportFolderParent.toPath().resolve(name+"_export")));
+        assertTrue(Files.exists(exportFolderParent.toPath().resolve(name + "_export")));
 
         File exportFolder = exportFolderParent.toPath().resolve(name + "_export").toFile();
 
@@ -63,7 +63,7 @@ class ImageExporterTest {
         }
 
         // check image count
-        for(File file: Objects.requireNonNull(exportFolder.listFiles())) {
+        for (File file : Objects.requireNonNull(exportFolder.listFiles())) {
             assertEquals(Objects.requireNonNull(file.listFiles()).length, 5);
         }
 
@@ -71,16 +71,16 @@ class ImageExporterTest {
         // loop trough directories containing images
         for (int i = 0; i < Objects.requireNonNull(exportFolder.listFiles()).length; i++) {
             //loop trough images
-            for(File file: Objects.requireNonNull(exportFolder.toPath().resolve(String.valueOf(i)).toFile().listFiles())) {
+            for (File file : Objects.requireNonNull(exportFolder.toPath().resolve(String.valueOf(i)).toFile().listFiles())) {
                 // loop trough possible names
                 boolean foundName = false;
                 for (int j = 0; j < 5; j++) {
-                    if (file.getName().equals(String.format("#c_%04d##c_%04d##c_%04d#%s.png", i, i*10, j, name + i))) {
+                    if (file.getName().equals(String.format("#c_%04d##c_%04d##c_%04d#%s.png", i, i * 10, j, name + i))) {
                         foundName = true;
                         break;
                     }
                 }
-                if(!foundName) assertEquals(file.getName(), "");
+                if (!foundName) assertEquals(file.getName(), "");
             }
         }
     }

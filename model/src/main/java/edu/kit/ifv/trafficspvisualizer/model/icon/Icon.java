@@ -85,7 +85,7 @@ public abstract class Icon implements BufferedImageConvertible {
         if (getClass() != o.getClass()) return false;
         Icon icon = (Icon) o;
         return getIdentifier() == icon.getIdentifier()
-            && Objects.equals(getIconPath(), icon.getIconPath());
+                && Objects.equals(getIconPath(), icon.getIconPath());
     }
 
     @Override

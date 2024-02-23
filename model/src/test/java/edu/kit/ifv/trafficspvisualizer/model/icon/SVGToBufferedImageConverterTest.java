@@ -19,7 +19,7 @@ class SVGToBufferedImageConverterTest {
 
     private File loadFile(String name) {
         return new File(Objects.requireNonNull(
-            SVGToBufferedImageConverter.class.getResource("/testIcons/" + name)
+                SVGToBufferedImageConverter.class.getResource("/testIcons/" + name)
         ).getFile());
     }
 

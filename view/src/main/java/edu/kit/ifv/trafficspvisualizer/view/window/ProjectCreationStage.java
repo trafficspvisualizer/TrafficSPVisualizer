@@ -59,7 +59,6 @@ public class ProjectCreationStage extends Stage {
     private GridPane configGridPane;
 
 
-
     private Button createNewProjectButton;
 
     private Button cancelButton;
@@ -70,8 +69,6 @@ public class ProjectCreationStage extends Stage {
     private BorderPane bodyBorderPane;
 
     private Scene scene;
-
-
 
 
     /**
@@ -118,14 +115,14 @@ public class ProjectCreationStage extends Stage {
         inputDataFileButton.setGraphic(inputDataFileButtonImageView);
 
         configGridPane = new GridPane();
-        configGridPane.add(nameText,0,0);
-        configGridPane.add(nameTextField,1,0);
-        configGridPane.add(saveProjectDirectoryText,0,1);
-        configGridPane.add(saveProjectDirectoryTextField,1,1);
-        configGridPane.add(saveProjectDirectoryButton,2,1);
-        configGridPane.add(inputDataFileText,0,3);
-        configGridPane.add(inputDataFileTextField,1,3);
-        configGridPane.add(inputDataFileButton,2,3);
+        configGridPane.add(nameText, 0, 0);
+        configGridPane.add(nameTextField, 1, 0);
+        configGridPane.add(saveProjectDirectoryText, 0, 1);
+        configGridPane.add(saveProjectDirectoryTextField, 1, 1);
+        configGridPane.add(saveProjectDirectoryButton, 2, 1);
+        configGridPane.add(inputDataFileText, 0, 3);
+        configGridPane.add(inputDataFileTextField, 1, 3);
+        configGridPane.add(inputDataFileButton, 2, 3);
 
 
         createNewProjectButton = new Button(languageStrategy.getProjectCreationCreateNewProjectButtonText());
@@ -209,6 +206,7 @@ public class ProjectCreationStage extends Stage {
     }
 
     // show-methods
+
     /**
      * Shows a file chooser dialog bounded to this {@link ProjectCreationStage}.
      *

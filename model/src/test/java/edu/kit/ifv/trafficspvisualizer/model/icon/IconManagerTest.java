@@ -46,7 +46,8 @@ class IconManagerTest {
                     }
                 }
             });
-        } catch (IOException ignored) {}
+        } catch (IOException ignored) {
+        }
     }
 
     @Test
@@ -70,7 +71,7 @@ class IconManagerTest {
 
         Path iconPath2 = Path.of(
                 new File(
-                    Objects.requireNonNull(IconManagerTest.class.getResource("/testIcons/test2.svg")).getFile()
+                        Objects.requireNonNull(IconManagerTest.class.getResource("/testIcons/test2.svg")).getFile()
                 ).getAbsolutePath()
         );
 
@@ -101,8 +102,6 @@ class IconManagerTest {
         assertEquals(4, iconManager.getIcons().size());
 
     }
-
-
 
 
 }

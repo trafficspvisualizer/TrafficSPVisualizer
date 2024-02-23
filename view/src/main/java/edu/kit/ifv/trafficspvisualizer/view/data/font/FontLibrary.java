@@ -25,7 +25,8 @@ public final class FontLibrary {
     private static final Font MID_BOLD_FONT = Font.font(FONT_NAME, FontWeight.BOLD, MID_FONT_SIZE);
 
 
-    private FontLibrary(){}
+    private FontLibrary() {
+    }
 
     /**
      * Gets a small-sized font.

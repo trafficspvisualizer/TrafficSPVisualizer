@@ -164,6 +164,7 @@ class StandardProjectLoaderTest {
         assertEquals(project.getExportSettings().getImageHeight(), 400);
         assertEquals(project.getExportSettings().getFileFormat(), FileFormat.PNG);
     }
+
     @Test
     void testLoadProjectInvalidDirectory() {
         try {

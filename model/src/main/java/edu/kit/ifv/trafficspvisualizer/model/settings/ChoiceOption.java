@@ -14,10 +14,10 @@ import java.util.Objects;
  */
 public class ChoiceOption {
     private static final Color[] DEFAULT_COLORS = {
-        Color.rgb(216, 27, 96),
-        Color.rgb(30, 136, 229),
-        Color.rgb(255, 193, 7),
-        Color.rgb(0, 77, 64)
+            Color.rgb(216, 27, 96),
+            Color.rgb(30, 136, 229),
+            Color.rgb(255, 193, 7),
+            Color.rgb(0, 77, 64)
     };
 
     private static int nextColor = 0;

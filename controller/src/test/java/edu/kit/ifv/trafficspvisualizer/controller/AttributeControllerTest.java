@@ -11,6 +11,7 @@ import javafx.scene.control.ButtonType;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import java.lang.reflect.Method;
 import java.util.Optional;
 
@@ -57,7 +58,7 @@ class AttributeControllerTest {
             AbstractAttribute mockAttribute = mock(AbstractAttribute.class);
 
             when(mockAttributeStage.showRemoveAttributeProjectConfirmationAlert())
-                .thenReturn(Optional.of(ButtonType.OK));
+                    .thenReturn(Optional.of(ButtonType.OK));
 
             when(mockProject.getAbstractAttributes().get(indexToRemove)).thenReturn(mockAttribute);
 

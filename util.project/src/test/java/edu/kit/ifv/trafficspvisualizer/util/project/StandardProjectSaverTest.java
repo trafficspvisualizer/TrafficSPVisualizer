@@ -24,7 +24,6 @@ class StandardProjectSaverTest {
         DataObject dataObject = new NGDParser().parse(ngdFile);
         Project project = new Project("Test", projectFolderParentDirectory, dataObject, ngdFile);
 
-
         new StandardProjectSaver().saveProject(project, project.getProjectPath());
 
         Path projectFolder = projectFolderParentDirectory.resolve(project.getName());

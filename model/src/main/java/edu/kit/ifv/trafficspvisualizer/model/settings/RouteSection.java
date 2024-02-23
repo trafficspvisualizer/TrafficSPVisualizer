@@ -97,8 +97,8 @@ public class RouteSection {
         if (o == null || getClass() != o.getClass()) return false;
         RouteSection that = (RouteSection) o;
         return Objects.equals(icon, that.icon)
-            && Objects.equals(choiceDataKey, that.choiceDataKey)
-            && lineType == that.lineType;
+                && Objects.equals(choiceDataKey, that.choiceDataKey)
+                && lineType == that.lineType;
     }
 
     @Override

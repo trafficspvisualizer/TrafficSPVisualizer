@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
+
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -38,6 +39,7 @@ class IconSelectionControllerTest {
     static void setUpClass() {
         new JFXPanel();
     }
+
     @BeforeEach
     void setUp() {
         Platform.runLater(() -> {
@@ -160,7 +162,6 @@ class IconSelectionControllerTest {
             verify(mockControllerFacade.getViewFacade().getIconSelectionStage()).showAddIconErrorAlert();
         });
     }
-
 
 
 }

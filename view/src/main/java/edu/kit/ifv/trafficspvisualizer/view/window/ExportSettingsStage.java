@@ -123,18 +123,18 @@ public class ExportSettingsStage extends Stage {
         htmlVariableNameTextField = new TextField();
 
         configGridPane = new GridPane();
-        configGridPane.add(choiceOptionSizeText, 0,0);
-        configGridPane.add(heightText, 1,0);
-        configGridPane.add(heightTextField, 2,0);
-        configGridPane.add(widthText, 1,1);
-        configGridPane.add(widthTextField, 2,1);
-        configGridPane.add(exportDirectoryText, 0,2);
-        configGridPane.add(exportDirectoryTextField, 1,2,2,1);
-        configGridPane.add(exportDirectoryButton, 3,2);
-        configGridPane.add(exportTypeText, 0,3);
-        configGridPane.add(exportTypeChoiceBox, 1,3,2,1);
-        configGridPane.add(htmlVariableNameText, 0,4);
-        configGridPane.add(htmlVariableNameTextField, 1,4);
+        configGridPane.add(choiceOptionSizeText, 0, 0);
+        configGridPane.add(heightText, 1, 0);
+        configGridPane.add(heightTextField, 2, 0);
+        configGridPane.add(widthText, 1, 1);
+        configGridPane.add(widthTextField, 2, 1);
+        configGridPane.add(exportDirectoryText, 0, 2);
+        configGridPane.add(exportDirectoryTextField, 1, 2, 2, 1);
+        configGridPane.add(exportDirectoryButton, 3, 2);
+        configGridPane.add(exportTypeText, 0, 3);
+        configGridPane.add(exportTypeChoiceBox, 1, 3, 2, 1);
+        configGridPane.add(htmlVariableNameText, 0, 4);
+        configGridPane.add(htmlVariableNameTextField, 1, 4);
 
 
         saveButton = new Button(languageStrategy.getExportSettingsSaveButtonText());
@@ -218,8 +218,8 @@ public class ExportSettingsStage extends Stage {
     }
 
 
-
     // setter-methods
+
     /**
      * Sets the export folder path.
      *
@@ -231,6 +231,7 @@ public class ExportSettingsStage extends Stage {
     }
 
     // show-methods
+
     /**
      * Shows a file chooser dialog bounded to this {@link ExportSettingsStage}.
      *
@@ -257,6 +258,7 @@ public class ExportSettingsStage extends Stage {
 
     // getter-methods
     // buttons
+
     /**
      * Gets the save button.
      *
@@ -311,7 +313,7 @@ public class ExportSettingsStage extends Stage {
      */
     public ExportType getExportType() {
         // check which export type fits the displayed string
-        for(ExportType exportType: ExportType.values()) {
+        for (ExportType exportType : ExportType.values()) {
             if (exportTypeChoiceBox.getValue().equals(viewFacade.getLanguageStrategy().getExportTypeText(exportType))) {
                 return exportType;
             }

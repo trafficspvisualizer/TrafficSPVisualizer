@@ -128,14 +128,14 @@ public class AttributeStage extends Stage {
         sizingPane = new Pane();
 
         attributeGridPane = new GridPane();
-        attributeGridPane.add(activeText,0,0);
-        attributeGridPane.add(nameText,1,0);
-        attributeGridPane.add(iconText,2,0);
-        attributeGridPane.add(prefixText,3,0);
-        attributeGridPane.add(suffixText,4,0);
-        attributeGridPane.add(numberOfDecimalPlacesText,5,0);
-        attributeGridPane.add(permanentlyVisibleText,6,0);
-        attributeGridPane.add(sizingPane,7,0);
+        attributeGridPane.add(activeText, 0, 0);
+        attributeGridPane.add(nameText, 1, 0);
+        attributeGridPane.add(iconText, 2, 0);
+        attributeGridPane.add(prefixText, 3, 0);
+        attributeGridPane.add(suffixText, 4, 0);
+        attributeGridPane.add(numberOfDecimalPlacesText, 5, 0);
+        attributeGridPane.add(permanentlyVisibleText, 6, 0);
+        attributeGridPane.add(sizingPane, 7, 0);
 
         attributeScrollPane = new ScrollPane(attributeGridPane);
 
@@ -147,9 +147,9 @@ public class AttributeStage extends Stage {
         closeButton = new Button(languageStrategy.getAttributeCloseButtonText());
 
         closeAndAddGridPane = new GridPane();
-        closeAndAddGridPane.add(addAttributeButton,0,0);
-        closeAndAddGridPane.add(addSeparatorLineButton,1,0);
-        closeAndAddGridPane.add(closeButton,0,1,2,1);
+        closeAndAddGridPane.add(addAttributeButton, 0, 0);
+        closeAndAddGridPane.add(addSeparatorLineButton, 1, 0);
+        closeAndAddGridPane.add(closeButton, 0, 1, 2, 1);
 
         bodyBorderPane = new BorderPane();
         bodyBorderPane.setTop(attributeScrollPane);
@@ -202,8 +202,8 @@ public class AttributeStage extends Stage {
     }
 
 
-
     // update- and add-methods
+
     /**
      * Updates the displayed attributes/separator lines.
      */
@@ -230,7 +230,6 @@ public class AttributeStage extends Stage {
             attributeGridPane.add(attributeActiveCheckBox, 0, currentRowIndex);
 
 
-
             ImageView upSwitchAttributeButtonImageView =
                     new ImageView(ImageLibrary.getAttributeUpSwitchAttributeButtonImage());
 
@@ -243,7 +242,6 @@ public class AttributeStage extends Stage {
 
             upSwitchAttributeButtonList.add(upSwitchAttributeButton);
             attributeGridPane.add(upSwitchAttributeButton, 8, currentRowIndex);
-
 
 
             ImageView downSwitchAttributeButtonImageView =
@@ -260,7 +258,6 @@ public class AttributeStage extends Stage {
             attributeGridPane.add(downSwitchAttributeButton, 9, currentRowIndex);
 
 
-
             ImageView attributeSettingsButtonImageView =
                     new ImageView(ImageLibrary.getAttributeAttributeSettingsButtonImage());
 
@@ -273,7 +270,6 @@ public class AttributeStage extends Stage {
 
             attributeSettingsButtonList.add(attributeSettingsButton);
             attributeGridPane.add(attributeSettingsButton, 10, currentRowIndex);
-
 
 
             ImageView attributeRemoveButtonImageView =
@@ -290,7 +286,6 @@ public class AttributeStage extends Stage {
             attributeGridPane.add(attributeRemoveButton, 11, currentRowIndex);
 
 
-
             if (abstractAttribute.hasValues()) {
                 addAttribute((Attribute) abstractAttribute, currentRowIndex);
             } else {
@@ -298,8 +293,7 @@ public class AttributeStage extends Stage {
 
                 Styler.centerCenterMidFontTextInGridPane(separatorLineText);
 
-                attributeGridPane.add(separatorLineText, 1, currentRowIndex, 6,1);
-
+                attributeGridPane.add(separatorLineText, 1, currentRowIndex, 6, 1);
 
 
                 attributeSettingsButton.setDisable(true);
@@ -333,13 +327,11 @@ public class AttributeStage extends Stage {
         attributeGridPane.add(attributeIconImageView, 2, rowIndex);
 
 
-
         Text attributePrefixText = new Text(attribute.getPrefix());
 
         Styler.centerCenterSmallFontTextInGridPane(attributePrefixText);
 
         attributeGridPane.add(attributePrefixText, 3, rowIndex);
-
 
 
         Text attributeSuffixText = new Text(attribute.getSuffix());
@@ -349,13 +341,11 @@ public class AttributeStage extends Stage {
         attributeGridPane.add(attributeSuffixText, 4, rowIndex);
 
 
-
         Text attributeNumberOfDecimalPlacesText = new Text(String.valueOf(attribute.getDecimalPlaces()));
 
         Styler.centerCenterSmallFontTextInGridPane(attributeNumberOfDecimalPlacesText);
 
         attributeGridPane.add(attributeNumberOfDecimalPlacesText, 5, rowIndex);
-
 
 
         CheckBox attributePermanentlyVisibleCheckBox = new CheckBox();
@@ -369,6 +359,7 @@ public class AttributeStage extends Stage {
 
 
     // show-methods
+
     /**
      * Shows a confirmation alert that asks whether the user is aware that the selected attribute
      * will be removed.

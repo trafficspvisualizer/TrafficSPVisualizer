@@ -8,6 +8,7 @@ import javafx.embed.swing.JFXPanel;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import java.lang.reflect.Method;
 
 import static org.junit.jupiter.api.Assertions.fail;
@@ -139,13 +140,14 @@ class AttributeSettingsControllerTest {
             verify(mockControllerFacade).deleteAttributeSettingsController();
         });
     }
+
     @Test
     void testActionOnCancelButtonWorkingOnNewAttribute() {
         Platform.runLater(() -> {
 
             int abstractAttributeIndex = 0;
             attributeSettingsController = new AttributeSettingsController(mockControllerFacade,
-                                                                        abstractAttributeIndex, true);
+                    abstractAttributeIndex, true);
 
             try {
                 Method method = AttributeSettingsController.class.getDeclaredMethod("actionOnCancelButton");
