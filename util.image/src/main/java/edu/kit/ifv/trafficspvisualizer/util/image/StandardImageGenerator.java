@@ -30,7 +30,7 @@ public class StandardImageGenerator extends ImageGenerator{
     private static final double ATTRIBUTE_DRAWING_HEIGHT = 0.39;
     private static final double STANDARD_ATTRIBUTE_WIDTH = 0.059;
     private static final double STANDARD_ATTRIBUTE_HEIGHT = 0.47;
-    private static final double DISTANCE_TO_SIDE = 0.05;
+    private static final double PADDING = 0.05;
     private static final double ATTRIBUTE_FONT_SIZE = 0.1;
     private static final double DRAWING_HEIGHT_OF_HEADLINE = 0.75;
     private static final double SEPARATOR_LINE_STROKE_WIDTH = 0.0025;
@@ -91,14 +91,14 @@ public class StandardImageGenerator extends ImageGenerator{
         this.width = width;
         this.lengthOfLongestRouteSectionOfSituation = max;
         this.attributeDrawingHeight = (int) (height * ATTRIBUTE_DRAWING_HEIGHT_FACTOR);
-        this.attributeWidth = width / 17;
-        this.attributeHeight = (int) (height * 0.47);
-        this.padding = width / 20;
+        this.attributeWidth = (int) (width * STANDARD_ATTRIBUTE_WIDTH);
+        this.attributeHeight = (int) (height * STANDARD_ATTRIBUTE_HEIGHT);
+        this.padding = (int) (width * PADDING);
         this.choiceOption = choiceOption;
         this.attributes = attributes;
         this.dataObject = dataObject;
         this.situationIndex = situationIndex;
-        int attributeFontSize = height / 10;
+        int attributeFontSize = (int) (height * ATTRIBUTE_FONT_SIZE);
         this.attributeFont = new Font(FONT_DEFAULT, Font.BOLD, attributeFontSize);
         javafx.scene.paint.Color fxColor = choiceOption.getColor();
         this.color = new java.awt.Color(
