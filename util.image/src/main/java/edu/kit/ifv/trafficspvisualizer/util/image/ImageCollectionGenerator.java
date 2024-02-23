@@ -1,6 +1,6 @@
 package edu.kit.ifv.trafficspvisualizer.util.image;
 
-import edu.kit.ifv.trafficspvisualizer.model.Project;
+import edu.kit.ifv.trafficspvisualizer.model.*;
 import edu.kit.ifv.trafficspvisualizer.model.data.DataObject;
 import edu.kit.ifv.trafficspvisualizer.model.data.InvalidDataKeyException;
 import edu.kit.ifv.trafficspvisualizer.model.settings.AbstractAttribute;
@@ -64,31 +64,34 @@ public abstract class ImageCollectionGenerator {
     protected StandardImageGenerator standardImageGenerator;
 
     /**
-     * The abstract method createImage is called by the controller. The controller hands over the project.
-     * All important data is extracted from the project and bundled for the individual choice options.
-     * This aggregated data is passed to the {@link ImageGenerator} class to create the images of each choice option.
-     * These images are returned as a {@link ChoiceOptionImage} array.
-     * @param project that contains all the data
-     * @return {@link ChoiceOptionImage} array containing the images and necessary data for the export
-     * @throws InvalidDataKeyException if the images cant be generated
-     */
-
-    public abstract ChoiceOptionImage[] createImage(Project project) throws InvalidDataKeyException;
-
-    /**
      * Gets the specific {@link ImageCollectionGenerator} that is needed.
+     *
      * @param exportType the necessary {@link ExportType}
      * @return the {@link ImageCollectionGenerator}
      */
     public static ImageCollectionGenerator getImageCollectionGenerator(ExportType exportType) {
-        if(exportType == ExportType.SITUATION) {
+        if (exportType == ExportType.SITUATION) {
             return new SituationGenerator();
         }
+
         return new ChoiceOptionGenerator();
     }
 
     /**
+     * The abstract method createImage is called by the controller. The controller hands over the project.
+     * All important data is extracted from the project and bundled for the individual choice options.
+     * This aggregated data is passed to the {@link ImageGenerator} class to create the images of each choice option.
+     * These images are returned as a {@link ChoiceOptionImage} array.
+     *
+     * @param project that contains all the data
+     * @return {@link ChoiceOptionImage} array containing the images and necessary data for the export
+     * @throws InvalidDataKeyException if the images cant be generated
+     */
+    public abstract ChoiceOptionImage[] createImage(Project project) throws InvalidDataKeyException;
+
+    /**
      * Reads the data from the project and saves it in the attributes.
+     *
      * @param project containing the data
      */
     protected void setUpImageCreation(Project project) {
@@ -107,7 +110,8 @@ public abstract class ImageCollectionGenerator {
 
     /**
      * Adds the length of all the {@link RouteSection} of the {@link ChoiceOption}.
-     * @param choiceOption of which we want to know the length
+     *
+     * @param choiceOption    of which we want to know the length
      * @param situationNumber of the {@link ChoiceOption}
      * @return the length of all the {@link RouteSection}
      */
@@ -124,20 +128,21 @@ public abstract class ImageCollectionGenerator {
             }
             lengthOfRouteSections += lengthOfCurrentRouteSection;
         }
+
         return lengthOfRouteSections;
     }
 
     /**
      * Calculates the length of the longest {@link RouteSection} of the situation.
+     *
      * @param situationIndex of the situation
      * @return length of longest {@link RouteSection}
      */
     protected double calculateLongestRouteSection(int situationIndex) {
         double lengthOfLongestRouteSection = 0;
         double lengthOfCurrentRouteSection;
-        ChoiceOption currentChoiceOption;
-        for (int m = 0; m < numberOfChoiceOptions; m++) {
-            currentChoiceOption = choiceOptions.get(m);
+        for (int i = 0; i < numberOfChoiceOptions; i++) {
+            ChoiceOption currentChoiceOption = choiceOptions.get(i);
             lengthOfCurrentRouteSection = calculateLengthOfRouteSection(currentChoiceOption, situationIndex);
             if (lengthOfCurrentRouteSection > lengthOfLongestRouteSection) {
                 lengthOfLongestRouteSection = lengthOfCurrentRouteSection;

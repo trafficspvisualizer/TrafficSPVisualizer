@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
  */
 public class HTMLExporter extends Exporter {
     private String directoryName = "TrafficSPVisualizer";
-    private String html = "v_";
+    private String htmlVar = "v_";
 
 
     /**
@@ -32,7 +32,7 @@ public class HTMLExporter extends Exporter {
      */
     @Override
     public void export(ChoiceOptionImage[] images, File file, String name, String html) throws IOException {
-        if (html != null) this.html = html;
+        if (html != null) this.htmlVar = html;
 
         var imageExporter = new ImageExporter();
         this.directoryName = name;
@@ -53,7 +53,7 @@ public class HTMLExporter extends Exporter {
      */
     private List<List<ChoiceOptionImage>> groupImagesByScenario(ChoiceOptionImage[] images) {
         return Arrays.stream(images)
-                .collect(Collectors.groupingBy(ChoiceOptionImage::getSituationNumber))
+                .collect(Collectors.groupingBy(ChoiceOptionImage::situationNumber))
                 .values()
                 .stream()
                 .map(ArrayList::new)
@@ -69,7 +69,7 @@ public class HTMLExporter extends Exporter {
      */
     private void exportGroup(List<ChoiceOptionImage> imageGroup, File file) throws IOException {
 
-        var tempFilePath = Files.createTempFile(file.toPath(), "datei", ".html");
+        var tempFilePath = Files.createTempFile(file.toPath(), "file", ".html");
         try (var writer = Files.newBufferedWriter(tempFilePath)) {
             writeHtmlContent(imageGroup, writer);
         }
@@ -78,8 +78,10 @@ public class HTMLExporter extends Exporter {
             boolean created = path.toFile().mkdir();
             if (!created) throw new IOException("Could not create the directory");
         }
-        Path finalFilePath = Paths.get(file.getPath(),directoryName, imageGroup.getFirst().getSituationNumber(),
-                directoryName + "_" + imageGroup.getFirst().getSituationNumber() + ".html");
+        Path finalFilePath = Paths.get(file.getPath(),
+                directoryName,
+                Integer.toString(imageGroup.getFirst().situationNumber()),
+                directoryName + "_" + imageGroup.getFirst().situationNumber() + ".html");
 
         Files.move(tempFilePath, finalFilePath, StandardCopyOption.REPLACE_EXISTING);
     }
@@ -132,7 +134,7 @@ public class HTMLExporter extends Exporter {
                       }
                     </style>
             </head>
-            """, html));
+            """, htmlVar));
     }
 
     /**
@@ -158,8 +160,8 @@ public class HTMLExporter extends Exporter {
                             <img src="%s" alt="%s" />
                           </label>
                 </li>
-                """, html, i + 1, html,i + 1, image.getTitle(), html, i + 1, html, i + 1,
-                    encodedPath, image.getTitle()));
+                """, htmlVar, i + 1, htmlVar, i + 1, image.title(), htmlVar, i + 1, htmlVar, i + 1,
+                    encodedPath, image.title()));
         }
         writer.write("""
                 </ul>
@@ -180,6 +182,6 @@ public class HTMLExporter extends Exporter {
                     <input id="%s" name="%s" value="#%s#" readonly />
                 </div>
                 </form>
-            """, html, html, html));
+            """, htmlVar, htmlVar, htmlVar));
     }
 }

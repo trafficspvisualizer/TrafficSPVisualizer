@@ -14,6 +14,7 @@ import java.util.Objects;
  * Exporter class for exporting images.
  */
 public class ImageExporter extends Exporter {
+    private static final String EXPORT_FOLDER = "%s_export";
     private String directoryName = "TrafficSPVisualizer";
 
     /**
@@ -25,7 +26,7 @@ public class ImageExporter extends Exporter {
      */
     @Override
     public void export(ChoiceOptionImage[] images, File file, String name, String html) throws IOException {
-        this.directoryName = name + "_export";
+        this.directoryName = EXPORT_FOLDER.formatted(name);
         File newDirectory = createDirectory(file);
 
         for (ChoiceOptionImage image : images) {
@@ -34,7 +35,7 @@ public class ImageExporter extends Exporter {
                 Files.createDirectories(imagePath.getParent());
             }
             try {
-                ImageIO.write(image.getImage(), IMAGE_FORMAT, imagePath.toFile());
+                ImageIO.write(image.image(), IMAGE_FORMAT, imagePath.toFile());
             } catch (IOException e) {
                 throw new IOException("Failed to write image: " + imagePath);
             }

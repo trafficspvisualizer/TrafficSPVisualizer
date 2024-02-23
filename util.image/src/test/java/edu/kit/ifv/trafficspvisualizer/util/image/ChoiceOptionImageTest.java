@@ -2,54 +2,58 @@ package edu.kit.ifv.trafficspvisualizer.util.image;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import java.awt.image.BufferedImage;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 class ChoiceOptionImageTest {
     private ChoiceOptionImage choiceOptionImage;
+    private BufferedImage image;
+
 
     @BeforeEach
     void setup() {
-        choiceOptionImage = new ChoiceOptionImage();
+        image = mock(BufferedImage.class);
+        choiceOptionImage = new ChoiceOptionImage(
+                "TestTitle",
+                image,
+                1,
+                2,
+                3
+        );
     }
 
     @Test
-    void setAndGetImage() {
-        BufferedImage image = Mockito.mock(BufferedImage.class);
-        choiceOptionImage.setImage(image);
-        assertEquals(image, choiceOptionImage.getImage());
+    void testGetImage() {
+        assertEquals(image, choiceOptionImage.image());
     }
 
     @Test
-    void addAndGetInfos() {
-        choiceOptionImage.add("TestString");
-        assertTrue(choiceOptionImage.getInfos().contains("TestString"));
+    void testGetTitle() {
+        assertEquals("TestTitle", choiceOptionImage.title());
     }
 
     @Test
-    void setAndGetTitle() {
-        choiceOptionImage.setTitle("TestTitle");
-        assertEquals("TestTitle", choiceOptionImage.getTitle());
+    void testGetSituationNumber() {
+        assertEquals(2, choiceOptionImage.situationNumber());
     }
 
     @Test
-    void setAndGetSituationNumber() {
-        choiceOptionImage.setSituationNumber(1);
-        assertEquals(1, Integer.parseInt(choiceOptionImage.getSituationNumber()));
-    }
-
-    @Test
-    void setBlockNumber() {
-        choiceOptionImage.setBlockNumber(1);
-        assertEquals(1, Integer.parseInt(choiceOptionImage.getInfos().get(2)));
+    void testGetBlockNumber() {
+        assertEquals(1, choiceOptionImage.blockNumber());
     }
 
     @Test
     void setChoiceOptionNumberTest() {
-        choiceOptionImage.setChoiceOptionNumber(1);
-        assertEquals(1, Integer.parseInt(choiceOptionImage.getInfos().get(3)));
+        assertEquals(3, choiceOptionImage.choiceOptionNumber());
+    }
+
+    @Test
+    void testAddAndGetAdditionalField() {
+        choiceOptionImage.addAdditionalField(4);
+        assertEquals(List.of(4), choiceOptionImage.additionalFields());
     }
 }

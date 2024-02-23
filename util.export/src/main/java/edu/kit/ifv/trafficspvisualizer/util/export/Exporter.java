@@ -2,13 +2,14 @@ package edu.kit.ifv.trafficspvisualizer.util.export;
 
 import edu.kit.ifv.trafficspvisualizer.model.settings.ExportType;
 import edu.kit.ifv.trafficspvisualizer.util.image.ChoiceOptionImage;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Collections;
-import java.util.Map;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -18,9 +19,8 @@ import java.util.stream.Collectors;
  * @author uhtfz
  */
 public abstract class Exporter {
-    /**
-     * Represents the image format.
-     */
+    private static final String NAMING_BLOCK = "#c_%04d#";
+    private static final String NAMING_SCHEME = "#c_%04d##c_%04d#_#c_%04d#_%s.%s";
     protected static final String IMAGE_FORMAT = "png";
     private static final String INFO_PREFIX = "#c_";
     private static final String INFO_SUFFIX = "#";
@@ -65,18 +65,19 @@ public abstract class Exporter {
      * @return The constructed image path.
      */
     protected String constructImagePath(ChoiceOptionImage image) {
-        return String.format("%s.%s",
-                image.getInfos().stream()
-                        .map(info -> {
-                            List<String> infoList = new ArrayList<>(Collections.singletonList(info.replace(" ", "_")));
-                            infoList.removeAll(Collections.singleton(null));
-                            return INFO_PREFIX + infoList.stream().map(Object::toString).collect(Collectors.joining())
-                                    + INFO_SUFFIX;
-                        })
-                        .collect(Collectors.joining()),
-                IMAGE_FORMAT);
-    }
+        StringBuilder builder = new StringBuilder();
+        builder.append(NAMING_BLOCK.formatted(image.situationNumber()))
+                .append(NAMING_BLOCK.formatted(image.blockNumber()))
+                .append(NAMING_BLOCK.formatted(image.choiceOptionNumber()));
+        for (int field : image.additionalFields()) {
+            builder.append(NAMING_BLOCK.formatted(field));
+        }
 
+        builder.append(image.title())
+                .append(".%s".formatted(IMAGE_FORMAT));
+
+        return builder.toString();
+    }
 
     /**
      * Constructs the image path with the directory.
@@ -85,6 +86,6 @@ public abstract class Exporter {
      * @return The constructed image path.
      */
     protected String constructImagePathWithDir(ChoiceOptionImage image) {
-        return String.format("%s/%s",image.getSituationNumber(), constructImagePath(image));
+        return String.format("%s/%s",image.situationNumber(), constructImagePath(image));
     }
 }
