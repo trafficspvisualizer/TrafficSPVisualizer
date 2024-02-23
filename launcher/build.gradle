@@ -54,7 +54,12 @@ jlink {
     }
 
     jpackage {
-        imageOptions += ['--icon', 'src/main/resources/applicationIcon.ico']
+        if (org.gradle.internal.os.OperatingSystem.current().linux) {
+            imageOptions += ['--icon', 'src/main/resources/applicationIcon.png']
+        }
+        if (org.gradle.internal.os.OperatingSystem.current().windows) {
+            imageOptions += ['--icon', 'src/main/resources/applicationIcon.ico']
+        }
     }
 }
 
