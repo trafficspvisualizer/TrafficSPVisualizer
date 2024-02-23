@@ -69,11 +69,6 @@ public abstract class Exporter {
                 image.getInfos().stream()
                         .map(info -> {
                             List<String> infoList = new ArrayList<>(Collections.singletonList(info.replace(" ", "_")));
-                            for (int i = 0; i < Math.min(3, infoList.size()); i++) {
-                                if (Objects.equals(infoList.get(i), "-1")) {
-                                    infoList.set(i, null);
-                                }
-                            }
                             infoList.removeAll(Collections.singleton(null));
                             return INFO_PREFIX + infoList.stream().map(Object::toString).collect(Collectors.joining())
                                     + INFO_SUFFIX;
