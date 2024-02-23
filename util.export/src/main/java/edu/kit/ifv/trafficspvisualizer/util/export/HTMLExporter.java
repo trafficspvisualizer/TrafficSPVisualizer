@@ -8,8 +8,10 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -60,7 +62,7 @@ public class HTMLExporter extends Exporter { //todo aufteilen in einzelen Situat
      */
     private List<List<ChoiceOptionImage>> groupImagesByScenario(ChoiceOptionImage[] images) {
         return Arrays.stream(images)
-                .collect(Collectors.groupingBy(ChoiceOptionImage::getSituationNumber))
+                .collect(Collectors.groupingBy(ChoiceOptionImage::situationNumber))
                 .values()
                 .stream()
                 .map(ArrayList::new)
@@ -167,7 +169,7 @@ public class HTMLExporter extends Exporter { //todo aufteilen in einzelen Situat
                             <img src="%s" alt="%s" />
                           </label>
                 </li>
-                """, htmlVar, i + 1, i + 1, image.getTitle(), i + 1, i + 1, imagePath, image.getTitle()));
+                """, htmlVar, i + 1, i + 1, image.title(), i + 1, i + 1, imagePath, image.title()));
         }
         writer.write("""
                 </ul>

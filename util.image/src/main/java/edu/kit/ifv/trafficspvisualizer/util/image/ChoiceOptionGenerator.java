@@ -31,10 +31,10 @@ public class ChoiceOptionGenerator extends ImageCollectionGenerator {
 
                 images[i * numberOfChoiceOptions + j] = new ChoiceOptionImage(
                         currentChoiceOption.getTitle(),
+                        bufferedImage,
                         dataObject.getBlockNumber(i),
                         i,
-                        j,
-                        bufferedImage
+                        j
                 );
             }
         }

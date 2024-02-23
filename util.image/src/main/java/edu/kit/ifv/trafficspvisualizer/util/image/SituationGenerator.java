@@ -15,10 +15,10 @@ public class SituationGenerator extends ImageCollectionGenerator {
             BufferedImage image = createSituationImage(i);
             situationImages[i] = new ChoiceOptionImage(
                     "",
+                    image,
                     dataObject.getBlockNumber(i),
                     i,
-                    0,
-                    image
+                    0
             );
         }
         return situationImages;

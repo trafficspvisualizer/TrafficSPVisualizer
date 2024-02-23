@@ -12,6 +12,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public abstract class Exporter {
+    private static final String NAMING_BLOCK = "#c_%04d#";
     private static final String NAMING_SCHEME = "#c_%04d##c_%04d#_#c_%04d#_%s.%s";
     protected static final String IMAGE_FORMAT = "png";
 
@@ -37,12 +38,17 @@ public abstract class Exporter {
      * @return The constructed image path.
      */
     protected String constructImagePath(ChoiceOptionImage image) {
-        return NAMING_SCHEME.formatted(
-            image.getSituationNumber(),
-            image.getBlockNumber(),
-            image.getChoiceOptionNumber(),
-            image.getTitle(),
-            IMAGE_FORMAT
-        );
+        StringBuilder builder = new StringBuilder();
+        builder.append(NAMING_BLOCK.formatted(image.situationNumber()))
+                .append(NAMING_BLOCK.formatted(image.blockNumber()))
+                .append(NAMING_BLOCK.formatted(image.choiceOptionNumber()));
+        for (int field : image.additionalFields()) {
+            builder.append(NAMING_BLOCK.formatted(field));
+        }
+
+        builder.append(image.title())
+                .append(".%s".formatted(IMAGE_FORMAT));
+
+        return builder.toString();
     }
 }

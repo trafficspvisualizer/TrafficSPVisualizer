@@ -1,61 +1,17 @@
 package edu.kit.ifv.trafficspvisualizer.util.image;
 
 import java.awt.image.BufferedImage;
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
 
-public class ChoiceOptionImage {
-    private int situationNumber;
-    private int blockNumber;
-    private int choiceOptionNumber;
-    private String title;
-    private BufferedImage image;
-
-    public ChoiceOptionImage(String title, int blockNumber, int situationNumber, int choiceOptionNumber,
-                             BufferedImage image) {
-        this.title = title;
-        this.situationNumber = situationNumber;
-        this.blockNumber = blockNumber;
-        this.choiceOptionNumber = choiceOptionNumber;
-        this.image = image;
+public record ChoiceOptionImage(String title, BufferedImage image, int blockNumber, int situationNumber,
+                                int choiceOptionNumber, List<Integer> additionalFields) {
+    public ChoiceOptionImage(String title, BufferedImage image, int situationNumber, int blockNumber,
+                             int choiceOptionNumber) {
+        this(title, image, situationNumber, blockNumber, choiceOptionNumber, new ArrayList<>());
     }
 
-    public void setImage(BufferedImage image) {
-        this.image = image;
-    }
-
-    public BufferedImage getImage() {
-        return image;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public int getSituationNumber() {
-        return situationNumber;
-    }
-
-    public int getBlockNumber() {
-        return blockNumber;
-    }
-
-    public int getChoiceOptionNumber() {
-        return choiceOptionNumber;
-    }
-
-    public void setBlockNumber(int blockNumber) {
-        this.blockNumber = blockNumber;
-    }
-
-    public void setChoiceOptionNumber(int choiceOptionNumber) {
-        this.choiceOptionNumber = choiceOptionNumber;
-    }
-
-    public void setSituationNumber(int situationNumber) {
-        this.situationNumber = situationNumber;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
+    public void addAdditionalField(int field) {
+        additionalFields.add(field);
     }
 }
