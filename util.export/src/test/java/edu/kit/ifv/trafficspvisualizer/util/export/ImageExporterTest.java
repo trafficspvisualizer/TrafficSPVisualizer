@@ -1,7 +1,7 @@
 package edu.kit.ifv.trafficspvisualizer.util.export;
 
 import edu.kit.ifv.trafficspvisualizer.util.image.SurveyImage;
-import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ImageExporterTest {
 
-    @Disabled
+    @Test
     void testExport() throws IOException {
         List<SurveyImage> imagesList = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
@@ -75,7 +75,7 @@ class ImageExporterTest {
                 // loop trough possible names
                 boolean foundName = false;
                 for (int j = 0; j < 5; j++) {
-                    if (file.getName().equals("#c_%04d##c_%04d##c_%04d#title.png".formatted(10 * i, i, j))) {
+                    if (file.getName().equals(String.format("#c_%04d##c_%04d##c_%04d#%s.png", i, i*10, j, name + i))) {
                         foundName = true;
                         break;
                     }
