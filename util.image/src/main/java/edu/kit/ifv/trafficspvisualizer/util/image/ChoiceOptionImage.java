@@ -22,10 +22,10 @@ public class ChoiceOptionImage {
      */
     public ChoiceOptionImage() {
         infos = new HashMap<>();
-        infos.put(TITLE_KEY, "-1");
-        infos.put(SITUATION_NUMBER_KEY, "-1");
-        infos.put(BLOCK_NUMBER_KEY, "-1");
-        infos.put(CHOICE_OPTION_NUMBER_KEY, "-1");
+        infos.put(TITLE_KEY, null);
+        infos.put(SITUATION_NUMBER_KEY, null);
+        infos.put(BLOCK_NUMBER_KEY, null);
+        infos.put(CHOICE_OPTION_NUMBER_KEY, null);
 
     }
 
