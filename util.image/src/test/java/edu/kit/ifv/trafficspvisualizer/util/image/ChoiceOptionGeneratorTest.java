@@ -16,15 +16,12 @@ import java.util.Objects;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ChoiceOptionGeneratorTest {
-    private ChoiceOptionGenerator choiceOptionGenerator;
-    private int numberOfSituations;
-    private int numberOfChoiceOptions;
 
     @Test
     public void testCreateImage() throws InvalidDataKeyException, IOException, ParseException {
-        choiceOptionGenerator = new ChoiceOptionGenerator();
-        numberOfSituations = 16;
-        numberOfChoiceOptions = 6;
+        ChoiceOptionGenerator choiceOptionGenerator = new ChoiceOptionGenerator();
+        int numberOfSituations = 16;
+        int numberOfChoiceOptions = 6;
 
         Path projectFolderParentDirectory = Files.createTempDirectory("StandardImageGeneratorTest");
         File ngdFile = new File(Objects.requireNonNull(this.getClass().getClassLoader().getResource("example.ngd")).getPath());
