@@ -21,12 +21,8 @@ class HTMLExporterTest {
         List<ChoiceOptionImage> imagesList = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 5; j++) {
-                ChoiceOptionImage choiceOptionImage = new ChoiceOptionImage();
-                choiceOptionImage.setImage(new BufferedImage(100,100, BufferedImage.TYPE_INT_RGB));
-                choiceOptionImage.setTitle("test"+i);
-                choiceOptionImage.setChoiceOptionNumber(j);
-                choiceOptionImage.setSituationNumber(i);
-                choiceOptionImage.setBlockNumber(i*10);
+                ChoiceOptionImage choiceOptionImage = new ChoiceOptionImage(
+                        "test" + i, new BufferedImage(100,100, BufferedImage.TYPE_INT_RGB), i*10, i, j);
                 imagesList.add(choiceOptionImage);
             }
         }
@@ -73,7 +69,7 @@ class HTMLExporterTest {
                 // loop trough possible names
                 boolean foundName = false;
                 for (int j = 0; j < 5; j++) {
-                    if (file.getName().equals("#c_test" + i + "##c_" + i + "##c_" + i * 10 + "##c_" + j + "#.png")
+                    if (file.getName().equals(String.format("#c_%04d##c_%04d##c_%04d#%s.png", i, i*10, j, name + i))
                     || file.getName().equals(name + "_export_" + i + ".html")) {
                         foundName = true;
                         break;
