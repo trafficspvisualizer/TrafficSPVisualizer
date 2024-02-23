@@ -38,11 +38,6 @@ class ImageCollectionGeneratorTest {
     }
 
     @Test
-    void setUpImageCreation() {
-
-    }
-
-    @Test
     void calculateLengthOfRouteSection() {
         try {
             ChoiceOption choiceOption = Mockito.mock(ChoiceOption.class);
