@@ -2,6 +2,7 @@ package edu.kit.ifv.trafficspvisualizer.util.export;
 
 import edu.kit.ifv.trafficspvisualizer.util.image.SurveyImage;
 import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -16,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ImageExporterTest {
 
-    @Disabled
+    @Test
     void testExport() throws IOException {
         List<SurveyImage> imagesList = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
