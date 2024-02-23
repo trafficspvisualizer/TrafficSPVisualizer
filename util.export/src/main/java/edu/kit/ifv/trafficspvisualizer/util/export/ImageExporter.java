@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Objects;
 
 
 /**
@@ -44,24 +45,35 @@ public class ImageExporter extends Exporter {
 
 
     /**
-     * Creates a new directory within the specified file. If the directory already exists,
-     * a number is appended to the directory name until a unique name is found.
+     * Deletes a file or directory and all its contents.
+     *
+     * @param file The file or directory to delete.
+     * @throws IOException If the file or directory cannot be deleted.
+     */
+    private void deleteFileOrDirectory(File file) throws IOException {
+        if (file.isDirectory()) {
+            for (File subFile : Objects.requireNonNull(file.listFiles())) {
+                deleteFileOrDirectory(subFile);
+            }
+        }
+        boolean isDeleted = file.delete();
+        if (!isDeleted) {
+            throw new IOException("Failed to delete file or directory: " + file.getPath());
+        }
+    }
+
+    /**
+     * Creates a new directory for the images. If the directory already exists, it and its contents are replaced.
      *
      * @param file The file in which the new directory will be created.
      * @return The new directory.
      * @throws IOException If the directory cannot be created.
      */
     private File createDirectory(File file) throws IOException {
-        int count = 0;
-        String newDirectoryName = directoryName;
-        File newDirectory = new File(file.getPath(), newDirectoryName);
-
-        while (newDirectory.exists()) {
-            count++;
-            newDirectoryName = directoryName + "_" + count;
-            newDirectory = new File(file.getPath(), newDirectoryName);
+        File newDirectory = new File(file.getPath(), directoryName);
+        if (newDirectory.exists()) {
+            deleteFileOrDirectory(newDirectory);
         }
-
         boolean isCreated = newDirectory.mkdir();
         if (!isCreated) {
             throw new IOException("Failed to create directory: " + newDirectory.getPath());
