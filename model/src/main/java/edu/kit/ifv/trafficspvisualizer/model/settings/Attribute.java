@@ -10,7 +10,7 @@ import java.util.Map;
 
 /**
  * This class represents an {@link AbstractAttribute} in form of a default attribute containing values for displaying
- * in a {@link edu.kit.ifv.trafficspvisualizer.model.Project}.
+ * in a {@link Project}.
  */
 public class Attribute extends AbstractAttribute {
     private String name;

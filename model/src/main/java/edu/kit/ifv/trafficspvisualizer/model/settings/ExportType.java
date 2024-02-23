@@ -2,7 +2,7 @@ package edu.kit.ifv.trafficspvisualizer.model.settings;
 
 /**
  * This enum contains the different types with which the images of a
- * {@link edu.kit.ifv.trafficspvisualizer.model.Project} can be exported.
+ * {@link Project} can be exported.
  */
 public enum ExportType {
     /**

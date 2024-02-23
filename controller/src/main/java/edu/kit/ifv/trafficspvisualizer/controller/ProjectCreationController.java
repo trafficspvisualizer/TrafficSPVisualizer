@@ -1,7 +1,7 @@
 package edu.kit.ifv.trafficspvisualizer.controller;
 
 import edu.kit.ifv.trafficspvisualizer.model.data.DataObject;
-import edu.kit.ifv.trafficspvisualizer.model.Project;
+import edu.kit.ifv.trafficspvisualizer.model.settings.Project;
 import edu.kit.ifv.trafficspvisualizer.util.parse.NGDParser;
 import edu.kit.ifv.trafficspvisualizer.view.window.ProjectCreationStage;
 

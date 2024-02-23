@@ -1,11 +1,13 @@
 package edu.kit.ifv.trafficspvisualizer.model.data;
 
+import edu.kit.ifv.trafficspvisualizer.model.settings.Project;
+
 import java.util.Map;
 import java.util.Set;
 
 /**
  * This class contains the data of a {@link edu.kit.ifv.trafficspvisualizer.model.settings.ChoiceOption} in
- * a {@link edu.kit.ifv.trafficspvisualizer.model.Project}.
+ * a {@link Project}.
  * A {@link ChoiceData} object is design as read-only and should always be accessed through a {@link SituationData}
  * object.
  */
