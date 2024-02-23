@@ -104,7 +104,6 @@ class StandardImageGeneratorTest {
         project.addAbstractAttribute(new Attribute("Cost", project.getIconManager().getIcons().get(6), "", " $", false, 2));
         project.addAbstractAttribute(new SeparatorLine());
         project.addAbstractAttribute(new Attribute("Waiting Time", project.getIconManager().getIcons().get(7), "", " min", true, 0));
-        System.out.println(project.getDataObject().getValueNames(1, carChoiceOption.getName()));
         project.getAttributes().getFirst().setMapping(carChoiceOption, List.of("cost_car"));
 
         BufferedImage referenceImage = ImageIO.read(new File(Objects.requireNonNull(this.getClass().getClassLoader().getResource("reference.png")).getPath()));
