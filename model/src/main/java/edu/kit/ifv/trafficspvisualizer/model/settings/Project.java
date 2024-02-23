@@ -2,10 +2,6 @@ package edu.kit.ifv.trafficspvisualizer.model.settings;
 
 import edu.kit.ifv.trafficspvisualizer.model.data.DataObject;
 import edu.kit.ifv.trafficspvisualizer.model.icon.IconManager;
-import edu.kit.ifv.trafficspvisualizer.model.settings.AbstractAttribute;
-import edu.kit.ifv.trafficspvisualizer.model.settings.Attribute;
-import edu.kit.ifv.trafficspvisualizer.model.settings.ChoiceOption;
-import edu.kit.ifv.trafficspvisualizer.model.settings.ExportSettings;
 
 import java.io.File;
 import java.io.IOException;
