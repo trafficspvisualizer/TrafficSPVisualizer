@@ -134,7 +134,7 @@ public class StandardImageGenerator extends ImageGenerator{
         int numberOfAttributes = calculateNumberOfAttributes();
         int numberOfSeparatorLines = attributes.size() - numberOfAttributes;
 
-        float separatorLineStrokeWidth = (float) (width / SEPARATOR_LINE_STROKE_WIDTH + 1);
+        float separatorLineStrokeWidth = (float) (width * SEPARATOR_LINE_STROKE_WIDTH + 1);
 
         double leftHandSideWidth = distanceToSide + attributeWidth * numberOfAttributes +
                 separatorLineStrokeWidth * numberOfSeparatorLines;

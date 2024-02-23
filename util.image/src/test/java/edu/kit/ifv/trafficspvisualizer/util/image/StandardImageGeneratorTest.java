@@ -48,7 +48,7 @@ class StandardImageGeneratorTest {
         attributes.add(testAttribute2);
         Attribute testAttribute3 = new Attribute(icon2);
         testAttribute3.setPermanentlyVisible(true);
-        testAttribute3.setPrefix("TestWordLongerThanTwo");
+        testAttribute3.setPrefix("TestStringLongerThanTwo");
         Mockito.when(testAttribute3.getIcon().toBufferedImage(54, 112)).thenReturn(new BufferedImage(67, 112, BufferedImage.TYPE_INT_RGB));
         attributes.add(testAttribute3);
         SeparatorLine testSeparatorLine = new SeparatorLine();
