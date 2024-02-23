@@ -1,6 +1,7 @@
 package edu.kit.ifv.trafficspvisualizer.util.export;
 
-import edu.kit.ifv.trafficspvisualizer.util.image.ChoiceOptionImage;
+import edu.kit.ifv.trafficspvisualizer.util.image.SurveyImage;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
@@ -31,7 +32,7 @@ public class HTMLExporter extends Exporter {
      * @throws IOException If an error occurs while writing to the file.
      */
     @Override
-    public void export(ChoiceOptionImage[] images, File file, String name, String html) throws IOException {
+    public void export(SurveyImage[] images, File file, String name, String html) throws IOException {
         if (html != null) this.htmlVar = html;
 
         var imageExporter = new ImageExporter();
@@ -51,9 +52,9 @@ public class HTMLExporter extends Exporter {
      * @param images The array of ChoiceOptionImage objects to be grouped.
      * @return A list of lists of ChoiceOptionImage objects, grouped by scenario number.
      */
-    private List<List<ChoiceOptionImage>> groupImagesByScenario(ChoiceOptionImage[] images) {
+    private List<List<SurveyImage>> groupImagesByScenario(SurveyImage[] images) {
         return Arrays.stream(images)
-                .collect(Collectors.groupingBy(ChoiceOptionImage::situationNumber))
+                .collect(Collectors.groupingBy(SurveyImage::situationNumber))
                 .values()
                 .stream()
                 .map(ArrayList::new)
@@ -67,7 +68,7 @@ public class HTMLExporter extends Exporter {
      * @param file The file where the images will be exported.
      * @throws IOException If an error occurs while writing to the file.
      */
-    private void exportGroup(List<ChoiceOptionImage> imageGroup, File file) throws IOException {
+    private void exportGroup(List<SurveyImage> imageGroup, File file) throws IOException {
 
         var tempFilePath = Files.createTempFile(file.toPath(), "file", ".html");
         try (var writer = Files.newBufferedWriter(tempFilePath)) {
@@ -93,7 +94,7 @@ public class HTMLExporter extends Exporter {
      * @param writer The BufferedWriter used to write the HTML content.
      * @throws IOException If an error occurs while writing to the file.
      */
-    private void writeHtmlContent(List<ChoiceOptionImage> imageGroup, BufferedWriter writer) throws IOException {
+    private void writeHtmlContent(List<SurveyImage> imageGroup, BufferedWriter writer) throws IOException {
         writeHtmlHeader(writer);
         writeImageForm(imageGroup, writer);
         writeHiddenForm(writer);
@@ -144,13 +145,13 @@ public class HTMLExporter extends Exporter {
      * @param writer The BufferedWriter used to write the form.
      * @throws IOException If an error occurs while writing to the file.
      */
-    private void writeImageForm(List<ChoiceOptionImage> imageGroup, BufferedWriter writer) throws IOException {
+    private void writeImageForm(List<SurveyImage> imageGroup, BufferedWriter writer) throws IOException {
         writer.write("""
                 <div class="radio-toolbar">
                   <ul>
                 """);
         for (int i = 0; i < imageGroup.size(); i++) {
-            ChoiceOptionImage image = imageGroup.get(i);
+            SurveyImage image = imageGroup.get(i);
             String imagePath = constructImagePath(image);
             var encodedPath = java.net.URLEncoder.encode(imagePath, StandardCharsets.UTF_8);
             writer.write(String.format("""

@@ -9,15 +9,15 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
-class ChoiceOptionImageTest {
-    private ChoiceOptionImage choiceOptionImage;
+class SurveyImageTest {
+    private SurveyImage surveyImage;
     private BufferedImage image;
 
 
     @BeforeEach
     void setup() {
         image = mock(BufferedImage.class);
-        choiceOptionImage = new ChoiceOptionImage(
+        surveyImage = new SurveyImage(
                 "TestTitle",
                 image,
                 1,
@@ -28,32 +28,32 @@ class ChoiceOptionImageTest {
 
     @Test
     void testGetImage() {
-        assertEquals(image, choiceOptionImage.image());
+        assertEquals(image, surveyImage.image());
     }
 
     @Test
     void testGetTitle() {
-        assertEquals("TestTitle", choiceOptionImage.title());
+        assertEquals("TestTitle", surveyImage.title());
     }
 
     @Test
     void testGetSituationNumber() {
-        assertEquals(2, choiceOptionImage.situationNumber());
+        assertEquals(2, surveyImage.situationNumber());
     }
 
     @Test
     void testGetBlockNumber() {
-        assertEquals(1, choiceOptionImage.blockNumber());
+        assertEquals(1, surveyImage.blockNumber());
     }
 
     @Test
     void setChoiceOptionNumberTest() {
-        assertEquals(3, choiceOptionImage.choiceOptionNumber());
+        assertEquals(3, surveyImage.choiceOptionNumber());
     }
 
     @Test
     void testAddAndGetAdditionalField() {
-        choiceOptionImage.addAdditionalField(4);
-        assertEquals(List.of(4), choiceOptionImage.additionalFields());
+        surveyImage.addAdditionalField(4);
+        assertEquals(List.of(4), surveyImage.additionalFields());
     }
 }
