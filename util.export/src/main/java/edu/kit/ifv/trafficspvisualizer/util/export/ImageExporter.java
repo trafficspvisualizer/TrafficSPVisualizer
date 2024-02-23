@@ -1,6 +1,6 @@
 package edu.kit.ifv.trafficspvisualizer.util.export;
 
-import edu.kit.ifv.trafficspvisualizer.util.image.ChoiceOptionImage;
+import edu.kit.ifv.trafficspvisualizer.util.image.SurveyImage;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
@@ -25,11 +25,11 @@ public class ImageExporter extends Exporter {
      * @throws IOException If an I/O error occurs.
      */
     @Override
-    public void export(ChoiceOptionImage[] images, File file, String name, String html) throws IOException {
+    public void export(SurveyImage[] images, File file, String name, String html) throws IOException {
         this.directoryName = EXPORT_FOLDER.formatted(name);
         File newDirectory = createDirectory(file);
 
-        for (ChoiceOptionImage image : images) {
+        for (SurveyImage image : images) {
             Path imagePath = Paths.get(newDirectory.getPath(), constructImagePathWithDir(image));
             if (!imagePath.getParent().toFile().exists()) {
                 Files.createDirectories(imagePath.getParent());

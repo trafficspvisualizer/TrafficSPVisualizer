@@ -1,6 +1,6 @@
 package edu.kit.ifv.trafficspvisualizer.util.export;
 
-import edu.kit.ifv.trafficspvisualizer.util.image.ChoiceOptionImage;
+import edu.kit.ifv.trafficspvisualizer.util.image.SurveyImage;
 import org.junit.jupiter.api.Test;
 
 import java.awt.image.BufferedImage;
@@ -18,16 +18,16 @@ class HTMLExporterTest {
 
     @Test
     void testExport() throws IOException {
-        List<ChoiceOptionImage> imagesList = new ArrayList<>();
+        List<SurveyImage> imagesList = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 5; j++) {
-                ChoiceOptionImage choiceOptionImage = new ChoiceOptionImage(
+                SurveyImage surveyImage = new SurveyImage(
                         "test" + i, new BufferedImage(100,100, BufferedImage.TYPE_INT_RGB), i*10, i, j);
-                imagesList.add(choiceOptionImage);
+                imagesList.add(surveyImage);
             }
         }
 
-        ChoiceOptionImage[] images = imagesList.toArray(new ChoiceOptionImage[0]);
+        SurveyImage[] images = imagesList.toArray(new SurveyImage[0]);
 
         File exportFolderParent = new File(String.valueOf(Files.createTempDirectory("ExportFolder")));
         String name = "test";
