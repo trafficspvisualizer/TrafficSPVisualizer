@@ -5,7 +5,6 @@ module edu.kit.ifv.trafficspvisualizer.model {
     requires jdk.xml.dom;
     requires org.apache.commons.io;
 
-    exports edu.kit.ifv.trafficspvisualizer.model;
     exports edu.kit.ifv.trafficspvisualizer.model.icon;
     exports edu.kit.ifv.trafficspvisualizer.model.data;
     exports edu.kit.ifv.trafficspvisualizer.model.settings;

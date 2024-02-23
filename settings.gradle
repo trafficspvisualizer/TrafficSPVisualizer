@@ -6,4 +6,5 @@ include 'util.export'
 include 'util.project'
 include 'util.parse'
 include 'util.image'
+include 'launcher'
 
