@@ -39,7 +39,7 @@ class SituationGeneratorTest {
 
     @Test
     void createImage() throws InvalidDataKeyException {
-        ChoiceOptionImage[] result = situationGenerator.createImage(project);
+        SurveyImage[] result = situationGenerator.createImage(project);
 
         assertNotNull(result);
         assertEquals(numberOfSituations, result.length);
