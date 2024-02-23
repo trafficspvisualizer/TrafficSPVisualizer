@@ -1,17 +1,14 @@
 package edu.kit.ifv.trafficspvisualizer.util.image;
 
-import edu.kit.ifv.trafficspvisualizer.model.Project;
 import edu.kit.ifv.trafficspvisualizer.model.data.DataObject;
 import edu.kit.ifv.trafficspvisualizer.model.data.InvalidDataKeyException;
 import edu.kit.ifv.trafficspvisualizer.model.data.SituationData;
-import edu.kit.ifv.trafficspvisualizer.model.settings.AbstractAttribute;
 import edu.kit.ifv.trafficspvisualizer.model.settings.ChoiceOption;
 import edu.kit.ifv.trafficspvisualizer.model.settings.ExportType;
 import edu.kit.ifv.trafficspvisualizer.model.settings.RouteSection;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import java.nio.file.Path;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -41,16 +38,11 @@ class ImageCollectionGeneratorTest {
     }
 
     @Test
-    void setUpImageCreation() {
-
-    }
-
-    /**@Test
     void calculateLengthOfRouteSection() {
         try {
             ChoiceOption choiceOption = Mockito.mock(ChoiceOption.class);
             SituationData[] situations = new SituationData[1];
-            DataObject dataObject = new DataObject(situations);
+            DataObject dataObject = mock(DataObject.class);
             RouteSection routeSection1 = Mockito.mock(RouteSection.class);
             RouteSection routeSection2 = Mockito.mock(RouteSection.class);
 
@@ -79,7 +71,7 @@ class ImageCollectionGeneratorTest {
         } catch (InvalidDataKeyException e) {
             fail();
         }
-    }*/
+    }
 
     @Test
     void calculateLongestRouteSection() {

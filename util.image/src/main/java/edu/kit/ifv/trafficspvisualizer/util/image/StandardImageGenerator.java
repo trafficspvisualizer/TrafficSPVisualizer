@@ -50,6 +50,15 @@ public class StandardImageGenerator extends ImageGenerator{
     private static final int ALPHA_VALUE_DIVISOR = 255;
     private static final double MAX_TEXT_WIDTH_OF_ATTRIBUTE = 0.75;
     private static final int CUT_FOR_TEXT_IN_TWO_LINES = 2;
+    private static final double ATTRIBUTE_TEXT_HEIGHT = 8.0 / 9.0;
+    private static final double ICON_HEIGHT_FOR_TWO_LINE_TEXT = 0.2;
+    private static final double ICON_HEIGHT_FOR_ONE_LINE_TEXT = 0.25;
+    private static final int NUMBER_OF_SHIFTS = 24;
+    private static final int BIT_MASK = 0xFF;
+    private static final int MINUEND = 255;
+    private static final int BIG_BIT_MASK = 0x00FFFFFF;
+
+
     private static final String FONT_DEFAULT = "Arial";
     private static final String FONT_BOLD = "Arial Bold";
     private static final double ATTRIBUTE_DRAWING_HEIGHT_FACTOR = 0.39;
