@@ -51,7 +51,6 @@ class ImageExporterTest {
 
         // check naming of directories
         for (int i = 0; i < Objects.requireNonNull(exportFolder.listFiles()).length; i++) {
-            //assertEquals(Objects.requireNonNull(exportFolder.toPath().resolve(name + "_export").toFile().listFiles())[i].getName(), String.valueOf(i));
             boolean found = false;
             for (int j = 0; j < Objects.requireNonNull(exportFolder.listFiles()).length; j++) {
                 if (Objects.requireNonNull(exportFolder.listFiles())[i].getName().equals(String.valueOf(j))) {
