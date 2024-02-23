@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * This class represents a single {@link ChoiceOption} in a {@link edu.kit.ifv.trafficspvisualizer.model.Project}.
+ * This class represents a single {@link ChoiceOption} in a {@link Project}.
  * A {@link ChoiceOption} has a title and a name that should not be confused. The name is defined at the creation of a
  * {@link ChoiceOption} and can`t be changed later. The name should also be unique among multiple {@link ChoiceOption}s.
  * The title can be changed anytime and represents the displayed name of the {@link ChoiceOption}.

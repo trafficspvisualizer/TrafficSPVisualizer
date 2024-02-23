@@ -1,6 +1,5 @@
 package edu.kit.ifv.trafficspvisualizer.util.project;
 
-import edu.kit.ifv.trafficspvisualizer.model.*;
 import edu.kit.ifv.trafficspvisualizer.model.settings.*;
 import edu.kit.ifv.trafficspvisualizer.util.parse.NGDParser;
 import edu.kit.ifv.trafficspvisualizer.util.parse.Parser;

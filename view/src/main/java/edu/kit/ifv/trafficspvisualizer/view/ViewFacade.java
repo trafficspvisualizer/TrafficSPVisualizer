@@ -1,7 +1,7 @@
 package edu.kit.ifv.trafficspvisualizer.view;
 
 
-import edu.kit.ifv.trafficspvisualizer.model.Project;
+import edu.kit.ifv.trafficspvisualizer.model.settings.Project;
 import edu.kit.ifv.trafficspvisualizer.view.data.language.EnglishLanguageStrategy;
 import edu.kit.ifv.trafficspvisualizer.view.data.language.LanguageStrategy;
 import edu.kit.ifv.trafficspvisualizer.view.window.AttributeSettingsStage;

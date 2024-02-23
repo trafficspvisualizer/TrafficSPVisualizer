@@ -1,10 +1,12 @@
 package edu.kit.ifv.trafficspvisualizer.model.data;
 
+import edu.kit.ifv.trafficspvisualizer.model.settings.Project;
+
 import java.util.Map;
 import java.util.Set;
 
 /**
- * This class contains all the data of a situation in a {@link edu.kit.ifv.trafficspvisualizer.model.Project}.
+ * This class contains all the data of a situation in a {@link Project}.
  * A {@link SituationData} is designed as read-only and therefor should only be accessed through a {@link DataObject}.
  */
 public class SituationData {

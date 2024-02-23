@@ -1,4 +1,4 @@
-package edu.kit.ifv.trafficspvisualizer.model;
+package edu.kit.ifv.trafficspvisualizer.model.settings;
 
 import edu.kit.ifv.trafficspvisualizer.model.data.DataObject;
 import edu.kit.ifv.trafficspvisualizer.model.icon.IconManager;
