@@ -1,18 +1,13 @@
 package edu.kit.ifv.trafficspvisualizer.util.export;
 
 import edu.kit.ifv.trafficspvisualizer.model.settings.ExportType;
-import edu.kit.ifv.trafficspvisualizer.util.image.ChoiceOptionImage;
+import edu.kit.ifv.trafficspvisualizer.util.image.SurveyImage;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 /**
  * The abstract Class is uses for further uses of Exporter.
@@ -56,7 +51,7 @@ public abstract class Exporter {
      * @param  html string representing a variable associated with the export operation.
      * @throws IOException If an input or output exception occurred.
      */
-    public abstract void export(ChoiceOptionImage[] images, File file, String name, String html) throws IOException;
+    public abstract void export(SurveyImage[] images, File file, String name, String html) throws IOException;
 
     /**
      * Constructs the image path.
@@ -64,7 +59,7 @@ public abstract class Exporter {
      * @param image The image for which the path will be constructed.
      * @return The constructed image path.
      */
-    protected String constructImagePath(ChoiceOptionImage image) {
+    protected String constructImagePath(SurveyImage image) {
         StringBuilder builder = new StringBuilder();
         builder.append(NAMING_BLOCK.formatted(image.situationNumber()))
                 .append(NAMING_BLOCK.formatted(image.blockNumber()))
@@ -85,7 +80,7 @@ public abstract class Exporter {
      * @param image The image for which the path will be constructed.
      * @return The constructed image path.
      */
-    protected String constructImagePathWithDir(ChoiceOptionImage image) {
+    protected String constructImagePathWithDir(SurveyImage image) {
         return String.format("%s/%s",image.situationNumber(), constructImagePath(image));
     }
 }

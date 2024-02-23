@@ -6,7 +6,7 @@ import edu.kit.ifv.trafficspvisualizer.model.Project;
 import edu.kit.ifv.trafficspvisualizer.model.settings.ExportType;
 import edu.kit.ifv.trafficspvisualizer.model.settings.ChoiceOption;
 import edu.kit.ifv.trafficspvisualizer.util.export.Exporter;
-import edu.kit.ifv.trafficspvisualizer.util.image.ChoiceOptionImage;
+import edu.kit.ifv.trafficspvisualizer.util.image.SurveyImage;
 import edu.kit.ifv.trafficspvisualizer.util.image.ImageCollectionGenerator;
 import edu.kit.ifv.trafficspvisualizer.util.image.SituationGenerator;
 import edu.kit.ifv.trafficspvisualizer.util.project.StandardProjectLoader;
@@ -178,7 +178,7 @@ class MainApplicationController {
         Exporter exporter = Exporter.getExporter(exportType);
 
         try {
-            ChoiceOptionImage[] images = imageCollectionGenerator.createImage(controllerFacade.getProject());
+            SurveyImage[] images = imageCollectionGenerator.createImage(controllerFacade.getProject());
             exporter.export(
                     images, controllerFacade.getProject().getExportSettings().getExportPath().toFile(),
                     controllerFacade.getProject().getName(),controllerFacade.getProject().getExportSettings()

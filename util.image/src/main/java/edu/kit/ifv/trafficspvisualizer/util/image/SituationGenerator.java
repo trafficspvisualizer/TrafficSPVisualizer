@@ -14,12 +14,12 @@ import java.awt.image.BufferedImage;
 public class SituationGenerator extends ImageCollectionGenerator {
 
     @Override
-    public ChoiceOptionImage[] createImage(Project project) throws InvalidDataKeyException {
+    public SurveyImage[] createImage(Project project) throws InvalidDataKeyException {
         setUpImageCreation(project);
-        ChoiceOptionImage[] situationImages = new ChoiceOptionImage[numberOfSituations];
+        SurveyImage[] situationImages = new SurveyImage[numberOfSituations];
         for (int i = 0; i < numberOfSituations; i++) {
             BufferedImage image = createSituationImage(i);
-            situationImages[i] = new ChoiceOptionImage(
+            situationImages[i] = new SurveyImage(
                     "",
                     image,
                     dataObject.getBlockNumber(i),
