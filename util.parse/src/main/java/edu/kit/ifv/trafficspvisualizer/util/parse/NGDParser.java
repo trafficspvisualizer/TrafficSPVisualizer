@@ -22,6 +22,7 @@ import java.util.Map;
 public class NGDParser extends Parser {
     private static final String DATA_END_MARKER = "|";
     private static final String DATA_SEPARATOR = "\t";
+    private static final String DATA_REGEX = "([0-9][0-9]*[.]?[0-9]*)";
 
     @Override
     public DataObject parse(File file) throws IOException, ParseException {
@@ -47,7 +48,14 @@ public class NGDParser extends Parser {
     private ParsedData parseData(String[][] data) throws ParseException {
         // First 2 columns are filled with design and situation number
         String[] columnNames = Arrays.copyOfRange(data[0], 2, data[0].length - 1);
-        String[][] trimmedData = Arrays.copyOfRange(data, 1, data.length); //TODO check if files match regex
+        String[][] trimmedData = Arrays.copyOfRange(data, 1, data.length);
+        for (int i = 0; i < trimmedData.length; i++) {
+            for (int j = 0; j < trimmedData[0].length; j++) {
+                if (!trimmedData[i][j].matches(DATA_REGEX)) {
+                    throw new ParseException("Invalid data", i);
+                }
+            }
+        }
 
         int[] blockNumbers = new int[trimmedData.length];
         double[][] parsedData = new double[trimmedData.length][];
