@@ -234,11 +234,11 @@ public abstract class AbstractLoader {
                 .mapToObj(i -> new AbstractMap.SimpleEntry<>(i, jsonChoiceOptions.optJSONObject(i)))
                 .filter(entry -> entry.getValue() != null)
                 .forEach(entry -> {
-                    JSONObject ch = entry.getValue().optJSONObject(JsonKeys.KEY_CHOICE_OPTION.getKey());
-                    JSONArray routeSectionJSON = ch.optJSONArray(JsonKeys.KEY_ROUTE_SECTIONS.getKey());
+                    JSONObject choiceOptionJSON = entry.getValue().optJSONObject(JsonKeys.KEY_CHOICE_OPTION.getKey());
+                    JSONArray routeSectionJSON = choiceOptionJSON.optJSONArray(JsonKeys.KEY_ROUTE_SECTIONS.getKey());
 
                     ChoiceOption choiceOption = findChoiceOptionByName(project.getChoiceOptions(),
-                            ch.get(JsonKeys.KEY_NAME.getKey()));
+                            choiceOptionJSON.get(JsonKeys.KEY_NAME.getKey()));
 
                     if (choiceOption != null) {
                         updateChoiceOptionRouteSections(project, routeSectionJSON, choiceOption);
@@ -304,8 +304,8 @@ public abstract class AbstractLoader {
             if (obj.has(JsonKeys.KEY_ATTRIBUTE.getKey())) {
                 Attribute attribute1 = (Attribute)project.getAbstractAttributes().get(i);
                 JSONObject attributeJSON = obj.optJSONObject(JsonKeys.KEY_ATTRIBUTE.getKey());
-                int id = attributeJSON.optInt(JsonKeys.KEY_ICON.getKey());
-                attribute1.setIcon(project.getIconManager().getIcons().get(id));
+                int identifier = attributeJSON.optInt(JsonKeys.KEY_ICON.getKey());
+                attribute1.setIcon(project.getIconManager().getIcons().get(identifier));
             }
         }
     }
