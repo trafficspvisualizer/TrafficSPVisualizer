@@ -111,8 +111,6 @@ public class HTMLExporter extends Exporter {
             <!doctype html>
             <head>
                 <meta charset="utf-8">
-                <script src="https://test.com/example-lib.js" ></script>
-                <script type='text/javascript' src='images/local_script.js'></script>
                 <script>
                       function change(value){
                         document.getElementById("%s").value= value;
