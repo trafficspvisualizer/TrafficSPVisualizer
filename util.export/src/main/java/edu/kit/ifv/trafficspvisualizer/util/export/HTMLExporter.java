@@ -108,9 +108,9 @@ public class HTMLExporter extends Exporter {
      */
     private void writeHtmlHeader(BufferedWriter writer) throws IOException {
         writer.write(String.format("""
+            <!doctype html>
             <head>
                 <meta charset="utf-8">
-                <link rel="stylesheet" href="https://something.online.com/example.css" />
                 <script src="https://test.com/example-lib.js" ></script>
                 <script type='text/javascript' src='images/local_script.js'></script>
                 <script>
