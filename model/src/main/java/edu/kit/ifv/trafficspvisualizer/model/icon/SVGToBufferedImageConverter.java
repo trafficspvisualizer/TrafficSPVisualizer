@@ -27,6 +27,7 @@ import java.nio.file.Files;
  * A converter that converts an SVG image to a {@link BufferedImage}.
  */
 public class SVGToBufferedImageConverter implements ImageToBufferedImageConverter {
+    private static final int VIEWBOX_LENGTH = 4;
     private final DocumentBuilderFactory factory;
 
     /**
@@ -115,7 +116,7 @@ public class SVGToBufferedImageConverter implements ImageToBufferedImageConverte
         // Some SVGs have a viewBox instead of width and height attributes
         if (widthValue.isEmpty() || heightValue.isEmpty()) {
             String[] viewBox = root.getAttribute("viewBox").split(" ");
-            if (viewBox.length < 4) {
+            if (viewBox.length < VIEWBOX_LENGTH) {
                 throw new IllegalStateException();
             }
             widthValue = viewBox[2];
