@@ -66,7 +66,7 @@ public class StandardImageGenerator extends ImageGenerator{
     private int situationIndex;
     private Graphics2D graphics2DChoiceOption;
     private List<AbstractAttribute> attributes;
-    private java.awt.Color color;
+    private Color color;
     private int currentXCoordinate;
     private Font attributeFont;
 
@@ -90,7 +90,7 @@ public class StandardImageGenerator extends ImageGenerator{
         int attributeFontSize = (int) (height * ATTRIBUTE_FONT_SIZE);
         this.attributeFont = new Font(FONT_DEFAULT, Font.BOLD, attributeFontSize);
         javafx.scene.paint.Color fxColor = choiceOption.getColor();
-        this.color = new java.awt.Color(
+        this.color = new Color(
                 (float) fxColor.getRed(),
                 (float) fxColor.getGreen(),
                 (float) fxColor.getBlue(),
@@ -297,7 +297,7 @@ public class StandardImageGenerator extends ImageGenerator{
             iconHeight = (int) (height * ICON_HEIGHT_FOR_ONE_LINE_TEXT);
         }
 
-        BufferedImage iconImage = (attribute.getIcon().toBufferedImage(iconHeight, attributeWidth));
+        BufferedImage iconImage = attribute.getIcon().toBufferedImage(iconHeight, attributeWidth);
         BufferedImage copyImage = copyImage(iconImage);
         changeImageColor(copyImage, color);
         if (attributeValue == 0) {
@@ -369,7 +369,8 @@ public class StandardImageGenerator extends ImageGenerator{
         if (decimalPlaces < 0) {
             throw new IllegalArgumentException("Decimal places cannot be negative");
         }
-        return String.format(("%." + decimalPlaces + "f"), value);
+        String format = String.format("%%.%df", decimalPlaces);
+        return String.format(format, value);
     }
 
     private void changeImageColor(BufferedImage image, Color newColor) {
