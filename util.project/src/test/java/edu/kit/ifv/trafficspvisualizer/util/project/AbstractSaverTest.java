@@ -8,6 +8,7 @@ import edu.kit.ifv.trafficspvisualizer.util.parse.Parser;
 import javafx.scene.paint.Color;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -18,10 +19,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class AbstractSaverTest {
-
     @Test
     void testCreateJsonProject() throws IOException, ParseException {
         // creating new project - choice option order is not deterministic due to HashMap
@@ -36,7 +36,7 @@ class AbstractSaverTest {
         List<ChoiceOption> choiceOptions = temp.getChoiceOptions().stream().sorted(comparator).collect(Collectors.toList());
         Project project = new Project(temp.getName(), temp.getProjectPath(), temp.getDataObject(),
                 temp.getAbstractAttributes(), choiceOptions,
-                temp.getExportSettings(), null ,ngdFile);
+                temp.getExportSettings(), null, ngdFile);
 
         // adding abstract attributes
         Attribute attribute = new Attribute(project.getIconManager().getDefaultIcon());
@@ -62,8 +62,8 @@ class AbstractSaverTest {
         project.getChoiceOptions().getFirst().addRouteSection(
                 new RouteSection(project.getIconManager().getDefaultIcon(), "zugang", LineType.DASHED));
 
-        for(int i = 0; i < project.getChoiceOptions().size(); i++) {
-            project.getChoiceOptions().get(i).setColor(new Color(0.01*i, 0.01*i,0.01*i,0.01*i));
+        for (int i = 0; i < project.getChoiceOptions().size(); i++) {
+            project.getChoiceOptions().get(i).setColor(new Color(0.01 * i, 0.01 * i, 0.01 * i, 0.01 * i));
         }
 
         // export Settings

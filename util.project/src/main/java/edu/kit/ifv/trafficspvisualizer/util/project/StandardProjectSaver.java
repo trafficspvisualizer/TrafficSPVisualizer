@@ -3,6 +3,7 @@ package edu.kit.ifv.trafficspvisualizer.util.project;
 import edu.kit.ifv.trafficspvisualizer.model.settings.Project;
 import org.apache.commons.io.FileUtils;
 import org.json.JSONObject;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -20,7 +21,7 @@ public class StandardProjectSaver extends AbstractSaver {
      * Saves the given project to the specified path.
      *
      * @param project The project to save.
-     * @param path The path where the project should be saved.
+     * @param path    The path where the project should be saved.
      * @throws IOException If an I/O error occurs.
      */
     @Override
@@ -35,7 +36,7 @@ public class StandardProjectSaver extends AbstractSaver {
     /**
      * Writes the given JSONObject to a file in the specified directory.
      *
-     * @param dir The directory where the file should be written.
+     * @param dir        The directory where the file should be written.
      * @param jsonObject The JSONObject to write.
      * @throws IOException If an I/O error occurs.
      */
@@ -47,7 +48,7 @@ public class StandardProjectSaver extends AbstractSaver {
      * Copies the cache directory of the given project to the specified directory.
      *
      * @param project The project whose cache directory should be copied.
-     * @param dir The directory where the cache directory should be copied.
+     * @param dir     The directory where the cache directory should be copied.
      * @throws IOException If an I/O error occurs.
      */
     private void copyCacheDirectory(Project project, Path dir) throws IOException {

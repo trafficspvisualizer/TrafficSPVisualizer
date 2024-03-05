@@ -16,6 +16,7 @@ import javafx.scene.control.ButtonType;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -36,6 +37,7 @@ class MainApplicationControllerTest {
     private Project mockProject;
 
     private ViewFacade mockViewFacade;
+
     @BeforeAll
     static void setUpClass() {
         new JFXPanel();
@@ -167,7 +169,6 @@ class MainApplicationControllerTest {
             when(mockControllerFacade.getProject()).thenReturn(mockProject);
             //return path as null
             when(mockProject.getProjectPath()).thenReturn(null);
-            StandardProjectSaver mockStandardProjectSaver = mock(StandardProjectSaver.class);
 
             try {
                 Method method = MainApplicationController.class.getDeclaredMethod("actionOnSaveProjectMenuItem");
@@ -277,6 +278,7 @@ class MainApplicationControllerTest {
             verify(mockControllerFacade).createExportSettingsController();
         });
     }
+
     @Test
     void testActionOnExportSettingsButtonNull() {
         Platform.runLater(() -> {
@@ -290,7 +292,7 @@ class MainApplicationControllerTest {
             }
 
             verify(mockControllerFacade.getViewFacade().getMainApplicationWindow()).showNoProjectErrorAlert();
-            });
+        });
     }
 
     @Test
@@ -308,6 +310,7 @@ class MainApplicationControllerTest {
             verify(mockControllerFacade).createAttributeController();
         });
     }
+
     @Test
     void testActionOnAttributesButtonNull() {
         Platform.runLater(() -> {
@@ -340,6 +343,7 @@ class MainApplicationControllerTest {
             verify(mockMainApplicationController).updatePreview();
         });
     }
+
     @Test
     void testActionOnRightSwitchPreviewButtonNull() {
         Platform.runLater(() -> {
@@ -373,6 +377,7 @@ class MainApplicationControllerTest {
             verify(mockMainApplicationController).updatePreview();
         });
     }
+
     @Test
     void testActionOnLeftSwitchPreviewButtonNull() {
         Platform.runLater(() -> {

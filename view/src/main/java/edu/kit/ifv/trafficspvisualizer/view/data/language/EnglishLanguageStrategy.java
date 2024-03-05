@@ -132,7 +132,6 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
     private static final String LINE_TYPE_DASHED_TEXT = "Dashed";
 
 
-
     // MainApplicationWindow
     private static final String MAIN_APPLICATION_NEW_PROJECT_MENU_ITEM_TEXT = "New project";
 
@@ -155,7 +154,6 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
     private static final String MAIN_APPLICATION_CHOICE_OPTION_TEXT = "Choice options";
 
 
-
     // ProjectCreationStage
     private static final String PROJECT_CREATION_TITLE = "New project";
 
@@ -168,8 +166,6 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
     private static final String PROJECT_CREATION_CREATE_NEW_PROJECT_BUTTON_TEXT = "Create new project";
 
     private static final String PROJECT_CREATION_CANCEL_BUTTON_TEXT = "Cancel";
-
-
 
 
     // AttributeSettingsStage
@@ -189,7 +185,6 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
     private static final String ATTRIBUTE_SETTINGS_SAVE_BUTTON_TEXT = "Save";
 
     private static final String ATTRIBUTE_SETTINGS_CANCEL_BUTTON_TEXT = "Cancel";
-
 
 
     // ExportSettingsStage
@@ -212,7 +207,6 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
     private static final String EXPORT_SETTINGS_CANCEL_BUTTON_TEXT = ATTRIBUTE_SETTINGS_CANCEL_BUTTON_TEXT;
 
 
-
     // IconSelectionStage
     private static final String ICON_SELECTION_TITLE = "Select icon";
 
@@ -221,7 +215,6 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
     private static final String ICON_SELECTION_SELECT_BUTTON_TEXT = "Select";
 
     private static final String ICON_SELECTION_CANCEL_BUTTON_TEXT = ATTRIBUTE_SETTINGS_CANCEL_BUTTON_TEXT;
-
 
 
     // AttributeStage
@@ -248,7 +241,6 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
     private static final String ATTRIBUTE_ADD_SEPARATOR_LINE_BUTTON_TEXT = "Add separator line";
 
     private static final String ATTRIBUTE_CLOSE_BUTTON_TEXT = "Close";
-
 
 
     // ChoiceOptionSettingsStage
@@ -279,7 +271,6 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
     private static final String CHOICE_OPTION_SETTINGS_ADD_ROUTE_SECTION_BUTTON_TEXT = "Add route section";
 
     private static final String CHOICE_OPTION_SETTINGS_CLOSE_BUTTON_TEXT = ATTRIBUTE_CLOSE_BUTTON_TEXT;
-
 
 
     // InstructionStage
@@ -409,14 +400,6 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
             "The export button can be found in the top left corner of the window. When pressing it, images will be " +
                     "generated based on the export settings. The exported images can be found at the path specified " +
                     "in the export settings.";
-
-
-
-
-
-
-
-
 
 
     // Application
@@ -654,7 +637,6 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
     }
 
 
-
     // ProjectCreationStage
     public String getProjectCreationTitle() {
         return PROJECT_CREATION_TITLE;
@@ -679,7 +661,6 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
     public String getProjectCreationCancelButtonText() {
         return PROJECT_CREATION_CANCEL_BUTTON_TEXT;
     }
-
 
 
     // AttributeSettingsStage
@@ -720,7 +701,6 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
     }
 
 
-
     // ExportSettingsStage
     public String getExportSettingsTitle() {
         return EXPORT_SETTINGS_TITLE;
@@ -759,7 +739,6 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
     }
 
 
-
     // IconSelectionStage
     public String getIconSelectionTitle() {
         return ICON_SELECTION_TITLE;
@@ -776,7 +755,6 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
     public String getIconSelectionCancelButtonText() {
         return ICON_SELECTION_CANCEL_BUTTON_TEXT;
     }
-
 
 
     // AttributeStage
@@ -827,7 +805,6 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
     public String getAttributeCloseButtonText() {
         return ATTRIBUTE_CLOSE_BUTTON_TEXT;
     }
-
 
 
     // ChoiceOptionSettingsStage
@@ -887,7 +864,6 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
     public String getChoiceOptionSettingsCloseButtonText() {
         return CHOICE_OPTION_SETTINGS_CLOSE_BUTTON_TEXT;
     }
-
 
 
     // InstructionStage

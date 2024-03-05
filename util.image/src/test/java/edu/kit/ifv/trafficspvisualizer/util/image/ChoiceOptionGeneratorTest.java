@@ -24,7 +24,8 @@ class ChoiceOptionGeneratorTest {
         int numberOfChoiceOptions = 6;
 
         Path projectFolderParentDirectory = Files.createTempDirectory("StandardImageGeneratorTest");
-        File ngdFile = new File(Objects.requireNonNull(this.getClass().getClassLoader().getResource("example.ngd")).getPath());
+        File ngdFile = new File(Objects.requireNonNull
+                (this.getClass().getClassLoader().getResource("example.ngd")).getPath());
         DataObject dataObject = new NGDParser().parse(ngdFile);
         Project project = new Project("Test", projectFolderParentDirectory, dataObject, ngdFile);
 

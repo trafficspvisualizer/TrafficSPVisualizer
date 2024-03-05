@@ -32,7 +32,8 @@ class SituationGeneratorTest {
         numberOfSituations = 16;
         numberOfChoiceOptions = 6;
         Path projectFolderParentDirectory = Files.createTempDirectory("StandardImageGeneratorTest");
-        File ngdFile = new File(Objects.requireNonNull(this.getClass().getClassLoader().getResource("example.ngd")).getPath());
+        File ngdFile = new File(Objects.requireNonNull
+                (this.getClass().getClassLoader().getResource("example.ngd")).getPath());
         DataObject dataObject = new NGDParser().parse(ngdFile);
         project = new Project("Test", projectFolderParentDirectory, dataObject, ngdFile);
     }
@@ -45,7 +46,7 @@ class SituationGeneratorTest {
         assertEquals(numberOfSituations, result.length);
         BufferedImage testImage = result[0].image();
         assertEquals(CHOICE_OPTION_HEIGHT * numberOfChoiceOptions, testImage.getHeight());
-        assertEquals(CHOICE_OPTION_WIDTH , testImage.getWidth());
+        assertEquals(CHOICE_OPTION_WIDTH, testImage.getWidth());
     }
 
     @Test

@@ -12,7 +12,7 @@ public final class ImageLibrary {
     // Application
     private static final Image APPLICATION_ICON =
             new Image(String.valueOf(ImageLibrary.class.getResource(
-            "/data/image/applicationIcon.png")));
+                    "/data/image/applicationIcon.png")));
 
     // MainApplicationWindow
     private static final Image MAIN_APPLICATION_LEFT_SWITCH_PREVIEW_BUTTON_IMAGE =
@@ -29,34 +29,33 @@ public final class ImageLibrary {
 
     private static final Image MAIN_APPLICATION_EXPORT_SETTINGS_BUTTON_IMAGE =
             new Image(String.valueOf(ImageLibrary.class.getResource(
-            "/data/image/mainApplicationExportSettingsButtonImage.png")));
+                    "/data/image/mainApplicationExportSettingsButtonImage.png")));
 
     private static final Image MAIN_APPLICATION_ATTRIBUTES_BUTTON_IMAGE =
             new Image(String.valueOf(ImageLibrary.class.getResource(
-            "/data/image/mainApplicationAttributesButtonImage.png")));
+                    "/data/image/mainApplicationAttributesButtonImage.png")));
 
     private static final Image MAIN_APPLICATION_CHOICE_OPTION_SETTINGS_BUTTON_IMAGE =
             new Image(String.valueOf(ImageLibrary.class.getResource(
-            "/data/image/mainApplicationChoiceOptionSettingsButtonImage.png")));
+                    "/data/image/mainApplicationChoiceOptionSettingsButtonImage.png")));
 
     private static final Image MAIN_APPLICATION_UP_SWITCH_CHOICE_OPTION_BUTTON_IMAGE =
             new Image(String.valueOf(ImageLibrary.class.getResource(
-            "/data/image/mainApplicationUpSwitchChoiceOptionButtonImage.png")));
+                    "/data/image/mainApplicationUpSwitchChoiceOptionButtonImage.png")));
 
     private static final Image MAIN_APPLICATION_DOWN_SWITCH_CHOICE_OPTION_BUTTON_IMAGE =
             new Image(String.valueOf(ImageLibrary.class.getResource(
-            "/data/image/mainApplicationDownSwitchChoiceOptionButtonImage.png")));
-
+                    "/data/image/mainApplicationDownSwitchChoiceOptionButtonImage.png")));
 
 
     // ProjectCreationStage
     private static final Image PROJECT_CREATION_DIRECTORY_CHOOSER_BUTTON_IMAGE =
             new Image(String.valueOf(ImageLibrary.class.getResource(
-            "/data/image/projectCreationDirectoryChooserButtonImage.png")));
+                    "/data/image/projectCreationDirectoryChooserButtonImage.png")));
 
     private static final Image PROJECT_CREATION_FILE_CHOOSER_BUTTON_IMAGE =
             new Image(String.valueOf(ImageLibrary.class.getResource(
-            "/data/image/projectCreationFileChooserButtonImage.png")));
+                    "/data/image/projectCreationFileChooserButtonImage.png")));
 
 
     // ExportSettingsStage
@@ -83,7 +82,8 @@ public final class ImageLibrary {
             ATTRIBUTE_ATTRIBUTE_REMOVE_BUTTON_IMAGE;
 
 
-    private ImageLibrary() {}
+    private ImageLibrary() {
+    }
 
     // Application
 
@@ -188,8 +188,8 @@ public final class ImageLibrary {
     }
 
 
-
     // ProjectCreationStage
+
     /**
      * Gets the image displayed on the "directoryChooserButton"
      * in the {@link edu.kit.ifv.trafficspvisualizer.view.window.ProjectCreationStage}.
@@ -213,8 +213,8 @@ public final class ImageLibrary {
     }
 
 
-
     // ExportSettingsStage
+
     /**
      * Gets the image displayed on the "directoryChooserButton"
      * in the {@link edu.kit.ifv.trafficspvisualizer.view.window.ExportSettingsStage}.
@@ -228,6 +228,7 @@ public final class ImageLibrary {
 
 
     // AttributeStage
+
     /**
      * Gets the image displayed on the "upSwitchAttributeButton"s
      * in the {@link edu.kit.ifv.trafficspvisualizer.view.window.AttributeStage}.
@@ -274,6 +275,7 @@ public final class ImageLibrary {
 
 
     // ChoiceOptionSettingsStage
+
     /**
      * Gets the image displayed on the "routeSectionRemove"s
      * in the {@link edu.kit.ifv.trafficspvisualizer.view.window.ChoiceOptionSettingsStage}.

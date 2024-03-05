@@ -8,8 +8,11 @@ import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 class ImageCollectionGeneratorTest {
     @Test
     void getImageCollectionGenerator() {
-        assertInstanceOf(SituationGenerator.class, ImageCollectionGenerator.getImageCollectionGenerator(ExportType.SITUATION));
-        assertInstanceOf(ChoiceOptionGenerator.class, ImageCollectionGenerator.getImageCollectionGenerator(ExportType.CHOICE_OPTION));
-        assertInstanceOf(ChoiceOptionGenerator.class, ImageCollectionGenerator.getImageCollectionGenerator(ExportType.HTML));
+        assertInstanceOf(SituationGenerator.class,
+                ImageCollectionGenerator.getImageCollectionGenerator(ExportType.SITUATION));
+        assertInstanceOf(ChoiceOptionGenerator.class,
+                ImageCollectionGenerator.getImageCollectionGenerator(ExportType.CHOICE_OPTION));
+        assertInstanceOf(ChoiceOptionGenerator.class,
+                ImageCollectionGenerator.getImageCollectionGenerator(ExportType.HTML));
     }
 }

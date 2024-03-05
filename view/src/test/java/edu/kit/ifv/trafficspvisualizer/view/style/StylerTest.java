@@ -68,6 +68,7 @@ class StylerTest {
             assertEquals(810, stage.getHeight());
         });
     }
+
     @Test
     void midHVGabMidPaddingGridPaneIsCorrect() {
         GridPane gridPane = new GridPane();

@@ -61,7 +61,7 @@ public class IconManager {
     private void initDefaultIcons() throws IOException {
         List<String> defaultIconNames;
         try (InputStream defaultIcons = IconManager.class.getResourceAsStream(
-            "%s/%s".formatted(DEFAULT_ICON_DIR, DEFAULT_ICON_NAMES_FILE))
+                "%s/%s".formatted(DEFAULT_ICON_DIR, DEFAULT_ICON_NAMES_FILE))
         ) {
             if (defaultIcons == null) {
                 throw new IOException();
@@ -73,7 +73,7 @@ public class IconManager {
 
         for (String iconName : defaultIconNames) {
             try (InputStream iconStream = IconManager.class.getResourceAsStream(
-                "%s/%s".formatted(DEFAULT_ICON_DIR, iconName))
+                    "%s/%s".formatted(DEFAULT_ICON_DIR, iconName))
             ) {
                 createIcon(Objects.requireNonNull(iconStream));
             }

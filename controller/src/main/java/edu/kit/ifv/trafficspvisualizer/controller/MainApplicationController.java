@@ -181,7 +181,7 @@ class MainApplicationController {
             SurveyImage[] images = imageCollectionGenerator.createImage(controllerFacade.getProject());
             exporter.export(
                     images, controllerFacade.getProject().getExportSettings().getExportPath().toFile(),
-                    controllerFacade.getProject().getName(),controllerFacade.getProject().getExportSettings()
+                    controllerFacade.getProject().getName(), controllerFacade.getProject().getExportSettings()
                             .getHtmlVariableName()
             );
         } catch (NullPointerException | IOException | InvalidDataKeyException e) {

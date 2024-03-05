@@ -3,6 +3,7 @@ package edu.kit.ifv.trafficspvisualizer.model.settings;
 /**
  * This class describes an abstract Attribute in a {@link Project}.
  */
+
 public abstract class AbstractAttribute {
     private boolean active;
 

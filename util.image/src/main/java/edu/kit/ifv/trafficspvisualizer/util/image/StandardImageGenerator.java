@@ -8,6 +8,7 @@ import edu.kit.ifv.trafficspvisualizer.model.settings.ChoiceOption;
 import edu.kit.ifv.trafficspvisualizer.model.settings.LineType;
 import edu.kit.ifv.trafficspvisualizer.model.settings.RouteSection;
 import edu.kit.ifv.trafficspvisualizer.model.settings.SeparatorLine;
+
 import java.awt.Stroke;
 import java.awt.Graphics2D;
 import java.awt.Graphics;
@@ -20,13 +21,12 @@ import java.awt.image.BufferedImage;
 import java.util.List;
 
 
-
 /**
  * StandardImageGenerator inherits from ImageGenerator. It creates a choice option according to the standard template.
  * The individual values are displayed next to each other on the left side and the route sections on the right side.
  */
 
-public class StandardImageGenerator extends ImageGenerator{
+public class StandardImageGenerator extends ImageGenerator {
     private static final double STANDARD_ATTRIBUTE_WIDTH = 0.059;
     private static final double STANDARD_ATTRIBUTE_HEIGHT = 0.47;
     private static final double PADDING = 0.05;
@@ -114,37 +114,42 @@ public class StandardImageGenerator extends ImageGenerator{
         Graphics2D graphics2DHeadline = headlineImage.createGraphics();
         fillWhite(graphics2DHeadline, width, headlineHeight);
 
+        // set font
         int fontSize = headlineHeight / 2;
         Font headlineFont = new Font(FONT_BOLD, Font.BOLD, fontSize);
         graphics2DHeadline.setFont(headlineFont);
 
+        // make text fit in image
         String headline = choiceOption.getTitle();
         int maxHeadlineWidth = width - 2 * padding;
         fitFont(graphics2DHeadline, maxHeadlineWidth, headline);
 
+        // draw the text
         graphics2DHeadline.setColor(color);
         graphics2DHeadline.drawString(headline, padding, (int) (headlineHeight * DRAWING_HEIGHT_OF_HEADLINE));
 
+        // finalise graphics object
         graphics2DHeadline.dispose();
+
         graphics2DChoiceOption.drawImage(headlineImage, 0, 0, null);
     }
 
-    private void drawAttributeImages() throws InvalidDataKeyException {
+    private void drawAttributeImages() {
         int attributeCount = calculateNumberOfAttributes();
         int separatorLineCount = attributes.size() - attributeCount;
 
         float separatorLineStrokeWidth = (float) (width * SEPARATOR_LINE_STROKE_WIDTH + 1);
 
+        // resize attributeWidth
         double leftHandSideWidth = padding + attributeWidth * attributeCount
-            + separatorLineStrokeWidth * separatorLineCount;
-
-
-        if (leftHandSideWidth > 0.5 * width) { // resizes attributeWidth
+                + separatorLineStrokeWidth * separatorLineCount;
+        if (leftHandSideWidth > 0.5 * width) {
             int widthForAttributesOnly = (int) (0.5 * width - padding -
                     separatorLineStrokeWidth * separatorLineCount);
             attributeWidth = widthForAttributesOnly / attributeCount;
         }
 
+        // iterate through every abstract attribute and draw it if active
         currentXCoordinate = padding;
         for (AbstractAttribute abstractAttribute : attributes) {
             if (abstractAttribute.isActive()) {
@@ -157,8 +162,7 @@ public class StandardImageGenerator extends ImageGenerator{
                         attributeImage = createOneAttributeImage(attribute);
                     }
                     graphics2DChoiceOption.drawImage(
-                            attributeImage, currentXCoordinate, attributeDrawingHeight, null
-                    );
+                            attributeImage, currentXCoordinate, attributeDrawingHeight, null);
                     currentXCoordinate += attributeWidth + EXTRA_SPACE_AFTER_ATTRIBUTE;
                 } else if (abstractAttribute instanceof SeparatorLine) {
                     currentXCoordinate += (int) separatorLineStrokeWidth / 2;
@@ -185,38 +189,54 @@ public class StandardImageGenerator extends ImageGenerator{
         currentXCoordinate += (int) strokeWidth;
     }
 
-    private void drawRouteSections() throws InvalidDataKeyException {
+    private void drawRouteSections() {
         float timeLineWidth = (float) (height * TIME_LINE_STROKE_WIDTH);
         Stroke solidTimeLineStroke = new BasicStroke(timeLineWidth);
         Stroke dashedTimeLineStroke = new BasicStroke(timeLineWidth, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL,
                 0, new float[]{7}, 0);
+
         int iconSize = (int) (height * ROUTE_SECTION_ICON_SIZE);
         graphics2DChoiceOption.setStroke(solidTimeLineStroke);
+
+        // distance from central separator line + padding to right edge - padding
         int longestRouteSectionLength = width - (currentXCoordinate + 2 * padding);
         int routeSectionDrawingHeight = (int) (height * ROUTE_SECTION_DRAWING_HEIGHT);
         currentXCoordinate += padding;
         graphics2DChoiceOption.setColor(color);
+
+        // draw first vertical line before the first route section
         graphics2DChoiceOption.drawLine(currentXCoordinate,
                 routeSectionDrawingHeight + END_OF_ROUTE_SECTION_MARKER_HEIGHT,
-                currentXCoordinate, routeSectionDrawingHeight - 3);
+                currentXCoordinate, routeSectionDrawingHeight - END_OF_ROUTE_SECTION_MARKER_HEIGHT);
+
+        // draw every route section
         for (RouteSection routeSection : choiceOption.getRouteSections()) {
             String key = routeSection.getChoiceDataKey();
-            double routeSectionLength = dataObject.getValue(situationIndex, choiceOption.getName(), key);
+            double routeSectionLength;
+            try {
+                routeSectionLength = dataObject.getValue(situationIndex, choiceOption.getName(), key);
+            } catch (InvalidDataKeyException e) {
+                routeSectionLength = 0.0;
+            }
             if (routeSectionLength == 0) {
                 continue;
             }
 
             int imageLengthOfRouteSection = (int) ((longestRouteSectionLength * routeSectionLength)
                     / lengthOfLongestRouteSectionOfSituation);
+
+            // set line type
             if (routeSection.getLineType() == LineType.DASHED) {
                 graphics2DChoiceOption.setStroke(dashedTimeLineStroke);
             } else if (routeSection.getLineType() == LineType.SOLID) {
                 graphics2DChoiceOption.setStroke(solidTimeLineStroke);
             }
 
+            // draw route section
             graphics2DChoiceOption.drawLine(currentXCoordinate, routeSectionDrawingHeight,
                     currentXCoordinate + imageLengthOfRouteSection, routeSectionDrawingHeight);
 
+            // text under route section
             String subText = getRoundedString(0, routeSectionLength) + " min";
             FontMetrics fontMetrics = graphics2DChoiceOption.getFontMetrics(attributeFont);
             int textHeight = fontMetrics.getHeight();
@@ -246,7 +266,7 @@ public class StandardImageGenerator extends ImageGenerator{
     }
 
 
-    private BufferedImage createOneAttributeImage(Attribute attribute) throws InvalidDataKeyException {
+    private BufferedImage createOneAttributeImage(Attribute attribute) {
         double attributeValue = calculateValueOfAttribute(attribute);
         String prefix = attribute.getPrefix();
         String suffix = attribute.getSuffix();
@@ -265,7 +285,6 @@ public class StandardImageGenerator extends ImageGenerator{
         String secondLineString = getRoundedString(attribute.getDecimalPlaces(), attributeValue) + suffix;
         int maxTextWidth = (int) (attributeWidth * MAX_TEXT_WIDTH_OF_ATTRIBUTE);
 
-
         int iconHeight;
         if (attribute.getPrefix().length() > CUT_FOR_TEXT_IN_TWO_LINES) { // draw font in two lines
             String longerString;
@@ -280,10 +299,11 @@ public class StandardImageGenerator extends ImageGenerator{
             int prefixWidth = g2DAttribute.getFontMetrics().stringWidth(prefix);
             int secondLineStringWidth = g2DAttribute.getFontMetrics().stringWidth(secondLineString);
 
-
+            // centralise text
             int x = (attributeWidth - prefixWidth) / 2;
             int y = (int) (attributeHeight * ATTRIBUTE_TEXT_HEIGHT - g2DAttribute.getFontMetrics().getHeight());
             g2DAttribute.drawString(prefix, x, y);
+            // centralise text
             x = (attributeWidth - secondLineStringWidth) / 2;
             y = (int) (attributeHeight * ATTRIBUTE_TEXT_HEIGHT);
             g2DAttribute.drawString(secondLineString, x, y);
@@ -292,12 +312,14 @@ public class StandardImageGenerator extends ImageGenerator{
         } else {
             fitFont(g2DAttribute, maxTextWidth, attributeText);
             int attributeTextWidth = g2DAttribute.getFontMetrics().stringWidth(attributeText);
+            // centralise text
             int x = (attributeWidth - attributeTextWidth) / 2;
             g2DAttribute.drawString(attributeText, x, (int) (attributeHeight * ATTRIBUTE_TEXT_HEIGHT));
             iconHeight = (int) (height * ICON_HEIGHT_FOR_ONE_LINE_TEXT);
         }
 
         BufferedImage iconImage = attribute.getIcon().toBufferedImage(iconHeight, attributeWidth);
+        //copy needed, else image would be saved with color
         BufferedImage copyImage = copyImage(iconImage);
         changeImageColor(copyImage, color);
         if (attributeValue == 0) {
@@ -323,6 +345,8 @@ public class StandardImageGenerator extends ImageGenerator{
         int fontSize = graphics2D.getFontMetrics().getFont().getSize();
         int stringWidth = graphics2D.getFontMetrics().stringWidth(string);
         Font font = new Font(FONT_BOLD, Font.BOLD, fontSize);
+
+        // decrease size of font until it fits
         while (stringWidth > maxWidth) {
             fontSize--;
             font = new Font(FONT_BOLD, Font.BOLD, fontSize);
@@ -346,11 +370,15 @@ public class StandardImageGenerator extends ImageGenerator{
         graphics2D.fillRect(0, 0, width, height);
     }
 
-    private double calculateValueOfAttribute(Attribute attribute) throws InvalidDataKeyException {
+    private double calculateValueOfAttribute(Attribute attribute) {
         List<String> choiceOptionMappings = attribute.getMapping(choiceOption);
         double attributeValue = 0;
         for (String mapping : choiceOptionMappings) {
-            attributeValue += dataObject.getValue(situationIndex, choiceOption.getName(), mapping);
+            try {
+                attributeValue += dataObject.getValue(situationIndex, choiceOption.getName(), mapping);
+            } catch (InvalidDataKeyException e) {
+                attributeValue += 0;
+            }
         }
         return attributeValue;
     }

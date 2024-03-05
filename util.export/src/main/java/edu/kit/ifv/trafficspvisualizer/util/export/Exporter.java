@@ -11,6 +11,7 @@ import java.util.function.Supplier;
 
 /**
  * The abstract Class is uses for further uses of Exporter.
+ *
  * @author uhtfz
  */
 public abstract class Exporter {
@@ -21,6 +22,7 @@ public abstract class Exporter {
     protected static final String IMAGE_FORMAT = "png";
     private static final String NAMING_BLOCK = "#c_%04d#";
     private static final Map<ExportType, Supplier<Exporter>> EXPORTER_MAP = new HashMap<>();
+
     static {
         EXPORTER_MAP.put(ExportType.HTML, HTMLExporter::new);
         EXPORTER_MAP.put(ExportType.CHOICE_OPTION, ImageExporter::new);
@@ -47,9 +49,9 @@ public abstract class Exporter {
      * This method exports the given images to a specified file.
      *
      * @param images An array of ChoiceOptionImage objects to be exported.
-     * @param file The destination file where the images will be exported.
-     * @param name The name to be associated with the exported content.
-     * @param  html string representing a variable associated with the export operation.
+     * @param file   The destination file where the images will be exported.
+     * @param name   The name to be associated with the exported content.
+     * @param html   string representing a variable associated with the export operation.
      * @throws IOException If an input or output exception occurred.
      */
     public abstract void export(SurveyImage[] images, File file, String name, String html) throws IOException;
@@ -82,6 +84,6 @@ public abstract class Exporter {
      * @return The constructed image path.
      */
     protected String constructImagePathWithDir(SurveyImage image) {
-        return String.format("%s/%s",image.situationNumber(), constructImagePath(image));
+        return String.format("%s/%s", image.situationNumber(), constructImagePath(image));
     }
 }

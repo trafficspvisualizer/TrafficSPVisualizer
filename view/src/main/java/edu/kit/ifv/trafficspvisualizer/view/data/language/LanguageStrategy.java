@@ -13,13 +13,12 @@ public abstract class LanguageStrategy {
     private static final String APPLICATION_NAME = "TrafficSPVisualizer";
 
 
-
     // MainApplicationWindow
     private static final String MAIN_APPLICATION_CURRENT_PREVIEW_TEXT_FORMAT = "%d / %d";
 
 
-
     // Application
+
     /**
      * Gets the name of the application.
      *
@@ -31,6 +30,7 @@ public abstract class LanguageStrategy {
 
 
     // Application Alerts
+
     /**
      * Gets the title for the confirmation dialog shown when attempting to close a project.
      *
@@ -307,6 +307,7 @@ public abstract class LanguageStrategy {
 
 
     // ENUMS
+
     /**
      * Gets the text representation of the specified export type. This method is intended to convert
      * an {@link ExportType} enum into a user-friendly string that can be displayed in the view.
@@ -326,8 +327,8 @@ public abstract class LanguageStrategy {
     public abstract String getLineTypeText(LineType lineType);
 
 
-
     // MainApplicationWindow
+
     /**
      * Gets the text for the new project menu item in the
      * {@link edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow}.
@@ -419,8 +420,8 @@ public abstract class LanguageStrategy {
     public abstract String getMainApplicationChoiceOptionText();
 
 
-
     // ProjectCreationStage
+
     /**
      * Gets the title for the {@link edu.kit.ifv.trafficspvisualizer.view.window.ProjectCreationStage}
      * in the application.
@@ -470,8 +471,8 @@ public abstract class LanguageStrategy {
     public abstract String getProjectCreationCancelButtonText();
 
 
-
     // AttributeSettingsStage
+
     /**
      * Gets the title for the {@link edu.kit.ifv.trafficspvisualizer.view.window.AttributeSettingsStage}
      * in the application.
@@ -545,8 +546,8 @@ public abstract class LanguageStrategy {
     public abstract String getAttributeSettingsCancelButtonText();
 
 
-
     // ExportSettingsStage
+
     /**
      * Gets the title for the {@link edu.kit.ifv.trafficspvisualizer.view.window.ExportSettingsStage}
      * in the application.
@@ -621,8 +622,8 @@ public abstract class LanguageStrategy {
     public abstract String getExportSettingsCancelButtonText();
 
 
-
     // IconSelectionStage
+
     /**
      * Gets the title for the {@link edu.kit.ifv.trafficspvisualizer.view.window.IconSelectionStage}
      * in the application.
@@ -656,8 +657,8 @@ public abstract class LanguageStrategy {
     public abstract String getIconSelectionCancelButtonText();
 
 
-
     // AttributeStage
+
     /**
      * Gets the title for the {@link edu.kit.ifv.trafficspvisualizer.view.window.AttributeStage}
      * in the application.
@@ -755,8 +756,8 @@ public abstract class LanguageStrategy {
     public abstract String getAttributeCloseButtonText();
 
 
-
     // ChoiceOptionSettingsStage
+
     /**
      * Gets the title format for the {@link edu.kit.ifv.trafficspvisualizer.view.window.ChoiceOptionSettingsStage}
      * in the application.
@@ -871,8 +872,8 @@ public abstract class LanguageStrategy {
     public abstract String getChoiceOptionSettingsCloseButtonText();
 
 
-
     // InstructionStage
+
     /**
      * Gets the title for the {@link edu.kit.ifv.trafficspvisualizer.view.window.InstructionStage}
      * in the application.

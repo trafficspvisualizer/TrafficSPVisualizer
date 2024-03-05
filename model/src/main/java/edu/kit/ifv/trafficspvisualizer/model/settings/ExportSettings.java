@@ -17,7 +17,7 @@ public class ExportSettings {
     private Path exportPath;
     private FileFormat fileFormat;
     private ExportType exportType;
-    private String htmlVariableName;
+    private final String htmlVariableName;
 
     /**
      * Constructs a new {@link ExportSettings} object with default values.
@@ -145,17 +145,10 @@ public class ExportSettings {
 
     /**
      * Returns the name of the HTML variable.
+     *
      * @return the name of the HTML variable
      */
     public String getHtmlVariableName() {
         return htmlVariableName;
-    }
-
-    /**
-     * Sets the HTML variable.
-     * @param htmlVariableName the new name for the variable
-     */
-    public void setHtmlVariableName(String htmlVariableName) {
-        this.htmlVariableName = htmlVariableName;
     }
 }

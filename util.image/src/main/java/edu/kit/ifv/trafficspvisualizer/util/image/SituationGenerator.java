@@ -2,6 +2,7 @@ package edu.kit.ifv.trafficspvisualizer.util.image;
 
 import edu.kit.ifv.trafficspvisualizer.model.data.InvalidDataKeyException;
 import edu.kit.ifv.trafficspvisualizer.model.settings.Project;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -35,6 +36,7 @@ public class SituationGenerator extends ImageCollectionGenerator {
      * The method gets the entire project because it needs information from all classes. This data processing works in
      * the same way as the createImage method, but only one situation is created. This method is used
      * to create the preview in order not to create unnecessarily many BufferedImages.
+     *
      * @param project the current project
      * @return a bufferedImage, that is used for the preview
      * @throws InvalidDataKeyException if bufferedImage cannot be generated.
@@ -43,8 +45,6 @@ public class SituationGenerator extends ImageCollectionGenerator {
         setUpImageCreation(project);
         return createSituationImage(project.getCurrentPreviewSituation());
     }
-
-
 
 
     private BufferedImage createSituationImage(int situationIndex) throws InvalidDataKeyException {
@@ -63,7 +63,6 @@ public class SituationGenerator extends ImageCollectionGenerator {
 
         return combineChoiceOptionImages(choiceOptionImages);
     }
-
 
 
     private BufferedImage combineChoiceOptionImages(BufferedImage[] choiceOptionImages) {

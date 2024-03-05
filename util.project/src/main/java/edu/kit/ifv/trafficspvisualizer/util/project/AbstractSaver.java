@@ -11,6 +11,7 @@ import edu.kit.ifv.trafficspvisualizer.model.settings.RouteSection;
 import javafx.scene.paint.Color;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import java.nio.file.Path;
 import java.io.IOException;
 import java.util.List;
@@ -25,7 +26,7 @@ public abstract class AbstractSaver {
      * Save a project to a specified path.
      *
      * @param project The project to be saved.
-     * @param path The path where the project will be saved.
+     * @param path    The path where the project will be saved.
      * @throws IOException If an I/O error occurs.
      */
     public abstract void saveProject(Project project, Path path) throws IOException;
@@ -33,10 +34,10 @@ public abstract class AbstractSaver {
     /**
      * Create a JSON object representing a project.
      *
-     * @param name The name of the project.
-     * @param attributes The attributes of the project.
+     * @param name           The name of the project.
+     * @param attributes     The attributes of the project.
      * @param exportSettings The export settings of the project.
-     * @param choiceOptions A List of ChoiceOptions to create a Json File from them.
+     * @param choiceOptions  A List of ChoiceOptions to create a Json File from them.
      * @return A JSONObject representing the project.
      */
     protected JSONObject createJsonProject(String name, List<AbstractAttribute> attributes,
@@ -54,9 +55,9 @@ public abstract class AbstractSaver {
 
         for (ChoiceOption choiceOption : choiceOptions) {
             JSONObject jsonChoiceOption = createJsonChoiceOption(choiceOption.getName(),
-                    choiceOption.getRouteSections(),choiceOption.getTitle(),choiceOption.getColor());
+                    choiceOption.getRouteSections(), choiceOption.getTitle(), choiceOption.getColor());
             JSONObject jsonObject = new JSONObject();
-            choiceOptionJsonArray.put(jsonObject.put("ChoiceOption",jsonChoiceOption));
+            choiceOptionJsonArray.put(jsonObject.put("ChoiceOption", jsonChoiceOption));
         }
 
         JSONObject jsonObject = new JSONObject();
@@ -81,7 +82,7 @@ public abstract class AbstractSaver {
             Attribute attribute = (Attribute) abstractAttribute;
             return createJsonAttributes(attribute.getName(), attribute.getIcon(), attribute.getPrefix(),
                     attribute.getSuffix(), attribute.isPermanentlyVisible(), attribute.getDecimalPlaces(),
-                    attribute.getChoiceOptionMappings(),attribute.isActive());
+                    attribute.getChoiceOptionMappings(), attribute.isActive());
         } else if (!abstractAttribute.hasValues()) {
             return createJsonLineSeparator(abstractAttribute);
         } else {
@@ -110,19 +111,20 @@ public abstract class AbstractSaver {
 
     /**
      * Create a JSON object representing a line separator.
-     * @param attribute the lineseperator attribute.
+     *
+     * @param attribute the line separator attribute.
      * @return A JSONObject representing a line separator.
      */
-    private JSONObject createJsonLineSeparator(AbstractAttribute attribute){
+    private JSONObject createJsonLineSeparator(AbstractAttribute attribute) {
         return new JSONObject().put(JsonKeys.KEY_LINE_SEPARATOR.getKey(), attribute.isActive());
     }
 
     /**
      * Create a JSON object representing a route section.
      *
-     * @param icon The icon of the route section.
+     * @param icon          The icon of the route section.
      * @param choiceDataKey The choice data key of the route section.
-     * @param lineType The line type of the route section.
+     * @param lineType      The line type of the route section.
      * @return A JSONObject representing the route section.
      */
     private JSONObject createJsonRouteSection(Icon icon, String choiceDataKey, LineType lineType) {
@@ -141,18 +143,18 @@ public abstract class AbstractSaver {
     /**
      * Create a JSON object representing attributes.
      *
-     * @param name The name of the attribute.
-     * @param icon The icon of the attribute.
-     * @param prefix The prefix of the attribute.
-     * @param suffix The suffix of the attribute.
-     * @param permanentlyVisible The visibility status of the attribute.
-     * @param decimalPlaces The number of decimal places for the attribute value.
+     * @param name                 The name of the attribute.
+     * @param icon                 The icon of the attribute.
+     * @param prefix               The prefix of the attribute.
+     * @param suffix               The suffix of the attribute.
+     * @param permanentlyVisible   The visibility status of the attribute.
+     * @param decimalPlaces        The number of decimal places for the attribute value.
      * @param choiceOptionMappings The mappings of choice options for the attribute.
-     * @param active The visibility status of the attribute.
+     * @param active               The visibility status of the attribute.
      * @return A JSONObject representing the attribute.
      */
     private JSONObject createJsonAttributes(String name, Icon icon, String prefix, String suffix,
-                                              boolean permanentlyVisible, int decimalPlaces, Map<ChoiceOption,
+                                            boolean permanentlyVisible, int decimalPlaces, Map<ChoiceOption,
             List<String>> choiceOptionMappings, boolean active) {
         Objects.requireNonNull(name, "Name cannot be null");
         Objects.requireNonNull(icon, "Icon cannot be null");
@@ -169,9 +171,9 @@ public abstract class AbstractSaver {
         jsonObject.put(JsonKeys.KEY_DECIMAL_PLACES.getKey(), decimalPlaces);
         jsonObject.put(JsonKeys.KEY_CHOICE_OPTION_MAPPINGS.getKey(),
                 createChoiceOptionMappingsJson(choiceOptionMappings));
-        jsonObject.put(JsonKeys.KEY_ACTIVE.getKey(),active);
+        jsonObject.put(JsonKeys.KEY_ACTIVE.getKey(), active);
         JSONObject attribute = new JSONObject();
-        return attribute.put(JsonKeys.KEY_ATTRIBUTE.getKey(),jsonObject);
+        return attribute.put(JsonKeys.KEY_ATTRIBUTE.getKey(), jsonObject);
     }
 
     /**
@@ -186,11 +188,11 @@ public abstract class AbstractSaver {
             ChoiceOption choiceOption = entry.getKey();
             List<String> strings = entry.getValue();
 
-            JSONObject choiceOptionJson = createJsonChoiceOption( choiceOption.getName(),
+            JSONObject choiceOptionJson = createJsonChoiceOption(choiceOption.getName(),
                     choiceOption.getRouteSections(), choiceOption.getTitle(), choiceOption.getColor());
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put(JsonKeys.KEY_CHOICE_OPTION.getKey(),choiceOptionJson);
-            jsonObject.put(JsonKeys.KEY_LIST.getKey(),strings);
+            jsonObject.put(JsonKeys.KEY_CHOICE_OPTION.getKey(), choiceOptionJson);
+            jsonObject.put(JsonKeys.KEY_LIST.getKey(), strings);
             choiceOptionMappingsJson.put(jsonObject);
         }
         return choiceOptionMappingsJson;
@@ -199,14 +201,14 @@ public abstract class AbstractSaver {
     /**
      * Create a JSON object representing a choice option.
      *
-     * @param name The name of the choice option.
+     * @param name          The name of the choice option.
      * @param routeSections The route sections of the choice option.
-     * @param title The title of the choice option.
-     * @param color The color of the choice option.
+     * @param title         The title of the choice option.
+     * @param color         The color of the choice option.
      * @return A JSONObject representing the choice option.
      */
     private JSONObject createJsonChoiceOption(String name, List<RouteSection> routeSections,
-                                                String title, Color color) {
+                                              String title, Color color) {
         Objects.requireNonNull(name, "Name cannot be null");
         Objects.requireNonNull(routeSections, "Route sections cannot be null");
         Objects.requireNonNull(title, "Title cannot be null");
