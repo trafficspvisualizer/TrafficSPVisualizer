@@ -210,10 +210,15 @@ public class ProjectCreationStage extends Stage {
     /**
      * Shows a file chooser dialog bounded to this {@link ProjectCreationStage}.
      *
+     * @param allowedExtensions extensions of files from which the user can choose
      * @return The {@link File} selected by the user.
      */
-    public File showFileChooserDialog() {
+    public File showFileChooserDialog(String... allowedExtensions) {
         FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter(
+                "Valid input files", allowedExtensions
+        );
+        fileChooser.getExtensionFilters().add(extensionFilter);
         return fileChooser.showOpenDialog(this);
     }
 

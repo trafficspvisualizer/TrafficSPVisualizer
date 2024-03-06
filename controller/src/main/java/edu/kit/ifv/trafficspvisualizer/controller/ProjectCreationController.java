@@ -27,6 +27,11 @@ class ProjectCreationController {
     private static final int MAX_PROJECT_NAME_LENGTH = 255;
 
     /**
+     * NGD file extension.
+     */
+    private static final String NGD_FILE_EXTENSION = "*.ngd";
+
+    /**
      * Front-facing interface for the controller package.
      */
     private final ControllerFacade controllerFacade;
@@ -63,7 +68,7 @@ class ProjectCreationController {
      * {@link javafx.stage.FileChooser} and sets returned value as input file path.
      */
     private void actionOnInputDataFileButton() {
-        File selectedFile = controllerFacade.getViewFacade().getProjectCreationStage().showFileChooserDialog();
+        File selectedFile = controllerFacade.getViewFacade().getProjectCreationStage().showFileChooserDialog(NGD_FILE_EXTENSION);
 
         // if no file was selected
         if (selectedFile == null) return;
