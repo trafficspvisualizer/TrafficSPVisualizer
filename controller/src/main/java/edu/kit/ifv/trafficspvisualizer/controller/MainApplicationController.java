@@ -102,7 +102,10 @@ class MainApplicationController {
                     controllerFacade.getProject().getProjectPath());
         } catch (IOException | IllegalArgumentException e) {
             controllerFacade.getViewFacade().getMainApplicationWindow().showSaveProjectErrorAlert();
+            return;
         }
+
+        controllerFacade.getViewFacade().getMainApplicationWindow().showSaveProjectSuccessAlert();
     }
 
     /**
@@ -188,7 +191,10 @@ class MainApplicationController {
             );
         } catch (NullPointerException | IOException | InvalidDataKeyException e) {
             controllerFacade.getViewFacade().getMainApplicationWindow().showExportErrorAlert();
+            return;
         }
+
+        controllerFacade.getViewFacade().getMainApplicationWindow().showExportSuccessAlert();
     }
 
     /**

@@ -611,6 +611,34 @@ public class MainApplicationWindow {
     }
 
     /**
+     * Shows a success alert indicating that a project was successfully saved.
+     */
+    public void showSaveProjectSuccessAlert() {
+        LanguageStrategy languageStrategy = viewFacade.getLanguageStrategy();
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(languageStrategy.getSaveProjectSuccessAlertTitle());
+        alert.setHeaderText(languageStrategy.getSaveProjectSuccessAlertHeaderText());
+        alert.setContentText(languageStrategy.getSaveProjectSuccessAlertContentText());
+
+        alert.showAndWait();
+    }
+
+    /**
+     * Shows a success alert indicating a successful export.
+     */
+    public void showExportSuccessAlert() {
+        LanguageStrategy languageStrategy = viewFacade.getLanguageStrategy();
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(languageStrategy.getExportSuccessAlertTitle());
+        alert.setHeaderText(languageStrategy.getExportSuccessAlertHeaderText());
+        alert.setContentText(languageStrategy.getExportSuccessAlertContentText());
+
+        alert.showAndWait();
+    }
+
+    /**
      * Closes this {@link MainApplicationWindow} and the whole application.
      */
     public void close() {

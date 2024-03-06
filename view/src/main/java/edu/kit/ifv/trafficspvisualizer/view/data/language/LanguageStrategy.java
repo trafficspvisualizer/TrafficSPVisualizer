@@ -199,6 +199,47 @@ public abstract class LanguageStrategy {
      */
     public abstract String getPreviewErrorAlertContentText();
 
+    /**
+     * Gets the title for the alert shown when a project was successfully saved.
+     *
+     * @return The title of the save project success alert.
+     */
+    public abstract String getSaveProjectSuccessAlertTitle();
+
+    /**
+     * Gets the header text for the alert shown when a project was successfully saved.
+     *
+     * @return The header text of the save project success alert.
+     */
+    public abstract String getSaveProjectSuccessAlertHeaderText();
+
+    /**
+     * Gets the content text for the alert shown when a project was successfully saved.
+     *
+     * @return The content text of the save project success alert.
+     */
+    public abstract String getSaveProjectSuccessAlertContentText();
+
+    /**
+     * Gets the title for the alert shown when an export was successful.
+     *
+     * @return The title of the export success alert.
+     */
+    public abstract String getExportSuccessAlertTitle();
+
+    /**
+     * Gets the header text for the alert shown when an export was successful.
+     *
+     * @return The header text of the export success alert.
+     */
+    public abstract String getExportSuccessAlertHeaderText();
+
+    /**
+     * Gets the content text for the alert shown when an export was successful.
+     *
+     * @return The content text of the export success alert.
+     */
+    public abstract String getExportSuccessAlertContentText();
 
     /**
      * Gets the title for the alert shown when an error occurs while creating a new project.
