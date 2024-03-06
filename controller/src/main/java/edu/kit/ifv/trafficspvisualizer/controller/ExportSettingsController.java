@@ -68,10 +68,16 @@ class ExportSettingsController {
             return;
         }
 
+        // if export type is html but no html variable name is chosen
+        if (exportType == ExportType.HTML && htmlVariableName.isEmpty()) {
+            controllerFacade.getViewFacade().getExportSettingsStage().showSaveErrorAlert();
+            return;
+        }
+
         int height;
         int width;
 
-        // checking validity of scrape data
+        // checking validity of scraped data
         try {
             height = Integer.parseInt(heightString);
             width = Integer.parseInt(widthString);
@@ -80,7 +86,7 @@ class ExportSettingsController {
             return;
         }
 
-        // setting new export settings in model, png as default because we currently only support png export
+        // setting new export settings in model, png as default because program currently only support png export
         ExportSettings exportSettings = new ExportSettings(
                 height, width, exportPath.toPath(), FileFormat.PNG, exportType, htmlVariableName
         );
