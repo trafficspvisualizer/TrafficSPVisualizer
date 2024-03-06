@@ -47,7 +47,7 @@ class HTMLExporterTest {
         for (int i = 0; i < Objects.requireNonNull(exportFolder.listFiles()).length; i++) {
             boolean found = false;
             for (int j = 0; j < Objects.requireNonNull(exportFolder.listFiles()).length; j++) {
-                if (Objects.requireNonNull(exportFolder.listFiles())[i].getName().equals(String.valueOf(j))) {
+                if (Objects.requireNonNull(exportFolder.listFiles())[i].getName().equals(String.valueOf(j+1))) {
                     found = true;
                     break;
                 }
@@ -64,7 +64,7 @@ class HTMLExporterTest {
         // loops trough directories containing images
         for (int i = 0; i < Objects.requireNonNull(exportFolder.listFiles()).length; i++) {
             //loop trough images
-            for (File file : Objects.requireNonNull(exportFolder.toPath().resolve(String.valueOf(i)).toFile().listFiles())) {
+            for (File file : Objects.requireNonNull(exportFolder.toPath().resolve(String.valueOf(i + 1)).toFile().listFiles())) {
                 // loop trough possible names
                 boolean foundName = false;
                 for (int j = 0; j < 5; j++) {
