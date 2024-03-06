@@ -37,7 +37,7 @@ class AttributeSettingsController implements IconDisplayingController {
      * @param abstractAttributeIndex the index of the attribute on which the controller is working
      * @param workingOnNewAttribute  whether the attribute with the abstractAttributeIndex was newly created or not
      */
-    AttributeSettingsController(ControllerFacade controllerFacade, int abstractAttributeIndex,
+    protected AttributeSettingsController(ControllerFacade controllerFacade, int abstractAttributeIndex,
                                 boolean workingOnNewAttribute) {
         this.controllerFacade = controllerFacade;
         this.abstractAttributeIndex = abstractAttributeIndex;

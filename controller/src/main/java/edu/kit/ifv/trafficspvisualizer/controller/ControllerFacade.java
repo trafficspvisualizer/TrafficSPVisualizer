@@ -77,7 +77,7 @@ public class ControllerFacade {
      *
      * @return The project on which the user is currently working
      */
-    Project getProject() {
+    protected Project getProject() {
         return project;
     }
 
@@ -86,7 +86,7 @@ public class ControllerFacade {
      *
      * @param project the project on which the user wants to work
      */
-    void setProject(Project project) {
+    protected void setProject(Project project) {
         this.project = project;
     }
 
@@ -95,7 +95,7 @@ public class ControllerFacade {
      *
      * @return the front-facing interface of the view package
      */
-    ViewFacade getViewFacade() {
+    protected ViewFacade getViewFacade() {
         return viewFacade;
     }
 
@@ -104,7 +104,7 @@ public class ControllerFacade {
      *
      * @return the MainApplicationController
      */
-    MainApplicationController getMainApplicationController() {
+    /* package */ MainApplicationController getMainApplicationController() {
         return mainApplicationController;
     }
 
@@ -113,14 +113,14 @@ public class ControllerFacade {
      *
      * @return the AttributeController
      */
-    AttributeController getAttributeController() {
+    /* package */ AttributeController getAttributeController() {
         return attributeController;
     }
 
     /**
      * Creates a new {@link AttributeController} and saves a reference of it.
      */
-    void createAttributeController() {
+    protected void createAttributeController() {
         this.attributeController = new AttributeController(this);
     }
 
@@ -130,7 +130,7 @@ public class ControllerFacade {
      * @param attributeIndex        the index of the attribute which settings should be adjusted
      * @param workingOnNewAttribute whether the attribute with the abstractAttributeIndex was newly created or not
      */
-    void createAttributeSettingsController(int attributeIndex, boolean workingOnNewAttribute) {
+    protected void createAttributeSettingsController(int attributeIndex, boolean workingOnNewAttribute) {
         this.attributeSettingsController = new AttributeSettingsController(
                 this, attributeIndex, workingOnNewAttribute
         );
@@ -141,14 +141,14 @@ public class ControllerFacade {
      *
      * @param choiceOptionNumber the number of the choiceOption which settings should be adjusted
      */
-    void createChoiceOptionSettingsController(int choiceOptionNumber) {
+    protected void createChoiceOptionSettingsController(int choiceOptionNumber) {
         this.choiceOptionSettingsController = new ChoiceOptionSettingsController(choiceOptionNumber, this);
     }
 
     /**
      * Creates a new {@link ExportSettingsController} and saves a reference of it.
      */
-    void createExportSettingsController() {
+    protected void createExportSettingsController() {
         this.exportSettingsController = new ExportSettingsController(this);
     }
 
@@ -158,63 +158,63 @@ public class ControllerFacade {
      * @param parentController the controller which called the method
      * @param index            the index of the model/ui component for which an icon is selected
      */
-    void createIconSelectionController(IconDisplayingController parentController, int index) {
+    protected void createIconSelectionController(IconDisplayingController parentController, int index) {
         this.iconSelectionController = new IconSelectionController(this, parentController, index);
     }
 
     /**
      * Creates a new {@link MainApplicationController}.
      */
-    void createMainApplicationController() {
+    protected void createMainApplicationController() {
         this.mainApplicationController = new MainApplicationController(this);
     }
 
     /**
      * Creates a new {@link ProjectCreationController}.
      */
-    void createProjectCreationController() {
+    protected void createProjectCreationController() {
         this.projectCreationController = new ProjectCreationController(this);
     }
 
     /**
      * Removes the reference to the {@link AttributeController}.
      */
-    void deleteAttributeController() {
+    protected void deleteAttributeController() {
         this.attributeController = null;
     }
 
     /**
      * Removes the reference to the {@link AttributeSettingsController}.
      */
-    void deleteAttributeSettingsController() {
+    protected void deleteAttributeSettingsController() {
         this.attributeSettingsController = null;
     }
 
     /**
      * Removes the reference to the {@link ChoiceOptionSettingsController}.
      */
-    void deleteChoiceOptionSettingsController() {
+    protected void deleteChoiceOptionSettingsController() {
         this.choiceOptionSettingsController = null;
     }
 
     /**
      * Removes the reference to the {@link ExportSettingsController}.
      */
-    void deleteExportSettingsController() {
+    protected void deleteExportSettingsController() {
         this.exportSettingsController = null;
     }
 
     /**
      * Removes the reference to the {@link IconSelectionController}.
      */
-    void deleteIconSelectionController() {
+    protected void deleteIconSelectionController() {
         this.iconSelectionController = null;
     }
 
     /**
      * Removes the reference to the {@link ProjectCreationController}.
      */
-    void deleteProjectCreationController() {
+    protected void deleteProjectCreationController() {
         this.projectCreationController = null;
     }
 

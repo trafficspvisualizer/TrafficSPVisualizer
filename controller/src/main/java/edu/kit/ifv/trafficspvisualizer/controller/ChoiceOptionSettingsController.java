@@ -41,7 +41,7 @@ class ChoiceOptionSettingsController implements IconDisplayingController {
      *                         on which the controller is working
      * @param controllerFacade the front-facing interface for the controller package
      */
-    ChoiceOptionSettingsController(int choiceOptionId, ControllerFacade controllerFacade) {
+    protected ChoiceOptionSettingsController(int choiceOptionId, ControllerFacade controllerFacade) {
         this.choiceOptionId = choiceOptionId;
         this.controllerFacade = controllerFacade;
 

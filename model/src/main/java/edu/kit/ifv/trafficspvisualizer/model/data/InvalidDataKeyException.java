@@ -8,7 +8,7 @@ public class InvalidDataKeyException extends Exception {
     /**
      * Constructs a new exception with no message.
      */
-    InvalidDataKeyException() {
+    public InvalidDataKeyException() {
         super();
     }
 
@@ -17,7 +17,7 @@ public class InvalidDataKeyException extends Exception {
      *
      * @param message the message of the exception
      */
-    InvalidDataKeyException(String message) {
+    public InvalidDataKeyException(String message) {
         super(message);
     }
 }

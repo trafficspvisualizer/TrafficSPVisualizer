@@ -43,7 +43,7 @@ class MainApplicationController {
      *
      * @param controllerFacade the front-facing interface for the controller package
      */
-    MainApplicationController(ControllerFacade controllerFacade) {
+    protected MainApplicationController(ControllerFacade controllerFacade) {
         this.controllerFacade = controllerFacade;
         // MainApplicationWindow is created when starting application
         setActionListeners();
@@ -259,7 +259,7 @@ class MainApplicationController {
     /**
      * Instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow} to update preview.
      */
-    void updatePreview() {
+    protected void updatePreview() {
         SituationGenerator situationGenerator = new SituationGenerator();
         try {
             controllerFacade.getViewFacade().getMainApplicationWindow()
@@ -276,7 +276,7 @@ class MainApplicationController {
      * Instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow} to update choice options
      * and sets action listeners of choice option ui components.
      */
-    void updateChoiceOptions() {
+    protected void updateChoiceOptions() {
         controllerFacade.getViewFacade().getMainApplicationWindow().updateChoiceOptions();
         setChoiceOptionActionListeners();
     }

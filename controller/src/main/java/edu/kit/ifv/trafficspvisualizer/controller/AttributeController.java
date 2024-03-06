@@ -29,7 +29,7 @@ class AttributeController {
      *
      * @param controllerFacade the front-facing interface for the controller package
      */
-    AttributeController(ControllerFacade controllerFacade) {
+    protected AttributeController(ControllerFacade controllerFacade) {
         this.controllerFacade = controllerFacade;
 
         //creates and shows new stage
@@ -142,7 +142,7 @@ class AttributeController {
     /**
      * Instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.AttributeStage} to update itself.
      */
-    void update() {
+    protected void update() {
         controllerFacade.getViewFacade().getAttributeStage().updateStage();
         updateActionListeners();
     }
