@@ -75,7 +75,7 @@ class ExportSettingsController {
         try {
             height = Integer.parseInt(heightString);
             width = Integer.parseInt(widthString);
-        } catch (NullPointerException | IllegalArgumentException exception) {
+        } catch (IllegalArgumentException exception) {
             controllerFacade.getViewFacade().getExportSettingsStage().showSaveErrorAlert();
             return;
         }

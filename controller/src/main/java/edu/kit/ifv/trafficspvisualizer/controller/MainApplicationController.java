@@ -184,7 +184,7 @@ class MainApplicationController {
                     controllerFacade.getProject().getName(), controllerFacade.getProject().getExportSettings()
                             .getHtmlVariableName()
             );
-        } catch (NullPointerException | IOException | InvalidDataKeyException e) {
+        } catch (IOException | InvalidDataKeyException e) {
             controllerFacade.getViewFacade().getMainApplicationWindow().showExportErrorAlert();
         }
     }
