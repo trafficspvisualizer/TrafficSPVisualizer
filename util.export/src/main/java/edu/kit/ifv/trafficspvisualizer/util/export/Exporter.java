@@ -71,7 +71,7 @@ public abstract class Exporter {
             builder.append(NAMING_BLOCK.formatted(field));
         }
 
-        builder.append(image.title())
+        builder.append(image.title().replace(" ","_"))
                 .append(".%s".formatted(IMAGE_FORMAT));
 
         return builder.toString();
