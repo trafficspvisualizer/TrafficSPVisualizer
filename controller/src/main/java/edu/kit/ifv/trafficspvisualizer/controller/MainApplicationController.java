@@ -16,6 +16,8 @@ import edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow;
 import javafx.event.Event;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 import java.io.File;
 import java.io.IOException;
@@ -257,6 +259,29 @@ class MainApplicationController {
     }
 
     /**
+     * Checks which key was pressed and performs the according action.
+     *
+     * @param event the key event
+     */
+    private void actionOnKeyPressed(KeyEvent event) {
+
+        if (event.getCode() == KeyCode.LEFT) {
+            actionOnLeftSwitchPreviewButton();
+            event.consume();
+        }
+
+        if (event.getCode() == KeyCode.RIGHT) {
+            actionOnRightSwitchPreviewButton();
+            event.consume();
+        }
+
+        if (event.isControlDown() && event.getCode() == KeyCode.S) {
+            actionOnSaveProjectMenuItem();
+            event.consume();
+        }
+    }
+
+    /**
      * Instructs {@link edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow} to update preview.
      */
     void updatePreview() {
@@ -336,5 +361,8 @@ class MainApplicationController {
         // Preview arrows
         mainApplicationWindow.getLeftSwitchPreviewButton().setOnAction(e -> actionOnLeftSwitchPreviewButton());
         mainApplicationWindow.getRightSwitchPreviewButton().setOnAction(e -> actionOnRightSwitchPreviewButton());
+
+        // Keyboard shortcuts
+        mainApplicationWindow.addKeyEventFilter(this::actionOnKeyPressed);
     }
 }

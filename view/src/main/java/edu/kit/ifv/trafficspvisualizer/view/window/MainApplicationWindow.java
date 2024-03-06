@@ -23,6 +23,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.BorderStroke;
@@ -367,6 +368,15 @@ public class MainApplicationWindow {
      */
     public void setOnCloseRequest(EventHandler<WindowEvent> eventHandler) {
         stage.setOnCloseRequest(eventHandler);
+    }
+
+    /**
+     * Sets the event handler executed when a key is pressed.
+     *
+     * @param eventHandler The event handler executed when a key is pressed.
+     */
+    public void addKeyEventFilter(EventHandler<KeyEvent> eventHandler) {
+        stage.getScene().addEventFilter(KeyEvent.KEY_PRESSED, eventHandler);
     }
 
     // update- and add-methods
