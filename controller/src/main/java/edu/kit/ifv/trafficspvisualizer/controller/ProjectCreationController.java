@@ -22,6 +22,11 @@ import java.text.ParseException;
 class ProjectCreationController {
 
     /**
+     * Maximum length a project name can have.
+     */
+    private static final int MAX_PROJECT_NAME_LENGTH = 255;
+
+    /**
      * Front-facing interface for the controller package.
      */
     private final ControllerFacade controllerFacade;
@@ -160,8 +165,8 @@ class ProjectCreationController {
         }
 
         // check if project name is valid
-        String validNameRegex = "^[a-zA-Z0-9]+$";
-        if (!projectName.matches(validNameRegex)) {
+        String validNameRegex = "^[a-zA-Z0-9_-]+$";
+        if (!projectName.matches(validNameRegex) || projectName.length() > MAX_PROJECT_NAME_LENGTH) {
             return false;
         }
 
