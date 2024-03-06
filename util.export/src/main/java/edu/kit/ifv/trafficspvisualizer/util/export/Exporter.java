@@ -64,9 +64,9 @@ public abstract class Exporter {
      */
     protected String constructImagePath(SurveyImage image) {
         StringBuilder builder = new StringBuilder();
-        builder.append(NAMING_BLOCK.formatted(image.situationNumber()))
+        builder.append(NAMING_BLOCK.formatted(image.situationNumber() + 1))
                 .append(NAMING_BLOCK.formatted(image.blockNumber()))
-                .append(NAMING_BLOCK.formatted(image.choiceOptionNumber()));
+                .append(NAMING_BLOCK.formatted(image.choiceOptionNumber() + 1));
         for (int field : image.additionalFields()) {
             builder.append(NAMING_BLOCK.formatted(field));
         }

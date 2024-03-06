@@ -68,7 +68,7 @@ class HTMLExporterTest {
                 // loop trough possible names
                 boolean foundName = false;
                 for (int j = 0; j < 5; j++) {
-                    if (file.getName().equals(String.format("#c_%04d##c_%04d##c_%04d#%s.png", i, i * 10, j, name + i))
+                    if (file.getName().equals(String.format("#c_%04d##c_%04d##c_%04d#%s.png", i + 1, i * 10, j + 1, name + i))
                             || file.getName().equals(name + "_export_" + i + ".html")) {
                         foundName = true;
                         break;

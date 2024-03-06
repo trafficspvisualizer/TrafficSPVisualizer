@@ -86,7 +86,7 @@ class ExportSettingsController {
             return;
         }
 
-        // setting new export settings in model, png as default because program currently only support png export
+        // setting new export settings in model, png as default because program currently only supports png export
         ExportSettings exportSettings = new ExportSettings(
                 height, width, exportPath.toPath(), FileFormat.PNG, exportType, htmlVariableName
         );
