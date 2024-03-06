@@ -152,7 +152,7 @@ public class IconSelectionStage extends Stage {
     public File showFileChooserDialog(String... allowedExtensions) {
         FileChooser fileChooser = new FileChooser();
         FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter(
-                "Valid icon formats", allowedExtensions
+                String.join("/", allowedExtensions), allowedExtensions
         );
         fileChooser.getExtensionFilters().add(extensionFilter);
         return fileChooser.showOpenDialog(this);

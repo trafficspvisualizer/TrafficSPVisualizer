@@ -216,7 +216,7 @@ public class ProjectCreationStage extends Stage {
     public File showFileChooserDialog(String... allowedExtensions) {
         FileChooser fileChooser = new FileChooser();
         FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter(
-                "Valid input files", allowedExtensions
+                String.join("/", allowedExtensions), allowedExtensions
         );
         fileChooser.getExtensionFilters().add(extensionFilter);
         return fileChooser.showOpenDialog(this);
