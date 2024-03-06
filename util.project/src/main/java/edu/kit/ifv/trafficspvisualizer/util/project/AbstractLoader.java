@@ -36,6 +36,8 @@ import java.util.stream.StreamSupport;
  * @author uhtfz
  */
 public abstract class AbstractLoader {
+    private static final String EXTENSION_NGD = "ngd";
+
     /**
      * Loads a project from a file.
      *
@@ -56,7 +58,7 @@ public abstract class AbstractLoader {
      */
     private DataObject createDataObject(File file) throws IOException, ParseException {
         String extension = FilenameUtils.getExtension(file.toString());
-        if (!extension.equals("ngd")) {
+        if (!EXTENSION_NGD.equals(extension)) {
             throw new IOException("The given File is not accepted");
         }
         return new NGDParser().parse(file);
@@ -71,10 +73,10 @@ public abstract class AbstractLoader {
      */
     private List<AbstractAttribute> createAttributes(JSONArray attributes, List<ChoiceOption> choiceOptions) {
         return IntStream.range(0, attributes.length())
-                .mapToObj(attributes::getJSONObject)
-                .map(jsonObject -> this.createAttribute(jsonObject, choiceOptions))
-                .filter(Objects::nonNull)
-                .collect(Collectors.toList());
+            .mapToObj(attributes::getJSONObject)
+            .map(jsonObject -> this.createAttribute(jsonObject, choiceOptions))
+            .filter(Objects::nonNull)
+            .collect(Collectors.toList());
     }
 
 
@@ -111,7 +113,7 @@ public abstract class AbstractLoader {
         int dec = attributeJSON.optInt(JsonKeys.KEY_DECIMAL_PLACES.getKey());
         boolean active = attributeJSON.optBoolean(JsonKeys.KEY_ACTIVE.getKey());
         Map<ChoiceOption, List<String>> choiceOptionMap = createChoiceOptions(attributeJSON.optJSONArray
-                (JsonKeys.KEY_CHOICE_OPTION_MAPPINGS.getKey()), choiceOptions);
+            (JsonKeys.KEY_CHOICE_OPTION_MAPPINGS.getKey()), choiceOptions);
         Attribute attribute = new Attribute(name, null, prefix, suffix, vis, dec, choiceOptionMap, true);
         attribute.setActive(active);
         return attribute;
@@ -127,9 +129,9 @@ public abstract class AbstractLoader {
     private Map<ChoiceOption, List<String>> createChoiceOptions(JSONArray choiceOptions,
                                                                 List<ChoiceOption> choiceOption) {
         return IntStream.range(0, choiceOptions.length())
-                .mapToObj(choiceOptions::getJSONObject)
-                .collect(Collectors.toMap(jsonObject -> this.createOneChoiceOption(jsonObject, choiceOption),
-                        this::createList));
+            .mapToObj(choiceOptions::getJSONObject)
+            .collect(Collectors.toMap(jsonObject -> this.createOneChoiceOption(jsonObject, choiceOption),
+                this::createList));
     }
 
     /**
@@ -141,8 +143,8 @@ public abstract class AbstractLoader {
     private List<String> createList(JSONObject jsonObject) {
         JSONArray list = jsonObject.optJSONArray(JsonKeys.KEY_LIST.getKey());
         return IntStream.range(0, list.length())
-                .mapToObj(list::getString)
-                .collect(Collectors.toList());
+            .mapToObj(list::getString)
+            .collect(Collectors.toList());
     }
 
     /**
@@ -174,9 +176,9 @@ public abstract class AbstractLoader {
      */
     private List<RouteSection> createRouteSectionList(JSONArray choiceOption) {
         return IntStream.range(0, choiceOption.length())
-                .mapToObj(choiceOption::getJSONObject)
-                .map(this::createRouteSection)
-                .collect(Collectors.toList());
+            .mapToObj(choiceOption::getJSONObject)
+            .map(this::createRouteSection)
+            .collect(Collectors.toList());
     }
 
 
@@ -204,7 +206,7 @@ public abstract class AbstractLoader {
      * @throws ParseException If a parse error occurs in the parser.
      */
     protected Project createProject(JSONObject jsonProject, File ngdFile, Path iconDir, Path projectDir)
-            throws IOException, ParseException {
+        throws IOException, ParseException {
         DataObject dataObject = createDataObject(ngdFile);
         String name = jsonProject.optString(JsonKeys.KEY_NAME.getKey());
         JSONArray jsonAttributes = jsonProject.optJSONArray(JsonKeys.KEY_ATTRIBUTES.getKey());
@@ -216,7 +218,7 @@ public abstract class AbstractLoader {
         ExportSettings exportSettings = createExportSettings(jsonExportSettings);
 
         Project project = new Project(name, projectDir, dataObject, attributes, choiceOptions, exportSettings,
-                iconDir, ngdFile);
+            iconDir, ngdFile);
 
         updateProjectAttributes(project, jsonAttributes);
         updateProjectRouteSections(project, jsonChoiceOptions);
@@ -233,19 +235,19 @@ public abstract class AbstractLoader {
 
     private void updateProjectRouteSections(Project project, JSONArray jsonChoiceOptions) {
         IntStream.range(0, project.getChoiceOptions().size())
-                .mapToObj(i -> new AbstractMap.SimpleEntry<>(i, jsonChoiceOptions.optJSONObject(i)))
-                .filter(entry -> entry.getValue() != null)
-                .forEach(entry -> {
-                    JSONObject choiceOptionJSON = entry.getValue().optJSONObject(JsonKeys.KEY_CHOICE_OPTION.getKey());
-                    JSONArray routeSectionJSON = choiceOptionJSON.optJSONArray(JsonKeys.KEY_ROUTE_SECTIONS.getKey());
+            .mapToObj(i -> new AbstractMap.SimpleEntry<>(i, jsonChoiceOptions.optJSONObject(i)))
+            .filter(entry -> entry.getValue() != null)
+            .forEach(entry -> {
+                JSONObject choiceOptionJSON = entry.getValue().optJSONObject(JsonKeys.KEY_CHOICE_OPTION.getKey());
+                JSONArray routeSectionJSON = choiceOptionJSON.optJSONArray(JsonKeys.KEY_ROUTE_SECTIONS.getKey());
 
-                    ChoiceOption choiceOption = findChoiceOptionByName(project.getChoiceOptions(),
-                            choiceOptionJSON.get(JsonKeys.KEY_NAME.getKey()));
+                ChoiceOption choiceOption = findChoiceOptionByName(project.getChoiceOptions(),
+                    choiceOptionJSON.get(JsonKeys.KEY_NAME.getKey()));
 
-                    if (choiceOption != null) {
-                        updateChoiceOptionRouteSections(project, routeSectionJSON, choiceOption);
-                    }
-                });
+                if (choiceOption != null) {
+                    updateChoiceOptionRouteSections(project, routeSectionJSON, choiceOption);
+                }
+            });
     }
 
     /**
@@ -257,9 +259,9 @@ public abstract class AbstractLoader {
      */
     private ChoiceOption findChoiceOptionByName(List<ChoiceOption> choiceOptions, Object name) {
         return choiceOptions.stream()
-                .filter(co -> name.equals(co.getName()))
-                .findFirst()
-                .orElse(null);
+            .filter(co -> name.equals(co.getName()))
+            .findFirst()
+            .orElse(null);
     }
 
     /**
@@ -272,12 +274,12 @@ public abstract class AbstractLoader {
     private void updateChoiceOptionRouteSections(Project project, JSONArray routeSectionJSON,
                                                  ChoiceOption choiceOption) {
         IntStream.range(0, choiceOption.getRouteSections().size())
-                .filter(j -> !routeSectionJSON.isEmpty() && !routeSectionJSON.getJSONObject(j).isEmpty())
-                .forEach(j -> {
-                    JSONObject route = routeSectionJSON.getJSONObject(j);
-                    choiceOption.getRouteSections().get(j).setIcon(project.getIconManager().
-                            getIcons().get(route.optInt(JsonKeys.KEY_ICON.getKey())));
-                });
+            .filter(j -> !routeSectionJSON.isEmpty() && !routeSectionJSON.getJSONObject(j).isEmpty())
+            .forEach(j -> {
+                JSONObject route = routeSectionJSON.getJSONObject(j);
+                choiceOption.getRouteSections().get(j).setIcon(project.getIconManager().
+                    getIcons().get(route.optInt(JsonKeys.KEY_ICON.getKey())));
+            });
     }
 
     /**
@@ -288,9 +290,9 @@ public abstract class AbstractLoader {
      */
     private List<ChoiceOption> createChoiceOptions(JSONArray jsonChoiceOptions) {
         return StreamSupport.stream(jsonChoiceOptions.spliterator(), false)
-                .map(JSONObject.class::cast)
-                .map(jsonObject -> createOneChoiceOption(jsonObject, null))
-                .collect(Collectors.toList());
+            .map(JSONObject.class::cast)
+            .map(jsonObject -> createOneChoiceOption(jsonObject, null))
+            .collect(Collectors.toList());
     }
 
 
