@@ -21,6 +21,11 @@ import java.io.IOException;
 class IconSelectionController {
 
     /**
+     * SVG file extension.
+     */
+    private static final String SVG_FILE_EXTENSION = "*.svg";
+
+    /**
      * Front-facing interface for the controller package.
      */
     private final ControllerFacade controllerFacade;
@@ -79,7 +84,8 @@ class IconSelectionController {
      * {@link javafx.stage.FileChooser} and adds selected icon to model. Instructs IconSelectionStage to update.
      */
     private void actionOnAddIconButton() {
-        File selectedFile = controllerFacade.getViewFacade().getIconSelectionStage().showFileChooserDialog();
+        File selectedFile = controllerFacade.getViewFacade().getIconSelectionStage()
+                .showFileChooserDialog(SVG_FILE_EXTENSION);
 
         // if no icon was selected
         if (selectedFile == null) return;

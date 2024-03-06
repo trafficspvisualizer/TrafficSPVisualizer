@@ -68,7 +68,8 @@ class ProjectCreationController {
      * {@link javafx.stage.FileChooser} and sets returned value as input file path.
      */
     private void actionOnInputDataFileButton() {
-        File selectedFile = controllerFacade.getViewFacade().getProjectCreationStage().showFileChooserDialog(NGD_FILE_EXTENSION);
+        File selectedFile = controllerFacade.getViewFacade().getProjectCreationStage()
+                .showFileChooserDialog(NGD_FILE_EXTENSION);
 
         // if no file was selected
         if (selectedFile == null) return;

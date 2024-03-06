@@ -146,10 +146,15 @@ public class IconSelectionStage extends Stage {
     /**
      * Shows a file chooser dialog bounded to this {@link IconSelectionStage}.
      *
+     * @param allowedExtensions extensions of icons from which the user can choose
      * @return The {@link File} selected by the user.
      */
-    public File showFileChooserDialog() {
+    public File showFileChooserDialog(String... allowedExtensions) {
         FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter(
+                "Valid icon formats", allowedExtensions
+        );
+        fileChooser.getExtensionFilters().add(extensionFilter);
         return fileChooser.showOpenDialog(this);
     }
 
