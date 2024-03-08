@@ -303,7 +303,12 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
                     "'New Project'. A window will be presented that asks the user to enter a name for " +
                     "the project, the path at which the project should be saved and the path of the input file. " +
                     "The save path and input file can be chosen directly from the file system when pressing the " +
-                    "buttons next to the text field. If everything is correctly entered a new project can be " +
+                    "buttons next to the text field. The standard input file format is a .ngd file. This file format" +
+                    " contains a table that ends with a '|' symbol. The entries of the table are separated by " +
+                    "tabulator symbols. The first column contains the design number, the second column the " +
+                    "situation number and the last column the block number. The table must have at least " +
+                    "four columns. A normal entry has the following format: 'choiceOptionName.valueName'. " +
+                    "If everything is correctly entered a new project can be " +
                     "created by clicking on 'Create new project'. All choice options will be automatically loaded " +
                     "from input file.";
 
