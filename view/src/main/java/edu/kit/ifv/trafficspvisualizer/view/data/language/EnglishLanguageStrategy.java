@@ -19,10 +19,10 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
     private static final String CLOSE_PROJECT_CONFIRMATION_ALERT_TITLE = CONFIRMATION_ALERT_TITLE;
 
     private static final String CLOSE_PROJECT_CONFIRMATION_ALERT_HEADER_TEXT =
-            "Unsaved Project can be lost. Are you sure?";
+            "Unsaved project can be lost. Are you sure?";
 
     private static final String CLOSE_PROJECT_CONFIRMATION_ALERT_CONTENT_TEXT =
-            "If you continue a potential unsaved project can be lost.";
+            "If you continue a potentially unsaved project can be lost.";
 
     private static final String REMOVE_ATTRIBUTE_CONFIRMATION_ALERT_TITLE = CONFIRMATION_ALERT_TITLE;
 
@@ -30,7 +30,7 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
             "Are you sure you want to delete the attribute?";
 
     private static final String REMOVE_ATTRIBUTE_CONFIRMATION_ALERT_CONTENT_TEXT =
-            "If you continue the attribute will be removed.";
+            "If you continue, the attribute will be removed.";
 
     private static final String REMOVE_ROUTE_SECTION_CONFIRMATION_ALERT_TITLE = CONFIRMATION_ALERT_TITLE;
 
@@ -53,14 +53,14 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
     private static final String NO_PROJECT_ERROR_ALERT_TITLE = ERROR_ALERT_TITLE;
 
     private static final String NO_PROJECT_ERROR_ALERT_HEADER_TEXT =
-            "Something went wrong! Could not do this action because you need a current project.";
+            "Something went wrong! Could not perform this action because a project must be loaded.";
 
     private static final String NO_PROJECT_ERROR_ALERT_CONTENT_TEXT = "Please load or create a new project.";
 
     private static final String LOAD_PROJECT_ERROR_ALERT_TITLE = ERROR_ALERT_TITLE;
 
     private static final String LOAD_PROJECT_ERROR_ALERT_HEADER_TEXT =
-            "Something went wrong! Could not load the project.";
+            "Something went wrong! Could not load the selected project.";
 
     private static final String LOAD_PROJECT_ERROR_ALERT_CONTENT_TEXT =
             "Please check if you selected a valid project directory.";
@@ -81,13 +81,13 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
     private static final String PREVIEW_ERROR_ALERT_CONTENT_TEXT =
             "Please check if you selected valid values.";
 
-    private static final String SAVE_PROJECT_SUCCESS_ALERT_TITLE = "Successful saving process ";
+    private static final String SAVE_PROJECT_SUCCESS_ALERT_TITLE = "Successful Saving Process ";
 
     private static final String SAVE_PROJECT_SUCCESS_ALERT_HEADER_TEXT = "The current project was saved!";
 
     private static final String SAVE_PROJECT_SUCCESS_ALERT_CONTENT_TEXT = "The project folder can be found at the previously chosen path.";
 
-    private static final String EXPORT_SUCCESS_ALERT_TITLE = "Successful export";
+    private static final String EXPORT_SUCCESS_ALERT_TITLE = "Successful Export";
 
     private static final String EXPORT_SUCCESS_ALERT_HEADER_TEXT = "The export was successful!";
 
@@ -120,7 +120,7 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
     private static final String ADD_ICON_ERROR_ALERT_TITLE = ERROR_ALERT_TITLE;
 
     private static final String ADD_ICON_ERROR_ALERT_HEADER_TEXT =
-            "Something went wrong! Could not add the selected icon.";
+            "Something went wrong! Could not import the selected icon.";
 
     private static final String ADD_ICON_ERROR_ALERT_CONTENT_TEXT = "Please check the selected file.";
 
@@ -133,9 +133,9 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
 
 
     // ENUMS
-    private static final String EXPORT_TYPE_HTML_TEXT = "HTML (Hyper text markup language)";
+    private static final String EXPORT_TYPE_HTML_TEXT = "HTML (Hyper Text Markup Language)";
 
-    private static final String EXPORT_TYPE_CHOICE_OPTION_TEXT = "Choice option";
+    private static final String EXPORT_TYPE_CHOICE_OPTION_TEXT = "Choice Option";
 
     private static final String EXPORT_TYPE_SITUATION_TEXT = "Situation";
 
@@ -145,11 +145,11 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
 
 
     // MainApplicationWindow
-    private static final String MAIN_APPLICATION_NEW_PROJECT_MENU_ITEM_TEXT = "New project";
+    private static final String MAIN_APPLICATION_NEW_PROJECT_MENU_ITEM_TEXT = "New Project";
 
-    private static final String MAIN_APPLICATION_LOAD_PROJECT_MENU_ITEM_TEXT = "Load project";
+    private static final String MAIN_APPLICATION_LOAD_PROJECT_MENU_ITEM_TEXT = "Load Project";
 
-    private static final String MAIN_APPLICATION_SAVE_PROJECT_MENU_ITEM_TEXT = "Save project";
+    private static final String MAIN_APPLICATION_SAVE_PROJECT_MENU_ITEM_TEXT = "Save Project";
 
     private static final String MAIN_APPLICATION_FILE_MENU_TEXT = "File";
 
@@ -165,19 +165,19 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
 
     private static final String MAIN_APPLICATION_ATTRIBUTES_TEXT = "Attributes";
 
-    private static final String MAIN_APPLICATION_CHOICE_OPTION_TEXT = "Choice options";
+    private static final String MAIN_APPLICATION_CHOICE_OPTION_TEXT = "Choice Options";
 
 
     // ProjectCreationStage
-    private static final String PROJECT_CREATION_TITLE = "New project";
+    private static final String PROJECT_CREATION_TITLE = "New Project";
 
-    private static final String PROJECT_CREATION_PROJECT_NAME_TEXT = "Project name:";
+    private static final String PROJECT_CREATION_PROJECT_NAME_TEXT = "Project Name:";
 
-    private static final String PROJECT_CREATION_SAVE_PROJECT_DIRECTORY_TEXT = "Save path:";
+    private static final String PROJECT_CREATION_SAVE_PROJECT_DIRECTORY_TEXT = "Save Path:";
 
-    private static final String PROJECT_CREATION_INPUT_DATA_FILE_TEXT = "Input data file:";
+    private static final String PROJECT_CREATION_INPUT_DATA_FILE_TEXT = "Input Data File:";
 
-    private static final String PROJECT_CREATION_CREATE_NEW_PROJECT_BUTTON_TEXT = "Create new project";
+    private static final String PROJECT_CREATION_CREATE_NEW_PROJECT_BUTTON_TEXT = "Create New Project";
 
     private static final String PROJECT_CREATION_CANCEL_BUTTON_TEXT = "Cancel";
 
@@ -192,9 +192,9 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
     private static final String ATTRIBUTE_SETTINGS_PREFIX_TEXT = "Prefix:";
 
     private static final String ATTRIBUTE_SETTINGS_SUFFIX_TEXT = "Suffix:";
-    private static final String ATTRIBUTE_SETTINGS_NUMBER_OF_DECIMAL_PLACES_TEXT = "Number of decimal places:";
+    private static final String ATTRIBUTE_SETTINGS_NUMBER_OF_DECIMAL_PLACES_TEXT = "Number Of Decimal Places:";
 
-    private static final String ATTRIBUTE_SETTINGS_PERMANENTLY_VISIBLE_TEXT = "Always visible:";
+    private static final String ATTRIBUTE_SETTINGS_PERMANENTLY_VISIBLE_TEXT = "Permanently Visible:";
 
     private static final String ATTRIBUTE_SETTINGS_SAVE_BUTTON_TEXT = "Save";
 
@@ -204,17 +204,17 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
     // ExportSettingsStage
     private static final String EXPORT_SETTINGS_TITLE = "Export Settings";
 
-    private static final String EXPORT_SETTINGS_CHOICE_OPTION_SIZE_TEXT = "Choice option size:";
+    private static final String EXPORT_SETTINGS_CHOICE_OPTION_SIZE_TEXT = "Choice Option Size:";
 
-    private static final String EXPORT_SETTINGS_HEIGHT_TEXT = "Height in pixel (min. %d, max. %d):";
+    private static final String EXPORT_SETTINGS_HEIGHT_TEXT = "Height In Pixel (min. %d, max. %d):";
 
-    private static final String EXPORT_SETTINGS_WIDTH_TEXT = "Width in pixel (min. %d, max. %d):";
+    private static final String EXPORT_SETTINGS_WIDTH_TEXT = "Width In Pixel (min. %d, max. %d):";
 
-    private static final String EXPORT_SETTINGS_EXPORT_DIRECTORY_TEXT = "Export directory:";
+    private static final String EXPORT_SETTINGS_EXPORT_DIRECTORY_TEXT = "Export Directory:";
 
-    private static final String EXPORT_SETTINGS_EXPORT_TYPE_TEXT = "Export type:";
+    private static final String EXPORT_SETTINGS_EXPORT_TYPE_TEXT = "Export Type:";
 
-    private static final String EXPORT_SETTINGS_HTML_VARIABLE_NAME_TEXT = "HTML variable name:";
+    private static final String EXPORT_SETTINGS_HTML_VARIABLE_NAME_TEXT = "HTML Variable Name:";
 
     private static final String EXPORT_SETTINGS_SAVE_BUTTON_TEXT = ATTRIBUTE_SETTINGS_SAVE_BUTTON_TEXT;
 
@@ -222,9 +222,9 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
 
 
     // IconSelectionStage
-    private static final String ICON_SELECTION_TITLE = "Select icon";
+    private static final String ICON_SELECTION_TITLE = "Select Icon";
 
-    private static final String ICON_SELECTION_IMPORT_ICON_BUTTON_TEXT = "Import icon";
+    private static final String ICON_SELECTION_IMPORT_ICON_BUTTON_TEXT = "Import Icon";
 
     private static final String ICON_SELECTION_SELECT_BUTTON_TEXT = "Select";
 
@@ -244,21 +244,21 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
 
     private static final String ATTRIBUTE_SUFFIX_TEXT = "Suffix";
 
-    private static final String ATTRIBUTE_NUMBER_OF_DECIMAL_PLACES_TEXT = "Decimal places";
+    private static final String ATTRIBUTE_NUMBER_OF_DECIMAL_PLACES_TEXT = "Decimal Places";
 
-    private static final String ATTRIBUTE_PERMANENTLY_VISIBLE_TEXT = "Permanently visible";
+    private static final String ATTRIBUTE_PERMANENTLY_VISIBLE_TEXT = "Permanently Visible";
 
-    private static final String ATTRIBUTE_SEPARATOR_LINE_TEXT = "SEPARATOR LINE";
+    private static final String ATTRIBUTE_SEPARATOR_LINE_TEXT = "-----------------------------------------------";
 
-    private static final String ATTRIBUTE_ADD_ATTRIBUTE_BUTTON_TEXT = "Add attribute";
+    private static final String ATTRIBUTE_ADD_ATTRIBUTE_BUTTON_TEXT = "Add Attribute";
 
-    private static final String ATTRIBUTE_ADD_SEPARATOR_LINE_BUTTON_TEXT = "Add separator line";
+    private static final String ATTRIBUTE_ADD_SEPARATOR_LINE_BUTTON_TEXT = "Add Separator Line";
 
     private static final String ATTRIBUTE_CLOSE_BUTTON_TEXT = "Close";
 
 
     // ChoiceOptionSettingsStage
-    private static final String CHOICE_OPTION_SETTINGS_TITLE_FORMAT = "Edit choice option - %s";
+    private static final String CHOICE_OPTION_SETTINGS_TITLE_FORMAT = "Edit Choice Option - %s";
 
     private static final String CHOICE_OPTION_SETTINGS_TITLE_TEXT = "Title:";
 
@@ -268,21 +268,21 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
 
     private static final String CHOICE_OPTION_SETTINGS_ATTRIBUTES_NAME_TEXT = "Name";
 
-    private static final String CHOICE_OPTION_SETTINGS_ATTRIBUTES_VALUE_NAMES_TEXT = "Value names";
+    private static final String CHOICE_OPTION_SETTINGS_ATTRIBUTES_VALUE_NAMES_TEXT = "Value Names";
 
     private static final String CHOICE_OPTION_SETTINGS_ATTRIBUTE_VALUE_NAMES_MENU_BUTTON_TEXT = "Select";
 
-    private static final String CHOICE_OPTION_SETTINGS_ROUTE_SECTIONS_TEXT = "Route sections:";
+    private static final String CHOICE_OPTION_SETTINGS_ROUTE_SECTIONS_TEXT = "Route Sections:";
 
     private static final String CHOICE_OPTION_SETTINGS_ROUTE_SECTIONS_NUMBER_TEXT = "Number";
 
     private static final String CHOICE_OPTION_SETTINGS_ROUTE_SECTIONS_ICON_TEXT = ATTRIBUTE_ICON_TEXT;
 
-    private static final String CHOICE_OPTION_SETTINGS_ROUTE_SECTIONS_LINE_TYPE_TEXT = "Line type";
+    private static final String CHOICE_OPTION_SETTINGS_ROUTE_SECTIONS_LINE_TYPE_TEXT = "Line Type";
 
-    private static final String CHOICE_OPTION_SETTINGS_ROUTE_SECTIONS_VALUE_NAME_TEXT = "Value name";
+    private static final String CHOICE_OPTION_SETTINGS_ROUTE_SECTIONS_VALUE_NAME_TEXT = "Value Name";
 
-    private static final String CHOICE_OPTION_SETTINGS_ADD_ROUTE_SECTION_BUTTON_TEXT = "Add route section";
+    private static final String CHOICE_OPTION_SETTINGS_ADD_ROUTE_SECTION_BUTTON_TEXT = "Add Route Section";
 
     private static final String CHOICE_OPTION_SETTINGS_CLOSE_BUTTON_TEXT = ATTRIBUTE_CLOSE_BUTTON_TEXT;
 
@@ -317,8 +317,9 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
 
     private static final String INSTRUCTION_SAVING_PROJECT_CONTENT_TEXT =
             "If a project is currently loaded the project can be saved by pressing on 'File' in the top right " +
-                    "corner and choosing 'Save Project'. The project folder will be placed at the location chosen " +
-                    "when the project was created.";
+                    "corner and choosing 'Save Project'. Alternatively the key combination 'Ctrl + S' can be used " +
+                    "when the main application window is focused. The project folder will be placed at the location " +
+                    "chosen when the project was created.";
 
     private static final String INSTRUCTION_LOADING_PROJECT_HEADER_TEXT = "Loading a project";
 
