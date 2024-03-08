@@ -3,6 +3,7 @@ package edu.kit.ifv.trafficspvisualizer.controller;
 import edu.kit.ifv.trafficspvisualizer.model.settings.ExportSettings;
 import edu.kit.ifv.trafficspvisualizer.model.settings.ExportType;
 import edu.kit.ifv.trafficspvisualizer.model.settings.FileFormat;
+import edu.kit.ifv.trafficspvisualizer.util.image.ImageGenerator;
 import edu.kit.ifv.trafficspvisualizer.view.window.ExportSettingsStage;
 
 import java.io.File;
@@ -18,26 +19,6 @@ import java.io.File;
  * @version 1.0
  */
 class ExportSettingsController {
-
-    /**
-     * Max situation image height.
-     */
-    private static final int MAX_SITUATION_IMAGE_HEIGHT = 2160;
-
-    /**
-     * Max situation image width.
-     */
-    private static final int MAX_SITUATION_IMAGE_WIDTH = 3840;
-
-    /**
-     * Min situation image height.
-     */
-    private static final int MIN_SITUATION_IMAGE_HEIGHT = 360;
-
-    /**
-     * Min situation image width.
-     */
-    private static final int MIN_SITUATION_IMAGE_WIDTH = 640;
 
     /**
      * Front-facing interface for the controller package.
@@ -107,14 +88,16 @@ class ExportSettingsController {
         }
 
         // check if image size is valid
-        final int maxChoiceOptionHeight = MAX_SITUATION_IMAGE_HEIGHT /
+        final int maxChoiceOptionHeight = ImageGenerator.MAX_SITUATION_IMAGE_HEIGHT /
                 controllerFacade.getProject().getChoiceOptions().size();
 
-        final int minChoiceOptionHeight = MIN_SITUATION_IMAGE_HEIGHT /
+        final int minChoiceOptionHeight = ImageGenerator.MIN_SITUATION_IMAGE_HEIGHT /
                 controllerFacade.getProject().getChoiceOptions().size();
 
-        if (height < minChoiceOptionHeight || height > maxChoiceOptionHeight
-                || width < MIN_SITUATION_IMAGE_WIDTH || width > MAX_SITUATION_IMAGE_WIDTH) {
+        if (height < minChoiceOptionHeight
+                || height > maxChoiceOptionHeight
+                || width < ImageGenerator.MIN_SITUATION_IMAGE_WIDTH
+                || width > ImageGenerator.MAX_SITUATION_IMAGE_WIDTH) {
             controllerFacade.getViewFacade().getExportSettingsStage().showSaveErrorAlert();
             return;
         }
