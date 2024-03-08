@@ -91,11 +91,13 @@ public class MainApplicationWindow {
 
     private Button exportButton;
 
+    private Text exportText;
+
     private ImageView exportSettingsButtonImageView;
 
     private Button exportSettingsButton;
 
-    private Text exportText;
+    private Text exportSettingsText;
 
     private ImageView attributesButtonImageView;
 
@@ -220,12 +222,14 @@ public class MainApplicationWindow {
         exportButton = new Button();
         exportButton.setGraphic(exportButtonImageView);
 
+        exportText = new Text(languageStrategy.getMainApplicationExportText());
+
         exportSettingsButtonImageView
                 = new ImageView(ImageLibrary.getMainApplicationExportSettingsButtonImage());
         exportSettingsButton = new Button();
         exportSettingsButton.setGraphic(exportSettingsButtonImageView);
 
-        exportText = new Text(languageStrategy.getMainApplicationExportText());
+        exportSettingsText = new Text(languageStrategy.getMainApplicationExportSettingsText());
 
         attributesButtonImageView
                 = new ImageView(ImageLibrary.getMainApplicationAttributesButtonImage());
@@ -235,11 +239,12 @@ public class MainApplicationWindow {
         attributesText = new Text(languageStrategy.getMainApplicationAttributesText());
 
         exportAndAttributesGridPane = new GridPane();
-        exportAndAttributesGridPane.add(exportButton, 0, 0, 1, 1);
-        exportAndAttributesGridPane.add(exportSettingsButton, 1, 0, 1, 1);
-        exportAndAttributesGridPane.add(exportText, 0, 1, 2, 1);
-        exportAndAttributesGridPane.add(attributesButton, 4, 0, 1, 1);
-        exportAndAttributesGridPane.add(attributesText, 4, 1, 1, 1);
+        exportAndAttributesGridPane.add(exportButton, 0, 0);
+        exportAndAttributesGridPane.add(exportText, 0, 1);
+        exportAndAttributesGridPane.add(exportSettingsButton, 1, 0);
+        exportAndAttributesGridPane.add(exportSettingsText, 1, 1);
+        exportAndAttributesGridPane.add(attributesButton, 4, 0);
+        exportAndAttributesGridPane.add(attributesText, 4, 1);
 
         choiceOptionText = new Text(languageStrategy.getMainApplicationChoiceOptionText());
 
@@ -310,14 +315,17 @@ public class MainApplicationWindow {
     private void styleConfigVBox() {
         Styler.bigImageView(exportButtonImageView);
 
-
         Styler.centerCenterInGridPane(exportButton);
+
+        Styler.centerCenterSmallFontTextInGridPane(exportText);
 
         Styler.bigImageView(exportSettingsButtonImageView);
 
         Styler.centerCenterInGridPane(exportSettingsButton);
 
-        Styler.centerCenterSmallFontTextInGridPane(exportText);
+        Styler.centerCenterSmallFontTextInGridPane(exportSettingsText);
+
+
 
         Styler.bigImageView(attributesButtonImageView);
 
@@ -487,9 +495,9 @@ public class MainApplicationWindow {
 
 
         GridPane choiceOptionButtonGridPane = new GridPane();
-        choiceOptionButtonGridPane.add(choiceOptionSettingsButton, 0, 0);
-        choiceOptionButtonGridPane.add(upSwitchChoiceOptionButton, 0, 1);
-        choiceOptionButtonGridPane.add(downSwitchChoiceOptionButton, 0, 2);
+        choiceOptionButtonGridPane.add(choiceOptionSettingsButton, 0, 0, 1,2);
+        choiceOptionButtonGridPane.add(upSwitchChoiceOptionButton, 1, 0);
+        choiceOptionButtonGridPane.add(downSwitchChoiceOptionButton, 1, 1);
 
         Styler.midHVGabGridPane(choiceOptionButtonGridPane);
 
@@ -635,7 +643,7 @@ public class MainApplicationWindow {
         alert.setHeaderText(languageStrategy.getExportSuccessAlertHeaderText());
         alert.setContentText(languageStrategy.getExportSuccessAlertContentText());
 
-        alert.showAndWait();
+        alert.show();
     }
 
     /**

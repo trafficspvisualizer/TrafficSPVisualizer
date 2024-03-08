@@ -119,7 +119,7 @@ class IconSelectionController {
         IconSelectionStage iconSelectionStage = controllerFacade.getViewFacade().getIconSelectionStage();
 
         // Add Icon-Button
-        iconSelectionStage.getAddIconButton().setOnAction(e -> actionOnAddIconButton());
+        iconSelectionStage.getImportIconButton().setOnAction(e -> actionOnAddIconButton());
 
         // Select-Button
         iconSelectionStage.getSelectButton().setOnAction(e -> actionOnSelectButton());
