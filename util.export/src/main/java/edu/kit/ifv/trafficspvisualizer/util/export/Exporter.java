@@ -64,15 +64,15 @@ public abstract class Exporter {
      */
     protected String constructImagePath(SurveyImage image) {
         StringBuilder builder = new StringBuilder();
-        builder.append(NAMING_BLOCK.formatted(image.situationNumber() + 1))
+        builder.append(image.title().replace(" ","_"))
+                .append(NAMING_BLOCK.formatted(image.situationNumber() + 1))
                 .append(NAMING_BLOCK.formatted(image.blockNumber()))
                 .append(NAMING_BLOCK.formatted(image.choiceOptionNumber() + 1));
         for (int field : image.additionalFields()) {
             builder.append(NAMING_BLOCK.formatted(field));
         }
 
-        builder.append(image.title().replace(" ","_"))
-                .append(".%s".formatted(IMAGE_FORMAT));
+        builder.append(".%s".formatted(IMAGE_FORMAT));
 
         return builder.toString();
     }
