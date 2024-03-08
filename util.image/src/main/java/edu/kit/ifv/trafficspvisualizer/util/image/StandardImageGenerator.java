@@ -104,8 +104,8 @@ public class StandardImageGenerator extends ImageGenerator {
         drawAttributeImages();
         if (!choiceOption.getRouteSections().isEmpty()) {
             drawCentralSeparator();
+            drawRouteSections();
         }
-        drawRouteSections();
         drawBottomLine();
         graphics2DChoiceOption.dispose();
         return choiceOptionImage;
@@ -206,12 +206,12 @@ public class StandardImageGenerator extends ImageGenerator {
         currentXCoordinate += padding;
         graphics2DChoiceOption.setColor(color);
 
-        if (!choiceOption.getRouteSections().isEmpty()) {
-            // draw first vertical line before the first route section
-            graphics2DChoiceOption.drawLine(currentXCoordinate,
-                    routeSectionDrawingHeight + END_OF_ROUTE_SECTION_MARKER_HEIGHT,
-                    currentXCoordinate, routeSectionDrawingHeight - END_OF_ROUTE_SECTION_MARKER_HEIGHT);
-        }
+
+        // draw first vertical line before the first route section
+        graphics2DChoiceOption.drawLine(currentXCoordinate,
+                routeSectionDrawingHeight + END_OF_ROUTE_SECTION_MARKER_HEIGHT,
+                currentXCoordinate, routeSectionDrawingHeight - END_OF_ROUTE_SECTION_MARKER_HEIGHT);
+
 
         // draw every route section
         for (RouteSection routeSection : choiceOption.getRouteSections()) {
