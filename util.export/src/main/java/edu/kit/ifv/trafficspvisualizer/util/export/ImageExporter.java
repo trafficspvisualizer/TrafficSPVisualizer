@@ -43,25 +43,6 @@ public class ImageExporter extends Exporter {
         }
     }
 
-
-    /**
-     * Deletes a file or directory and all its contents.
-     *
-     * @param file The file or directory to delete.
-     * @throws IOException If the file or directory cannot be deleted.
-     */
-    private void deleteFileOrDirectory(File file) throws IOException {
-        if (file.isDirectory()) {
-            for (File subFile : Objects.requireNonNull(file.listFiles())) {
-                deleteFileOrDirectory(subFile);
-            }
-        }
-        boolean isDeleted = file.delete();
-        if (!isDeleted) {
-            throw new IOException("Failed to delete file or directory: " + file.getPath());
-        }
-    }
-
     /**
      * Creates a new directory for the images. If the directory already exists, it and its contents are replaced.
      *
