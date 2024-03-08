@@ -83,10 +83,8 @@ public abstract class AbstractSaver {
             return createJsonAttributes(attribute.getName(), attribute.getIcon(), attribute.getPrefix(),
                     attribute.getSuffix(), attribute.isPermanentlyVisible(), attribute.getDecimalPlaces(),
                     attribute.getChoiceOptionMappings(), attribute.isActive());
-        } else if (!abstractAttribute.hasValues()) {
-            return createJsonLineSeparator(abstractAttribute);
         } else {
-            throw new IllegalArgumentException("Unknown attribute type: " + abstractAttribute.getClass());
+            return createJsonLineSeparator(abstractAttribute);
         }
     }
 

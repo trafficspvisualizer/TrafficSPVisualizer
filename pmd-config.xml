@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+
+<ruleset name="TrafficSPVisualizer Rules" xmlsn="https://pmd.sourceforge.net/ruleset/2.0.0">
+
+    <description>
+        Ruleset for TrafficSPVisualizer
+    </description>
+
+    <exclude-pattern>.*Test.java</exclude-pattern>
+
+    <rule ref="category/java/bestpractices.xml/AvoidUsingHardCodedIP"/>
+    <rule ref="category/java/bestpractices.xml/CheckResultSet"/>
+    <rule ref="category/java/bestpractices.xml/UnusedImports"/>
+    <rule ref="category/java/bestpractices.xml/UnusedFormalParameter"/>
+    <rule ref="category/java/bestpractices.xml/UnusedLocalVariable"/>
+    <rule ref="category/java/bestpractices.xml/UnusedPrivateField"/>
+    <rule ref="category/java/bestpractices.xml/UnusedPrivateMethod"/>
+    <rule ref="category/java/bestpractices.xml/UnusedAssignment"/>
+    <rule ref="category/java/bestpractices.xml/ForLoopCanBeForeach"/>
+    <rule ref="category/java/bestpractices.xml/LooseCoupling"/>
+    <rule ref="category/java/bestpractices.xml/MethodReturnsInternalArray"/>
+    <rule ref="category/java/bestpractices.xml/ArrayIsStoredDirectly"/>
+    <rule ref="category/java/bestpractices.xml/LiteralsFirstInComparisons"/>
+
+    <rule ref="category/java/codestyle.xml/DontImportJavaLang"/>
+    <rule ref="category/java/codestyle.xml/DuplicateImports"/>
+    <rule ref="category/java/codestyle.xml/ExtendsObject"/>
+    <rule ref="category/java/codestyle.xml/UnnecessaryImport"/>
+    <rule ref="category/java/codestyle.xml/ForLoopShouldBeWhileLoop"/>
+    <rule ref="category/java/codestyle.xml/TooManyStaticImports"/>
+    <rule ref="category/java/codestyle.xml/UnnecessaryFullyQualifiedName"/>
+    <rule ref="category/java/codestyle.xml/UnnecessaryModifier"/>
+    <rule ref="category/java/codestyle.xml/UnnecessaryReturn"/>
+    <rule ref="category/java/codestyle.xml/UselessParentheses"/>
+    <rule ref="category/java/codestyle.xml/UselessQualifiedThis"/>
+    <rule ref="category/java/codestyle.xml/DefaultPackage"/>
+    <rule ref="category/java/codestyle.xml/LinguisticNaming"/>
+    <rule ref="category/java/codestyle.xml/UselessParentheses"/>
+    <rule ref="category/java/codestyle.xml/FieldNamingConventions"/>
+    <rule ref="category/java/codestyle.xml/VariableNamingConventions"/>
+    <rule ref="category/java/codestyle.xml/CommentDefaultAccessModifier"/>
+    <rule ref="category/java/codestyle.xml/ConfusingTernary"/>
+
+    <rule ref="category/java/design.xml/CollapsibleIfStatements"/>
+    <rule ref="category/java/design.xml/SimplifiedTernary"/>
+    <rule ref="category/java/design.xml/UselessOverridingMethod"/>
+    <rule ref="category/java/design.xml/SingularField"/>
+    <rule ref="category/java/design.xml/CognitiveComplexity">
+        <properties>
+            <property name="reportLevel" value="25"/>
+        </properties>
+    </rule>
+    <rule ref="category/java/design.xml/CyclomaticComplexity">
+        <properties>
+            <property name="classReportLevel" value="100"/>
+            <property name="methodReportLevel" value="20"/>
+        </properties>
+    </rule>
+
+    <rule ref="category/java/errorprone.xml/AvoidBranchingStatementAsLastInLoop"/>
+    <rule ref="category/java/errorprone.xml/AvoidDecimalLiteralsInBigDecimalConstructor"/>
+    <rule ref="category/java/errorprone.xml/AvoidMultipleUnaryOperators"/>
+    <rule ref="category/java/errorprone.xml/AvoidUsingOctalValues"/>
+    <rule ref="category/java/errorprone.xml/AvoidCatchingNPE"/>
+    <rule ref="category/java/errorprone.xml/AvoidDuplicateLiterals"/>
+    <rule ref="category/java/errorprone.xml/BrokenNullCheck"/>
+    <rule ref="category/java/errorprone.xml/CheckSkipResult"/>
+    <rule ref="category/java/errorprone.xml/ClassCastExceptionWithToArray"/>
+    <rule ref="category/java/errorprone.xml/CloseResource"/>
+    <rule ref="category/java/errorprone.xml/DontUseFloatTypeForLoopIndices"/>
+    <rule ref="category/java/errorprone.xml/EmptyCatchBlock"/>
+    <rule ref="category/java/errorprone.xml/EmptyFinallyBlock"/>
+    <rule ref="category/java/errorprone.xml/EmptyIfStmt"/>
+    <rule ref="category/java/errorprone.xml/EmptyInitializer"/>
+    <rule ref="category/java/errorprone.xml/EmptyStatementBlock"/>
+    <rule ref="category/java/errorprone.xml/EmptyStatementNotInLoop"/>
+    <rule ref="category/java/errorprone.xml/EmptySwitchStatements"/>
+    <rule ref="category/java/errorprone.xml/EmptySynchronizedBlock"/>
+    <rule ref="category/java/errorprone.xml/EmptyTryBlock"/>
+    <rule ref="category/java/errorprone.xml/EmptyWhileStmt"/>
+    <rule ref="category/java/errorprone.xml/JumbledIncrementer"/>
+    <rule ref="category/java/errorprone.xml/MisplacedNullCheck"/>
+    <rule ref="category/java/errorprone.xml/OverrideBothEqualsAndHashcode"/>
+    <rule ref="category/java/errorprone.xml/ReturnFromFinallyBlock"/>
+    <rule ref="category/java/errorprone.xml/UnconditionalIfStatement"/>
+    <rule ref="category/java/errorprone.xml/UnnecessaryConversionTemporary"/>
+    <rule ref="category/java/errorprone.xml/UnusedNullCheckInEquals"/>
+    <rule ref="category/java/errorprone.xml/UselessOperationOnImmutable"/>
+    <rule ref="category/java/errorprone.xml/AvoidLiteralsInIfCondition">
+        <properties>
+            <property name="ignoreMagicNumbers" value="-1,0,1,2"/>
+            <property name="ignoreExpressions" value="true"/>
+        </properties>
+    </rule>
+    <rule ref="category/java/errorprone.xml/CompareObjectsWithEquals"/>
+
+    <rule ref="category/java/multithreading.xml/AvoidThreadGroup"/>
+    <rule ref="category/java/multithreading.xml/DontCallThreadRun"/>
+    <rule ref="category/java/multithreading.xml/DoubleCheckedLocking"/>
+
+    <rule ref="category/java/performance.xml/BigIntegerInstantiation"/>
+    <rule ref="category/java/performance.xml/BooleanInstantiation"/>
+
+    <rule ref="category/java/security.xml"/>
+
+
+    <rule name="ShortVariable"
+          language="java"
+          since="1.5"
+          message="Avoid variables with short names like {0}"
+          class="net.sourceforge.pmd.lang.rule.XPathRule"
+          externalInfoUrl="${pmd.website.baseurl}/pmd_rules_java_codestyle.html#shortvariable">
+        <description>
+            Variable names that are very short are not helpful to the reader.
+        </description>
+        <priority>3</priority>
+        <properties>
+            <property name="minimum" type="Integer" value="3" min="1" max="100"
+                      description="Number of characters that are required as a minimum for a variable name."/>
+            <property name="excluded" type="String" value="x,y,z"
+                      description="Comma-separated list of names, that should be ignored"/>
+            <property name="version" value="2.0"/>
+            <property name="xpath">
+                <value>
+                    <![CDATA[
+			//VariableDeclaratorId[string-length(@Name) < $minimum]
+			 [empty(index-of(tokenize($excluded, '\s*,\s*'), @Image))]
+			 (: ForStatement :)
+			 [not(../../..[self::ForInit])]
+			 (: Catch statement parameter :)
+			 [not(../..[self::CatchStatement])]
+			 (: Lambda expression parameter :)
+			 [not(parent::LambdaExpression or ../../..[self::LambdaExpression])]
+        ]]>
+                </value>
+            </property>
+        </properties>
+    </rule>
+
+</ruleset>

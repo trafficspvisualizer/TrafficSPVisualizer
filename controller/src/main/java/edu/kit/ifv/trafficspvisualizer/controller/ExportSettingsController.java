@@ -30,7 +30,7 @@ class ExportSettingsController {
      *
      * @param controllerFacade the front-facing interface for the controller package
      */
-    ExportSettingsController(ControllerFacade controllerFacade) {
+    protected ExportSettingsController(ControllerFacade controllerFacade) {
         this.controllerFacade = controllerFacade;
         //creates and shows new stage
         controllerFacade.getViewFacade().
@@ -81,7 +81,7 @@ class ExportSettingsController {
         try {
             height = Integer.parseInt(heightString);
             width = Integer.parseInt(widthString);
-        } catch (NullPointerException | IllegalArgumentException exception) {
+        } catch (IllegalArgumentException exception) {
             controllerFacade.getViewFacade().getExportSettingsStage().showSaveErrorAlert();
             return;
         }

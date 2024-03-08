@@ -42,7 +42,7 @@ class ProjectCreationController {
      *
      * @param controllerFacade the front-facing interface for the controller package
      */
-    ProjectCreationController(ControllerFacade controllerFacade) {
+    protected ProjectCreationController(ControllerFacade controllerFacade) {
         this.controllerFacade = controllerFacade;
         // creates and shows new stage
         controllerFacade.getViewFacade().

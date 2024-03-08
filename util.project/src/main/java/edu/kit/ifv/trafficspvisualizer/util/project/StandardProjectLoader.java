@@ -63,7 +63,7 @@ public class StandardProjectLoader extends AbstractLoader {
      */
     private Path findDirectoryInDirectory(Path directory) throws IOException {
         return Files.walk(directory)
-                .filter(path -> Files.isDirectory(path) && path.getFileName().toString().equals(ICON_DIRECTORY_NAME))
+                .filter(path -> Files.isDirectory(path) && ICON_DIRECTORY_NAME.equals(path.getFileName().toString()))
                 .findFirst()
                 .orElseThrow(() -> new IOException("No directory named " + ICON_DIRECTORY_NAME
                         + " found in directory"));

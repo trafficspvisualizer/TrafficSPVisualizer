@@ -47,7 +47,8 @@ class IconSelectionController {
      * @param parentController the controller, which requested creation of IconSelectionController
      * @param index            the index of the component for which an icon is selected
      */
-    IconSelectionController(ControllerFacade controllerFacade, IconDisplayingController parentController, int index) {
+    protected IconSelectionController(ControllerFacade controllerFacade, IconDisplayingController parentController,
+                                      int index) {
         this.controllerFacade = controllerFacade;
         this.parentController = parentController;
         this.index = index;
