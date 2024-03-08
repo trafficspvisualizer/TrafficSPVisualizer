@@ -82,7 +82,7 @@ public class HTMLExporter extends Exporter {
         Path finalFilePath = Paths.get(file.getPath(),
                 directoryName,
                 Integer.toString(imageGroup.getFirst().situationNumber() + 1),
-                directoryName + "_" + imageGroup.getFirst().situationNumber() + ".html");
+                directoryName + "_" + (imageGroup.getFirst().situationNumber() + 1) + ".html");
 
         Files.move(tempFilePath, finalFilePath, StandardCopyOption.REPLACE_EXISTING);
     }
