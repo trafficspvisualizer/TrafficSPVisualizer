@@ -71,14 +71,16 @@ public class ImageExporter extends Exporter {
      */
     private File createDirectory(File file) throws IOException {
         File newDirectory = new File(file.getPath(), directoryName);
-        if (newDirectory.exists()) {
-            deleteFileOrDirectory(newDirectory);
+        int counter = 1;
+        while (newDirectory.exists()) {
+            newDirectory = new File(file.getPath(), directoryName + "_" + counter);
+            counter++;
         }
+        dir = newDirectory;
         boolean isCreated = newDirectory.mkdir();
         if (!isCreated) {
             throw new IOException("Failed to create directory: " + newDirectory.getPath());
         }
         return newDirectory;
     }
-
 }

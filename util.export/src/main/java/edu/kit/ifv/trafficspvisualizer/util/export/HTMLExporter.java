@@ -79,8 +79,7 @@ public class HTMLExporter extends Exporter {
             boolean created = path.toFile().mkdir();
             if (!created) throw new IOException("Could not create the directory");
         }
-        Path finalFilePath = Paths.get(file.getPath(),
-                directoryName,
+        Path finalFilePath = Paths.get(dir.getPath(),
                 Integer.toString(imageGroup.getFirst().situationNumber() + 1),
                 directoryName + "_" + (imageGroup.getFirst().situationNumber() + 1) + ".html");
 

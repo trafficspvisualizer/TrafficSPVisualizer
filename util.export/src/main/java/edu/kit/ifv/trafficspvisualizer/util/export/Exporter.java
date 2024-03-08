@@ -20,6 +20,7 @@ public abstract class Exporter {
      * The format in which the images get exported.
      */
     protected static final String IMAGE_FORMAT = "png";
+    protected static File dir = new File("");
     private static final String NAMING_BLOCK = "#c_%04d#";
     private static final Map<ExportType, Supplier<Exporter>> EXPORTER_MAP = new HashMap<>();
 
