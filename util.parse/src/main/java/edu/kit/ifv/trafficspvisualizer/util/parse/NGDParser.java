@@ -23,9 +23,21 @@ public class NGDParser extends Parser {
     private static final String DATA_END_MARKER = "|";
     private static final String DATA_SEPARATOR = "\t";
     private static final String DATA_REGEX = "([0-9]+[.]?[0-9]*)";
+    private static final String NGD_FILE_TYPE = "ngd";
 
     @Override
     public DataObject parse(File file) throws IOException, ParseException {
+        String fileName = file.getName();
+        String fileType = "";
+
+        int i = fileName.lastIndexOf('.');
+        if (i > 0) {
+            fileType = fileName.substring(i+1);
+        }
+        if (!fileType.matches(NGD_FILE_TYPE)) {
+            throw new IOException("Wrong file type");
+        }
+
         List<String[]> data = new ArrayList<>();
 
         try (BufferedReader reader = Files.newBufferedReader(file.toPath())) {
@@ -46,6 +58,10 @@ public class NGDParser extends Parser {
     }
 
     private ParsedData parseData(String[][] data) throws ParseException {
+        if (data[1].length < 3) {
+            throw new ParseException("Not enough data", 3);
+        }
+
         // First 2 columns are filled with design and situation number
         String[] columnNames = Arrays.copyOfRange(data[0], 2, data[0].length - 1);
         String[][] trimmedData = Arrays.copyOfRange(data, 1, data.length);
