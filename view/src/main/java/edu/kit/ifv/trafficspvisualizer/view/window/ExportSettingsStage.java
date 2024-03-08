@@ -3,6 +3,7 @@ package edu.kit.ifv.trafficspvisualizer.view.window;
 import edu.kit.ifv.trafficspvisualizer.model.settings.ExportSettings;
 import edu.kit.ifv.trafficspvisualizer.model.settings.ExportType;
 import edu.kit.ifv.trafficspvisualizer.model.settings.Project;
+import edu.kit.ifv.trafficspvisualizer.util.image.ImageGenerator;
 import edu.kit.ifv.trafficspvisualizer.view.ViewFacade;
 import edu.kit.ifv.trafficspvisualizer.view.data.image.ImageLibrary;
 import edu.kit.ifv.trafficspvisualizer.view.data.language.LanguageStrategy;
@@ -94,11 +95,14 @@ public class ExportSettingsStage extends Stage {
 
         choiceOptionSizeText = new Text(languageStrategy.getExportSettingsChoiceOptionSizeText());
 
-        heightText = new Text(languageStrategy.getExportSettingsHeightText());
+        heightText = new Text(String.format(languageStrategy.getExportSettingsHeightText(),
+                ImageGenerator.MIN_SITUATION_IMAGE_HEIGHT / viewFacade.getProject().getChoiceOptions().size(),
+                ImageGenerator.MAX_SITUATION_IMAGE_HEIGHT / viewFacade.getProject().getChoiceOptions().size()));
 
         heightTextField = new TextField();
 
-        widthText = new Text(languageStrategy.getExportSettingsWidthText());
+        widthText = new Text(String.format(languageStrategy.getExportSettingsWidthText(),
+                ImageGenerator.MIN_SITUATION_IMAGE_WIDTH, ImageGenerator.MAX_SITUATION_IMAGE_WIDTH));
 
         widthTextField = new TextField();
 

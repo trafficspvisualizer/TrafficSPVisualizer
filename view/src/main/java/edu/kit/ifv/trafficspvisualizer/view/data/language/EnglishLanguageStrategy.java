@@ -206,9 +206,9 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
 
     private static final String EXPORT_SETTINGS_CHOICE_OPTION_SIZE_TEXT = "Choice option size:";
 
-    private static final String EXPORT_SETTINGS_HEIGHT_TEXT = "Height in pixel:";
+    private static final String EXPORT_SETTINGS_HEIGHT_TEXT = "Height in pixel (min. %d, max. %d):";
 
-    private static final String EXPORT_SETTINGS_WIDTH_TEXT = "Width in pixel:";
+    private static final String EXPORT_SETTINGS_WIDTH_TEXT = "Width in pixel (min. %d, max. %d):";
 
     private static final String EXPORT_SETTINGS_EXPORT_DIRECTORY_TEXT = "Export directory:";
 
