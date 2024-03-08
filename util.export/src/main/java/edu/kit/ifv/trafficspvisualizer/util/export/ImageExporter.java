@@ -60,7 +60,7 @@ public class ImageExporter extends Exporter {
         dir = newDirectory;
         boolean isCreated = newDirectory.mkdir();
         if (!isCreated) {
-            throw new IOException("Failed to create directory: " + newDirectory.getPath());
+            throw new IOException("Failed to create directory" + newDirectory.getPath());
         }
         return newDirectory;
     }
