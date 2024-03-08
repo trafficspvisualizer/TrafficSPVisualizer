@@ -21,6 +21,26 @@ import java.util.List;
 public abstract class ImageGenerator {
 
     /**
+     * Max situation image height.
+     */
+    public static final int MAX_SITUATION_IMAGE_HEIGHT = 2160;
+
+    /**
+     * Max situation image width.
+     */
+    public static final int MAX_SITUATION_IMAGE_WIDTH = 3840;
+
+    /**
+     * Min situation image height.
+     */
+    public static final int MIN_SITUATION_IMAGE_HEIGHT = 360;
+
+    /**
+     * Min situation image width.
+     */
+    public static final int MIN_SITUATION_IMAGE_WIDTH = 640;
+
+    /**
      * The createChoiceOption method creates an image of a single choice option using the given parameters.
      * The integer value max represent the longest distance of a situation. The choiceOption, DataObject and attributes
      * parameters provide all the important information for creating a decision option.
