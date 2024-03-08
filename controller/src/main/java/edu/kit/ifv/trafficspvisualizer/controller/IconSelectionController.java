@@ -1,6 +1,7 @@
 package edu.kit.ifv.trafficspvisualizer.controller;
 
 import edu.kit.ifv.trafficspvisualizer.model.icon.Icon;
+import edu.kit.ifv.trafficspvisualizer.model.icon.IconFormat;
 import edu.kit.ifv.trafficspvisualizer.view.window.IconSelectionStage;
 
 
@@ -19,12 +20,6 @@ import java.io.IOException;
  * @version 1.0
  */
 class IconSelectionController {
-
-    /**
-     * SVG file extension.
-     */
-    private static final String SVG_FILE_EXTENSION = "*.svg";
-
     /**
      * Front-facing interface for the controller package.
      */
@@ -86,7 +81,7 @@ class IconSelectionController {
      */
     private void actionOnAddIconButton() {
         File selectedFile = controllerFacade.getViewFacade().getIconSelectionStage()
-                .showFileChooserDialog(SVG_FILE_EXTENSION);
+                .showFileChooserDialog(IconFormat.getExtensions());
 
         // if no icon was selected
         if (selectedFile == null) return;
