@@ -307,7 +307,8 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
                     " contains a table that ends with a '|' symbol. The entries of the table are separated by " +
                     "tabulator symbols. The first column contains the design number, the second column the " +
                     "situation number and the last column the block number. The table must have at least " +
-                    "four columns. A normal entry has the following format: 'choiceOptionName.valueName'. " +
+                    "four columns. A normal entry has the following format:" +
+                    " 'exampleChoiceOptionName.exampleValueName'. " +
                     "If everything is correctly entered a new project can be " +
                     "created by clicking on 'Create new project'. All choice options will be automatically loaded " +
                     "from input file.";
