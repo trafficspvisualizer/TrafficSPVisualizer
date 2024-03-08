@@ -58,7 +58,7 @@ public class NGDParser extends Parser {
     }
 
     private ParsedData parseData(String[][] data) throws ParseException {
-        if (data[1].length < 3) {
+        if (data[1].length < 4) {
             throw new ParseException("Not enough data", 3);
         }
 
