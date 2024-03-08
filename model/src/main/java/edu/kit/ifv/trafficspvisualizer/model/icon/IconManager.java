@@ -120,7 +120,21 @@ public class IconManager {
      * @throws IOException if the icon path is invalid
      */
     public void createIcon(Path icon) throws IOException {
-        Icon newIcon = new SVGIcon(iconDir, nextIdentifier);
+        IconFormat iconFormat = IconFormat.fromExtension(
+                FilenameUtils.getExtension(icon.getFileName().toString())
+        );
+
+        if (iconFormat == null) {
+            throw new IOException("Invalid file extension");
+        }
+
+        Icon newIcon;
+        // Switch-case seems unnecessary, but is here for easy expandability
+        switch (iconFormat) {
+            case SVG -> newIcon = new SVGIcon(iconDir, nextIdentifier);
+            default -> throw new IOException("File extension is invalid for icon creation");
+        }
+
         nextIdentifier++;
         Files.copy(icon, newIcon.getIconPath());
         newIcon.toBufferedImage();
