@@ -15,6 +15,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
@@ -39,11 +40,13 @@ public class IconSelectionStage extends Stage {
 
     private ScrollPane iconScrollPane;
 
-    private Button addIconButton;
-
     private Button selectButton;
 
     private Button cancelButton;
+
+    private Pane sizingPane;
+
+    private Button importIconButton;
 
     private GridPane selectAndCancelGridPane;
 
@@ -73,16 +76,19 @@ public class IconSelectionStage extends Stage {
 
         iconScrollPane = new ScrollPane(iconListFlowPane);
 
-        addIconButton = new Button(languageStrategy.getIconSelectionAddIconButtonText());
-
         selectButton = new Button(languageStrategy.getIconSelectionSelectButtonText());
 
         cancelButton = new Button(languageStrategy.getIconSelectionCancelButtonText());
 
+        sizingPane = new Pane();
+
+        importIconButton = new Button(languageStrategy.getIconSelectionImportIconButtonText());
+
         selectAndCancelGridPane = new GridPane();
-        selectAndCancelGridPane.add(addIconButton, 0, 0, 2, 1);
-        selectAndCancelGridPane.add(selectButton, 0, 1);
-        selectAndCancelGridPane.add(cancelButton, 1, 1);
+        selectAndCancelGridPane.add(selectButton, 0, 0);
+        selectAndCancelGridPane.add(cancelButton, 1, 0);
+        selectAndCancelGridPane.add(sizingPane, 2, 0);
+        selectAndCancelGridPane.add(importIconButton, 3, 0);
 
         bodyBorderPane = new BorderPane();
         bodyBorderPane.setTop(iconScrollPane);
@@ -104,11 +110,13 @@ public class IconSelectionStage extends Stage {
         iconScrollPane.prefHeightProperty().bind(
                 scene.heightProperty().subtract(selectAndCancelGridPane.heightProperty()));
 
-        Styler.leftCenterSmallFontButtonInGridPane(addIconButton);
-
         Styler.leftCenterSmallFontButtonInGridPane(selectButton);
 
         Styler.leftCenterSmallFontButtonInGridPane(cancelButton);
+
+        GridPane.setHgrow(sizingPane, Priority.ALWAYS);
+
+        Styler.leftCenterSmallFontButtonInGridPane(importIconButton);
 
         Styler.midHVGabMidPaddingGridPane(selectAndCancelGridPane);
 
@@ -193,8 +201,8 @@ public class IconSelectionStage extends Stage {
      *
      * @return The add icon button.
      */
-    public Button getAddIconButton() {
-        return addIconButton;
+    public Button getImportIconButton() {
+        return importIconButton;
     }
 
     /**

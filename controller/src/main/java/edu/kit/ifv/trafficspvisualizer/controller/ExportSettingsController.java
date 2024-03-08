@@ -20,6 +20,26 @@ import java.io.File;
 class ExportSettingsController {
 
     /**
+     * Max situation image height.
+     */
+    private static final int MAX_SITUATION_IMAGE_HEIGHT = 2160;
+
+    /**
+     * Max situation image width.
+     */
+    private static final int MAX_SITUATION_IMAGE_WIDTH = 3840;
+
+    /**
+     * Min situation image height.
+     */
+    private static final int MIN_SITUATION_IMAGE_HEIGHT = 360;
+
+    /**
+     * Min situation image width.
+     */
+    private static final int MIN_SITUATION_IMAGE_WIDTH = 640;
+
+    /**
      * Front-facing interface for the controller package.
      */
     private final ControllerFacade controllerFacade;
@@ -82,6 +102,19 @@ class ExportSettingsController {
             height = Integer.parseInt(heightString);
             width = Integer.parseInt(widthString);
         } catch (IllegalArgumentException exception) {
+            controllerFacade.getViewFacade().getExportSettingsStage().showSaveErrorAlert();
+            return;
+        }
+
+        // check if image size is valid
+        final int maxChoiceOptionHeight = MAX_SITUATION_IMAGE_HEIGHT /
+                controllerFacade.getProject().getChoiceOptions().size();
+
+        final int minChoiceOptionHeight = MIN_SITUATION_IMAGE_HEIGHT /
+                controllerFacade.getProject().getChoiceOptions().size();
+
+        if (height < minChoiceOptionHeight || height > maxChoiceOptionHeight
+                || width < MIN_SITUATION_IMAGE_WIDTH || width > MAX_SITUATION_IMAGE_WIDTH) {
             controllerFacade.getViewFacade().getExportSettingsStage().showSaveErrorAlert();
             return;
         }

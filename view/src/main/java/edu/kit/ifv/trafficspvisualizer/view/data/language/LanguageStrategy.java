@@ -445,6 +445,14 @@ public abstract class LanguageStrategy {
     public abstract String getMainApplicationExportText();
 
     /**
+     * Gets the text for the export settings section in the
+     * {@link edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow}.
+     *
+     * @return A {@code String} representing the text for the export settings section.
+     */
+    public abstract String getMainApplicationExportSettingsText();
+
+    /**
      * Gets the text for the attributes section in the
      * {@link edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow}.
      *
@@ -679,7 +687,7 @@ public abstract class LanguageStrategy {
      *
      * @return A {@code String} representing the text for the add icon button.
      */
-    public abstract String getIconSelectionAddIconButtonText();
+    public abstract String getIconSelectionImportIconButtonText();
 
     /**
      * Gets the text for the select button in the

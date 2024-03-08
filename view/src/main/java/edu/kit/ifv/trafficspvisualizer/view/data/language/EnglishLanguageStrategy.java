@@ -161,6 +161,8 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
 
     private static final String MAIN_APPLICATION_EXPORT_TEXT = "Export";
 
+    private static final String MAIN_APPLICATION_EXPORT_SETTINGS_TEXT = "Export Settings";
+
     private static final String MAIN_APPLICATION_ATTRIBUTES_TEXT = "Attributes";
 
     private static final String MAIN_APPLICATION_CHOICE_OPTION_TEXT = "Choice options";
@@ -222,7 +224,7 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
     // IconSelectionStage
     private static final String ICON_SELECTION_TITLE = "Select icon";
 
-    private static final String ICON_SELECTION_ADD_ICON_BUTTON_TEXT = "Add icon";
+    private static final String ICON_SELECTION_IMPORT_ICON_BUTTON_TEXT = "Import icon";
 
     private static final String ICON_SELECTION_SELECT_BUTTON_TEXT = "Select";
 
@@ -664,6 +666,10 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
         return MAIN_APPLICATION_EXPORT_TEXT;
     }
 
+    public String getMainApplicationExportSettingsText() {
+        return MAIN_APPLICATION_EXPORT_SETTINGS_TEXT;
+    }
+
     public String getMainApplicationAttributesText() {
         return MAIN_APPLICATION_ATTRIBUTES_TEXT;
     }
@@ -780,8 +786,8 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
         return ICON_SELECTION_TITLE;
     }
 
-    public String getIconSelectionAddIconButtonText() {
-        return ICON_SELECTION_ADD_ICON_BUTTON_TEXT;
+    public String getIconSelectionImportIconButtonText() {
+        return ICON_SELECTION_IMPORT_ICON_BUTTON_TEXT;
     }
 
     public String getIconSelectionSelectButtonText() {
