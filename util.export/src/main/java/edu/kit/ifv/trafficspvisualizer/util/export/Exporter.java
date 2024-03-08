@@ -84,7 +84,7 @@ public abstract class Exporter {
      * @return The constructed image path.
      */
     protected String constructImagePathWithDir(SurveyImage image) {
-        int i = image.situationNumber() + 1;
-        return String.format("%s/%s", i, constructImagePath(image));
+        int situationNumber = image.situationNumber() + 1;
+        return String.format("%s/%s", situationNumber, constructImagePath(image));
     }
 }
