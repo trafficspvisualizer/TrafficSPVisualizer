@@ -206,7 +206,6 @@ public class StandardImageGenerator extends ImageGenerator {
         currentXCoordinate += padding;
         graphics2DChoiceOption.setColor(color);
 
-
         // draw first vertical line before the first route section
         graphics2DChoiceOption.drawLine(currentXCoordinate,
                 routeSectionDrawingHeight + END_OF_ROUTE_SECTION_MARKER_HEIGHT,
