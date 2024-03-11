@@ -15,7 +15,9 @@ dependencies {
     testImplementation platform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
     implementation project(path: ':util.image')
+    implementation project(path: ':util.parse')
     implementation project(path: ':model')
+    testImplementation 'org.mockito:mockito-core:5.10.0'
 }
 
 javafx {
