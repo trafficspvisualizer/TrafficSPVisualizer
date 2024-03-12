@@ -347,7 +347,6 @@ public class ChoiceOptionSettingsStage extends Stage {
                     && GridPane.getRowIndex(node) >= 4
                     && GridPane.getRowIndex(node) % 2 == 0) {
 
-                System.out.println(node);
                 MenuButton button = (MenuButton) node;
                 ChoiceOption choiceOption = viewFacade.getProject().getChoiceOptions().get(choiceOptionIndex);
                 button.setText(getAttributeValueNamesMenuButtonText((Attribute) button.getUserData(), choiceOption));
@@ -371,6 +370,9 @@ public class ChoiceOptionSettingsStage extends Stage {
 
         attributeValueNamesMenuButton.setUserData(attribute);
 
+        // ensure underscores are portrayed correctly
+        attributeValueNamesMenuButton.setMnemonicParsing(false);
+
         List<CheckBox> valueNameCheckBoxList = new ArrayList<>();
         for (String valueName :
                 viewFacade.getProject().getDataObject().getValueNames(0, choiceOption.getName())) {
@@ -378,6 +380,9 @@ public class ChoiceOptionSettingsStage extends Stage {
             valueNameCheckBox.setSelected(attribute.getMapping(choiceOption).contains(valueName));
 
             valueNameCheckBox.setFont(FontLibrary.getSmallFont());
+
+            // ensure underscores are portrayed correctly
+            valueNameCheckBox.setMnemonicParsing(false);
 
             valueNameCheckBoxList.add(valueNameCheckBox);
 
@@ -633,16 +638,20 @@ public class ChoiceOptionSettingsStage extends Stage {
     }
 
     private String getAttributeValueNamesMenuButtonText(Attribute attribute, ChoiceOption choiceOption) {
-        // choice option has no mapping for the attribute display standard text
         if (attribute.getMapping(choiceOption).isEmpty()) {
+
+            // show standard text
             return viewFacade.getLanguageStrategy().getChoiceOptionSettingsAttributeValueNamesMenuButtonText();
+
         } else if (attribute.getMapping(choiceOption).size() == 1) {
+
             // show name of only mapping
             return attribute.getMapping(choiceOption).getFirst();
+
         } else {
+
             // show first letters of first mapping and number of other mappings
             final String format = "%.6s...+%d";
-
             return String.format(format, attribute.getMapping(choiceOption).getFirst(),
                     attribute.getMapping(choiceOption).size() - 1);
         }
