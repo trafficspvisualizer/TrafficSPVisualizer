@@ -163,6 +163,7 @@ class StandardProjectLoaderTest {
         assertEquals(project.getExportSettings().getHtmlVariableName(), "variable");
         assertEquals(project.getExportSettings().getImageHeight(), 400);
         assertEquals(project.getExportSettings().getFileFormat(), FileFormat.PNG);
+        assertNull(project.getExportSettings().getExportPath());
     }
 
     @Test

@@ -26,7 +26,7 @@ class AbstractSaverTest {
     void testCreateJsonProject() throws IOException, ParseException {
         // creating new project - choice option order is not deterministic due to HashMap
         Parser parser = new NGDParser();
-        File ngdFile = new File(Objects.requireNonNull(this.getClass().getClassLoader().getResource("Beispiel_ngene.ngd")).getPath());
+        File ngdFile = new File(Objects.requireNonNull(this.getClass().getClassLoader().getResource("example.ngd")).getPath());
         DataObject dataObject = parser.parse(ngdFile);
         Path projectPath = Files.createTempDirectory("AbstractSaverTestProjectFolder");
         Comparator<ChoiceOption> comparator = Comparator.comparing(ChoiceOption::getName);

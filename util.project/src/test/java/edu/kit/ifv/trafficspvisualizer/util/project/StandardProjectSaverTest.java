@@ -20,7 +20,7 @@ class StandardProjectSaverTest {
     void saveProject() throws IOException, ParseException {
 
         Path projectFolderParentDirectory = Files.createTempDirectory("StandardProjectSaverTest");
-        File ngdFile = new File(Objects.requireNonNull(this.getClass().getClassLoader().getResource("Beispiel_ngene.ngd")).getPath());
+        File ngdFile = new File(Objects.requireNonNull(this.getClass().getClassLoader().getResource("example.ngd")).getPath());
         DataObject dataObject = new NGDParser().parse(ngdFile);
         Project project = new Project("Test", projectFolderParentDirectory, dataObject, ngdFile);
 
@@ -31,7 +31,7 @@ class StandardProjectSaverTest {
         assertTrue(Files.exists(projectFolder.resolve("icon")));
         assertEquals(Objects.requireNonNull(projectFolder.resolve("icon").toFile().listFiles()).length,
                 project.getIconManager().getIcons().size());
-        assertTrue(Files.exists(projectFolder.resolve("Beispiel_ngene.ngd")));
+        assertTrue(Files.exists(projectFolder.resolve("example.ngd")));
         assertTrue(Files.exists(projectFolder.resolve("project.json")));
     }
 }
