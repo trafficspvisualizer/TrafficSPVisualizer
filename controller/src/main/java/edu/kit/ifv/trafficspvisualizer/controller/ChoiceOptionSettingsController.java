@@ -149,6 +149,8 @@ class ChoiceOptionSettingsController implements IconDisplayingController {
         // set new mapping
         attribute.setMapping(choiceOption, attributeValueNames);
 
+        // update menu button texts
+        controllerFacade.getViewFacade().getChoiceOptionSettingsStage().updateAttributeValueNamesMenuButtonTexts();
     }
 
     /**

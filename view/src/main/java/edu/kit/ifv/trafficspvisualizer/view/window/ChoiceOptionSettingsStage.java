@@ -12,6 +12,7 @@ import edu.kit.ifv.trafficspvisualizer.view.data.image.ImageLibrary;
 import edu.kit.ifv.trafficspvisualizer.view.data.language.LanguageStrategy;
 import edu.kit.ifv.trafficspvisualizer.view.style.Styler;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -337,6 +338,23 @@ public class ChoiceOptionSettingsStage extends Stage {
         }
     }
 
+    /**
+     * Updates the displayed texts of all attribute value names menu buttons.
+     */
+    public void updateAttributeValueNamesMenuButtonTexts() {
+        for(Node node : attributesGridPane.getChildren()) {
+            if (GridPane.getColumnIndex(node) == 1
+                    && GridPane.getRowIndex(node) >= 4
+                    && GridPane.getRowIndex(node) % 2 == 0) {
+
+                System.out.println(node);
+                MenuButton button = (MenuButton) node;
+                ChoiceOption choiceOption = viewFacade.getProject().getChoiceOptions().get(choiceOptionIndex);
+                button.setText(getAttributeValueNamesMenuButtonText((Attribute) button.getUserData(), choiceOption));
+            }
+        }
+    }
+
     private void addAttribute(Attribute attribute, int rowIndex) {
         ChoiceOption choiceOption = viewFacade.getProject().getChoiceOptions().get(choiceOptionIndex);
 
@@ -347,10 +365,12 @@ public class ChoiceOptionSettingsStage extends Stage {
 
         attributesGridPane.add(attributeNameText, 0, rowIndex);
 
-
         MenuButton attributeValueNamesMenuButton = new MenuButton(
-                viewFacade.getLanguageStrategy().getChoiceOptionSettingsAttributeValueNamesMenuButtonText()
+                getAttributeValueNamesMenuButtonText(attribute, choiceOption)
         );
+
+        attributeValueNamesMenuButton.setUserData(attribute);
+
         List<CheckBox> valueNameCheckBoxList = new ArrayList<>();
         for (String valueName :
                 viewFacade.getProject().getDataObject().getValueNames(0, choiceOption.getName())) {
@@ -610,5 +630,21 @@ public class ChoiceOptionSettingsStage extends Stage {
             }
         }
         return attributeValues;
+    }
+
+    private String getAttributeValueNamesMenuButtonText(Attribute attribute, ChoiceOption choiceOption) {
+        // choice option has no mapping for the attribute display standard text
+        if (attribute.getMapping(choiceOption).isEmpty()) {
+            return viewFacade.getLanguageStrategy().getChoiceOptionSettingsAttributeValueNamesMenuButtonText();
+        } else if (attribute.getMapping(choiceOption).size() == 1) {
+            // show name of only mapping
+            return attribute.getMapping(choiceOption).getFirst();
+        } else {
+            // show first letters of first mapping and number of other mappings
+            final String format = "%.6s...+%d";
+
+            return String.format(format, attribute.getMapping(choiceOption).getFirst(),
+                    attribute.getMapping(choiceOption).size() - 1);
+        }
     }
 }
