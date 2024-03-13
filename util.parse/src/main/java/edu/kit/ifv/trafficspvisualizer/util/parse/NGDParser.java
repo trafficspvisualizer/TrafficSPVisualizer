@@ -24,6 +24,7 @@ public class NGDParser extends Parser {
     private static final String DATA_SEPARATOR = "\t";
     private static final String DATA_REGEX = "([0-9]+[.]?[0-9]*)";
     private static final String NGD_FILE_EXTENSION = "ngd";
+    private static final int MIN_NGD_COLUMNS = 4;
 
     @Override
     public DataObject parse(File file) throws IOException, ParseException {
@@ -58,7 +59,7 @@ public class NGDParser extends Parser {
     }
 
     private ParsedData parseData(String[][] data) throws ParseException {
-        if (data[1].length < 4) {
+        if (data[1].length < MIN_NGD_COLUMNS) {
             throw new ParseException("Not enough data", 3);
         }
 
