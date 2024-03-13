@@ -138,7 +138,7 @@ public class ExportSettingsStage extends Stage {
         configGridPane.add(exportTypeText, 0, 3);
         configGridPane.add(exportTypeChoiceBox, 1, 3, 2, 1);
         configGridPane.add(htmlVariableNameText, 0, 4);
-        configGridPane.add(htmlVariableNameTextField, 1, 4);
+        configGridPane.add(htmlVariableNameTextField, 1, 4,2,1);
 
 
         saveButton = new Button(languageStrategy.getExportSettingsSaveButtonText());
