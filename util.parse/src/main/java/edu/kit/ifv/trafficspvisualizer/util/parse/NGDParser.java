@@ -23,18 +23,18 @@ public class NGDParser extends Parser {
     private static final String DATA_END_MARKER = "|";
     private static final String DATA_SEPARATOR = "\t";
     private static final String DATA_REGEX = "([0-9]+[.]?[0-9]*)";
-    private static final String NGD_FILE_TYPE = "ngd";
+    private static final String NGD_FILE_EXTENSION = "ngd";
 
     @Override
     public DataObject parse(File file) throws IOException, ParseException {
         String fileName = file.getName();
-        String fileType = "";
+        String fileExtension = "";
 
-        int i = fileName.lastIndexOf('.');
-        if (i > 0) {
-            fileType = fileName.substring(i+1);
+        int extensionIndex = fileName.lastIndexOf('.');
+        if (extensionIndex > 0) {
+            fileExtension = fileName.substring(extensionIndex + 1);
         }
-        if (!fileType.matches(NGD_FILE_TYPE)) {
+        if (!fileExtension.matches(NGD_FILE_EXTENSION)) {
             throw new IOException("Wrong file type");
         }
 
