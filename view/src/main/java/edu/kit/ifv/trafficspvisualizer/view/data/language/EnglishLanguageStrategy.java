@@ -85,13 +85,15 @@ public final class EnglishLanguageStrategy extends LanguageStrategy {
 
     private static final String SAVE_PROJECT_SUCCESS_ALERT_HEADER_TEXT = "The current project was saved!";
 
-    private static final String SAVE_PROJECT_SUCCESS_ALERT_CONTENT_TEXT = "The project folder can be found at the previously chosen path.";
+    private static final String SAVE_PROJECT_SUCCESS_ALERT_CONTENT_TEXT =
+            "The project folder can be found at the previously chosen path.";
 
     private static final String EXPORT_SUCCESS_ALERT_TITLE = "Successful Export";
 
     private static final String EXPORT_SUCCESS_ALERT_HEADER_TEXT = "The export was successful!";
 
-    private static final String EXPORT_SUCCESS_ALERT_CONTENT_TEXT = "The export folder containing the images can be found at the previously chosen path.";
+    private static final String EXPORT_SUCCESS_ALERT_CONTENT_TEXT =
+            "The export folder containing the images can be found at the previously chosen path.";
 
     private static final String NEW_PROJECT_ERROR_ALERT_TITLE = ERROR_ALERT_TITLE;
 
