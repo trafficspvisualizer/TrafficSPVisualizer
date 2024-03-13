@@ -157,13 +157,6 @@ public class ChoiceOptionSettingsStage extends Stage {
         titleText = new Text(languageStrategy.getChoiceOptionSettingsTitleText());
 
         titleTextField = new TextField();
-        titleTextField.setTextFormatter(new TextFormatter<String>(change -> {
-            String newInput = change.getControlNewText();
-            if (newInput.matches(ChoiceOption.VALID_TITLE_REGEX)) {
-                return change;
-            }
-            return null;
-        }));
 
         colorText = new Text(languageStrategy.getChoiceOptionSettingsColorText());
 

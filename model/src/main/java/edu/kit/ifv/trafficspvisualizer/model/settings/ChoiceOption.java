@@ -14,11 +14,6 @@ import java.util.Objects;
  */
 public class ChoiceOption {
 
-    /**
-     * Regex for valid choice option title.
-     */
-    public static final String VALID_TITLE_REGEX = "^[a-zA-Z0-9-_ +&]*$";
-
     private static final Color[] DEFAULT_COLORS = {
             Color.rgb(216, 27, 96),
             Color.rgb(30, 136, 229),
