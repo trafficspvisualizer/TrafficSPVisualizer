@@ -22,11 +22,6 @@ import java.text.ParseException;
 class ProjectCreationController {
 
     /**
-     * Maximum length a project name can have.
-     */
-    private static final int MAX_PROJECT_NAME_LENGTH = 255;
-
-    /**
      * NGD file extension.
      */
     private static final String NGD_FILE_EXTENSION = "*.ngd";
@@ -171,8 +166,8 @@ class ProjectCreationController {
         }
 
         // check if project name is valid
-        String validNameRegex = "^[a-zA-Z0-9_-]+$";
-        if (!projectName.matches(validNameRegex) || projectName.length() > MAX_PROJECT_NAME_LENGTH) {
+
+        if (!projectName.matches(Project.VALID_NAME_REGEX) || projectName.length() > Project.MAX_PROJECT_NAME_LENGTH) {
             return false;
         }
 

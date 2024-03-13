@@ -17,6 +17,16 @@ import java.util.stream.Collectors;
  * {@link edu.kit.ifv.trafficspvisualizer.controller} packages for communication and data transfer.
  */
 public class Project {
+
+    /**
+     * Regex for valid project name.
+     */
+    public static final String VALID_NAME_REGEX = "^[a-zA-Z0-9_-]+$";
+    /**
+     * Maximum length a project name can have.
+     */
+    public static final int MAX_PROJECT_NAME_LENGTH = 255;
+
     private static final String CACHE_NAME = "TrafficSP_%s";
     private final String name;
     private final Path projectPath;
