@@ -24,6 +24,7 @@ import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -156,6 +157,13 @@ public class ChoiceOptionSettingsStage extends Stage {
         titleText = new Text(languageStrategy.getChoiceOptionSettingsTitleText());
 
         titleTextField = new TextField();
+        titleTextField.setTextFormatter(new TextFormatter<String>(change -> {
+            String newInput = change.getControlNewText();
+            if (newInput.matches(ChoiceOption.VALID_TITLE_REGEX)) {
+                return change;
+            }
+            return null;
+        }));
 
         colorText = new Text(languageStrategy.getChoiceOptionSettingsColorText());
 
