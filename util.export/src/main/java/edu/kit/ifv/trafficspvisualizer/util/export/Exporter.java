@@ -20,6 +20,9 @@ public abstract class Exporter {
      * The format in which the images get exported.
      */
     protected static final String IMAGE_FORMAT = "png";
+    /**
+     * The directory where the Files are saved.
+     */
     protected static File dir = new File("");
     private static final String NAMING_BLOCK = "#c_%04d#";
     private static final Map<ExportType, Supplier<Exporter>> EXPORTER_MAP = new HashMap<>();
@@ -65,8 +68,12 @@ public abstract class Exporter {
      */
     protected String constructImagePath(SurveyImage image) {
         StringBuilder builder = new StringBuilder();
-        builder.append(image.title().replace(" ","_"))
-                .append(NAMING_BLOCK.formatted(image.situationNumber() + 1))
+        if (image.title().length() > 200) {
+            builder.append(image.title().replace(" ","_").replace("/","").replace("\\",""), 0, 200);
+        } else {
+            builder.append(image.title().replace(" ","_").replace("/","").replace("\\",""));
+        }
+        builder.append(NAMING_BLOCK.formatted(image.situationNumber() + 1))
                 .append(NAMING_BLOCK.formatted(image.blockNumber()))
                 .append(NAMING_BLOCK.formatted(image.choiceOptionNumber() + 1));
         for (int field : image.additionalFields()) {

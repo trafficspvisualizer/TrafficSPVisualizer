@@ -23,6 +23,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * The MainApplicationController represents the logic unit associated with
@@ -55,6 +56,17 @@ class MainApplicationController {
      * Creates a new {@link ProjectCreationController}.
      */
     private void actionOnNewProjectMenuItem() {
+        // if a project is already loaded
+        if (controllerFacade.getProject() != null) {
+            // show confirmation alert
+            Optional<ButtonType> response = controllerFacade.getViewFacade().getMainApplicationWindow()
+                    .showCloseProjectConfirmationAlert();
+            if (response.isPresent() && response.get() != ButtonType.OK) {
+                // exit method if user didn't confirm
+                return;
+            }
+        }
+
         controllerFacade.createProjectCreationController();
     }
 
@@ -64,6 +76,17 @@ class MainApplicationController {
      * Updates {@link edu.kit.ifv.trafficspvisualizer.view.window.MainApplicationWindow}.
      */
     private void actionOnLoadProjectMenuItem() {
+        // if a project is already loaded
+        if (controllerFacade.getProject() != null) {
+            // show confirmation alert
+            Optional<ButtonType> response = controllerFacade.getViewFacade().getMainApplicationWindow()
+                    .showCloseProjectConfirmationAlert();
+            if (response.isPresent() && response.get() != ButtonType.OK) {
+                // exit method if user didn't confirm
+                return;
+            }
+        }
+
         File selectedFile = controllerFacade.getViewFacade().getMainApplicationWindow().showDirectoryChooserDialog();
 
         // if no file was selected

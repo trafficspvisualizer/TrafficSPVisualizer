@@ -192,7 +192,6 @@ public class MainApplicationWindow {
         previewText = new Text(viewFacade.getLanguageStrategy().getMainApplicationPreviewText());
 
         previewImageView = new ImageView();
-        previewImageView.setImage(ImageLibrary.getApplicationIcon());
 
         currentPreviewText = new Text();
 

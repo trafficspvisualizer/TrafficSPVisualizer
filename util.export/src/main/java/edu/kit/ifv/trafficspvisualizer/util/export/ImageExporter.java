@@ -34,11 +34,7 @@ public class ImageExporter extends Exporter {
             if (!imagePath.getParent().toFile().exists()) {
                 Files.createDirectories(imagePath.getParent());
             }
-            try {
-                ImageIO.write(image.image(), IMAGE_FORMAT, imagePath.toFile());
-            } catch (IOException e) {
-                throw new IOException("Failed to write image: " + imagePath);
-            }
+            ImageIO.write(image.image(), IMAGE_FORMAT, imagePath.toFile());
         }
     }
 

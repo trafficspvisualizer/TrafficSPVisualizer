@@ -13,6 +13,7 @@ import java.util.Objects;
  * The title can be changed anytime and represents the displayed name of the {@link ChoiceOption}.
  */
 public class ChoiceOption {
+
     private static final Color[] DEFAULT_COLORS = {
             Color.rgb(216, 27, 96),
             Color.rgb(30, 136, 229),
