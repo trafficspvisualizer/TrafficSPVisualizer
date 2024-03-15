@@ -25,6 +25,7 @@ public abstract class Exporter {
      */
     protected static File dir = new File("");
     private static final String NAMING_BLOCK = "#c_%04d#";
+    private static final int MAX_PATH_LENGTH = 200;
     private static final Map<ExportType, Supplier<Exporter>> EXPORTER_MAP = new HashMap<>();
 
     static {
@@ -68,7 +69,7 @@ public abstract class Exporter {
      */
     protected String constructImagePath(SurveyImage image) {
         StringBuilder builder = new StringBuilder();
-        if (image.title().length() > 200) {
+        if (image.title().length() > MAX_PATH_LENGTH) {
             builder.append(image.title().replace(" ","_").replace("/","").replace("\\",""), 0, 200);
         } else {
             builder.append(image.title().replace(" ","_").replace("/","").replace("\\",""));
