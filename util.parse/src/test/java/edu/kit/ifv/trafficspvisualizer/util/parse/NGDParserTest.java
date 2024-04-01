@@ -16,33 +16,33 @@ class NGDParserTest {
     @Test
     void testData() throws InvalidDataKeyException, IOException, ParseException {
 
-        File ngdFile = new File(Objects.requireNonNull(getClass().getResource("/IFVExample.ngd")).getFile());
+        File ngdFile = new File(Objects.requireNonNull(this.getClass().getClassLoader().getResource("example.ngd")).getPath());
         DataObject dataObject = new NGDParser().parse(ngdFile);
 
         // choice names
         assertEquals(16, dataObject.getSituationCount());
         for (int i = 0; i < dataObject.getSituationCount(); i++) {
-            assertTrue(dataObject.getChoiceNames(i).contains("fuss"));
-            assertTrue(dataObject.getChoiceNames(i).contains("rad"));
+            assertTrue(dataObject.getChoiceNames(i).contains("walking"));
+            assertTrue(dataObject.getChoiceNames(i).contains("bicycle"));
             assertTrue(dataObject.getChoiceNames(i).contains("car"));
-            assertTrue(dataObject.getChoiceNames(i).contains("oev_fuss"));
-            assertTrue(dataObject.getChoiceNames(i).contains("shuttle_tb"));
-            assertTrue(dataObject.getChoiceNames(i).contains("shuttle_od"));
+            assertTrue(dataObject.getChoiceNames(i).contains("tram"));
+            assertTrue(dataObject.getChoiceNames(i).contains("shuttle"));
+            assertTrue(dataObject.getChoiceNames(i).contains("shuttleOnDemand"));
         }
 
         // block numbers
-        assertEquals(3, dataObject.getBlockNumber(0));
+        assertEquals(1, dataObject.getBlockNumber(0));
         assertEquals(2, dataObject.getBlockNumber(1));
-        assertEquals(1, dataObject.getBlockNumber(2));
-        assertEquals(1, dataObject.getBlockNumber(3));
-        assertEquals(3, dataObject.getBlockNumber(4));
-        assertEquals(4, dataObject.getBlockNumber(5));
+        assertEquals(3, dataObject.getBlockNumber(2));
+        assertEquals(4, dataObject.getBlockNumber(3));
+        assertEquals(1, dataObject.getBlockNumber(4));
+        assertEquals(2, dataObject.getBlockNumber(5));
         assertEquals(4, dataObject.getBlockNumber(6));
-        assertEquals(2, dataObject.getBlockNumber(7));
+        assertEquals(3, dataObject.getBlockNumber(7));
         assertEquals(2, dataObject.getBlockNumber(8));
-        assertEquals(1, dataObject.getBlockNumber(9));
+        assertEquals(4, dataObject.getBlockNumber(9));
         assertEquals(3, dataObject.getBlockNumber(10));
-        assertEquals(4, dataObject.getBlockNumber(11));
+        assertEquals(1, dataObject.getBlockNumber(11));
         assertEquals(2, dataObject.getBlockNumber(12));
         assertEquals(3, dataObject.getBlockNumber(13));
         assertEquals(4, dataObject.getBlockNumber(14));
@@ -50,11 +50,11 @@ class NGDParserTest {
 
 
         // a few random test values
-        assertEquals(15, dataObject.getValue(0, "fuss", "fz_fuss"));
-        assertEquals(5, dataObject.getValue(1, "car", "cost_car"));
-        assertEquals(7, dataObject.getValue(2, "shuttle_od", "warten"));
-        assertEquals(10, dataObject.getValue(3, "oev_fuss", "freq_oev"));
-        assertEquals(20, dataObject.getValue(10, "rad", "fz_rad"));
-        assertEquals(50, dataObject.getValue(15, "shuttle_tb", "fz_oev"));
+        assertEquals(25, dataObject.getValue(0, "walking", "time"));
+        assertEquals(3, dataObject.getValue(1, "car", "cost"));
+        assertEquals(6, dataObject.getValue(2, "shuttleOnDemand", "waiting"));
+        assertEquals(15, dataObject.getValue(3, "tram", "frequency"));
+        assertEquals(15, dataObject.getValue(10, "bicycle", "time"));
+        assertEquals(53, dataObject.getValue(15, "shuttle", "time"));
     }
 }
