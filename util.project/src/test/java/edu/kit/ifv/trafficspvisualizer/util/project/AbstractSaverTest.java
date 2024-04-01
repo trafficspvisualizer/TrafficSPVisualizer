@@ -47,20 +47,20 @@ class AbstractSaverTest {
         attribute.setSuffix("testSuffix");
         attribute.setDecimalPlaces(2);
         attribute.setPermanentlyVisible(true);
-        // "car" is first in alphabetical list
-        attribute.setMapping(project.getChoiceOptions().getFirst(), List.of("cost_car"));
+        // "bicycle" is first in alphabetical list
+        attribute.setMapping(project.getChoiceOptions().getFirst(), List.of("time"));
 
         separatorLine.setActive(false);
 
         project.addAbstractAttribute(attribute);
         project.addAbstractAttribute(separatorLine);
 
-        // editing choice options - "car" is first in alphabetical list
+        // editing choice options - "bicycle" is first in alphabetical list
         project.getChoiceOptions().getFirst().setTitle("ChoiceOptionTestTitle");
         project.getChoiceOptions().getFirst().setColor(Color.BLUE);
         project.swapChoiceOptionDown(0);
         project.getChoiceOptions().getFirst().addRouteSection(
-                new RouteSection(project.getIconManager().getDefaultIcon(), "zugang", LineType.DASHED));
+                new RouteSection(project.getIconManager().getDefaultIcon(), "time", LineType.SOLID));
 
         for (int i = 0; i < project.getChoiceOptions().size(); i++) {
             project.getChoiceOptions().get(i).setColor(new Color(0.01 * i, 0.01 * i, 0.01 * i, 0.01 * i));
@@ -78,22 +78,23 @@ class AbstractSaverTest {
                 project.getName(), project.getAbstractAttributes(), project.getExportSettings(), project.getChoiceOptions()
         );
 
-        final String expectedJsonString = "{\"exportSettings\":{\"imageWidth\":200,\"exportType\":\"ChoiceOption\"," +
-                "\"HtmlVariable\":\"testVar\",\"imageHeight\":100,\"fileFormat\":\"PNG\"},\"ChoiceOptions\":" +
-                "[{\"ChoiceOption\":{\"routeSections\":[{\"lineType\":\"dashed\",\"icon\":0,\"choiceDataKey\":" +
-                "\"zugang\"}],\"color\":\"0x00000000\",\"name\":\"fuss\",\"title\":\"fuss\"}},{\"ChoiceOption\":" +
-                "{\"routeSections\":[],\"color\":\"0x03030303\",\"name\":\"car\",\"title\":\"ChoiceOptionTestTitle\"" +
-                "}},{\"ChoiceOption\":{\"routeSections\":[],\"color\":\"0x05050505\",\"name\":\"oev_fuss\",\"title\"" +
-                ":\"oev_fuss\"}},{\"ChoiceOption\":{\"routeSections\":[],\"color\":\"0x08080808\",\"name\":\"rad\"," +
-                "\"title\":\"rad\"}},{\"ChoiceOption\":{\"routeSections\":[],\"color\":\"0x0a0a0a0a\",\"name\":" +
-                "\"shuttle_od\",\"title\":\"shuttle_od\"}},{\"ChoiceOption\":{\"routeSections\":[],\"color\":" +
-                "\"0x0d0d0d0d\",\"name\":\"shuttle_tb\",\"title\":\"shuttle_tb\"}}],\"name\":\"test\",\"attributes" +
-                "\":[{\"Attribute\":{\"Active\":true,\"decimalPlaces\":2,\"prefix\":\"testPrefix\",\"name\":" +
-                "\"TestAttribute\",\"icon\":0,\"suffix\":\"testSuffix\",\"choiceOptionMappings\":[{\"List\":" +
-                "[\"cost_car\"],\"ChoiceOption\":{\"routeSections\":[],\"color\":\"0x03030303\",\"name\":\"car\"," +
+        final String expectedJsonString = "{\"exportSettings\":{\"imageWidth\":200,\"exportType\":\"" +
+                "ChoiceOption\",\"HtmlVariable\":\"testVar\",\"imageHeight\":100,\"fileFormat\":\"PNG\"}," +
+                "\"ChoiceOptions\":[{\"ChoiceOption\":{\"routeSections\":[{\"lineType\":\"solid\",\"icon\":0," +
+                "\"choiceDataKey\":\"time\"}],\"color\":\"0x00000000\",\"name\":\"car\",\"title\":\"car\"}}," +
+                "{\"ChoiceOption\":{\"routeSections\":[],\"color\":\"0x03030303\",\"name\":\"bicycle\"," +
+                "\"title\":\"ChoiceOptionTestTitle\"}},{\"ChoiceOption\":{\"routeSections\":[]," +
+                "\"color\":\"0x05050505\",\"name\":\"shuttle\",\"title\":\"shuttle\"}}," +
+                "{\"ChoiceOption\":{\"routeSections\":[],\"color\":\"0x08080808\",\"name\":\"shuttleOnDemand\"," +
+                "\"title\":\"shuttleOnDemand\"}},{\"ChoiceOption\":{\"routeSections\":[],\"color\":\"0x0a0a0a0a\"," +
+                "\"name\":\"tram\",\"title\":\"tram\"}},{\"ChoiceOption\":{\"routeSections\":[]," +
+                "\"color\":\"0x0d0d0d0d\",\"name\":\"walking\",\"title\":\"walking\"}}],\"name\":\"test\"," +
+                "\"attributes\":[{\"Attribute\":{\"Active\":true,\"decimalPlaces\":2,\"prefix\":\"testPrefix\"," +
+                "\"name\":\"TestAttribute\",\"icon\":0,\"suffix\":\"testSuffix\",\"choiceOptionMappings\":[{\"List\":" +
+                "[\"time\"],\"ChoiceOption\":{\"routeSections\":[],\"color\":\"0x03030303\",\"name\":\"bicycle\"," +
                 "\"title\":\"ChoiceOptionTestTitle\"}}],\"permanentlyVisible\":true}},{\"LineSeparator\":false}]}";
 
 
-        assertEquals(jsonObject.toString(), expectedJsonString);
+        assertEquals(expectedJsonString, jsonObject.toString());
     }
 }

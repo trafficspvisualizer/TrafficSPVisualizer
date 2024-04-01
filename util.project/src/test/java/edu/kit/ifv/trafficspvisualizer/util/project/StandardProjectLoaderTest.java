@@ -27,90 +27,95 @@ class StandardProjectLoaderTest {
 
         // Choice Options
         // 0
-        assertEquals(project.getChoiceOptions().get(0).getName(), "oev_fuss");
-        assertEquals(project.getChoiceOptions().get(0).getTitle(), "Walking + Public Transit");
-        assertEquals(project.getChoiceOptions().get(0).getColor().toString(), "0xff9966ff");
+        assertEquals(project.getChoiceOptions().get(0).getName(), "car");
+        assertEquals(project.getChoiceOptions().get(0).getTitle(), "Car");
+        assertEquals(project.getChoiceOptions().get(0).getColor().toString(), "0x331a80ff");
 
         RouteSection routeSection00 = project.getChoiceOptions().get(0).getRouteSections().get(0);
         RouteSection routeSection01 = project.getChoiceOptions().get(0).getRouteSections().get(1);
+        RouteSection routeSection02 = project.getChoiceOptions().get(0).getRouteSections().get(2);
 
         assertEquals(routeSection00.getIcon().getIdentifier(), 12);
-        assertEquals(routeSection00.getLineType(), LineType.DASHED);
-        assertEquals(routeSection00.getChoiceDataKey(), "zugang_oevfuss");
+        assertEquals(routeSection00.getLineType(), LineType.SOLID);
+        assertEquals(routeSection00.getChoiceDataKey(), "access");
 
-        assertEquals(routeSection01.getIcon().getIdentifier(), 10);
+        assertEquals(routeSection01.getIcon().getIdentifier(), 3);
         assertEquals(routeSection01.getLineType(), LineType.SOLID);
-        assertEquals(routeSection01.getChoiceDataKey(), "fz_oev");
+        assertEquals(routeSection01.getChoiceDataKey(), "time");
+
+        assertEquals(routeSection02.getIcon().getIdentifier(), 12);
+        assertEquals(routeSection02.getLineType(), LineType.SOLID);
+        assertEquals(routeSection02.getChoiceDataKey(), "leaving");
 
         // 1
-        assertEquals(project.getChoiceOptions().get(1).getName(), "rad");
-        assertEquals(project.getChoiceOptions().get(1).getTitle(), "Bike");
-        assertEquals(project.getChoiceOptions().get(1).getColor().toString(), "0x80b380ff");
-        RouteSection routeSection10 = project.getChoiceOptions().get(1).getRouteSections().get(0);
+        assertEquals(project.getChoiceOptions().get(1).getName(), "shuttleOnDemand");
+        assertEquals(project.getChoiceOptions().get(1).getTitle(), "Shuttle On Demand");
+        assertEquals(project.getChoiceOptions().get(1).getColor().toString(), "0x804d80ff");
 
-        assertEquals(routeSection10.getIcon().getIdentifier(), 1);
-        assertEquals(routeSection10.getLineType(), LineType.SOLID);
-        assertEquals(routeSection10.getChoiceDataKey(), "fz_rad");
+        RouteSection routeSection10 = project.getChoiceOptions().get(1).getRouteSections().get(0);
+        RouteSection routeSection11 = project.getChoiceOptions().get(1).getRouteSections().get(1);
+
+        assertEquals(routeSection10.getIcon().getIdentifier(), 7);
+        assertEquals(routeSection10.getLineType(), LineType.DASHED);
+        assertEquals(routeSection10.getChoiceDataKey(), "waiting");
+
+        assertEquals(routeSection11.getIcon().getIdentifier(), 2);
+        assertEquals(routeSection11.getLineType(), LineType.SOLID);
+        assertEquals(routeSection11.getChoiceDataKey(), "time");
 
         // 2
-        assertEquals(project.getChoiceOptions().get(2).getName(), "car");
-        assertEquals(project.getChoiceOptions().get(2).getTitle(), "Car");
-        assertEquals(project.getChoiceOptions().get(2).getColor().toString(), "0xffc107ff");
+        assertEquals(project.getChoiceOptions().get(2).getName(), "shuttle");
+        assertEquals(project.getChoiceOptions().get(2).getTitle(), "Shuttle");
+        assertEquals(project.getChoiceOptions().get(2).getColor().toString(), "0xcccc33ff");
 
         RouteSection routeSection20 = project.getChoiceOptions().get(2).getRouteSections().get(0);
         RouteSection routeSection21 = project.getChoiceOptions().get(2).getRouteSections().get(1);
-        RouteSection routeSection22 = project.getChoiceOptions().get(2).getRouteSections().get(2);
 
         assertEquals(routeSection20.getIcon().getIdentifier(), 12);
         assertEquals(routeSection20.getLineType(), LineType.DASHED);
-        assertEquals(routeSection20.getChoiceDataKey(), "zugang");
+        assertEquals(routeSection20.getChoiceDataKey(), "access");
 
-        assertEquals(routeSection21.getIcon().getIdentifier(), 3);
+        assertEquals(routeSection21.getIcon().getIdentifier(), 2);
         assertEquals(routeSection21.getLineType(), LineType.SOLID);
-        assertEquals(routeSection21.getChoiceDataKey(), "fz_miv");
-
-        assertEquals(routeSection22.getIcon().getIdentifier(), 12);
-        assertEquals(routeSection22.getLineType(), LineType.DASHED);
-        assertEquals(routeSection22.getChoiceDataKey(), "abgang");
+        assertEquals(routeSection21.getChoiceDataKey(), "time");
 
         // 3
-        assertEquals(project.getChoiceOptions().get(3).getName(), "fuss");
-        assertEquals(project.getChoiceOptions().get(3).getTitle(), "Walking");
-        assertEquals(project.getChoiceOptions().get(3).getColor().toString(), "0xfa47faff");
+        assertEquals(project.getChoiceOptions().get(3).getName(), "tram");
+        assertEquals(project.getChoiceOptions().get(3).getTitle(), "Tram");
+        assertEquals(project.getChoiceOptions().get(3).getColor().toString(), "0x4d8080ff");
 
         RouteSection routeSection30 = project.getChoiceOptions().get(3).getRouteSections().get(0);
+        RouteSection routeSection31 = project.getChoiceOptions().get(3).getRouteSections().get(1);
 
         assertEquals(routeSection30.getIcon().getIdentifier(), 12);
-        assertEquals(routeSection30.getLineType(), LineType.SOLID);
-        assertEquals(routeSection30.getChoiceDataKey(), "fz_fuss");
+        assertEquals(routeSection30.getLineType(), LineType.DASHED);
+        assertEquals(routeSection30.getChoiceDataKey(), "access");
+
+        assertEquals(routeSection31.getIcon().getIdentifier(), 11);
+        assertEquals(routeSection31.getLineType(), LineType.SOLID);
+        assertEquals(routeSection31.getChoiceDataKey(), "time");
 
         // 4
-        assertEquals(project.getChoiceOptions().get(4).getName(), "shuttle_od");
-        assertEquals(project.getChoiceOptions().get(4).getTitle(), "Shuttle");
+        assertEquals(project.getChoiceOptions().get(4).getName(), "bicycle");
+        assertEquals(project.getChoiceOptions().get(4).getTitle(), "Bicycle");
         assertEquals(project.getChoiceOptions().get(4).getColor().toString(), "0xd81b60ff");
 
         RouteSection routeSection40 = project.getChoiceOptions().get(4).getRouteSections().get(0);
 
-        assertEquals(routeSection40.getIcon().getIdentifier(), 2);
+        assertEquals(routeSection40.getIcon().getIdentifier(), 1);
         assertEquals(routeSection40.getLineType(), LineType.SOLID);
-        assertEquals(routeSection40.getChoiceDataKey(), "fz_oev");
+        assertEquals(routeSection40.getChoiceDataKey(), "time");
 
         // 5
-        assertEquals(project.getChoiceOptions().get(5).getName(), "shuttle_tb");
-        assertEquals(project.getChoiceOptions().get(5).getTitle(), "Walking + Shuttle");
+        assertEquals(project.getChoiceOptions().get(5).getName(), "walking");
+        assertEquals(project.getChoiceOptions().get(5).getTitle(), "Walking");
         assertEquals(project.getChoiceOptions().get(5).getColor().toString(), "0x1e88e5ff");
 
         RouteSection routeSection50 = project.getChoiceOptions().get(5).getRouteSections().get(0);
-        RouteSection routeSection51 = project.getChoiceOptions().get(5).getRouteSections().get(1);
 
         assertEquals(routeSection50.getIcon().getIdentifier(), 12);
-        assertEquals(routeSection50.getLineType(), LineType.DASHED);
-        assertEquals(routeSection50.getChoiceDataKey(), "zugang_oevfuss");
-
-        assertEquals(routeSection51.getIcon().getIdentifier(), 2);
-        assertEquals(routeSection51.getLineType(), LineType.SOLID);
-        assertEquals(routeSection51.getChoiceDataKey(), "fz_oev");
-
+        assertEquals(routeSection50.getLineType(), LineType.SOLID);
+        assertEquals(routeSection50.getChoiceDataKey(), "time");
 
         // Attributes
         // 0
@@ -120,17 +125,17 @@ class StandardProjectLoaderTest {
         assertEquals(attribute0.getPrefix(), "");
         assertEquals(attribute0.getName(), "Cost");
         assertEquals(attribute0.getIcon().getIdentifier(), 6);
-        assertEquals(attribute0.getSuffix(), " $");
-        assertEquals(attribute0.getChoiceOptionMappings().get(project.getChoiceOptions().get(5)), List.of("cost_oev"));
-        assertEquals(attribute0.getChoiceOptionMappings().get(project.getChoiceOptions().get(2)), List.of("cost_car"));
-        assertEquals(attribute0.getChoiceOptionMappings().get(project.getChoiceOptions().get(4)), List.of("cost_oev"));
-        assertEquals(attribute0.getChoiceOptionMappings().get(project.getChoiceOptions().get(0)), List.of("cost_oev"));
+        assertEquals(attribute0.getSuffix(), "\u20ac");
+        assertEquals(attribute0.getChoiceOptionMappings().get(project.getChoiceOptions().get(0)), List.of("cost"));
+        assertEquals(attribute0.getChoiceOptionMappings().get(project.getChoiceOptions().get(1)), List.of("cost"));
+        assertEquals(attribute0.getChoiceOptionMappings().get(project.getChoiceOptions().get(2)), List.of("cost"));
+        assertEquals(attribute0.getChoiceOptionMappings().get(project.getChoiceOptions().get(3)), List.of("cost"));
         assertTrue(attribute0.isPermanentlyVisible());
         assertTrue(project.getAbstractAttributes().get(0).isActive());
 
         // 1 - separator line
         assertInstanceOf(SeparatorLine.class, project.getAbstractAttributes().get(1));
-        assertFalse(project.getAbstractAttributes().get(1).isActive());
+        assertTrue(project.getAbstractAttributes().get(1).isActive());
 
         // 2
         assertInstanceOf(Attribute.class, project.getAbstractAttributes().get(2));
@@ -140,22 +145,10 @@ class StandardProjectLoaderTest {
         assertEquals(attribute2.getName(), "Frequency");
         assertEquals(attribute2.getIcon().getIdentifier(), 5);
         assertEquals(attribute2.getSuffix(), " min");
-        assertEquals(attribute2.getChoiceOptionMappings().get(project.getChoiceOptions().get(0)), List.of("freq_oev"));
-        assertEquals(attribute2.getChoiceOptionMappings().get(project.getChoiceOptions().get(5)), List.of("freq_oev"));
+        assertEquals(attribute2.getChoiceOptionMappings().get(project.getChoiceOptions().get(2)), List.of("frequency"));
+        assertEquals(attribute2.getChoiceOptionMappings().get(project.getChoiceOptions().get(3)), List.of("frequency"));
         assertFalse(attribute2.isPermanentlyVisible());
         assertFalse(project.getAbstractAttributes().get(2).isActive());
-
-        // 3
-        assertInstanceOf(Attribute.class, project.getAbstractAttributes().get(3));
-        Attribute attribute3 = (Attribute) project.getAbstractAttributes().get(3);
-        assertEquals(attribute3.getDecimalPlaces(), 0);
-        assertEquals(attribute3.getPrefix(), "");
-        assertEquals(attribute3.getName(), "Waiting Time");
-        assertEquals(attribute3.getIcon().getIdentifier(), 7);
-        assertEquals(attribute3.getSuffix(), " min");
-        assertEquals(attribute3.getChoiceOptionMappings().get(project.getChoiceOptions().get(4)), List.of("warten"));
-        assertFalse(attribute3.isPermanentlyVisible());
-        assertTrue(project.getAbstractAttributes().get(3).isActive());
 
         // Export Settings
         assertEquals(project.getExportSettings().getImageWidth(), 2000);

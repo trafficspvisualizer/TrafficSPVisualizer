@@ -49,16 +49,16 @@ class SaverAndLoaderTest {
 
         // Configuring project
         // Choice Option
-        preSave.getChoiceOptions().getFirst().setTitle("CO1");
-        preSave.getChoiceOptions().getFirst().setColor(Color.BLUE);
+        preSave.getChoiceOptions().get(1).setTitle("CO1");
+        preSave.getChoiceOptions().get(1).setColor(Color.BLUE);
 
         // Route Sections
-        preSave.getChoiceOptions().getFirst().addRouteSection(
-                new RouteSection(preSave.getIconManager().getDefaultIcon(), "fz_miv", LineType.DASHED)
+        preSave.getChoiceOptions().get(1).addRouteSection(
+                new RouteSection(preSave.getIconManager().getDefaultIcon(), "time", LineType.DASHED)
         );
 
-        preSave.getChoiceOptions().getFirst().addRouteSection(
-                new RouteSection(preSave.getIconManager().getDefaultIcon(), "cost_car", LineType.SOLID)
+        preSave.getChoiceOptions().get(1).addRouteSection(
+                new RouteSection(preSave.getIconManager().getDefaultIcon(), "cost", LineType.SOLID)
         );
 
         // Attributes
@@ -89,26 +89,26 @@ class SaverAndLoaderTest {
         // Comparison
 
         // Choice Option
-        assertEquals(preSave.getChoiceOptions().getFirst().getColor(), postLoad.getChoiceOptions().getFirst().getColor());
-        assertEquals(preSave.getChoiceOptions().getFirst().getTitle(), postLoad.getChoiceOptions().getFirst().getTitle());
-        assertEquals(preSave.getChoiceOptions().getFirst().getName(), postLoad.getChoiceOptions().getFirst().getName());
-        assertEquals(preSave.getChoiceOptions().getFirst().getRouteSections().size(), postLoad.getChoiceOptions().getFirst().getRouteSections().size());
+        assertEquals(preSave.getChoiceOptions().get(1).getColor(), postLoad.getChoiceOptions().get(1).getColor());
+        assertEquals(preSave.getChoiceOptions().get(1).getTitle(), postLoad.getChoiceOptions().get(1).getTitle());
+        assertEquals(preSave.getChoiceOptions().get(1).getName(), postLoad.getChoiceOptions().get(1).getName());
+        assertEquals(preSave.getChoiceOptions().get(1).getRouteSections().size(), postLoad.getChoiceOptions().get(1).getRouteSections().size());
 
         //Route Sections
         // 0
-        assertEquals(preSave.getChoiceOptions().getFirst().getRouteSections().getFirst().getChoiceDataKey(),
-                postLoad.getChoiceOptions().getFirst().getRouteSections().getFirst().getChoiceDataKey());
-        assertEquals(preSave.getChoiceOptions().getFirst().getRouteSections().getFirst().getLineType(),
-                postLoad.getChoiceOptions().getFirst().getRouteSections().getFirst().getLineType());
-        assertEquals(preSave.getChoiceOptions().getFirst().getRouteSections().getFirst().getIcon().getIdentifier(),
-                postLoad.getChoiceOptions().getFirst().getRouteSections().getFirst().getIcon().getIdentifier());
+        assertEquals(preSave.getChoiceOptions().get(1).getRouteSections().getFirst().getChoiceDataKey(),
+                postLoad.getChoiceOptions().get(1).getRouteSections().getFirst().getChoiceDataKey());
+        assertEquals(preSave.getChoiceOptions().get(1).getRouteSections().getFirst().getLineType(),
+                postLoad.getChoiceOptions().get(1).getRouteSections().getFirst().getLineType());
+        assertEquals(preSave.getChoiceOptions().get(1).getRouteSections().getFirst().getIcon().getIdentifier(),
+                postLoad.getChoiceOptions().get(1).getRouteSections().getFirst().getIcon().getIdentifier());
         // 1
-        assertEquals(preSave.getChoiceOptions().getFirst().getRouteSections().get(1).getChoiceDataKey(),
-                postLoad.getChoiceOptions().getFirst().getRouteSections().get(1).getChoiceDataKey());
-        assertEquals(preSave.getChoiceOptions().getFirst().getRouteSections().get(1).getLineType(),
-                postLoad.getChoiceOptions().getFirst().getRouteSections().get(1).getLineType());
-        assertEquals(preSave.getChoiceOptions().getFirst().getRouteSections().get(1).getIcon().getIdentifier(),
-                postLoad.getChoiceOptions().getFirst().getRouteSections().get(1).getIcon().getIdentifier());
+        assertEquals(preSave.getChoiceOptions().get(1).getRouteSections().get(1).getChoiceDataKey(),
+                postLoad.getChoiceOptions().get(1).getRouteSections().get(1).getChoiceDataKey());
+        assertEquals(preSave.getChoiceOptions().get(1).getRouteSections().get(1).getLineType(),
+                postLoad.getChoiceOptions().get(1).getRouteSections().get(1).getLineType());
+        assertEquals(preSave.getChoiceOptions().get(1).getRouteSections().get(1).getIcon().getIdentifier(),
+                postLoad.getChoiceOptions().get(1).getRouteSections().get(1).getIcon().getIdentifier());
 
         //Attributes
         assertEquals(preSave.getAbstractAttributes().size(), postLoad.getAbstractAttributes().size());
