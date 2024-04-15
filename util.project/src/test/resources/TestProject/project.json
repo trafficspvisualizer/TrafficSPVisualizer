@@ -1,0 +1,255 @@
+{
+    "exportSettings": {
+        "imageWidth": 2000,
+        "exportType": "Situation",
+        "HtmlVariable": "variable",
+        "imageHeight": 400,
+        "fileFormat": "PNG"
+    },
+    "ChoiceOptions": [
+        {"ChoiceOption": {
+            "routeSections": [
+                {
+                    "lineType": "solid",
+                    "icon": 12,
+                    "choiceDataKey": "access"
+                },
+                {
+                    "lineType": "solid",
+                    "icon": 3,
+                    "choiceDataKey": "time"
+                },
+                {
+                    "lineType": "solid",
+                    "icon": 12,
+                    "choiceDataKey": "leaving"
+                }
+            ],
+            "color": "0x331a80ff",
+            "name": "car",
+            "title": "Car"
+        }},
+        {"ChoiceOption": {
+            "routeSections": [
+                {
+                    "lineType": "dashed",
+                    "icon": 7,
+                    "choiceDataKey": "waiting"
+                },
+                {
+                    "lineType": "solid",
+                    "icon": 2,
+                    "choiceDataKey": "time"
+                }
+            ],
+            "color": "0x804d80ff",
+            "name": "shuttleOnDemand",
+            "title": "Shuttle On Demand"
+        }},
+        {"ChoiceOption": {
+            "routeSections": [
+                {
+                    "lineType": "dashed",
+                    "icon": 12,
+                    "choiceDataKey": "access"
+                },
+                {
+                    "lineType": "solid",
+                    "icon": 2,
+                    "choiceDataKey": "time"
+                }
+            ],
+            "color": "0xcccc33ff",
+            "name": "shuttle",
+            "title": "Shuttle"
+        }},
+        {"ChoiceOption": {
+            "routeSections": [
+                {
+                    "lineType": "dashed",
+                    "icon": 12,
+                    "choiceDataKey": "access"
+                },
+                {
+                    "lineType": "solid",
+                    "icon": 11,
+                    "choiceDataKey": "time"
+                }
+            ],
+            "color": "0x4d8080ff",
+            "name": "tram",
+            "title": "Tram"
+        }},
+        {"ChoiceOption": {
+            "routeSections": [{
+                "lineType": "solid",
+                "icon": 1,
+                "choiceDataKey": "time"
+            }],
+            "color": "0xd81b60ff",
+            "name": "bicycle",
+            "title": "Bicycle"
+        }},
+        {"ChoiceOption": {
+            "routeSections": [{
+                "lineType": "solid",
+                "icon": 12,
+                "choiceDataKey": "time"
+            }],
+            "color": "0x1e88e5ff",
+            "name": "walking",
+            "title": "Walking"
+        }}
+    ],
+    "name": "TestProject",
+    "attributes": [
+        {"Attribute": {
+            "Active": true,
+            "decimalPlaces": 2,
+            "prefix": "",
+            "name": "Cost",
+            "icon": 6,
+            "suffix": "\u20ac",
+            "choiceOptionMappings": [
+                {
+                    "List": ["cost"],
+                    "ChoiceOption": {
+                        "routeSections": [
+                            {
+                                "lineType": "solid",
+                                "icon": 12,
+                                "choiceDataKey": "access"
+                            },
+                            {
+                                "lineType": "solid",
+                                "icon": 3,
+                                "choiceDataKey": "time"
+                            },
+                            {
+                                "lineType": "solid",
+                                "icon": 12,
+                                "choiceDataKey": "leaving"
+                            }
+                        ],
+                        "color": "0x331a80ff",
+                        "name": "car",
+                        "title": "Car"
+                    }
+                },
+                {
+                    "List": ["cost"],
+                    "ChoiceOption": {
+                        "routeSections": [
+                            {
+                                "lineType": "dashed",
+                                "icon": 12,
+                                "choiceDataKey": "access"
+                            },
+                            {
+                                "lineType": "solid",
+                                "icon": 2,
+                                "choiceDataKey": "time"
+                            }
+                        ],
+                        "color": "0xcccc33ff",
+                        "name": "shuttle",
+                        "title": "Shuttle"
+                    }
+                },
+                {
+                    "List": ["cost"],
+                    "ChoiceOption": {
+                        "routeSections": [
+                            {
+                                "lineType": "dashed",
+                                "icon": 12,
+                                "choiceDataKey": "access"
+                            },
+                            {
+                                "lineType": "solid",
+                                "icon": 11,
+                                "choiceDataKey": "time"
+                            }
+                        ],
+                        "color": "0x4d8080ff",
+                        "name": "tram",
+                        "title": "Tram"
+                    }
+                },
+                {
+                    "List": ["cost"],
+                    "ChoiceOption": {
+                        "routeSections": [
+                            {
+                                "lineType": "dashed",
+                                "icon": 7,
+                                "choiceDataKey": "waiting"
+                            },
+                            {
+                                "lineType": "solid",
+                                "icon": 2,
+                                "choiceDataKey": "time"
+                            }
+                        ],
+                        "color": "0x804d80ff",
+                        "name": "shuttleOnDemand",
+                        "title": "Shuttle On Demand"
+                    }
+                }
+            ],
+            "permanentlyVisible": true
+        }},
+        {"LineSeparator": true},
+        {"Attribute": {
+            "Active": false,
+            "decimalPlaces": 0,
+            "prefix": "every ",
+            "name": "Frequency",
+            "icon": 5,
+            "suffix": " min",
+            "choiceOptionMappings": [
+                {
+                    "List": ["frequency"],
+                    "ChoiceOption": {
+                        "routeSections": [
+                            {
+                                "lineType": "dashed",
+                                "icon": 12,
+                                "choiceDataKey": "access"
+                            },
+                            {
+                                "lineType": "solid",
+                                "icon": 2,
+                                "choiceDataKey": "time"
+                            }
+                        ],
+                        "color": "0xcccc33ff",
+                        "name": "shuttle",
+                        "title": "Shuttle"
+                    }
+                },
+                {
+                    "List": ["frequency"],
+                    "ChoiceOption": {
+                        "routeSections": [
+                            {
+                                "lineType": "dashed",
+                                "icon": 12,
+                                "choiceDataKey": "access"
+                            },
+                            {
+                                "lineType": "solid",
+                                "icon": 11,
+                                "choiceDataKey": "time"
+                            }
+                        ],
+                        "color": "0x4d8080ff",
+                        "name": "tram",
+                        "title": "Tram"
+                    }
+                }
+            ],
+            "permanentlyVisible": false
+        }}
+    ]
+}

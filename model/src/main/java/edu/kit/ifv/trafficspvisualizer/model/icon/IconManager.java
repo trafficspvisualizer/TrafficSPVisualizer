@@ -1,5 +1,6 @@
 package edu.kit.ifv.trafficspvisualizer.model.icon;
 
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -137,7 +138,10 @@ public class IconManager {
 
         nextIdentifier++;
         Files.copy(icon, newIcon.getIconPath());
-        newIcon.toBufferedImage();
+        BufferedImage image = newIcon.toBufferedImage();
+        if (image == null) {
+            throw new IOException();
+        }
         icons.put(newIcon.getIdentifier(), newIcon);
     }
 

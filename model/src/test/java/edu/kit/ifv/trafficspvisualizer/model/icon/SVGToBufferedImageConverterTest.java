@@ -46,7 +46,9 @@ class SVGToBufferedImageConverterTest {
 
     @Test
     void testConvertIllegalSVG() {
-        File testSVG = loadFile("test4.svg");
+        File testSVG = new File(Objects.requireNonNull(
+                SVGToBufferedImageConverter.class.getResource("/illegalIcons/broken.svg")
+        ).getFile());
         BufferedImage image = converter.convert(testSVG, 100, 100);
         assertNull(image);
     }

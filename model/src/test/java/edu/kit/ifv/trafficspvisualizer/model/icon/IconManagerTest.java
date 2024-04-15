@@ -99,7 +99,7 @@ class IconManagerTest {
 
         IconManager iconManager = new IconManager(testDir, iconDir);
 
-        assertEquals(4, iconManager.getIcons().size());
+        assertEquals(3, iconManager.getIcons().size());
 
     }
 
