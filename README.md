@@ -7,7 +7,7 @@ Be aware that the application is only tested on Windows 10.
 Requirements: JDK 21
 1. Clone the project
    ```bash
-   git clone https://gitlab.kit.edu/ujwny/trafficspvisualizer.git
+   git clone https://github.com/trafficspvisualizer/TrafficSPVisualizer.git
    ```
 2. Use gradle to build the application. You can use any installation of gradle 8.5 or the included wrapper:
     ```bash
